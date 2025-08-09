@@ -11,6 +11,7 @@ public partial class TileOrganizer: Node, Organizable
     public Grid<Control> Tiles {get; set;}
 
     public void Initialize(Grid<TileTypes> tileTypes){
+        (_tileFactory as TileMaking).Initialize();
         Tiles = _MakeTileNodes(tileTypes, _tileFactory as TileMaking);
         (_tileContainer as Viewable).Initialize(Tiles);
     }

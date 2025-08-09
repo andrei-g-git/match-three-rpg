@@ -11,10 +11,10 @@ namespace Board{
 		private Dictionary<TileTypes, PackedScene> _tilesWithScenes;
 
         public override void _Ready(){
-			_Initialize(); //don't like this...
+			//_Initialize(); //don't like this...
         }
 
-		private void _Initialize(){
+		public void Initialize(){
 			_tilesWithScenes = _AssociateTileScenesWithTheirNames(packedTileScenes);
 		}
 

@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://mfpccmm44gsh"]
+[gd_scene load_steps=5 format=3 uid="uid://mfpccmm44gsh"]
 
 [ext_resource type="Script" uid="uid://b6vxfficnggsp" path="res://src/features/tiles/variations/defensive/Manager.cs" id="1_5nojl"]
 [ext_resource type="Texture2D" uid="uid://dxlw5cnu8drkp" path="res://assets/images/tiles/defend.png" id="2_aot5u"]
 [ext_resource type="Script" uid="uid://cy1k0w8awxnxt" path="res://src/features/tiles/DragAndDrop.cs" id="3_f4gku"]
+[ext_resource type="Script" uid="uid://dd71kn6t4pyhr" path="res://src/features/tiles/behaviors/Swapping.cs" id="4_g6iaq"]
 
 [node name="Defensive" type="Control"]
 layout_mode = 3
@@ -15,14 +16,24 @@ offset_left = -32.0
 offset_top = -27.5
 offset_right = 32.0
 offset_bottom = 27.5
+pivot_offset = Vector2(32, 27.5)
 
 [node name="Sprite2D" type="Sprite2D" parent="AspectRatioContainer"]
 position = Vector2(32, 27.5)
 texture = ExtResource("2_aot5u")
 
-[node name="DragAndDrop" type="Control" parent="AspectRatioContainer" node_paths=PackedStringArray("_tileNode", "_container")]
+[node name="DragAndDrop" type="Control" parent="AspectRatioContainer" node_paths=PackedStringArray("_tileNode", "_container", "_sprite")]
 layout_mode = 2
 mouse_filter = 1
 script = ExtResource("3_f4gku")
 _tileNode = NodePath("../..")
 _container = NodePath("..")
+_sprite = NodePath("../Sprite2D")
+
+[node name="Behaviors" type="Node" parent="."]
+
+[node name="Swapping" type="Node" parent="Behaviors" node_paths=PackedStringArray("_tileRoot")]
+script = ExtResource("4_g6iaq")
+_tileRoot = NodePath("../..")
+
+[connection signal="EngagedBy" from="AspectRatioContainer/DragAndDrop" to="Behaviors/Swapping" method="SwapWith"]

@@ -20,4 +20,12 @@ namespace Board{
 		public Grid<Control> Tiles{get;set;}	
 
 	}
+
+	public interface AccessableBoard{
+		public Node Board {set;}
+	}
+
+	public interface MatchableBoard{
+		public bool TryMatching(Control sourceTile, Control targetTile); 
+	}
 }
