@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://vdi33w6fmyfe"]
+
+[ext_resource type="Script" uid="uid://d2qg00oigeaaj" path="res://src/features/tiles/variations/tech/Manager.cs" id="1_tg00n"]
+[ext_resource type="Texture2D" uid="uid://bd8s7asngvw5y" path="res://assets/images/tiles/tech.png" id="2_lwmc2"]
+[ext_resource type="Script" uid="uid://cy1k0w8awxnxt" path="res://src/features/tiles/DragAndDrop.cs" id="3_l7es0"]
+
+[node name="Tech" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_tg00n")
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+layout_mode = 0
+offset_left = -32.0
+offset_top = -27.5
+offset_right = 32.0
+offset_bottom = 27.5
+
+[node name="Sprite2D" type="Sprite2D" parent="AspectRatioContainer"]
+position = Vector2(32, 27.5)
+texture = ExtResource("2_lwmc2")
+
+[node name="DragAndDrop" type="Control" parent="AspectRatioContainer" node_paths=PackedStringArray("_tileNode", "_container")]
+layout_mode = 2
+mouse_filter = 1
+script = ExtResource("3_l7es0")
+_tileNode = NodePath("../..")
+_container = NodePath("..")

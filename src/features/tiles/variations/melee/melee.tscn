@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://drxuwm7x5y7mb"]
+
+[ext_resource type="Texture2D" uid="uid://ddkt64sc5h2ly" path="res://assets/images/tiles/melee.png" id="1_enj0f"]
+[ext_resource type="Script" uid="uid://c336s8cjkvnk0" path="res://src/features/tiles/variations/melee/Manager.cs" id="1_xe2b7"]
+[ext_resource type="Script" uid="uid://cy1k0w8awxnxt" path="res://src/features/tiles/DragAndDrop.cs" id="3_5l2g4"]
+
+[node name="Melee" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_xe2b7")
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+layout_mode = 0
+offset_left = -32.0
+offset_top = -27.5
+offset_right = 32.0
+offset_bottom = 27.5
+
+[node name="Sprite2D" type="Sprite2D" parent="AspectRatioContainer"]
+position = Vector2(32, 27.5)
+texture = ExtResource("1_enj0f")
+
+[node name="DragAndDrop" type="Control" parent="AspectRatioContainer" node_paths=PackedStringArray("_tileNode", "_container")]
+layout_mode = 2
+mouse_filter = 1
+script = ExtResource("3_5l2g4")
+_tileNode = NodePath("../..")
+_container = NodePath("..")

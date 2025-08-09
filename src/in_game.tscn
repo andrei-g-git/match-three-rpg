@@ -1,0 +1,102 @@
+[gd_scene load_steps=14 format=3 uid="uid://vv3xapj4lprc"]
+
+[ext_resource type="Script" uid="uid://dy1o6fmi8i4pb" path="res://src/features/board/BoardManager.cs" id="1_k7s5h"]
+[ext_resource type="Texture2D" uid="uid://clk8i0g07rccs" path="res://assets/images/environment/map.png" id="2_dw1vl"]
+[ext_resource type="Script" uid="uid://cgm6rlm3gw3je" path="res://src/features/board/Environment.cs" id="3_da6o6"]
+[ext_resource type="Script" uid="uid://ci3qi6w5dumc2" path="res://src/features/board/TileContainer.cs" id="4_dw1vl"]
+[ext_resource type="Script" uid="uid://dqkgqnxmg0ulc" path="res://src/features/board/model/BoardModel.cs" id="5_qxmgw"]
+[ext_resource type="Script" uid="uid://dmgfp5d31ssv" path="res://src/features/board/model/TileOrganizer.cs" id="6_ygp36"]
+[ext_resource type="Script" uid="uid://7sg44immrx2m" path="res://src/features/board/model/TileFactory.cs" id="7_ygp36"]
+[ext_resource type="PackedScene" uid="uid://mfpccmm44gsh" path="res://src/features/tiles/variations/defensive/defensive.tscn" id="8_2r3xs"]
+[ext_resource type="PackedScene" uid="uid://drxuwm7x5y7mb" path="res://src/features/tiles/variations/melee/melee.tscn" id="9_4s2tm"]
+[ext_resource type="PackedScene" uid="uid://donsygddio07a" path="res://src/features/tiles/variations/ranged/ranged.tscn" id="10_fusuk"]
+[ext_resource type="PackedScene" uid="uid://vdi33w6fmyfe" path="res://src/features/tiles/variations/tech/tech.tscn" id="11_25lnr"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kc8ui"]
+texture = ExtResource("2_dw1vl")
+texture_region_size = Vector2i(64, 55)
+0:0/0 = 0
+0:0/0/custom_data_0 = &"a"
+1:0/0 = 0
+1:0/0/custom_data_0 = &"b"
+2:0/0 = 0
+2:0/0/custom_data_0 = &"c"
+3:0/0 = 0
+3:0/0/custom_data_0 = &"tree_upper"
+0:1/0 = 0
+0:1/0/custom_data_0 = &"d"
+1:1/0 = 0
+1:1/0/custom_data_0 = &"e"
+2:1/0 = 0
+2:1/0/custom_data_0 = &"f"
+3:1/0 = 0
+3:1/0/custom_data_0 = &"tree_lower"
+0:2/0 = 0
+0:2/0/custom_data_0 = &"boulder"
+1:2/0 = 0
+1:2/0/custom_data_0 = &"water"
+2:2/0 = 0
+2:2/0/custom_data_0 = &"brush"
+3:2/0 = 0
+3:2/0/custom_data_0 = &"grass"
+3:2/0/custom_data_1 = true
+
+[sub_resource type="TileSet" id="TileSet_bs6l1"]
+tile_shape = 3
+tile_offset_axis = 1
+tile_size = Vector2i(64, 55)
+custom_data_layer_0/name = "name"
+custom_data_layer_0/type = 21
+custom_data_layer_1/name = "navigable"
+custom_data_layer_1/type = 1
+sources/0 = SubResource("TileSetAtlasSource_kc8ui")
+
+[node name="Game" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="MainContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TilesPanel" type="PanelContainer" parent="MainContainer/PanelContainer" node_paths=PackedStringArray("_tileMap", "_model")]
+custom_minimum_size = Vector2(0, 450)
+layout_mode = 2
+script = ExtResource("1_k7s5h")
+_tileMap = NodePath("../Environment")
+_model = NodePath("../Model")
+
+[node name="Environment" type="TileMapLayer" parent="MainContainer/PanelContainer"]
+tile_set = SubResource("TileSet_bs6l1")
+script = ExtResource("3_da6o6")
+
+[node name="Tiles" type="Container" parent="MainContainer/PanelContainer" node_paths=PackedStringArray("environment")]
+layout_mode = 2
+script = ExtResource("4_dw1vl")
+environment = NodePath("../Environment")
+
+[node name="Model" type="Node" parent="MainContainer/PanelContainer" node_paths=PackedStringArray("_tileOrganizer")]
+script = ExtResource("5_qxmgw")
+_tileOrganizer = NodePath("TileOrganizer")
+
+[node name="TileOrganizer" type="Node" parent="MainContainer/PanelContainer/Model" node_paths=PackedStringArray("_tileFactory", "_environment", "_tileContainer")]
+script = ExtResource("6_ygp36")
+_tileFactory = NodePath("../TileFactory")
+_environment = NodePath("../../Environment")
+_tileContainer = NodePath("../../Tiles")
+
+[node name="TileFactory" type="Node" parent="MainContainer/PanelContainer/Model"]
+script = ExtResource("7_ygp36")
+packedTileScenes = Array[PackedScene]([ExtResource("8_2r3xs"), ExtResource("9_4s2tm"), ExtResource("10_fusuk"), ExtResource("11_25lnr")])
