@@ -2,9 +2,9 @@
 // using System.Threading.Tasks;
 using Godot;
 // using Skills;
-// using Tiles;
+using Tiles;
 namespace Tech{
-    public partial class Manager : Control//, Tile, Managerial, Movable.IAnimator, Mapable, Collapsable, Transfering.IAnimator, SkillTile
+    public partial class Manager : Control, Tile//, Managerial, Movable.IAnimator, Mapable, Collapsable, Transfering.IAnimator, SkillTile
 	{
 // 		[Export] private Control dragAndDrop;	
 //         [Export] private SkillNames.SkillGroups skillGroup;
@@ -21,7 +21,7 @@ namespace Tech{
 // 		[Export] private Node selfRemover;
 
 // 		private TileTypes type = TileTypes.Tech;
-//         public TileTypes Type => type;
+        public TileTypes Type => TileTypes.Tech;
 //         private Vector2I coordinates;
 //         public Vector2I Coordinates { get => coordinates; set => coordinates = value; }		
 // 		private Node boardModel;

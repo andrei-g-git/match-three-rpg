@@ -1,11 +1,12 @@
 // using System;
 // using System.Threading.Tasks;
 using Godot;
+using Tiles;
 // using Skills;
 // using Tiles;
 
 namespace Melee{
-    public partial class Manager : Control//, Tile, Managerial, Movable.IAnimator, Mapable, DisappearingTile.IBehavior, Transfering.IAnimator, Skillfull.IBehavior, AccessableBoard, SkillTile, Transformable.IBehavior, Collapsable
+    public partial class Manager : Control, Tile//, Managerial, Movable.IAnimator, Mapable, DisappearingTile.IBehavior, Transfering.IAnimator, Skillfull.IBehavior, AccessableBoard, SkillTile, Transformable.IBehavior, Collapsable
  	{
 // 		[Export] private Control dragAndDrop;
 //         /* [Export] */ private Node skillSlot;
@@ -25,7 +26,7 @@ namespace Melee{
 // 		[Export] private Node selfRemover;
 
 // 		private TileTypes type = TileTypes.Melee;
-//         public TileTypes Type => type;
+        public TileTypes Type => TileTypes.Melee;
 //         private Vector2I coordinates;
 //         public Vector2I Coordinates { get => coordinates; set => coordinates = value; }		
 // 		private Node boardModel;

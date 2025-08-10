@@ -1,10 +1,11 @@
 // using System;
 // using System.Threading.Tasks;
 using Godot;
+using Tiles;
 // using Skills;
 // using Tiles;
- namespace Ranged{
-	public partial class Manager : Control//, Tile, Managerial, Movable.IAnimator, Mapable, Collapsable, Transfering.IAnimator, SkillTile
+namespace Ranged{
+	public partial class Manager : Control, Tile//, Managerial, Movable.IAnimator, Mapable, Collapsable, Transfering.IAnimator, SkillTile
 {
 // 		[Export] private Control dragAndDrop;	
 //         [Export] private SkillNames.SkillGroups skillGroup;
@@ -21,7 +22,7 @@ using Godot;
 // 		[Export] private Node selfRemover;
 
 // 		private TileTypes type = TileTypes.Ranged;
-//         public TileTypes Type => type;
+        public TileTypes Type => TileTypes.Ranged;
 //         private Vector2I coordinates;
 //         public Vector2I Coordinates { get => coordinates; set => coordinates = value; }		
 // 		private Node boardModel;

@@ -2,6 +2,7 @@ using Godot;
 using Godot.Collections;
 using System;
 
+//namespace Util;
 public class Grid<[MustBeVariant] T>
 {
 	public int Width => _grid.Count;

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://vv3xapj4lprc"]
+[gd_scene load_steps=15 format=3 uid="uid://vv3xapj4lprc"]
 
 [ext_resource type="Script" uid="uid://dy1o6fmi8i4pb" path="res://src/features/board/BoardManager.cs" id="1_k7s5h"]
 [ext_resource type="Texture2D" uid="uid://clk8i0g07rccs" path="res://assets/images/environment/map.png" id="2_dw1vl"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://drxuwm7x5y7mb" path="res://src/features/tiles/variations/melee/melee.tscn" id="9_4s2tm"]
 [ext_resource type="PackedScene" uid="uid://donsygddio07a" path="res://src/features/tiles/variations/ranged/ranged.tscn" id="10_fusuk"]
 [ext_resource type="PackedScene" uid="uid://vdi33w6fmyfe" path="res://src/features/tiles/variations/tech/tech.tscn" id="11_25lnr"]
+[ext_resource type="Script" uid="uid://bdnle4kn0dce5" path="res://src/features/board/model/TileMatcher.cs" id="12_4s2tm"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kc8ui"]
 texture = ExtResource("2_dw1vl")
@@ -100,3 +101,6 @@ _tileContainer = NodePath("../../Tiles")
 [node name="TileFactory" type="Node" parent="MainContainer/PanelContainer/Model"]
 script = ExtResource("7_ygp36")
 packedTileScenes = Array[PackedScene]([ExtResource("8_2r3xs"), ExtResource("9_4s2tm"), ExtResource("10_fusuk"), ExtResource("11_25lnr")])
+
+[node name="TileMatcher" type="Node" parent="MainContainer/PanelContainer/Model"]
+script = ExtResource("12_4s2tm")

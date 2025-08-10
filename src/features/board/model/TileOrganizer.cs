@@ -22,7 +22,7 @@ public partial class TileOrganizer: Node, Organizable
     ){
         var _board = new Grid<Control>(tileTable.Width, tileTable.Height);
         for (int x = 0; x < tileTable.Width; x++){
-            for (int y = 0; y < tileTable.Width; y++){
+            for (int y = 0; y < tileTable.Height; y++){
                 var tileName = tileTable.GetItem(y, x); //REVERSED
                 if (tileName != TileTypes.Blank){
                     var tile = (Control) factory.Create(tileName);
