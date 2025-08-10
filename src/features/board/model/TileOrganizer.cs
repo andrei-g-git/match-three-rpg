@@ -3,7 +3,7 @@ using Tiles;
 
 namespace Board;
 
-public partial class TileOrganizer: Node, Organizable
+public partial class TileOrganizer: Node, Organizable, WithTiles
 {
     [Export] private Node _tileFactory;
     [Export] private Node _environment;

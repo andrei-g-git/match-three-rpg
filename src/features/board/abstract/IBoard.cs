@@ -17,7 +17,7 @@ namespace Board{
 
 	public interface Organizable{
 		public void Initialize(Grid<TileTypes> tileTypes);
-		public Grid<Control> Tiles{get;set;}	
+		//public Grid<Control> Tiles{get;set;}	
 
 	}
 
@@ -27,5 +27,9 @@ namespace Board{
 
 	public interface MatchableBoard{
 		public bool TryMatching(Control sourceTile, Control targetTile); 
+	}
+
+	public interface WithTiles{
+		public Grid<Control> Tiles{get;set;}		
 	}
 }

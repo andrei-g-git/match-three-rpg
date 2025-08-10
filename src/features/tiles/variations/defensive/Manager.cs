@@ -1,25 +1,23 @@
+using Board;
+using Common;
 using Godot;
 using Tiles;
 
 namespace Defensive{
-	public partial class Manager : Control, Tile//, Movable.IAnimator, Collapsable, Mapable
+	public partial class Manager : Control, Tile, AccessableBoard, Movable, Mapable
 	{
-		// [Export] private Control dragController;
-		// [Export] private Node moveAnimator;
+		[ExportGroup("behaviors")]
+		[Export] private Node _swapping;
+		
+		[ExportGroup("tweeners")]
+		[Export] private Node _moveTweener;
         public TileTypes Type => TileTypes.Defensive;
-        // private Vector2I coordinates;
-        // public Vector2I Coordinates { get => coordinates; set => coordinates = value; }		
-		// private Node boardModel;
-		// public Node BoardModel {set => boardModel = value;}
-        // public Sequential TurnQueue { private get; set; }
-        // public Tileable Map{set => (moveAnimator as Mapable).Map = value;}
-        
-        // public override void _Ready(){
+		public Node Board {set {(_swapping as AccessableBoard).Board = value;}}
+        public Tileable Map { set => (_moveTweener as Mapable).Map = value; }
 
-		// }
+        public void MoveTo(Vector2I target){
+            (_moveTweener as Movable).MoveTo(target);
+        }
 
-        // public void MoveTo(Vector2I target){
-        //     (moveAnimator as Movable.IAnimator).MoveTo(target);
-        // }
     }	
 }

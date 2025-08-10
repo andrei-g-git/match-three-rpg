@@ -5,16 +5,42 @@ using System.Collections.Generic;
 using Tiles;
 using Util;
 
-public partial class TileMatcher : Node, MatchableBoard
+public partial class TileMatcher : Node, MatchableBoard, WithTiles
 {
-
+    public Grid<Control> Tiles{get;set;}	
     private Queue<List<Vector2I>> _matchGroupQueue = [];
+
     public bool TryMatching(Control sourceTile, Control targetTile){
-        throw new NotImplementedException();
+        var probeGrid = _SwapCellsInTemporaryGrid(sourceTile, targetTile, Tiles);    
+        _ProcessNewMatches(probeGrid); //enqueues new match groups
+        var _hasMatches = false;
+        if(_matchGroupQueue.Peek() != null){
+            _hasMatches = true;       
+            Tiles = probeGrid;    
+            var group = _matchGroupQueue.Dequeue(); //the calling tile will wait a long time to get a return value but if the return is True then it does not need
+                                                //to emit a signal to initiate another kind of swap so it doesn't matter...
+            _SwapTileNodes(sourceTile, targetTile, Tiles);
+        }
+        return _hasMatches;
     }
 
+    private void _SwapTileNodes(Control sourceTile, Control targetTile, Grid<Control> grid){
+        var source = grid.GetCellFor(sourceTile);
+        var target = grid.GetCellFor(targetTile);
+        (sourceTile as Movable).MoveTo(target);
+        (targetTile as Movable).MoveTo(source);
+    }
 
-    private void _CheckForMatchesThenCollapse(Grid<Control> grid){
+    private Grid<Control> _SwapCellsInTemporaryGrid(Control sourceTile, Control targetTile, Grid<Control> grid){
+        var probeGrid = grid.Clone();
+        var source = grid.GetCellFor(sourceTile);
+        var target = grid.GetCellFor(targetTile);
+
+        probeGrid.SetCell(targetTile, source.X, source.Y); 
+        probeGrid.SetCell(sourceTile, target.X, target.Y);   
+        return probeGrid;  
+    }
+    private void _ProcessNewMatches(Grid<Control> grid){
         var matchGroupsForAllDirections = new List<List<List<Vector2I>>>(){
             _FindMatchingGroupsNorthEast(grid),
             _FindMatchingGroupsNorthWest(grid),
@@ -25,9 +51,9 @@ public partial class TileMatcher : Node, MatchableBoard
                  _matchGroupQueue.Enqueue(group);
             }
         }
-        if(_matchGroupQueue.Peek() != null){
-            var group = _matchGroupQueue.Dequeue();
-        }
+        // if(_matchGroupQueue.Peek() != null){
+        //     var group = _matchGroupQueue.Dequeue();
+        // }
     }
 
     private List<List<Vector2I>> _FindMatchingGroupsInLine(List<Vector2I> line, Grid<Control> grid){
@@ -52,23 +78,31 @@ public partial class TileMatcher : Node, MatchableBoard
         }
         var allMatches = Collections.RemoveDuplicates(matches); //there could be 2 match groups	....	
                 //I have no idea how this removes the duplicates and how the List will look like for multiple colors...
-        var matchGroups = new List<List<Vector2I>>();
+        var matchGroups = new List<List<Vector2I>>(){new List<Vector2I>()};
+        var groupIndex = 0;
+        //var group = new List<Vector2I>();        
         for(int i=0;i<allMatches.Count;i++)	{
-            var group = new List<Vector2I>();
             var cell = allMatches[i];
             if(i<allMatches.Count-1){
                 var next = allMatches[i+1];
                 var tileType = (grid.GetItem(cell.X, cell.Y) as Tile).Type;
                 var nextTileType = (grid.GetItem(next.X, next.Y) as Tile).Type;
                 if(tileType == nextTileType){
-                    group.Add(cell);
+                    //group.Add(cell);
+                    matchGroups[groupIndex].Add(cell);
                 }else{
-                    matchGroups.Add(group);					
-                    group = [cell]; //was using godot array instead of c# List, no idea if this code is still good...
+                    groupIndex++;
+                    matchGroups[groupIndex].Add(cell);
+                    // matchGroups.Add(group);					
+                    // group = [cell]; //was using godot array instead of c# List, no idea if this code is still good...
                 }
             }else{//reached end, assume last tile is also a valid match
-                group.Add(cell);
+                //group.Add(cell);
+                matchGroups[groupIndex].Add(cell);
             }
+            // if(group.Count > 0){
+            //     matchGroups.Add(group);
+            // }
         }
         return matchGroups;
     }    

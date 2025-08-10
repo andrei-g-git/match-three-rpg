@@ -88,9 +88,11 @@ layout_mode = 2
 script = ExtResource("4_dw1vl")
 environment = NodePath("../Environment")
 
-[node name="Model" type="Node" parent="MainContainer/PanelContainer" node_paths=PackedStringArray("_tileOrganizer")]
+[node name="Model" type="Node" parent="MainContainer/PanelContainer" node_paths=PackedStringArray("_tileOrganizer", "_tileMatcher", "_tileFactory")]
 script = ExtResource("5_qxmgw")
 _tileOrganizer = NodePath("TileOrganizer")
+_tileMatcher = NodePath("TileMatcher")
+_tileFactory = NodePath("TileFactory")
 
 [node name="TileOrganizer" type="Node" parent="MainContainer/PanelContainer/Model" node_paths=PackedStringArray("_tileFactory", "_environment", "_tileContainer")]
 script = ExtResource("6_ygp36")
@@ -98,9 +100,11 @@ _tileFactory = NodePath("../TileFactory")
 _environment = NodePath("../../Environment")
 _tileContainer = NodePath("../../Tiles")
 
-[node name="TileFactory" type="Node" parent="MainContainer/PanelContainer/Model"]
+[node name="TileFactory" type="Node" parent="MainContainer/PanelContainer/Model" node_paths=PackedStringArray("_tileMapLayer", "_boardModel")]
 script = ExtResource("7_ygp36")
-packedTileScenes = Array[PackedScene]([ExtResource("8_2r3xs"), ExtResource("9_4s2tm"), ExtResource("10_fusuk"), ExtResource("11_25lnr")])
+_tileMapLayer = NodePath("../../Environment")
+_boardModel = NodePath("..")
+_packedTileScenes = Array[PackedScene]([ExtResource("8_2r3xs"), ExtResource("9_4s2tm"), ExtResource("10_fusuk"), ExtResource("11_25lnr")])
 
 [node name="TileMatcher" type="Node" parent="MainContainer/PanelContainer/Model"]
 script = ExtResource("12_4s2tm")

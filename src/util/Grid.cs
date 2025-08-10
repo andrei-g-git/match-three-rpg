@@ -3,7 +3,7 @@ using Godot.Collections;
 using System;
 
 //namespace Util;
-public class Grid<[MustBeVariant] T>
+public class Grid<[MustBeVariant] T>//: ICloneable
 {
 	public int Width => _grid.Count;
 	public int Height => _grid.Count > 0? _grid[0].Count : 0;
@@ -33,7 +33,26 @@ public class Grid<[MustBeVariant] T>
 		return _grid[x][y];
 	}
 
+	public Vector2I GetCellFor(T item){
+		for(int x=0; x < _grid.Count; x++){
+			for(int y=0; y < _grid[0].Count; y++){
+				var itemAtThisPosition = _grid[x][y];
+				if(itemAtThisPosition != null && itemAtThisPosition.Equals(item)){
+					return new Vector2I(x, y);
+				}
+			}
+		}
+		return new Vector2I(-69, -420);		
+	}
+
 	public void AddRow(Array<T> row){
 		_grid.Add(row);
-	}	
+	}
+
+    public Grid<T> Clone(){
+        return new Grid<T>(Width, Height){
+			_grid = _grid.Duplicate(true)
+		};
+    }
+
 }

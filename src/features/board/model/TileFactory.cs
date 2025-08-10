@@ -1,4 +1,5 @@
 using System;
+using Common;
 using Godot;
 using Godot.Collections;
 using Tiles;
@@ -6,7 +7,9 @@ using Tiles;
 namespace Board{
 	public partial class TileFactory: Node, TileMaking
 	{
-		[Export] private Array<PackedScene> packedTileScenes;
+		[Export] private Node _tileMapLayer;
+		[Export] private Node _boardModel;
+		[Export] private Array<PackedScene> _packedTileScenes;
 
 		private Dictionary<TileTypes, PackedScene> _tilesWithScenes;
 
@@ -15,7 +18,7 @@ namespace Board{
         }
 
 		public void Initialize(){
-			_tilesWithScenes = _AssociateTileScenesWithTheirNames(packedTileScenes);
+			_tilesWithScenes = _AssociateTileScenesWithTheirNames(_packedTileScenes);
 		}
 
 		private Dictionary<TileTypes, PackedScene> _AssociateTileScenesWithTheirNames(Array<PackedScene> packedScenes){
@@ -33,41 +36,57 @@ namespace Board{
 		public Node Create(TileTypes type){
 			var packedScene = _tilesWithScenes[type];
 			var tile = packedScene.Instantiate();
-			//_InitializeTile(tile, type);
+			_InitializeTile(tile, type);
 			return tile;
 		}	
 
 
 
 
-		// private void _InitializeTile(Node tile, TileTypes type){
-		// 	switch(type){
-		// 		case TileTypes.Fighter:
-		// 			(tile as Mapable).Map = environment as Tileable;
-		// 			(tile as Actor).TurnQueue = (boardModel as IBoard.Model).TurnQueue;
-		// 			break;
-		// 		case TileTypes.Walk:
-		// 			(tile as AccessableTileContainer).TileContainer = tileContainer;
-		// 			(tile as Mapable).Map = environment as Tileable;
-		// 			break;
-		// 		case TileTypes.Player:
-		// 			(tile as Actor).TurnQueue = (boardModel as IBoard.Model).TurnQueue;
-		// 			(tile as Playable).InputBlocker = inputBlocker as FlickableInput;
-		// 			(tile as Mapable).Map = environment as Tileable;
-		// 			(tile as RelayableStatus).EnergyDisplay = energyBar;
-		// 			break;
-		// 		case TileTypes.Melee:
-		// 			(tile as Mapable).Map = environment as Tileable;
-		// 			break;
-		// 		case TileTypes.Ranged:
-		// 			(tile as Mapable).Map = environment as Tileable;
-		// 			break;					
-		// 		default:
-		// 			//dunno
-		// 			var b = 2 + 2;
-		// 			break;
-		// 	}
-		// }
+		private void _InitializeTile(Node tile, TileTypes type){
+			switch(type){
+				case TileTypes.Defensive:
+					(tile as AccessableBoard).Board = _boardModel;
+					(tile as Mapable).Map = _tileMapLayer as Tileable;
+					break;
+				case TileTypes.Melee:
+					(tile as AccessableBoard).Board = _boardModel;
+					(tile as Mapable).Map = _tileMapLayer as Tileable;
+					break;
+				case TileTypes.Ranged:
+					(tile as AccessableBoard).Board = _boardModel;
+					(tile as Mapable).Map = _tileMapLayer as Tileable;
+					break;
+				case TileTypes.Tech:
+					(tile as AccessableBoard).Board = _boardModel;
+					(tile as Mapable).Map = _tileMapLayer as Tileable;
+					break;
+				// case TileTypes.Fighter:
+				// 	(tile as Mapable).Map = environment as Tileable;
+				// 	(tile as Actor).TurnQueue = (boardModel as IBoard.Model).TurnQueue;
+				// 	break;
+				// case TileTypes.Walk:
+				// 	(tile as AccessableTileContainer).TileContainer = tileContainer;
+				// 	(tile as Mapable).Map = environment as Tileable;
+				// 	break;
+				// case TileTypes.Player:
+				// 	(tile as Actor).TurnQueue = (boardModel as IBoard.Model).TurnQueue;
+				// 	(tile as Playable).InputBlocker = inputBlocker as FlickableInput;
+				// 	(tile as Mapable).Map = environment as Tileable;
+				// 	(tile as RelayableStatus).EnergyDisplay = energyBar;
+				// 	break;
+				// case TileTypes.Melee:
+				// 	(tile as Mapable).Map = environment as Tileable;
+				// 	break;
+				// case TileTypes.Ranged:
+				// 	(tile as Mapable).Map = environment as Tileable;
+				// 	break;					
+				default:
+					//dunno
+					var b = 2 + 2;
+					break;
+			}
+		}
 	}
 
 }

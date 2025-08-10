@@ -3,21 +3,28 @@ using Tiles;
 
 namespace Board;
 
-public partial class BoardModel : Node, Organizable, MatchableBoard
+public partial class BoardModel : Node, Organizable, MatchableBoard//, WithTiles
 {
     [Export] private Node _tileOrganizer;
     [Export] private Node _tileMatcher;
-    private Grid<Control> _tiles;
-    public Grid<Control> Tiles {
-        get => _tiles; 
-        set{
-            (_tileOrganizer as Organizable).Tiles = value;
-        }
-    }
+    [Export] private Node _tileFactory;
+    [Export] private Node _tileContainer;
+    // private Grid<Control> _tiles;
+    // public Grid<Control> Tiles {
+    //     get => _tiles; 
+    //     set{
+    //         (_tileMatcher as WithTiles).Tiles = value;
+    //         _tiles = value;
+    //     }
+    // }
+
 
     public void Initialize(Grid<TileTypes> tileTypes){
         (_tileOrganizer as Organizable).Initialize(tileTypes);
+        //Tiles = (_tileOrganizer as WithTiles).Tiles;
+        (_tileMatcher as WithTiles).Tiles = (_tileOrganizer as WithTiles).Tiles;
     }
+
 
     public bool TryMatching(Control sourceTile, Control targetTile){
         return (_tileMatcher as MatchableBoard).TryMatching(sourceTile, targetTile);
