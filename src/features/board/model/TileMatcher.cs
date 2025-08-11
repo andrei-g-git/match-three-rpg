@@ -11,7 +11,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
     private Queue<List<Vector2I>> _matchGroupQueue = [];
 
     public bool TryMatching(Control sourceTile, Control targetTile){
-        var probeGrid = _SwapCellsInTemporaryGrid(sourceTile, targetTile, Tiles);    
+        var probeGrid = _SwapCellsInTemporaryGrid(sourceTile, targetTile, Tiles);   
         _ProcessNewMatches(probeGrid); //enqueues new match groups
         var _hasMatches = false;
         if(_matchGroupQueue.Peek() != null){
@@ -21,6 +21,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
             _SwapTileNodes(sourceTile, targetTile, Tiles);
             Tiles = probeGrid;  
         }
+        GD.Print([.._matchGroupQueue.Peek()]);
         return _hasMatches;
     }
 
@@ -46,6 +47,11 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
             _FindMatchingGroupsNorthWest(grid),
             _FindMatchingGroupsVertical(grid)
         };
+        // foreach(var directionGroups in matchGroupsForAllDirections){
+        //     foreach(var matches in directionGroups){
+        //         GD.Print("matches:  ", new Godot.Collections.Array([..matches]));
+        //     }
+        // }
         foreach(var matchGroups1Dir in matchGroupsForAllDirections){
             foreach(var group in matchGroups1Dir){
                  _matchGroupQueue.Enqueue(group);
@@ -56,7 +62,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
         // }
     }
 
-    private List<List<Vector2I>> _FindMatchingGroupsInLine(List<Vector2I> line, Grid<Control> grid){
+    private List<List<Vector2I>> _FindMatchingGroupsInLine(List<Vector2I> line, List<List<Vector2I>> matchGroups, int groupIndex, Grid<Control> grid){
         var matches = new List<Vector2I>();
         for(int a=0; a<line.Count - 2; a++){
             var c1 = line[a];
@@ -78,8 +84,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
         }
         var allMatches = Collections.RemoveDuplicates(matches); //there could be 2 match groups	....	
                 //I have no idea how this removes the duplicates and how the List will look like for multiple colors...
-        var matchGroups = new List<List<Vector2I>>(){new List<Vector2I>()};
-        var groupIndex = 0;
+        //var groupIndex = 0;
         //var group = new List<Vector2I>();        
         for(int i=0;i<allMatches.Count;i++)	{
             var cell = allMatches[i];
@@ -100,16 +105,14 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
                 //group.Add(cell);
                 matchGroups[groupIndex].Add(cell);
             }
-            // if(group.Count > 0){
-            //     matchGroups.Add(group);
-            // }
         }
         return matchGroups;
     }    
 
 
     private List<List<Vector2I>> _FindMatchingGroupsNorthWest(Grid<Control> grid){
-        var matchGroups = new List<List<Vector2I>>();
+        var matchGroups = new List<List<Vector2I>>(){new List<Vector2I>()};
+        var groupIndex = 0;
         for(int x=1; x<=grid.Height; x++){			
             var diagonal = new List<Vector2I>();
             for(int y=0; y<grid.Width; y++){
@@ -126,14 +129,15 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
                     diagonal.Add(new Vector2I(xx, yy)); 
                 }										
             }
-            matchGroups = _FindMatchingGroupsInLine(diagonal, grid);
+            matchGroups = _FindMatchingGroupsInLine(diagonal, matchGroups, groupIndex, grid);
         }	
         return matchGroups;		
     }
 
 
     private List<List<Vector2I>> _FindMatchingGroupsNorthEast(Grid<Control> grid){
-        var matchGroups = new List<List<Vector2I>>();
+        var matchGroups = new List<List<Vector2I>>(){new List<Vector2I>()};
+        var groupIndex = 0;
         for(int x=1; x<=grid.Height; x++){			
             var diagonal = new List<Vector2I>();
             for(int y=0; y<grid.Width; y++){
@@ -150,7 +154,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
                     diagonal.Add(new Vector2I(xx, yy)); 
                 }										
             }
-            matchGroups = _FindMatchingGroupsInLine(diagonal, grid);
+            matchGroups = _FindMatchingGroupsInLine(diagonal, matchGroups, groupIndex, grid);
         }	
         return matchGroups;		
     }
@@ -158,6 +162,8 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
 
     private List<List<Vector2I>> _FindMatchingGroupsVertical(Grid<Control> grid){
         var line = new List<Vector2I>();
+        var matchGroups = new List<List<Vector2I>>(){new List<Vector2I>()};
+        var groupIndex = 0;        
         for(int y=0; y<grid.Height; y++){ //Reversed looping
             for(int x=0; x<grid.Width - 2; x++){  
                 var tile = grid.GetItem(x, y);
@@ -169,7 +175,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
                 } 
             }
         } 
-        return _FindMatchingGroupsInLine(line, grid);    
+        return _FindMatchingGroupsInLine(line, matchGroups, groupIndex, grid);    
     }
 
     private List<Vector2I> FindMatchingLinesVertical(Grid<Control> grid, TileTypes type){
