@@ -7,6 +7,7 @@ using Util;
 
 public partial class TileMatcher : Node, MatchableBoard, WithTiles
 {
+    [Export] private Node _tileFactory;
     public Grid<Control> Tiles{get;set;}	
     private Queue<List<Vector2I>> _matchGroupQueue = [];
 
@@ -16,10 +17,18 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
         var _hasMatches = false;
         if(_matchGroupQueue.Peek() != null){
             _hasMatches = true;       
-            var group = _matchGroupQueue.Dequeue(); //the calling tile will wait a long time to get a return value but if the return is True then it does not need
+            //var group = _matchGroupQueue.Dequeue(); //the calling tile will wait a long time to get a return value but if the return is True then it does not need
                                                 //to emit a signal to initiate another kind of swap so it doesn't matter...
             _SwapTileNodes(sourceTile, targetTile, Tiles);
             Tiles = probeGrid;  
+
+            GetTree().CreateTimer(1).Timeout += () => { //temporary
+                var group = _matchGroupQueue.Dequeue();
+                var matchQueue = new Queue<Vector2I>(group);
+                _RunMatchedTileBehaviors(/* _matchGroupQueue */matchQueue, Tiles);
+
+                _CollapseTiles(Tiles, false, false, false);
+            };
         }
         GD.Print([.._matchGroupQueue.Peek()]);
         return _hasMatches;
@@ -54,7 +63,10 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
         // }
         foreach(var matchGroups1Dir in matchGroupsForAllDirections){
             foreach(var group in matchGroups1Dir){
-                 _matchGroupQueue.Enqueue(group);
+                if(group.Count > 0){
+                    _matchGroupQueue.Enqueue(group);                    
+                }
+
             }
         }
         // if(_matchGroupQueue.Peek() != null){
@@ -202,7 +214,89 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
             }
         }
         return [];
-    }    
+    }  
+
+
+    private void _RunMatchedTileBehaviors(/* Queue<List<Vector2I>> */ Queue<Vector2I>/* matchGroupQueue */matchQueue, Grid<Control> grid){
+        //GD.Print([..matchGroupQueue]);
+        if(/* matchGroupQueue */matchQueue.Count>0/* .Peek() != null *//*  && matchGroupQueue.Peek().Count > 0 */){
+            // var group = matchGroupQueue.Dequeue();   
+
+            // var matchQueue = new Queue<Vector2I>(group);
+
+            _ActivateMatcedTileAndRemove(matchQueue, grid);
+
+            //_CollapseTiles(grid, false, false, false);
+
+            _RunMatchedTileBehaviors(/* matchGroupQueue */matchQueue, grid);
+        }     
+    }
+
+
+    private void _ActivateMatcedTileAndRemove(Queue<Vector2I> matches, Grid<Control> grid){
+        if(matches.Count > 0/* .Peek() != null */){ 
+            var cell = matches.Dequeue();
+
+            var tile = grid.GetItem(cell);
+            grid.SetCell(
+                (Control) (_tileFactory as TileMaking).Create(TileTypes.Blank), 
+                cell
+            );
+            if(tile is Matchable matchable){
+                matchable.BeginPostMatchProcessDependingOnPlayerPosition(cell, null, false);
+            }
+
+            _ActivateMatcedTileAndRemove(matches, grid);
+        }      
+    }
+
+    private void _CollapseTiles(Grid<Control> grid, bool bottomFilled, bool bottomLeftFilled, bool bottomRightFilled){
+        var filled1 = _TrickleDownTilesToFillGap(grid, bottomFilled, Hex.FindBottomClamped);   
+        var filled2 = _TrickleDownTilesToFillGap(grid, bottomLeftFilled, Hex.FindBottomLeftClamped);
+        var filled3 = _TrickleDownTilesToFillGap(grid, bottomRightFilled, Hex.FindBottomRightClamped);
+
+        GD.Print(/* bottomFilled */filled1, "  ", /* bottomLeftFilled */filled2, "  ", /* bottomRightFilled */filled3);
+
+        if(!filled1 &&/* || */ !filled2 &&/* || */ !filled3){
+            _CollapseTiles(grid, false, false, false);
+        }            
+    }  
+
+
+    private bool _TrickleDownTilesToFillGap(
+        Grid<Control> grid, 
+        bool cellBelowInChosenDirectionFilled, 
+        Func<Vector2I, int, int, Vector2I> FindCellBelowInOneOfThreeDirectionsClamped
+    ){
+        var isFilled = cellBelowInChosenDirectionFilled; //man I dunno I don't feel like thinking ...
+        //for(int y=0;y<Tiles.Count;y++){ //REVERSED 
+        for(int x=0;x<grid.Width;x++){
+            //for(int x=0;x<Tiles[0].Count;x++){					
+            for(int y=0;y<grid.Height;y++){
+                if(grid.GetItem(x, y) is Collapsable collapsable){
+                    var cell = FindCellBelowInOneOfThreeDirectionsClamped(new Vector2I(x, y), grid.Width, grid.Height);
+                    if(cell.X > 0 && cell.Y > 0){
+                        var lowerTile = grid.GetItem(cell.X, cell.Y);
+                        if(lowerTile is Empty blank){
+                            grid.SetCell(collapsable as Control, cell.X, cell.Y);
+                            grid.SetCell(
+                                (Control) (_tileFactory as TileMaking).Create(TileTypes.Blank), 
+                                x, 
+                                y
+                            );
+                            if(collapsable is Movable movable){
+                                movable.MoveTo(cell);									
+                            } 
+                            //break;	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                        } else {
+                            /* cellBelowInChosenDirectionFilled */ isFilled = true; //the tile underneath might need to fall too, and before this ... not sure what effect this might have
+                        }
+                    }						
+                }
+            }
+        }  
+        return isFilled;              
+    }
 }
 
 

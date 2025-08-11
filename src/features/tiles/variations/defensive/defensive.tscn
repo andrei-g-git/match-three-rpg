@@ -1,18 +1,20 @@
-[gd_scene load_steps=8 format=3 uid="uid://mfpccmm44gsh"]
+[gd_scene load_steps=9 format=3 uid="uid://mfpccmm44gsh"]
 
 [ext_resource type="Script" uid="uid://b6vxfficnggsp" path="res://src/features/tiles/variations/defensive/Manager.cs" id="1_5nojl"]
 [ext_resource type="Texture2D" uid="uid://dxlw5cnu8drkp" path="res://assets/images/tiles/defend.png" id="2_aot5u"]
 [ext_resource type="Script" uid="uid://cy1k0w8awxnxt" path="res://src/features/tiles/DragAndDrop.cs" id="3_f4gku"]
 [ext_resource type="Script" uid="uid://dd71kn6t4pyhr" path="res://src/features/tiles/behaviors/Swapping.cs" id="4_g6iaq"]
 [ext_resource type="Script" uid="uid://bo1vqtqcusngb" path="res://src/features/tiles/behaviors/Removing.cs" id="5_u5sm5"]
+[ext_resource type="Script" uid="uid://316a3o75npwl" path="res://src/features/tiles/behaviors/Matching.cs" id="6_alpki"]
 [ext_resource type="Script" uid="uid://dmkt3wetl7b0l" path="res://src/features/tiles/animations/MoveTweener.cs" id="6_un1x1"]
 [ext_resource type="Script" uid="uid://b8lf0pqmvi23r" path="res://src/features/tiles/animations/FadeTweener.cs" id="7_l7wa4"]
 
-[node name="Defensive" type="Control" node_paths=PackedStringArray("_swapping", "_moveTweener")]
+[node name="Defensive" type="Control" node_paths=PackedStringArray("_swapping", "_matching", "_moveTweener")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_5nojl")
 _swapping = NodePath("Behaviors/Swapping")
+_matching = NodePath("Behaviors/Matching")
 _moveTweener = NodePath("Tweeners/Move")
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
@@ -44,6 +46,9 @@ _tileRoot = NodePath("../..")
 [node name="Removing" type="Node" parent="Behaviors"]
 script = ExtResource("5_u5sm5")
 
+[node name="Matching" type="Node" parent="Behaviors"]
+script = ExtResource("6_alpki")
+
 [node name="Tweeners" type="Node" parent="."]
 
 [node name="Move" type="Node" parent="Tweeners" node_paths=PackedStringArray("_tileRoot")]
@@ -57,3 +62,6 @@ _tileRoot = NodePath("../..")
 _duration = 0.5
 
 [connection signal="EngagedBy" from="AspectRatioContainer/DragAndDrop" to="Behaviors/Swapping" method="SwapWith"]
+[connection signal="Destroying" from="Behaviors/Removing" to="Tweeners/Fade" method="FadeOut"]
+[connection signal="MatchedRemotely" from="Behaviors/Matching" to="Behaviors/Removing" method="PrepDestroy"]
+[connection signal="FinishedFading" from="Tweeners/Fade" to="Behaviors/Removing" method="Remove"]

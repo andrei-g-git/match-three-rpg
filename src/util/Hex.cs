@@ -49,6 +49,52 @@ public static class Hex{
 			new Vector2I(x - 1, y);
 	}
 
+
+	public static Vector2I FindTopClamped(Vector2I cell, int maxWidth, int maxHeight){
+		var neighbor = FindTop(cell);
+		if(neighbor.X >= 0 && neighbor.Y >=0 && neighbor.X < maxWidth && neighbor.Y < maxHeight){
+			return neighbor;
+		}
+		return new Vector2I(-69, -420);
+	}
+
+	public static Vector2I FindBottomClamped(Vector2I cell, int maxWidth, int maxHeight){
+		var neighbor = FindBottom(cell);
+		if(neighbor.X >= 0 && neighbor.Y >=0 && neighbor.X < maxWidth && neighbor.Y < maxHeight){
+			return neighbor;
+		}
+		return new Vector2I(-69, -420);
+	}
+	public static Vector2I FindTopRightClamped(Vector2I cell, int maxWidth, int maxHeight){
+		var neighbor = FindTopRight(cell);
+		if(neighbor.X >= 0 && neighbor.Y >=0 && neighbor.X < maxWidth && neighbor.Y < maxHeight){
+			return neighbor;
+		}
+		return new Vector2I(-69, -420);
+	}
+	public static Vector2I FindBottomRightClamped(Vector2I cell, int maxWidth, int maxHeight){
+		var neighbor = FindBottomRight(cell);
+		if(neighbor.X >= 0 && neighbor.Y >=0 && neighbor.X < maxWidth && neighbor.Y < maxHeight){
+			return neighbor;
+		}
+		return new Vector2I(-69, -420);
+	}
+	public static Vector2I FindTopLeftClamped(Vector2I cell, int maxWidth, int maxHeight){
+		var neighbor = FindTopLeft(cell);
+		if(neighbor.X >= 0 && neighbor.Y >=0 && neighbor.X < maxWidth && neighbor.Y < maxHeight){
+			return neighbor;
+		}
+		return new Vector2I(-69, -420);
+	}
+	public static Vector2I FindBottomLeftClamped(Vector2I cell, int maxWidth, int maxHeight){
+		var neighbor = FindBottomLeft(cell);
+		if(neighbor.X >= 0 && neighbor.Y >=0 && neighbor.X < maxWidth && neighbor.Y < maxHeight){
+			return neighbor;
+		}
+		return new Vector2I(-69, -420);
+	}
+
+	
 	public static Vector2I FindNextInLine(Array<Vector2I> line){
 		var _length = line.Count;
 		if(_length >=2){

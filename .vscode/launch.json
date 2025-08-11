@@ -13,6 +13,7 @@
             "args": [],
             "cwd": "${workspaceFolder}",
             "stopAtEntry": false,
+            "requireExactSource": false
         },        
         {
             "name": "Play in Editor",

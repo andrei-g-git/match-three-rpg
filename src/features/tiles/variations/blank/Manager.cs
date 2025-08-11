@@ -1,4 +1,4 @@
-/* using Godot;
+using Godot;
 using Tiles;
 
 namespace Blank{
@@ -10,4 +10,3 @@ namespace Blank{
     }
 }
 
- */

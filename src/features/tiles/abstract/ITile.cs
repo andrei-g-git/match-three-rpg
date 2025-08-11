@@ -9,4 +9,8 @@ namespace Tiles{
     public interface Movable{
         public void MoveTo(Vector2I target);
     }
+
+    public interface Collapsable{}
+
+    public interface Empty{}
 }
