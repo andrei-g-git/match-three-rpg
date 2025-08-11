@@ -16,10 +16,10 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
         var _hasMatches = false;
         if(_matchGroupQueue.Peek() != null){
             _hasMatches = true;       
-            Tiles = probeGrid;    
             var group = _matchGroupQueue.Dequeue(); //the calling tile will wait a long time to get a return value but if the return is True then it does not need
                                                 //to emit a signal to initiate another kind of swap so it doesn't matter...
             _SwapTileNodes(sourceTile, targetTile, Tiles);
+            Tiles = probeGrid;  
         }
         return _hasMatches;
     }
