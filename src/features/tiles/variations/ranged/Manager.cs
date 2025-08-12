@@ -13,6 +13,7 @@ namespace Ranged{
 		[ExportGroup("tweeners")]
 		[Export] private Node _moveTweener;
 		public TileTypes Type => TileTypes.Ranged;
+        public TileTypes AA => Type; //for debugging
 		public Node Board {set {(_swapping as AccessableBoard).Board = value;}}
         public Tileable Map { set => (_moveTweener as Mapable).Map = value; }
 

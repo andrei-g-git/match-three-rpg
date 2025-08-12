@@ -1,5 +1,6 @@
 using Godot.Collections;
 using Godot;
+using System.Collections.Generic;
 
 public static class Files
 {
@@ -7,7 +8,8 @@ public static class Files
 		Grid<string> grid = new Grid<string>();
 		var file = FileAccess.Open(path, FileAccess.ModeFlags.Read);
 		while(!file.EofReached()){
-			var row = new Array<string>(file.GetCsvLine());
+			//var row = new Array<string>(file.GetCsvLine());
+			var row = new List<string>(file.GetCsvLine());
 			if(row.Count > 1){
 				//grid.Append(row);	// looks like csvs have a 'secret' row with crap content like ['0'] or something
 				grid.AddRow(row);

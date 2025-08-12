@@ -23,6 +23,7 @@ offset_left = -32.0
 offset_top = -27.5
 offset_right = 32.0
 offset_bottom = 27.5
+pivot_offset = Vector2(32, 27.5)
 
 [node name="Sprite2D" type="Sprite2D" parent="AspectRatioContainer"]
 position = Vector2(32, 27.5)

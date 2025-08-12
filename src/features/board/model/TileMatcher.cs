@@ -22,12 +22,13 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
             _SwapTileNodes(sourceTile, targetTile, Tiles);
             Tiles = probeGrid;  
 
-            GetTree().CreateTimer(1).Timeout += () => { //temporary
+            GetTree().CreateTimer(1).Timeout += () => { //temporary ... nothing more permanent eh...
                 var group = _matchGroupQueue.Dequeue();
                 var matchQueue = new Queue<Vector2I>(group);
                 _RunMatchedTileBehaviors(/* _matchGroupQueue */matchQueue, Tiles);
 
                 _CollapseTiles(Tiles, false, false, false);
+                var bp = 123;
             };
         }
         GD.Print([.._matchGroupQueue.Peek()]);
@@ -256,6 +257,8 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
         var filled3 = _TrickleDownTilesToFillGap(grid, bottomRightFilled, Hex.FindBottomRightClamped);
 
         GD.Print(/* bottomFilled */filled1, "  ", /* bottomLeftFilled */filled2, "  ", /* bottomRightFilled */filled3);
+
+        Debug.PrintItemsInitials(grid.GetGridAs2DList(), 2, 2, "collapsing to fill remaining gaps, GRID RIGHT NOW: ");
 
         if(!filled1 &&/* || */ !filled2 &&/* || */ !filled3){
             _CollapseTiles(grid, false, false, false);

@@ -1,6 +1,7 @@
 using Godot;
 using Godot.Collections;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Tiles;
 
@@ -147,8 +148,8 @@ public static class Hex{
 
 	public static Grid<TileTypes> StringGridToEnums(Grid<string> stringGrid){ //these shouldn't be here
 		var enumGrid = new Grid<TileTypes>(stringGrid.Width, stringGrid.Height);
-		for (int a = 0; a < enumGrid.Width; a++){
-			for (int b = 0; b < enumGrid.Height; b++){
+		for (int a = 0; a < stringGrid.Width; a++){
+			for (int b = 0; b < stringGrid.Height; b++){
 				var stringName = stringGrid.GetItem(a, b);
 				enumGrid.SetCell(TileDict.GetEnum(stringName), a, b);
 			}
@@ -168,7 +169,7 @@ public static class Hex{
 		return enumGrid;
 	}
 
-	public static void PrintGridItemsInitials(Array<Array<string>> grid, int howManyLetters, string header)
+	public static void PrintGridItemsInitials__(Array<Array<string>> grid, int howManyLetters, string header)
 	{
 		int cols = grid.Count;
 		int rows = grid[0].Count;
@@ -192,5 +193,26 @@ public static class Hex{
 
 		}
 		Console.WriteLine("\n");
+	}
+
+	public static void IterateOverRowsNorthEast<[MustBeVariant]T>(List<List<T>> grid, Action<List<List<T>>, List<Vector2I>> IterateNorthEastDiagonal){ //will need to change the parameter into a 2d array. I don't want to couple a utility class to a specific data type I made
+		for(int x=1; x<=grid.Count; x++){			
+            var diagonal = new List<Vector2I>();
+            for(int y=0; y<grid[x].Count; y++){
+				var xx = y; 
+				var yy = x - (y - (y / 2));  //integer division will floor the result automatically, leaving ODD loops having the same yy value as the last loop
+                if(
+                    xx >= 0 &&
+                    yy >= 0	&&			
+                    yy < grid.Count &&	
+                    grid[xx][yy] != null && 
+                    (grid[xx][yy] is Tile) &&
+                    (grid[xx][yy] as Tile).Type != TileTypes.Blank
+                ){
+                    diagonal.Add(new Vector2I(xx, yy)); 
+                }										
+            }
+            IterateNorthEastDiagonal(grid, diagonal);
+        }
 	}
 }
