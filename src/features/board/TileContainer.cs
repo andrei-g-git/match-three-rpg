@@ -1,6 +1,10 @@
 using Board;
 using Godot;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using Util;
 
 public partial class TileContainer : Control, Viewable
 {
@@ -34,7 +38,8 @@ public partial class TileContainer : Control, Viewable
 					tile.Position = (environment as Tileable).CellToPosition(new Vector2I(x, y)); 
 				}
 			}
-		}	
+		}
+		Debugging.PrintChildrenTileInitials([.. GetChildren()], 2, "TileContainer children:");
     }
 
 	public void PlaceNew(Control newTile, Control oldTile, Vector2I cell){

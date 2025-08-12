@@ -107,6 +107,7 @@ _tileMapLayer = NodePath("../../Environment")
 _boardModel = NodePath("..")
 _packedTileScenes = Array[PackedScene]([ExtResource("8_2r3xs"), ExtResource("9_4s2tm"), ExtResource("10_fusuk"), ExtResource("11_25lnr"), ExtResource("12_fusuk")])
 
-[node name="TileMatcher" type="Node" parent="MainContainer/PanelContainer/Model" node_paths=PackedStringArray("_tileFactory")]
+[node name="TileMatcher" type="Node" parent="MainContainer/PanelContainer/Model" node_paths=PackedStringArray("_tileFactory", "_tileContainer")]
 script = ExtResource("12_4s2tm")
 _tileFactory = NodePath("../TileFactory")
+_tileContainer = NodePath("../../Tiles")

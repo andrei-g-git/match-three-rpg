@@ -198,7 +198,7 @@ public static class Hex{
 	public static void IterateOverRowsNorthEast<[MustBeVariant]T>(List<List<T>> grid, Action<List<List<T>>, List<Vector2I>> IterateNorthEastDiagonal){ //will need to change the parameter into a 2d array. I don't want to couple a utility class to a specific data type I made
 		for(int x=1; x<=grid.Count; x++){			
             var diagonal = new List<Vector2I>();
-            for(int y=0; y<grid[x].Count; y++){
+            for(int y=0; y<grid[0].Count; y++){
 				var xx = y; 
 				var yy = x - (y - (y / 2));  //integer division will floor the result automatically, leaving ODD loops having the same yy value as the last loop
                 if(

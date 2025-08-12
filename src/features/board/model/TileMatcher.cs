@@ -8,10 +8,12 @@ using Util;
 public partial class TileMatcher : Node, MatchableBoard, WithTiles
 {
     [Export] private Node _tileFactory;
+    [Export] private Node _tileContainer;
     public Grid<Control> Tiles{get;set;}	
     private Queue<List<Vector2I>> _matchGroupQueue = [];
 
     public bool TryMatching(Control sourceTile, Control targetTile){
+        Debugging.PrintStackedGridInitials(Tiles.GetGridAs2DList(), 2, 2, "STACKED Grid before current match attempt:");
         var probeGrid = _SwapCellsInTemporaryGrid(sourceTile, targetTile, Tiles);   
         _ProcessNewMatches(probeGrid); //enqueues new match groups
         var _hasMatches = false;
@@ -29,6 +31,12 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
 
                 _CollapseTiles(Tiles, false, false, false);
                 var bp = 123;
+
+                GetTree().CreateTimer(1).Timeout += () => { //this sucks
+                    (_tileContainer as Viewable).UpdatePositions(Tiles);
+                };
+                Debugging.PrintStackedGridInitials(Tiles.GetGridAs2DList(), 2, 2, "STACKED Grid:");
+                bp = 123;
             };
         }
         GD.Print([.._matchGroupQueue.Peek()]);
@@ -258,7 +266,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
 
         GD.Print(/* bottomFilled */filled1, "  ", /* bottomLeftFilled */filled2, "  ", /* bottomRightFilled */filled3);
 
-        Debug.PrintItemsInitials(grid.GetGridAs2DList(), 2, 2, "collapsing to fill remaining gaps, GRID RIGHT NOW: ");
+        Debugging.PrintItemsInitials(grid.GetGridAs2DList(), 2, 2, "collapsing to fill remaining gaps, GRID RIGHT NOW: ");
 
         if(!filled1 &&/* || */ !filled2 &&/* || */ !filled3){
             _CollapseTiles(grid, false, false, false);

@@ -1,6 +1,7 @@
 using System;
 using Godot;
 using Godot.Collections;
+using Tiles;
 
 
 public partial class DragAndDrop : Control
@@ -36,6 +37,7 @@ public partial class DragAndDrop : Control
         previewNode.AddChild(dragPreview);
         dragPreview.Position = -0.5f * dragPreview.CustomMinimumSize;
         SetDragPreview(/* dragPreview */previewNode); //well none of this works...
+        GD.Print((_tileNode as Tile).Type.ToString());
 		return _tileNode;        
     }
 
