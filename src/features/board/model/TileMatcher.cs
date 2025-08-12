@@ -19,28 +19,46 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
         var _hasMatches = false;
         if(_matchGroupQueue.Peek() != null){
             _hasMatches = true;       
-            //var group = _matchGroupQueue.Dequeue(); //the calling tile will wait a long time to get a return value but if the return is True then it does not need
-                                                //to emit a signal to initiate another kind of swap so it doesn't matter...
+
             _SwapTileNodes(sourceTile, targetTile, Tiles);
             Tiles = probeGrid;  
 
             GetTree().CreateTimer(1).Timeout += () => { //temporary ... nothing more permanent eh...
-                var group = _matchGroupQueue.Dequeue();
-                var matchQueue = new Queue<Vector2I>(group);
-                _RunMatchedTileBehaviors(/* _matchGroupQueue */matchQueue, Tiles);
+                // var group = _matchGroupQueue.Dequeue();
+                // var matchQueue = new Queue<Vector2I>(group);
+                // _RunMatchedTileBehaviors(/* _matchGroupQueue */matchQueue, Tiles);
 
-                _CollapseTiles(Tiles, false, false, false);
-                var bp = 123;
+                // _CollapseTiles(Tiles, false, false, false);
+                // var bp = 123;
 
-                GetTree().CreateTimer(1).Timeout += () => { //this sucks
-                    (_tileContainer as Viewable).UpdatePositions(Tiles);
-                };
-                Debugging.PrintStackedGridInitials(Tiles.GetGridAs2DList(), 2, 2, "STACKED Grid:");
-                bp = 123;
+                // GetTree().CreateTimer(1).Timeout += () => { //this sucks
+                //     (_tileContainer as Viewable).UpdatePositions(Tiles);
+                // };
+                // Debugging.PrintStackedGridInitials(Tiles.GetGridAs2DList(), 2, 2, "STACKED Grid:");
+                // bp = 123;
+                _ActivateMatchedTilesAndCollapseGrid(_matchGroupQueue, Tiles);
             };
         }
         GD.Print([.._matchGroupQueue.Peek()]);
         return _hasMatches;
+    }
+
+    private void _ActivateMatchedTilesAndCollapseGrid(Queue<List<Vector2I>> matchGroupQueue, Grid<Control> grid){ //all this dependency injection is kind of useless if I hard code helper funcions... this is not a pure function
+        var group = matchGroupQueue.Dequeue();
+        var matchQueue = new Queue<Vector2I>(group);
+        _RunMatchedTileBehaviors(matchQueue, grid);
+
+        _CollapseTiles(grid, false, false, false);
+        var bp = 123;
+
+        GetTree().CreateTimer(1).Timeout += () => { //this sucks
+            (_tileContainer as Viewable).UpdatePositions(grid);
+        };
+        Debugging.PrintStackedGridInitials(grid.GetGridAs2DList(), 2, 2, "STACKED Grid:");
+        bp = 123;
+        if(matchGroupQueue.Count > 0){
+            _ActivateMatchedTilesAndCollapseGrid(matchGroupQueue, grid);            
+        }
     }
 
     private void _SwapTileNodes(Control sourceTile, Control targetTile, Grid<Control> grid){
@@ -182,24 +200,26 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
 
 
     private List<List<Vector2I>> _FindMatchingGroupsVertical(Grid<Control> grid){
-        var line = new List<Vector2I>();
+
         var matchGroups = new List<List<Vector2I>>(){new List<Vector2I>()};
         var groupIndex = 0;        
-        for(int y=0; y<grid.Height; y++){ //Reversed looping
-            for(int x=0; x<grid.Width - 2; x++){  
-                var tile = grid.GetItem(x, y);
+        for(int x=0; x<grid.Width; x++){ 
+            var line = new List<Vector2I>();        
+            for(int y=0; y<grid.Height/*  - 2 */; y++){  
+                var tile = grid.GetItem(x, y); 
                 if(
                     tile != null &&
                     tile is Tile
                 ){
-                    line.Add(new Vector2I(x, y));
+                    line.Add(new Vector2I(x, y)); 
                 } 
             }
+            matchGroups = _FindMatchingGroupsInLine(line, matchGroups, groupIndex, grid);
         } 
-        return _FindMatchingGroupsInLine(line, matchGroups, groupIndex, grid);    
+        return matchGroups;    
     }
 
-    private List<Vector2I> FindMatchingLinesVertical(Grid<Control> grid, TileTypes type){
+    private List<Vector2I> FindMatchingLinesVertical(Grid<Control> grid, TileTypes type){ //<<<<<<<<<<<<<<<<<<<<<<<< ????????????????????????????????????????
         var matchGroups = new List<List<Vector2I>>();
         for(int x=0; x<grid.Width; x++){
             for(int y=0; y<grid.Height - 2; y++){

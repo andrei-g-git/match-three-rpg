@@ -69,7 +69,7 @@ public static class Debugging
         var computedNewLines = howManyLetters % 2;        
         for(int x=0;x<grid.Count;x++){
             var row = new List<string>();
-            for(int y=0;y<grid.Count;y++){
+            for(int y=0;y<grid[0].Count;y++){
                 var item = grid[y][x]; //REVERSED
                 if(item is Tile tile){
                     row.Add(tile.Type.ToString().Substring(0, howManyLetters) + extraSpace);
