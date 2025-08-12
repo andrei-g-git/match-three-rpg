@@ -6,7 +6,7 @@ using System;
 public partial class Environment : TileMapLayer, Tileable
 {
 	public Vector2I CellToPosition(Vector2I cell){
-		return (Vector2I) MapToLocal(cell); 
+		return (Vector2I) MapToLocal(cell)/*  + new Vector2I(-32, -27) */; 
 	}
 
 	public Array<Vector2I> GetCellsInRadius(Vector2I center, int radiusInCells){

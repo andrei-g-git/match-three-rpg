@@ -34,7 +34,7 @@ public partial class DragAndDrop : Control
         dragPreview.Texture = texture;
         var previewNode = new Control();
         previewNode.AddChild(dragPreview);
-        dragPreview.Position = -0.5f * dragPreview.Size;
+        dragPreview.Position = -0.5f * dragPreview.CustomMinimumSize;
         SetDragPreview(/* dragPreview */previewNode); //well none of this works...
 		return _tileNode;        
     }
