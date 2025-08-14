@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Board;
 using Common;
 using Godot;
@@ -21,6 +22,11 @@ namespace Defensive{
         public void MoveTo(Vector2I target){
             (_moveTweener as Movable).MoveTo(target);
         }
+
+
+		public void MoveOnPath(Stack<Vector2I> path){
+			(_moveTweener as Movable).MoveOnPath(path);
+		}
 
 
         public void BeginPostMatchProcessDependingOnPlayerPosition(Vector2I ownPosition, Node playerTile, bool playerAjacent){

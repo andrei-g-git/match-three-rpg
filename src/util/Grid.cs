@@ -32,6 +32,14 @@ public class Grid<[MustBeVariant] T>//: ICloneable
 		_grid = _Make2DList(width, height);
 	}
 
+	public void Initialize(T item){
+		for (int i = 0; i < Width; i++){
+			for (int j = 0; j < Height; j++){
+				_grid[i][j] = item;
+			}
+		}		
+	}
+
 	public void SetCell(T item, Vector2I cell){
 		_grid[cell.X][cell.Y] = item;
 	}

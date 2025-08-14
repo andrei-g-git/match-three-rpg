@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Godot;
 
 namespace Tiles{
@@ -8,6 +9,7 @@ namespace Tiles{
 
     public interface Movable{
         public void MoveTo(Vector2I target);
+        public void MoveOnPath(Stack<Vector2I> path);
     }
 
     public interface Collapsable{}

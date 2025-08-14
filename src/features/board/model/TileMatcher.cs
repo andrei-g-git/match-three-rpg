@@ -53,9 +53,9 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
         _CollapseTiles(grid/* , false, false, false */);
         var bp = 123;
 
-        GetTree().CreateTimer(1).Timeout += () => { //this sucks
-            (_tileContainer as Viewable).UpdatePositions(grid);
-        };
+        // GetTree().CreateTimer(1).Timeout += () => { //this sucks
+        //     (_tileContainer as Viewable).UpdatePositions(grid);
+        // };
         Debugging.PrintStackedGridInitials(grid.GetGridAs2DList(), 2, 2, "STACKED Grid:");
         bp = 123;
         if(matchGroupQueue.Count > 0){
@@ -281,55 +281,55 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
         }      
     }
 
-    private void d_CollapseTiles(Grid<Control> grid, bool bottomFilled, bool bottomLeftFilled, bool bottomRightFilled){
-        var filled1 = _TrickleDownTilesToFillGap(grid, bottomFilled, Hex.FindBottomClamped);   
-        var filled2 = _TrickleDownTilesToFillGap(grid, bottomLeftFilled, Hex.FindBottomLeftClamped);
-        var filled3 = _TrickleDownTilesToFillGap(grid, bottomRightFilled, Hex.FindBottomRightClamped);
+    // private void d_CollapseTiles(Grid<Control> grid, bool bottomFilled, bool bottomLeftFilled, bool bottomRightFilled){
+    //     var filled1 = _TrickleDownTilesToFillGap(grid, bottomFilled, Hex.FindBottomClamped);   
+    //     var filled2 = _TrickleDownTilesToFillGap(grid, bottomLeftFilled, Hex.FindBottomLeftClamped);
+    //     var filled3 = _TrickleDownTilesToFillGap(grid, bottomRightFilled, Hex.FindBottomRightClamped);
 
-        GD.Print(/* bottomFilled */filled1, "  ", /* bottomLeftFilled */filled2, "  ", /* bottomRightFilled */filled3);
+    //     GD.Print(/* bottomFilled */filled1, "  ", /* bottomLeftFilled */filled2, "  ", /* bottomRightFilled */filled3);
 
-        Debugging.PrintItemsInitials(grid.GetGridAs2DList(), 2, 2, "collapsing to fill remaining gaps, GRID RIGHT NOW: ");
+    //     Debugging.PrintItemsInitials(grid.GetGridAs2DList(), 2, 2, "collapsing to fill remaining gaps, GRID RIGHT NOW: ");
 
-        if(!filled1 &&/* || */ !filled2 &&/* || */ !filled3){
-            d_CollapseTiles(grid, false, false, false);
-        }            
-    }  
+    //     if(!filled1 &&/* || */ !filled2 &&/* || */ !filled3){
+    //         d_CollapseTiles(grid, false, false, false);
+    //     }            
+    // }  
 
 
-    private bool _TrickleDownTilesToFillGap(
-        Grid<Control> grid, 
-        bool cellBelowInChosenDirectionFilled, 
-        Func<Vector2I, int, int, Vector2I> FindCellBelowInOneOfThreeDirectionsClamped
-    ){
-        var isFilled = cellBelowInChosenDirectionFilled; //man I dunno I don't feel like thinking ...
-        //for(int y=0;y<Tiles.Count;y++){ //REVERSED 
-        for(int x=0;x<grid.Width;x++){
-            //for(int x=0;x<Tiles[0].Count;x++){					
-            for(int y=0;y<grid.Height;y++){
-                if(grid.GetItem(x, y) is Collapsable collapsable){
-                    var cell = FindCellBelowInOneOfThreeDirectionsClamped(new Vector2I(x, y), grid.Width, grid.Height);
-                    if(cell.X > 0 && cell.Y > 0){
-                        var lowerTile = grid.GetItem(cell.X, cell.Y);
-                        if(lowerTile is Empty blank){
-                            grid.SetCell(collapsable as Control, cell.X, cell.Y);
-                            grid.SetCell(
-                                (Control) (_tileFactory as TileMaking).Create(TileTypes.Blank), 
-                                x, 
-                                y
-                            );
-                            if(collapsable is Movable movable){
-                                movable.MoveTo(cell);									
-                            } 
-                            //break;	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                        } else {
-                            /* cellBelowInChosenDirectionFilled */ isFilled = true; //the tile underneath might need to fall too, and before this ... not sure what effect this might have
-                        }
-                    }						
-                }
-            }
-        }  
-        return isFilled;              
-    }
+    // private bool _TrickleDownTilesToFillGap(
+    //     Grid<Control> grid, 
+    //     bool cellBelowInChosenDirectionFilled, 
+    //     Func<Vector2I, int, int, Vector2I> FindCellBelowInOneOfThreeDirectionsClamped
+    // ){
+    //     var isFilled = cellBelowInChosenDirectionFilled; //man I dunno I don't feel like thinking ...
+    //     //for(int y=0;y<Tiles.Count;y++){ //REVERSED 
+    //     for(int x=0;x<grid.Width;x++){
+    //         //for(int x=0;x<Tiles[0].Count;x++){					
+    //         for(int y=0;y<grid.Height;y++){
+    //             if(grid.GetItem(x, y) is Collapsable collapsable){
+    //                 var cell = FindCellBelowInOneOfThreeDirectionsClamped(new Vector2I(x, y), grid.Width, grid.Height);
+    //                 if(cell.X > 0 && cell.Y > 0){
+    //                     var lowerTile = grid.GetItem(cell.X, cell.Y);
+    //                     if(lowerTile is Empty blank){
+    //                         grid.SetCell(collapsable as Control, cell.X, cell.Y);
+    //                         grid.SetCell(
+    //                             (Control) (_tileFactory as TileMaking).Create(TileTypes.Blank), 
+    //                             x, 
+    //                             y
+    //                         );
+    //                         if(collapsable is Movable movable){
+    //                             movable.MoveTo(cell);									
+    //                         } 
+    //                         //break;	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //                     } else {
+    //                         /* cellBelowInChosenDirectionFilled */ isFilled = true; //the tile underneath might need to fall too, and before this ... not sure what effect this might have
+    //                     }
+    //                 }						
+    //             }
+    //         }
+    //     }  
+    //     return isFilled;              
+    // }
 
 
 
@@ -345,81 +345,148 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
 
         for(int x=0;x<grid.Width;x++){				
             for(int y=0;y<grid.Height;y++){
-                _TrickleDownTile(x, y, Directions.Bottom, directionsWithBottomPicker, grid);             
+                dd_TrickleDownTile(x, y, Directions.Bottom, [], directionsWithBottomPicker, grid);             
             }   
         }     
+
+        // var collapsing = true;
+        // var direction = Directions.Bottom;
+
+        // var pathGrid = new Grid<Array<Vector2I>>(grid.Width, grid.Height);
+        // pathGrid.Initialize([]);
+
+        // while(collapsing){
+        //     collapsing = false;
+        //     for(int x=0;x<grid.Width;x++){	
+        //     //for(int x = grid.Width - 1; x>=0; x--){			
+        //         //for(int y=0;y<grid.Height;y++){
+        //         for(int y=0;y<grid.Height;y++){
+        //             if(grid.GetItem(x, y) is Collapsable collapsable){
+        //                 var directionObject = directionsWithBottomPicker
+        //                     .Where(item => item.Direction == direction)
+        //                     .ElementAt(0);
+        //                 var directions = new List<DirectionWithBottomPicker>();
+        //                 directions.Add(directionObject);
+        //                 directions.AddRange(directionsWithBottomPicker);
+        //                 directions = Collections.RemoveDuplicates(directions); //puts the ongoing direction at the front
+
+        //                 for(int i=0;i<directions.Count;i++){
+        //                     var FindBottomClamped = directions[i].Callback;
+        //                     var bottom = FindBottomClamped(new Vector2I(x, y), grid.Width, grid.Height);
+        //                     if(bottom.X > 0 && bottom.Y > 0){
+        //                         var lowerTile = grid.GetItem(bottom.X, bottom.Y);
+        //                         if(lowerTile is Empty blank){
+        //                             grid.SetCell(collapsable as Control, bottom.X, bottom.Y);
+        //                             grid.SetCell(
+        //                                 (Control) (_tileFactory as TileMaking).Create(TileTypes.Blank), 
+        //                                 x, 
+        //                                 y
+        //                             );
+        //                             if(collapsable is Movable movable){
+        //                                 //movable.MoveTo(bottom);	
+        //                                 //var path = pathGrid.GetItem(x, y);
+
+		// 				                pathGrid.GetItem(x, y).Add(bottom);
+        //                                 var bp = 123;
+        //                             } 
+        //                             direction = directions[i].Direction;
+        //                             collapsing = true;
+        //                             break;
+        //                         }                    
+        //                     }
+        //                 }            
+        //             }
+        //         }   
+        //     }              
+        // }
+
+        // for(int a=0;a<pathGrid.Width;a++){
+        //     for(int b=0;b<pathGrid.Height;b++){
+        //         var path = pathGrid.GetItem(a, b);                
+        //         if(path!=null){
+        //             var tile = grid.GetItem(a, b);
+        //             if(tile != null && tile is Collapsable && tile is Movable movable){
+        //                 path.Reverse();
+        //                 movable.MoveOnPath(new Stack<Vector2I>(path));
+        //             }                    
+        //         }
+
+        //     }
+        // }
            
     } 
 
 
-    private bool CheckTilesBelowAndCollapse(int x, int y, Vector2I bottom, Grid<Control> grid, Node collapsingTile){
-        var lowerTile = grid.GetItem(bottom.X, bottom.Y);
-        if(lowerTile is Empty blank){
-            grid.SetCell(collapsingTile as Control, bottom.X, bottom.Y);
-            grid.SetCell(
-                (Control) (_tileFactory as TileMaking).Create(TileTypes.Blank), 
-                x, 
-                y
-            );
-            if(collapsingTile is Movable movable){
-                movable.MoveTo(bottom);									
-            } 
-            return true;
-        } 
-        return false;        
-    }
+    // private bool CheckTilesBelowAndCollapse(int x, int y, Vector2I bottom, Grid<Control> grid, Node collapsingTile){
+    //     var lowerTile = grid.GetItem(bottom.X, bottom.Y);
+    //     if(lowerTile is Empty blank){
+    //         grid.SetCell(collapsingTile as Control, bottom.X, bottom.Y);
+    //         grid.SetCell(
+    //             (Control) (_tileFactory as TileMaking).Create(TileTypes.Blank), 
+    //             x, 
+    //             y
+    //         );
+    //         if(collapsingTile is Movable movable){
+    //             movable.MoveTo(bottom);									
+    //         } 
+    //         return true;
+    //     } 
+    //     return false;        
+    // }
 
 
-    private void d_TrickleDownTile(int x, int y,  Grid<Control> grid){
-        var directionsWithBottomPicker = new List<DirectionWithBottomPicker>(){ //could be expensive to run every time instead of init once and passing to every cell
-            new DirectionWithBottomPicker{Direction = Directions.Bottom, Callback = new Func<Vector2I, int, int, Vector2I>((Vector2I cell, int width, int height) => Hex.FindBottomClamped(cell, width, height))},
-            new DirectionWithBottomPicker{Direction = Directions.BottomLeft, Callback = new Func<Vector2I, int, int, Vector2I>((Vector2I cell, int width, int height) => Hex.FindBottomLeftClamped(cell, width, height))},
-            new DirectionWithBottomPicker{Direction = Directions.BottomRight, Callback = new Func<Vector2I, int, int, Vector2I>((Vector2I cell, int width, int height) => Hex.FindBottomRightClamped(cell, width, height))}
+    // private void d_TrickleDownTile(int x, int y,  Grid<Control> grid){
+    //     var directionsWithBottomPicker = new List<DirectionWithBottomPicker>(){ //could be expensive to run every time instead of init once and passing to every cell
+    //         new DirectionWithBottomPicker{Direction = Directions.Bottom, Callback = new Func<Vector2I, int, int, Vector2I>((Vector2I cell, int width, int height) => Hex.FindBottomClamped(cell, width, height))},
+    //         new DirectionWithBottomPicker{Direction = Directions.BottomLeft, Callback = new Func<Vector2I, int, int, Vector2I>((Vector2I cell, int width, int height) => Hex.FindBottomLeftClamped(cell, width, height))},
+    //         new DirectionWithBottomPicker{Direction = Directions.BottomRight, Callback = new Func<Vector2I, int, int, Vector2I>((Vector2I cell, int width, int height) => Hex.FindBottomRightClamped(cell, width, height))}
             
-        };
-        var direction = Directions.Bottom;      
-        if(grid.GetItem(x, y) is Collapsable collapsable){                
-            var FindBottomClamped = directionsWithBottomPicker
-                .Where(item => item.Direction == direction)
-                .ElementAt(0)
-                .Callback;
+    //     };
+    //     var direction = Directions.Bottom;      
+    //     if(grid.GetItem(x, y) is Collapsable collapsable){                
+    //         var FindBottomClamped = directionsWithBottomPicker
+    //             .Where(item => item.Direction == direction)
+    //             .ElementAt(0)
+    //             .Callback;
 
-            var foundEmptyBelow = CheckTilesBelowAndCollapse( //continue movement in same direction if possible
-                x, 
-                y,
-                FindBottomClamped(new Vector2I(x, y), grid.Width, grid.Height),
-                grid,
-                collapsable as Node
-            ); 
-            if(!foundEmptyBelow){ 
-                var remaining = directionsWithBottomPicker.Where(item => item.Direction != direction);
-                foreach(var dirWithFunc in remaining){
-                    FindBottomClamped = dirWithFunc.Callback;
-                    foundEmptyBelow = CheckTilesBelowAndCollapse(
-                        x, 
-                        y,
-                        FindBottomClamped(new Vector2I(x, y), grid.Width, grid.Height),
-                        grid,
-                        collapsable as Node
-                    ); 
-                    if(foundEmptyBelow){
-                        break;
-                    }                           
-                }
-                // if(!foundEmptyBelow){ //lol
+    //         var foundEmptyBelow = CheckTilesBelowAndCollapse( //continue movement in same direction if possible
+    //             x, 
+    //             y,
+    //             FindBottomClamped(new Vector2I(x, y), grid.Width, grid.Height),
+    //             grid,
+    //             collapsable as Node
+    //         ); 
+    //         if(!foundEmptyBelow){ 
+    //             var remaining = directionsWithBottomPicker.Where(item => item.Direction != direction);
+    //             foreach(var dirWithFunc in remaining){
+    //                 FindBottomClamped = dirWithFunc.Callback;
+    //                 foundEmptyBelow = CheckTilesBelowAndCollapse(
+    //                     x, 
+    //                     y,
+    //                     FindBottomClamped(new Vector2I(x, y), grid.Width, grid.Height),
+    //                     grid,
+    //                     collapsable as Node
+    //                 ); 
+    //                 if(foundEmptyBelow){
+    //                     break;
+    //                 }                           
+    //             }
+    //             // if(!foundEmptyBelow){ //lol
 
-                // }
+    //             // }
 
-            } 
-        }          
-    }   
+    //         } 
+    //     }          
+    // }   
 
 
-    private void _TrickleDownTile(int x, int y, Directions direction, List<DirectionWithBottomPicker> directionsWithBottomPicker, Grid<Control> grid){
-        if(grid.GetItem(x, y) is Collapsable collapsable){
+    private void dd_TrickleDownTile(int x, int y, Directions direction, List<Vector2I> path, List<DirectionWithBottomPicker> directionsWithBottomPicker, Grid<Control> grid){   
+        var tile = grid.GetItem(x, y); 
+        if(tile is Collapsable collapsible && tile is Movable movable){
             var directionObject = directionsWithBottomPicker
                 .Where(item => item.Direction == direction)
                 .ElementAt(0);
+ 
             var directions = new List<DirectionWithBottomPicker>();
             directions.Add(directionObject);
             directions.AddRange(directionsWithBottomPicker);
@@ -431,22 +498,26 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
                 if(bottom.X > 0 && bottom.Y > 0){
                     var lowerTile = grid.GetItem(bottom.X, bottom.Y);
                     if(lowerTile is Empty blank){
-                        grid.SetCell(collapsable as Control, bottom.X, bottom.Y);
+                        grid.SetCell(collapsible as Control, bottom.X, bottom.Y);
                         grid.SetCell(
                             (Control) (_tileFactory as TileMaking).Create(TileTypes.Blank), 
                             x, 
                             y
                         );
-                        if(collapsable is Movable movable){
-                            movable.MoveTo(bottom);									
-                        } 
+                        //if(collapsable is Movable movable){
+                            //movable.MoveTo(bottom);	
+                            path.Add(bottom);								
+                        //} 
                         var newDirection = directions[i].Direction;
 
-                        _TrickleDownTile(bottom.X, bottom.Y, newDirection, directionsWithBottomPicker, grid); //!!!
-                        break;
+                        dd_TrickleDownTile(bottom.X, bottom.Y, newDirection, path, directionsWithBottomPicker, grid); //!!!
+                        break; //prob not necessary
                     }                    
                 }
-            }            
+            }  
+            path.Reverse();
+            movable.MoveOnPath(new Stack<Vector2I>(path));     
+            var bp =123;  
         }
     }
 
