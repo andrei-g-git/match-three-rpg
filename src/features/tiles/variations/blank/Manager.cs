@@ -6,6 +6,8 @@ namespace Blank{
     {
         public TileTypes Type => TileTypes.Blank;
 
+        public TileTypes AA => Type; //for debugging        
+
         public Vector2I Coordinates { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
     }
 }

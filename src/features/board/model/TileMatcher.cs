@@ -17,46 +17,33 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
     public bool TryMatching(Control sourceTile, Control targetTile){
         Debugging.PrintStackedGridInitials(Tiles.GetGridAs2DList(), 2, 2, "STACKED Grid before current match attempt:");
         var probeGrid = _SwapCellsInTemporaryGrid(sourceTile, targetTile, Tiles);   
-        _ProcessNewMatches(probeGrid); //enqueues new match groups
-        var _hasMatches = false;
-        if(_matchGroupQueue.Peek() != null){
-            _hasMatches = true;       
-
-            _SwapTileNodes(sourceTile, targetTile, Tiles);
+        var gotMatches = _CheckNewMatchesAndProcess(probeGrid); //enqueues new match groups
+                                //THIS RUNS BEFORE OLD MATCHES ARE REMOVED!!
+        if(gotMatches){
+            _SwapTileNodes(sourceTile, targetTile/* , Tiles */);
             Tiles = probeGrid;  
-
-            GetTree().CreateTimer(1).Timeout += () => { //temporary ... nothing more permanent eh...
-                // var group = _matchGroupQueue.Dequeue();
-                // var matchQueue = new Queue<Vector2I>(group);
-                // _RunMatchedTileBehaviors(/* _matchGroupQueue */matchQueue, Tiles);
-
-                // _CollapseTiles(Tiles, false, false, false);
-                // var bp = 123;
-
-                // GetTree().CreateTimer(1).Timeout += () => { //this sucks
-                //     (_tileContainer as Viewable).UpdatePositions(Tiles);
-                // };
-                // Debugging.PrintStackedGridInitials(Tiles.GetGridAs2DList(), 2, 2, "STACKED Grid:");
-                // bp = 123;
-                _ActivateMatchedTilesAndCollapseGrid(_matchGroupQueue, Tiles);
-            };
+            if(_matchGroupQueue.Peek() != null){
+                GetTree().CreateTimer(1).Timeout += () => { //temporary ... nothing more permanent eh...
+                    _ActivateMatchedTilesAndCollapseGrid(_matchGroupQueue/* , Tiles */);
+                };
+            }            
         }
-        GD.Print([.._matchGroupQueue.Peek()]);
-        return _hasMatches;
+        //GD.Print([.._matchGroupQueue.Peek()]);
+        return gotMatches;
     }
 
 
-    private void _SwapTileNodes(Control sourceTile, Control targetTile, Grid<Control> grid){
-        var source = grid.GetCellFor(sourceTile);
-        var target = grid.GetCellFor(targetTile);
+    private void _SwapTileNodes(Control sourceTile, Control targetTile/* , Grid<Control> grid */){
+        var source = Tiles.GetCellFor(sourceTile);
+        var target = Tiles.GetCellFor(targetTile);
         (sourceTile as Movable).MoveTo(target);
         (targetTile as Movable).MoveTo(source);
     }
 
 
-    private void _ProcessNewMatches(Grid<Control> grid){
+    private bool _CheckNewMatchesAndProcess(Grid<Control> grid){
         var matchGroupsForAllDirections = new List<List<List<Vector2I>>>(){
-            _FindMatchingGroupsNorthEast(grid),
+            _FindMatchingGroupsNorthEast(grid), //THESE RUN BEFORE OLD MATCHES ARE REMOVED!!!
             _FindMatchingGroupsNorthWest(grid),
             _FindMatchingGroupsVertical(grid)
         };
@@ -68,47 +55,48 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
 
             }
         }
+        return matchGroupsForAllDirections[0][0].Count > 0 || matchGroupsForAllDirections[1][0].Count > 0 || matchGroupsForAllDirections[2][0].Count > 0;
     } 
 
 
-    private void _ActivateMatchedTilesAndCollapseGrid(Queue<List<Vector2I>> matchGroupQueue, Grid<Control> grid){ //all this dependency injection is kind of useless if I hard code helper funcions... this is not a pure function
+    private void _ActivateMatchedTilesAndCollapseGrid(Queue<List<Vector2I>> matchGroupQueue/* , Grid<Control> grid */){ //all this dependency injection is kind of useless if I hard code helper funcions... this is not a pure function
         var group = matchGroupQueue.Dequeue();
         var matchQueue = new Queue<Vector2I>(group);
-        _RunMatchedTileBehaviors(matchQueue, grid);
+        _RunMatchedTileBehaviors(matchQueue/* , grid */);
 
         //_CollapseTiles(grid/* , false, false, false */);
         var bp = 123;
 
-        Debugging.PrintStackedGridInitials(grid.GetGridAs2DList(), 2, 2, "STACKED Grid:");
+        Debugging.PrintStackedGridInitials(Tiles.GetGridAs2DList(), 2, 2, "STACKED Grid:");
         bp = 123;
         if(matchGroupQueue.Count > 0){
-            _ActivateMatchedTilesAndCollapseGrid(matchGroupQueue, grid);            
+            _ActivateMatchedTilesAndCollapseGrid(matchGroupQueue/* , grid */);            
         }
     }
 
 
-    private void _RunMatchedTileBehaviors(Queue<Vector2I>matchQueue, Grid<Control> grid){
+    private void _RunMatchedTileBehaviors(Queue<Vector2I>matchQueue/* , Grid<Control> grid */){
         if(matchQueue.Count>0){
-            _ActivateMatcedTileAndRemove(matchQueue, grid);
+            _ActivateMatcedTileAndRemove(matchQueue/* , grid */);
 
-            _RunMatchedTileBehaviors(matchQueue, grid);
+            _RunMatchedTileBehaviors(matchQueue/* , grid */);
         }     
     }    
 
 
-    private void _ActivateMatcedTileAndRemove(Queue<Vector2I> matches, Grid<Control> grid){
+    private void _ActivateMatcedTileAndRemove(Queue<Vector2I> matches/* , Grid<Control> grid */){
         if(matches.Count > 0){ 
             var cell = matches.Dequeue();
 
-            var tile = grid.GetItem(cell);
-            grid.SetCell(
+            var tile = Tiles.GetItem(cell);
+            Tiles.SetCell(
                 (Control) (_tileFactory as TileMaking).Create(TileTypes.Blank), 
                 cell
             );
             if(tile is Matchable matchable){
                 matchable.BeginPostMatchProcessDependingOnPlayerPosition(cell, null, false);
             }
-            _ActivateMatcedTileAndRemove(matches, grid);
+            _ActivateMatcedTileAndRemove(matches/* , grid */);
         }      
     }
 
@@ -136,6 +124,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
             var test3 = (grid.GetItem(c3.X, c3.Y) as Tile).Type;		
 
             if(
+                (grid.GetItem(c1.X, c1.Y) as Tile).Type != TileTypes.Blank &&
                 (grid.GetItem(c1.X, c1.Y) as Tile).Type  == (grid.GetItem(c2.X, c2.Y) as Tile).Type && 
                 (grid.GetItem(c2.X, c2.Y) as Tile).Type == (grid.GetItem(c3.X, c3.Y) as Tile).Type 
             ){
