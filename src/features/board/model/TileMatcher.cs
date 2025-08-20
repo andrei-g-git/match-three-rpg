@@ -232,87 +232,58 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
         var pathGrid = new Grid<Array<Vector2I>>(Tiles.Width, Tiles.Height);
         var list3D = pathGrid.GetGridAs2DList();     
 
+        var originalGrid = Tiles.Clone();
         while(collapsing){
             collapsing = false;
-            for(int x=Tiles.Width-1; x>=0; x--){			
-                for(int y=0;y<Tiles.Height;y++){
-                    var bottom = Hex.FindBottomClamped(new Vector2I(x, y), Tiles.Width, Tiles.Height);                    
-                    if(Tiles.GetItem(x, y) is Collapsable collapsable){
-
-                        // var lowerTile = Tiles.GetItem(bottom.X, bottom.Y);
-                        // if(lowerTile is Empty blank){
-                        //     Tiles.SetCell(collapsable as Control, bottom.X, bottom.Y);
-                        //     Tiles.SetCell(
-                        //         (Control) (_tileFactory as TileMaking).Create(TileTypes.Blank), 
-                        //         x, 
-                        //         y
-                        //     );
-                        //     if(collapsable is Movable movable){
-                        //         if(list3D[x][y] == null){
-                        //             list3D[x][y] = [];                        
-                        //         }
-                        //         list3D[x][y].Add(bottom);
-                        //     } 
-                        //     collapsing = true;
-                        //     break;
-                        collapsing = _FallToLowerCellAndStorePath(x, y, bottom, list3D);
-                        if(collapsing){
-                            break;
-                        }
-                    }else{
-                        var contiguousSolidCells = new List<Vector2I>();
-                        for(int i=bottom.Y; i<Tiles.Height; i++){
-                            var checkedTile = Tiles.GetItem(x, i);
-                            if(checkedTile is not Collapsable immovable && checkedTile is not Empty){
-                                contiguousSolidCells.Add(new Vector2I(x, i));
-                            }else{
-                                break;
+            for(int x=0; x<Tiles.Width; x++){			
+                for(int y=Tiles.Height-1; y>=0; y--){
+                    var bottom = Hex.FindBottomClamped(new Vector2I(x, y), Tiles.Width, Tiles.Height);  
+                    if(bottom.X>=0 && bottom.Y>=0){
+                        if(Tiles.GetItem(x, y) is Collapsable collapsable){
+                            collapsing = _FallToLowerCellAndStorePath(x, y, bottom, list3D, collapsing, originalGrid);
+                            // if(collapsing){
+                            //     break;
+                            // }
+                            var bp = 123;
+                        }else{
+                            var contiguousSolidCells = new List<Vector2I>();
+                            for(int i=bottom.Y; i<Tiles.Height; i++){
+                                var checkedTile = Tiles.GetItem(x, i);
+                                if(checkedTile is not Collapsable immovable && checkedTile is not Empty){
+                                    contiguousSolidCells.Add(new Vector2I(x, i));
+                                }else{
+                                    break;
+                                }
                             }
 
                             if(contiguousSolidCells.Count>0){
-                                var lastSolidCell = contiguousSolidCells.Last();
-                                // bottom = Hex.FindBottomClamped(new Vector2I(x, y), Tiles.Width, Tiles.Height);
-                                // lowerTile = Tiles.GetItem(bottom.X, bottom.Y);  
-                                // if(lowerTile is Empty){
-                                //     Tiles.SetCell(collapsable as Control, bottom.X, bottom.Y);
-                                //     Tiles.SetCell(
-                                //         (Control) (_tileFactory as TileMaking).Create(TileTypes.Blank), 
-                                //         x, 
-                                //         y
-                                //     );
-                                //     if(collapsable is Movable movable){
-                                //         if(list3D[x][y] == null){
-                                //             list3D[x][y] = [];                        
-                                //         }
-                                //         list3D[x][y].Add(bottom);
-                                //     } 
-                                //     collapsing = true;
+                                var lastSolidCell = contiguousSolidCells.Last(); 
+                                collapsing = _FallToLowerCellAndStorePath(x, y, bottom, list3D, collapsing, originalGrid);
+                                // if(collapsing){
                                 //     break;
-                                // }  
-                                collapsing = _FallToLowerCellAndStorePath(x, y, bottom, list3D);
-                                if(collapsing){
-                                    break;
-                                }                                                                    
-                            }
-                        }
-                    }                
+                                // }    
+                                var bp = 345;                                                                
+                            }                        
+                        }                         
+                    }                  
+               
                 }
             }   
         }
         
-        MoveTilesOnTheirPaths(list3D);
+        MoveTilesOnTheirPaths(list3D, originalGrid);
     }   
 
 
-    private void MoveTilesOnTheirPaths(List<List<Array<Vector2I>>> pathGrid){
+    private void MoveTilesOnTheirPaths(List<List<Array<Vector2I>>> pathGrid, Grid<Control> originalGrid){
         for(int a=0;a<pathGrid.Count;a++){
             for(int b=0;b<pathGrid[0].Count;b++){    
                 if(pathGrid[a][b] != null){
                     pathGrid[a][b] = Collections.RemoveDuplicates(pathGrid[a][b]);  
                     var path = pathGrid[a][b];                     
-                    var tile = Tiles.GetItem(a, b); 
+                    var tile = originalGrid.GetItem(a, b); 
                     if(tile != null && tile is Collapsable && tile is Movable movable){
-                        path.Reverse();
+                        path.Reverse(); //because I loop columns bottom-up when processing the paths
                         movable.MoveOnPath(new Stack<Vector2I>(path));
                     }                    
                 }
@@ -321,10 +292,13 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
     }
 
 
-    private bool _FallToLowerCellAndStorePath(int x, int y, Vector2I bottom, List<List<Array<Vector2I>>> path3DList/* , bool collapsing */){
+    private bool _FallToLowerCellAndStorePath(int x, int y, Vector2I bottom, List<List<Array<Vector2I>>> path3DList, bool collapsing, Grid<Control> originalGrid){
         var collapsable = Tiles.GetItem(x, y);
         //var bottom = Hex.FindBottomClamped(new Vector2I(x, y), Tiles.Width, Tiles.Height);
         var lowerTile = Tiles.GetItem(bottom.X, bottom.Y);  
+        var originalCell = originalGrid.GetCellFor(collapsable);
+        var xx = originalCell.X;
+        var yy = originalCell.Y;
         if(lowerTile is Empty){
             Tiles.SetCell(collapsable as Control, bottom.X, bottom.Y);
             Tiles.SetCell(
@@ -333,14 +307,14 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
                 y
             );
             if(collapsable is Movable movable){
-                if(path3DList[x][y] == null){
-                    path3DList[x][y] = [];                        
+                if(path3DList[xx][yy] == null){
+                    path3DList[xx][yy] = [];                        
                 }
-                path3DList[x][y].Add(bottom);
+                path3DList[xx][yy].Add(bottom);
             } 
             //collapsing = true;
             return true;
         }         
-        return false;
+        return collapsing;
     }     
 }
