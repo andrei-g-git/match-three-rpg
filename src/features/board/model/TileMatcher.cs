@@ -21,22 +21,21 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
             var gotMatches = _CheckNewMatchesAndProcess(probeGrid); //enqueues new match groups
                                     //THIS RUNS BEFORE OLD MATCHES ARE REMOVED!!
             if(gotMatches){
-                _SwapTileNodes(sourceTile, targetTile/* , Tiles */);
+                _SwapTileNodes(sourceTile, targetTile);
                 Tiles = probeGrid;  
                 if(_matchGroupQueue.Peek() != null){
                     GetTree().CreateTimer(1).Timeout += () => { //temporary ... nothing more permanent eh...
-                        _ActivateMatchedTilesAndCollapseGrid(_matchGroupQueue/* , Tiles */);
+                        _ActivateMatchedTilesAndCollapseGrid(_matchGroupQueue);
                     };
                 }            
             }
-            //GD.Print([.._matchGroupQueue.Peek()]);
             return gotMatches;            
         }
         return false;
     }
 
 
-    private void _SwapTileNodes(Control sourceTile, Control targetTile/* , Grid<Control> grid */){
+    private void _SwapTileNodes(Control sourceTile, Control targetTile){
         var source = Tiles.GetCellFor(sourceTile);
         var target = Tiles.GetCellFor(targetTile);
         (sourceTile as Movable).MoveTo(target);
@@ -62,10 +61,10 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
     } 
 
 
-    private void _ActivateMatchedTilesAndCollapseGrid(Queue<List<Vector2I>> matchGroupQueue/* , Grid<Control> grid */){ //all this dependency injection is kind of useless if I hard code helper funcions... this is not a pure function
+    private void _ActivateMatchedTilesAndCollapseGrid(Queue<List<Vector2I>> matchGroupQueue){ //all this dependency injection is kind of useless if I hard code helper funcions... this is not a pure function
         var group = matchGroupQueue.Dequeue();
         var matchQueue = new Queue<Vector2I>(group);
-        _RunMatchedTileBehaviors(matchQueue/* , grid */);
+        _RunMatchedTileBehaviors(matchQueue);
 
         _CollapseTiles();
         var bp = 123;
@@ -73,21 +72,21 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
         Debugging.PrintStackedGridInitials(Tiles.GetGridAs2DList(), 2, 2, "STACKED Grid:");
         bp = 123;
         if(matchGroupQueue.Count > 0){
-            _ActivateMatchedTilesAndCollapseGrid(matchGroupQueue/* , grid */);            
+            _ActivateMatchedTilesAndCollapseGrid(matchGroupQueue);            
         }
     }
 
 
-    private void _RunMatchedTileBehaviors(Queue<Vector2I>matchQueue/* , Grid<Control> grid */){
+    private void _RunMatchedTileBehaviors(Queue<Vector2I>matchQueue){
         if(matchQueue.Count>0){
-            _ActivateMatcedTileAndRemove(matchQueue/* , grid */);
+            _ActivateMatcedTileAndRemove(matchQueue);
 
-            _RunMatchedTileBehaviors(matchQueue/* , grid */);
+            _RunMatchedTileBehaviors(matchQueue);
         }     
     }    
 
 
-    private void _ActivateMatcedTileAndRemove(Queue<Vector2I> matches/* , Grid<Control> grid */){
+    private void _ActivateMatcedTileAndRemove(Queue<Vector2I> matches){
         if(matches.Count > 0){ 
             var cell = matches.Dequeue();
 
@@ -99,7 +98,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
             if(tile is Matchable matchable){
                 matchable.BeginPostMatchProcessDependingOnPlayerPosition(cell, null, false);
             }
-            _ActivateMatcedTileAndRemove(matches/* , grid */);
+            _ActivateMatcedTileAndRemove(matches);
         }      
     }
 
@@ -173,7 +172,6 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
                     yy < grid.Width &&	
                     grid.GetItem(xx, yy) != null && 
                     (grid.GetItem(xx, yy) is Tile) //&&
-                    //(grid.GetItem(xx, yy) as Tile).Type != TileTypes.Blank
                 ){
                     diagonal.Add(new Vector2I(xx, yy)); 
                 }										
@@ -198,7 +196,6 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
                     yy < grid.Width &&	
                     grid.GetItem(xx, yy) != null && 
                     (grid.GetItem(xx, yy) is Tile) //&&
-                    //(grid.GetItem(xx, yy) as Tile).Type != TileTypes.Blank
                 ){
                     diagonal.Add(new Vector2I(xx, yy)); 
                 }										
@@ -215,7 +212,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
         var groupIndex = 0;        
         for(int x=0; x<grid.Width; x++){ 
             var line = new List<Vector2I>();        
-            for(int y=0; y<grid.Height/*  - 2 */; y++){  
+            for(int y=0; y<grid.Height; y++){  
                 var tile = grid.GetItem(x, y); 
                 if(
                     tile != null &&
@@ -260,7 +257,6 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
                             }
                         }                         
                     }                  
-               
                 }
             }   
         }
@@ -287,7 +283,6 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
 
 
     private bool _FallToLowerCellAndStorePath(int x, int y, Vector2I bottom, List<List<Array<Vector2I>>> path3DList, bool collapsing, Grid<Control> originalGrid){
-        ///var bottom = Hex.FindBottomClamped(new Vector2I(x, y), Tiles.Width, Tiles.Height);
         var collapsable = Tiles.GetItem(x, y);
         var lowerTile = Tiles.GetItem(bottom.X, bottom.Y);  
         var originalCell = originalGrid.GetCellFor(collapsable);
@@ -306,18 +301,8 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
                 }
                 path3DList[xx][yy].Add(bottom);
             } 
-            //collapsing = true;
             return true;
-        }else//{
-        //     var contiguousSolidCells = _FindContiguousImmovableCellsFurtherDownInColumn(x, bottom);
-        //     if(contiguousSolidCells.Count>0){
-        //         var lastSolidCell = contiguousSolidCells.Last(); 
-        //         var newBottom = Hex.FindBottom(lastSolidCell);
-        //         if(newBottom.X>=0 && newBottom.Y>=0){
-                                   
-        //         }                               
-        //     }             
-        // }         
+        }        
         return collapsing;
     }   
 
@@ -326,7 +311,6 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
         var contiguousSolidCells = new List<Vector2I>();
         for(int i=bottom.Y; i<Tiles.Height; i++){
             var checkedTile = Tiles.GetItem(column, i);
-            //if(checkedTile is not Collapsable immovable && checkedTile is not Empty){
             if(checkedTile is Immobile){ 
                 contiguousSolidCells.Add(new Vector2I(column, i));
             }else{
