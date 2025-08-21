@@ -15,4 +15,6 @@ namespace Tiles{
     public interface Collapsable{}
 
     public interface Empty{}
+
+    public interface Immobile{}
 }

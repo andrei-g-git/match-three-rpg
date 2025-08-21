@@ -5,7 +5,7 @@ using Godot;
 using Tiles;
 
 namespace Ranged{
-	public partial class Manager : Control, Tile, AccessableBoard, Movable, Mapable, Collapsable, Matchable
+	public partial class Manager : Control, Tile, AccessableBoard, Movable, Mapable, Collapsable, Matchable, Swappable
 	{
 		[ExportGroup("behaviors")]
 		[Export] private Node _swapping;
@@ -32,5 +32,9 @@ namespace Ranged{
             (_matching as Matchable).BeginPostMatchProcessDependingOnPlayerPosition(ownPosition, playerTile, playerAjacent);
         }
 
-	}		
+        public void SwapWith(Control tile)
+        {
+            throw new System.NotImplementedException();
+        }
+    }		
 }

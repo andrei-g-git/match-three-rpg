@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://cjtuswk80if5y"]
+
+[ext_resource type="Texture2D" uid="uid://dg46hsh82ij5f" path="res://assets/images/tiles/cart.png" id="1_0j646"]
+[ext_resource type="Script" uid="uid://cbyqnalf038ms" path="res://src/features/tiles/variations/cart/Manager.cs" id="1_rj826"]
+
+[node name="Cart" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rj826")
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+offset_left = -32.0
+offset_top = -27.5
+offset_right = 32.0
+offset_bottom = 27.5
+pivot_offset = Vector2(32, 27.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="AspectRatioContainer"]
+position = Vector2(32, 27.5)
+texture = ExtResource("1_0j646")
