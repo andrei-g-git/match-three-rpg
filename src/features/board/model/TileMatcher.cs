@@ -72,7 +72,10 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
         Debugging.PrintStackedGridInitials(Tiles.GetGridAs2DList(), 2, 2, "STACKED Grid:");
         bp = 123;
         if(matchGroupQueue.Count > 0){
-            _ActivateMatchedTilesAndCollapseGrid(matchGroupQueue);            
+            GetTree().CreateTimer(1).Timeout += () => { //I really need to stop doing this
+                _ActivateMatchedTilesAndCollapseGrid(matchGroupQueue);  
+            };
+          
         }
     }
 
@@ -114,7 +117,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
     }   
 
 
-    private List<List<Vector2I>> _FindMatchingGroupsInLine(List<Vector2I> line, List<List<Vector2I>> matchGroups, int groupIndex, Grid<Control> grid){
+    private /* List<List<Vector2I>> */int _ProcessMatchingGroupsInLine(List<Vector2I> line, List<List<Vector2I>> matchGroups, int /* groupIndex */groups, Grid<Control> grid){
         var matches = new List<Vector2I>();
         for(int a=0; a<line.Count - 2; a++){
             var c1 = line[a];
@@ -137,30 +140,40 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
         }
         var allMatches = Collections.RemoveDuplicates(matches); //there could be 2 match groups	....	
                 //I have no idea how this removes the duplicates and how the List will look like for multiple colors...
-        
+        if(allMatches.Count>0){
+            matchGroups.Add([]);
+            groups++;
+        }
         for(int i=0;i<allMatches.Count;i++)	{
             var cell = allMatches[i];
+            var index = matchGroups.Count > 0 ? matchGroups.Count-1 : 0;            
             if(i<allMatches.Count-1){
                 var next = allMatches[i+1];
                 var tileType = (grid.GetItem(cell.X, cell.Y) as Tile).Type;
                 var nextTileType = (grid.GetItem(next.X, next.Y) as Tile).Type;
+
                 if(tileType == nextTileType){
-                    matchGroups[groupIndex].Add(cell);
+                    matchGroups[/* groupIndex *//* groups-1 */index].Add(cell);
                 }else{
-                    groupIndex++;
-                    matchGroups[groupIndex].Add(cell);
+                    /* groupIndex *///groups++;
+                    matchGroups.Add([]);
+                    index++;
+                    matchGroups[/* groupIndex *//* groups-1 */index].Add(cell);
                 }
             }else{//reached end, assume last tile is also a valid match
-                matchGroups[groupIndex].Add(cell);
+                matchGroups[/* groupIndex *//* groups-1 */index].Add(cell);
             }
         }
-        return matchGroups;
+
+        //return matchGroups;
+        return /* groupIndex */groups;
     }    
 
 
     private List<List<Vector2I>> _FindMatchingGroupsNorthWest(Grid<Control> grid){
-        var matchGroups = new List<List<Vector2I>>(){new List<Vector2I>()};
-        var groupIndex = 0;
+        var matchGroups = new List<List<Vector2I>>()/* {new List<Vector2I>()} */;
+        //var groupIndex = 0;
+        var groups = 0;
         for(int x=1; x<=grid.Height; x++){			
             var diagonal = new List<Vector2I>();
             for(int y=0; y<grid.Width; y++){
@@ -176,7 +189,8 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
                     diagonal.Add(new Vector2I(xx, yy)); 
                 }										
             }
-            matchGroups = _FindMatchingGroupsInLine(diagonal, matchGroups, groupIndex, grid);
+            /* matchGroups *//* groupIndex */ groups = _ProcessMatchingGroupsInLine(diagonal, matchGroups, /* groupIndex */groups, grid); //should probably be Add, not =
+            var bp = 324;            
         }	
         return matchGroups;		
     }
@@ -184,7 +198,8 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
 
     private List<List<Vector2I>> _FindMatchingGroupsNorthEast(Grid<Control> grid){
         var matchGroups = new List<List<Vector2I>>(){new List<Vector2I>()};
-        var groupIndex = 0;
+        //var groupIndex = 0;
+        var groups = 0;
         for(int x=1; x<=grid.Height; x++){			
             var diagonal = new List<Vector2I>();
             for(int y=0; y<grid.Width; y++){
@@ -200,7 +215,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
                     diagonal.Add(new Vector2I(xx, yy)); 
                 }										
             }
-            matchGroups = _FindMatchingGroupsInLine(diagonal, matchGroups, groupIndex, grid);
+            /* matchGroups *//* groupIndex */ groups = _ProcessMatchingGroupsInLine(diagonal, matchGroups, /* groupIndex */ groups, grid);
         }	
         return matchGroups;		
     }
@@ -209,7 +224,8 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
     private List<List<Vector2I>> _FindMatchingGroupsVertical(Grid<Control> grid){
 
         var matchGroups = new List<List<Vector2I>>(){new List<Vector2I>()};
-        var groupIndex = 0;        
+        //var groupIndex = 0;    
+        var groups = 0;    
         for(int x=0; x<grid.Width; x++){ 
             var line = new List<Vector2I>();        
             for(int y=0; y<grid.Height; y++){  
@@ -221,7 +237,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
                     line.Add(new Vector2I(x, y)); 
                 } 
             }
-            matchGroups = _FindMatchingGroupsInLine(line, matchGroups, groupIndex, grid);
+            /* matchGroups *//* groupIndex */ groups = _ProcessMatchingGroupsInLine(line, matchGroups, /* groupIndex */groups, grid);
         } 
         return matchGroups;    
     }  
