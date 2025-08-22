@@ -12,6 +12,10 @@ namespace Tiles{
         public void MoveOnPath(Stack<Vector2I> path);
     }
 
+    public interface DisappearingTile{
+        public void Disappear();
+    }
+
     public interface Collapsable{}
 
     public interface Empty{}

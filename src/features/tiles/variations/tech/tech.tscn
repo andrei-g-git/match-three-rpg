@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://bo1vqtqcusngb" path="res://src/features/tiles/behaviors/Removing.cs" id="5_6ktng"]
 [ext_resource type="Script" uid="uid://316a3o75npwl" path="res://src/features/tiles/behaviors/Matching.cs" id="6_6ktng"]
 [ext_resource type="Script" uid="uid://dmkt3wetl7b0l" path="res://src/features/tiles/animations/MoveTweener.cs" id="6_h7j41"]
-[ext_resource type="Script" uid="uid://b8lf0pqmvi23r" path="res://src/features/tiles/animations/FadeTweener.cs" id="7_i1mv1"]
+[ext_resource type="Script" uid="uid://whroff6nwt7n" path="res://src/features/tiles/animations/ScaleUpFade.cs" id="9_h7j41"]
 
 [node name="Tech" type="Control" node_paths=PackedStringArray("_swapping", "_matching", "_moveTweener")]
 layout_mode = 3
@@ -57,12 +57,11 @@ script = ExtResource("6_h7j41")
 _tileRoot = NodePath("../..")
 _duration = 0.5
 
-[node name="Fade" type="Node" parent="Tweeners" node_paths=PackedStringArray("_tileRoot")]
-script = ExtResource("7_i1mv1")
+[node name="ScaleUpFade" type="Node" parent="Tweeners" node_paths=PackedStringArray("_tileRoot")]
+script = ExtResource("9_h7j41")
 _tileRoot = NodePath("../..")
-_duration = 0.5
+_duration = 1.0
 
 [connection signal="EngagedBy" from="AspectRatioContainer/DragAndDrop" to="Behaviors/Swapping" method="SwapWith"]
-[connection signal="Destroying" from="Behaviors/Removing" to="Tweeners/Fade" method="FadeOut"]
+[connection signal="Destroying" from="Behaviors/Removing" to="Tweeners/ScaleUpFade" method="Disappear"]
 [connection signal="MatchedRemotely" from="Behaviors/Matching" to="Behaviors/Removing" method="PrepDestroy"]
-[connection signal="FinishedFading" from="Tweeners/Fade" to="Behaviors/Removing" method="Remove"]
