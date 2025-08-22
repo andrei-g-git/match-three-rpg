@@ -83,7 +83,10 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
         _CollapseTiles();
         var bp = 123;
 
-        _FillUpEmptyCells(_spawnWeights, _spawnTiles); //New
+        GetTree().CreateTimer(1).Timeout += () => { //booooo!
+            _FillUpEmptyCells(_spawnWeights, _spawnTiles);             
+        };
+
 
         //_CheckNewMatchesAndProcess(Tiles); //New
 

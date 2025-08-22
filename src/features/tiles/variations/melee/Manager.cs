@@ -13,10 +13,16 @@ namespace Melee{
 
 		[ExportGroup("tweeners")]
 		[Export] private Node _moveTweener;
+        [Export] private Node _popTweener;
 		public TileTypes Type => TileTypes.Melee;
         public TileTypes AA => Type; //for debugging
 		public Node Board {set {(_swapping as AccessableBoard).Board = value;}}
         public Tileable Map { set => (_moveTweener as Mapable).Map = value; }
+
+
+        public override void _Ready(){
+            (_popTweener as Creatable).Pop();
+        }
 
 
         public void MoveTo(Vector2I target){

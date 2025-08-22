@@ -16,6 +16,10 @@ namespace Tiles{
         public void Disappear();
     }
 
+    public interface Creatable{
+        public void Pop();
+    }
+
     public interface Collapsable{}
 
     public interface Empty{}
