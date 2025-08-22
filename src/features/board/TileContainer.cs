@@ -50,4 +50,9 @@ public partial class TileContainer : Control, Viewable
 		AddChild(newTile);		
 	}
 
+	public void Add(Control tile, Vector2I cell){
+		tile.Position = (environment as Tileable).CellToPosition(cell);
+		AddChild(tile);
+	}
+
 }

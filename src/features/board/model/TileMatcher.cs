@@ -13,6 +13,20 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
     [Export] private Node _tileContainer;
     public Grid<Control> Tiles{get;set;}	
     private Queue<List<Vector2I>> _matchGroupQueue = [];
+    private System.Collections.Generic.Dictionary<TileTypes, int> _spawnOddsByTileType;
+    private float[] _spawnWeights;
+    private TileTypes[] _spawnTiles;
+
+    public override void _Ready(){
+		_spawnOddsByTileType = new(){
+			{TileTypes.Defensive, 3},
+            {TileTypes.Melee, 3},
+            {TileTypes.Ranged, 3},
+            {TileTypes.Tech, 3},
+		};
+		_spawnWeights = [.._spawnOddsByTileType.Select(item => item.Value)];   
+        _spawnTiles = [.._spawnOddsByTileType.Select(item => item.Key)];   
+    }
 
     public bool TryMatching(Control sourceTile, Control targetTile){
         if(sourceTile is Swappable && targetTile is Swappable){
@@ -69,14 +83,39 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
         _CollapseTiles();
         var bp = 123;
 
+        _FillUpEmptyCells(_spawnWeights, _spawnTiles); //New
+
+        //_CheckNewMatchesAndProcess(Tiles); //New
+
         Debugging.PrintStackedGridInitials(Tiles.GetGridAs2DList(), 2, 2, "STACKED Grid:");
         bp = 123;
         if(matchGroupQueue.Count > 0){
             GetTree().CreateTimer(1).Timeout += () => { //I really need to stop doing this
                 _ActivateMatchedTilesAndCollapseGrid(matchGroupQueue);  
             };
-          
         }
+    }
+
+
+    private void _FillUpEmptyCells(float[] spawnWeights, TileTypes[] spawnTiles){
+        var random = new RandomNumberGenerator();
+        for(int x=0; x<Tiles.Width; x++){
+            for(int y=0; y<Tiles.Height; y++){
+                var tileNode = Tiles.GetItem(x, y);
+                if(tileNode is Empty){
+                    var tileType = spawnTiles[random.RandWeighted(spawnWeights)]; 
+                    var spawnedTile = (_tileFactory as TileMaking).Create(tileType) as Control;
+                    Tiles.SetCell(spawnedTile, x, y);   
+                    _AddTile(spawnedTile, new Vector2I(x, y));             
+                }
+            }
+        }
+
+    }
+
+
+    private void _AddTile(Control tile, Vector2I cell){
+        (_tileContainer as Viewable).Add(tile, cell);
     }
 
 

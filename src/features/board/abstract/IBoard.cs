@@ -13,6 +13,7 @@ namespace Board{
 		public void Initialize(Grid<Control> tiles);
 		public void UpdatePositions(Grid<Control> tiles);
 		public void PlaceNew(Control newTile, Control oldTile, Vector2I cell);		
+		public void Add(Control tile, Vector2I cell);
 	}
 
 	public interface Organizable{
