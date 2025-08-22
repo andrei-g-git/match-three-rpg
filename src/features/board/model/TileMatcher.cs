@@ -117,7 +117,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
     }   
 
 
-    private /* List<List<Vector2I>> */int _ProcessMatchingGroupsInLine(List<Vector2I> line, List<List<Vector2I>> matchGroups, int /* groupIndex */groups, Grid<Control> grid){
+    private /* List<List<Vector2I>> *//* int */ void _FindMatchingGroupsInLine(List<Vector2I> line, List<List<Vector2I>> matchGroups, /* int */ /* groupIndex *//* groups, */ Grid<Control> grid){
         var matches = new List<Vector2I>();
         for(int a=0; a<line.Count - 2; a++){
             var c1 = line[a];
@@ -142,7 +142,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
                 //I have no idea how this removes the duplicates and how the List will look like for multiple colors...
         if(allMatches.Count>0){
             matchGroups.Add([]);
-            groups++;
+            //groups++;
         }
         for(int i=0;i<allMatches.Count;i++)	{
             var cell = allMatches[i];
@@ -166,7 +166,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
         }
 
         //return matchGroups;
-        return /* groupIndex */groups;
+        //return /* groupIndex */groups;
     }    
 
 
@@ -189,7 +189,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
                     diagonal.Add(new Vector2I(xx, yy)); 
                 }										
             }
-            /* matchGroups *//* groupIndex */ groups = _ProcessMatchingGroupsInLine(diagonal, matchGroups, /* groupIndex */groups, grid); //should probably be Add, not =
+            /* matchGroups *//* groupIndex */ /* groups = */ _FindMatchingGroupsInLine(diagonal, matchGroups, /* groupIndex *//* groups, */ grid); //should probably be Add, not =
             var bp = 324;            
         }	
         return matchGroups;		
@@ -215,7 +215,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
                     diagonal.Add(new Vector2I(xx, yy)); 
                 }										
             }
-            /* matchGroups *//* groupIndex */ groups = _ProcessMatchingGroupsInLine(diagonal, matchGroups, /* groupIndex */ groups, grid);
+            /* matchGroups *//* groupIndex */ /* groups = */ _FindMatchingGroupsInLine(diagonal, matchGroups, /* groupIndex */ /* groups, */ grid);
         }	
         return matchGroups;		
     }
@@ -237,7 +237,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
                     line.Add(new Vector2I(x, y)); 
                 } 
             }
-            /* matchGroups *//* groupIndex */ groups = _ProcessMatchingGroupsInLine(line, matchGroups, /* groupIndex */groups, grid);
+            /* matchGroups *//* groupIndex */ /* groups = */ _FindMatchingGroupsInLine(line, matchGroups, /* groupIndex *//* groups, */ grid);
         } 
         return matchGroups;    
     }  
