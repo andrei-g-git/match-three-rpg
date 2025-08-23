@@ -93,12 +93,14 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
             bp = 123;
             if(matchGroupQueue.Count > 0){ //I dequeue on every match that's found
                 GetTree().CreateTimer(1).Timeout += () => { //I really need to stop doing this
+                    (_tileContainer as Viewable).UpdatePositions(Tiles); //<<<<
                     _ActivateMatchedTilesAndCollapseGrid(matchGroupQueue);  
                 };
             }else{
                 _CheckNewMatchesAndProcess(Tiles); //New <<<<<<<<<<<<<<<<<<<
                 if(matchGroupQueue.Count > 0){ //this doesn't make much sense but it kind of does...
                     GetTree().CreateTimer(1).Timeout += () => { 
+                        (_tileContainer as Viewable).UpdatePositions(Tiles); //<<<<
                         _ActivateMatchedTilesAndCollapseGrid(matchGroupQueue);  
                     };
                 }            
@@ -215,7 +217,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
 
     private List<List<Vector2I>> _FindMatchingGroupsNorthWest(Grid<Control> grid){
         var matchGroups = new List<List<Vector2I>>();
-        for(int x=1; x<=grid.Height; x++){			
+        for(int x=1; x<=grid.Height + 1; x++){		 //!!!! add + 1	
             var diagonal = new List<Vector2I>();
             for(int y=0; y<grid.Width; y++){
                 var xx = grid.Width - 1 - y;
@@ -239,7 +241,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
 
     private List<List<Vector2I>> _FindMatchingGroupsNorthEast(Grid<Control> grid){
         var matchGroups = new List<List<Vector2I>>(){new List<Vector2I>()};
-        for(int x=1; x<=grid.Height; x++){			
+        for(int x=1; x<=grid.Height + 1; x++){	// !!! add + 1	 	
             var diagonal = new List<Vector2I>();
             for(int y=0; y<grid.Width; y++){
 				var xx = y; 

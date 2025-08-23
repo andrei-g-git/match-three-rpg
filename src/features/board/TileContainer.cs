@@ -39,7 +39,7 @@ public partial class TileContainer : Control, Viewable
 				}
 			}
 		}
-		Debugging.PrintChildrenTileInitials([.. GetChildren()], 2, "TileContainer children:");
+		//Debugging.PrintChildrenTileInitials([.. GetChildren()], 2, "TileContainer children:");
     }
 
 	public void PlaceNew(Control newTile, Control oldTile, Vector2I cell){
