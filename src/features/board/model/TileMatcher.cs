@@ -63,6 +63,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
             _FindMatchingGroupsNorthWest(grid),
             _FindMatchingGroupsVertical(grid)
         };
+        var initialQueueSize = _matchGroupQueue.Count;
         foreach(var matchGroups1Dir in matchGroupsForAllDirections){
             foreach(var group in matchGroups1Dir){
                 if(group.Count > 0){
@@ -71,7 +72,9 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
 
             }
         }
-        return matchGroupsForAllDirections[0][0].Count > 0 || matchGroupsForAllDirections[1][0].Count > 0 || matchGroupsForAllDirections[2][0].Count > 0;
+        var queueSize = _matchGroupQueue.Count;
+        //return matchGroupsForAllDirections[0][0].Count > 0 || matchGroupsForAllDirections[1][0].Count > 0 || matchGroupsForAllDirections[2][0].Count > 0; //nested list does not always get their own lies, even empty
+        return initialQueueSize != queueSize;
     } 
 
 
@@ -83,24 +86,31 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
         _CollapseTiles();
         var bp = 123;
 
-        GetTree().CreateTimer(1).Timeout += () => { //booooo!
-            _FillUpEmptyCells(_spawnWeights, _spawnTiles);             
+        GetTree().CreateTimer(1).Timeout += () => { //booooo! Also I can't have these running in parallel
+            _FillUpEmptyCells(_spawnWeights, _spawnTiles);   
+
+            Debugging.PrintStackedGridInitials(Tiles.GetGridAs2DList(), 2, 2, "STACKED Grid:");
+            bp = 123;
+            if(matchGroupQueue.Count > 0){ //I dequeue on every match that's found
+                GetTree().CreateTimer(1).Timeout += () => { //I really need to stop doing this
+                    _ActivateMatchedTilesAndCollapseGrid(matchGroupQueue);  
+                };
+            }else{
+                _CheckNewMatchesAndProcess(Tiles); //New <<<<<<<<<<<<<<<<<<<
+                if(matchGroupQueue.Count > 0){ //this doesn't make much sense but it kind of does...
+                    GetTree().CreateTimer(1).Timeout += () => { 
+                        _ActivateMatchedTilesAndCollapseGrid(matchGroupQueue);  
+                    };
+                }            
+            }                      
         };
 
 
-        //_CheckNewMatchesAndProcess(Tiles); //New
 
-        Debugging.PrintStackedGridInitials(Tiles.GetGridAs2DList(), 2, 2, "STACKED Grid:");
-        bp = 123;
-        if(matchGroupQueue.Count > 0){
-            GetTree().CreateTimer(1).Timeout += () => { //I really need to stop doing this
-                _ActivateMatchedTilesAndCollapseGrid(matchGroupQueue);  
-            };
-        }
     }
 
 
-    private void _FillUpEmptyCells(float[] spawnWeights, TileTypes[] spawnTiles){
+    private void _FillUpEmptyCells(float[] spawnWeights, TileTypes[] spawnTiles){ //this doesn't seem to get all of them...
         var random = new RandomNumberGenerator();
         for(int x=0; x<Tiles.Width; x++){
             for(int y=0; y<Tiles.Height; y++){
@@ -126,7 +136,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
         if(matchQueue.Count>0){
             _ActivateMatcedTileAndRemove(matchQueue);
 
-            _RunMatchedTileBehaviors(matchQueue);
+            _RunMatchedTileBehaviors(matchQueue); //wha?...
         }     
     }    
 
