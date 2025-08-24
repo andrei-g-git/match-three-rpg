@@ -1,7 +1,9 @@
 using Board;
 using Godot;
 using Godot.Collections;
-
+//using System.Collections.Generic;
+using System.IO;
+using System.Text.Json;
 
 
 public partial class BoardManager : PanelContainer
@@ -25,6 +27,13 @@ public partial class BoardManager : PanelContainer
 
 
 		var bp = 123;
+
+		var zTestSave = new ZTest(tileNames.GetGridAs2DList());
+		var json = JsonSerializer.Serialize(zTestSave);
+		GD.Print(json);
+		var path = ProjectSettings.GlobalizePath("user://");
+
+		_TestSaveFile(path, "Save1.json", json);
 	}
 
 
@@ -69,4 +78,26 @@ public partial class BoardManager : PanelContainer
 		}
 	}
 
+	private void _TestSaveFile(string path, string fileName, string data){
+		if(!Directory.Exists(path)){
+			Directory.CreateDirectory(path);
+		}
+
+		var fullPath = Path.Join(path, fileName);
+		GD.Print(fullPath);
+
+		try{
+			File.WriteAllText(fullPath, data);
+		}catch(System.Exception exception){
+			GD.Print(exception);
+		}
+	}
+
+}
+
+public  class ZTest(System.Collections.Generic.List<System.Collections.Generic.List<string>> grid)
+{
+    public System.Collections.Generic.List<System.Collections.Generic.List<string>> Grid { get; set; } = grid;
+    public string Name{get;set;} = "minimyny";
+	public int Age{get;set;} = 69;
 }

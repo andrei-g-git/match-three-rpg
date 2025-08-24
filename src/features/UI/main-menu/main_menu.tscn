@@ -1,0 +1,90 @@
+[gd_scene load_steps=5 format=3 uid="uid://c3ucpjdm5toec"]
+
+[ext_resource type="Theme" uid="uid://4vhtfcejeyv6" path="res://src/themes/ui_biggest.tres" id="1_qk7l8"]
+[ext_resource type="Script" uid="uid://bfah3ynlpdy2k" path="res://src/features/UI/main-menu/MainMenu.cs" id="1_xmwv2"]
+[ext_resource type="PackedScene" uid="uid://vv3xapj4lprc" path="res://src/in_game.tscn" id="2_rj4sn"]
+[ext_resource type="Script" uid="uid://d0sw1q0t0rbh8" path="res://src/features/UI/main-menu/MainMenuItem.cs" id="3_n877p"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xmwv2")
+_firstLevelScene = ExtResource("2_rj4sn")
+
+[node name="MainContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MenusWrapper" type="CenterContainer" parent="MainContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Menus" type="VBoxContainer" parent="MainContainer/MenusWrapper"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="NewGame" type="Button" parent="MainContainer/MenusWrapper/Menus"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("1_qk7l8")
+text = "New Game"
+script = ExtResource("3_n877p")
+
+[node name="Load" type="Button" parent="MainContainer/MenusWrapper/Menus"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("1_qk7l8")
+text = "Load
+"
+script = ExtResource("3_n877p")
+_menuItem = 1
+
+[node name="Continue" type="Button" parent="MainContainer/MenusWrapper/Menus"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("1_qk7l8")
+text = "Continue
+"
+script = ExtResource("3_n877p")
+_menuItem = 2
+
+[node name="Exit" type="Button" parent="MainContainer/MenusWrapper/Menus"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("1_qk7l8")
+text = "Exit
+"
+script = ExtResource("3_n877p")
+_menuItem = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MainContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 12
+
+[node name="Footer" type="HFlowContainer" parent="MainContainer/MarginContainer"]
+layout_direction = 3
+layout_mode = 2
+
+[node name="Feedback" type="Button" parent="MainContainer/MarginContainer/Footer"]
+layout_mode = 2
+theme = ExtResource("1_qk7l8")
+text = "Feedback"
+script = ExtResource("3_n877p")
+_menuItem = 4
+
+[connection signal="MenuItemPressed" from="MainContainer/MenusWrapper/Menus/NewGame" to="." method="HandleMainItemPressed"]
+[connection signal="MenuItemPressed" from="MainContainer/MenusWrapper/Menus/Load" to="." method="HandleMainItemPressed"]
+[connection signal="MenuItemPressed" from="MainContainer/MenusWrapper/Menus/Continue" to="." method="HandleMainItemPressed"]
+[connection signal="MenuItemPressed" from="MainContainer/MenusWrapper/Menus/Exit" to="." method="HandleMainItemPressed"]

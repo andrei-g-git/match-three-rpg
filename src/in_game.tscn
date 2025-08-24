@@ -54,7 +54,7 @@ custom_data_layer_1/name = "navigable"
 custom_data_layer_1/type = 1
 sources/0 = SubResource("TileSetAtlasSource_kc8ui")
 
-[node name="Game" type="Control"]
+[node name="Level" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

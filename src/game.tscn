@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://c8s8x4xajg1ob"]
+[gd_scene load_steps=3 format=3 uid="uid://c8s8x4xajg1ob"]
 
-[ext_resource type="PackedScene" uid="uid://vv3xapj4lprc" path="res://src/in_game.tscn" id="1_7uq6d"]
+[ext_resource type="Script" uid="uid://cqisfxsaq6r34" path="res://src/SceneManager.cs" id="1_3msxb"]
+[ext_resource type="PackedScene" uid="uid://c3ucpjdm5toec" path="res://src/features/UI/main-menu/main_menu.tscn" id="2_xq6wo"]
 
 [node name="Game" type="Control"]
 layout_mode = 3
@@ -9,5 +10,5 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="InGame" parent="." instance=ExtResource("1_7uq6d")]
+script = ExtResource("1_3msxb")
+_gameStartScene = ExtResource("2_xq6wo")
