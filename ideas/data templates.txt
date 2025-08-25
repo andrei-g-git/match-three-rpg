@@ -1,4 +1,77 @@
 main data scheme:
+
 {
-    latest
+    latest save: new_game_1.json /autosave.json / whaveverINameIt.json
+}
+
+savegames scheme
+
+new_game_1.json:
+{
+    level index: 0
+    level name: tutorial
+    turn: 3
+    history: new_game_1_history.json --- might not have history for the prototype anyway
+    board: level_1.csv
+    player: {
+        attributes: {}
+        derived stats: {}  --including current and max health and mana
+        skills: [
+            {
+                skill name: leap attack
+                quantity: 2
+            }
+        ]
+        equipped: { ---won't have inventory yet
+            head: {
+                name: someHelmet
+                stats: {}
+            }
+            torso: {
+                name: someArmor
+                stats: {}
+            }
+            weapon: {
+                name: someSword
+                stats: {}
+            }
+            offhand: {
+                name: someShield
+                stats: {}
+            }
+        }
+    }
+
+    npcs/enemies/etc with stats: [
+        {
+            cell: {x: 123, y: 321}
+            name: fighter
+            current stats: {}
+        }
+        {
+            cell: {x: 69, y: 420}
+            name: someNpcYouHaveToDefend
+            current stats: {}
+            isEnemy: false
+        }
+    ]
+}
+
+
+new_game_1_history.json: [
+    [[[], [], []], [[], [], []], etc]
+]
+
+
+level scheme:
+
+{
+    levels: [ //only for the proof-of-concept, real game will feature ingoing and outgoing connections
+        {
+            index: 0
+            name: tutorial
+            objective: DefeatAllEnemies --- an objective factory instantiates the objectiveChecker, which then checks custom conditions for victory every turn
+            board: level_1.csv
+        }
+    ]
 }
