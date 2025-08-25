@@ -3,7 +3,7 @@ using System;
 
 namespace Skills;
 public class SkillNames{
-	enum All{
+	public enum All{
 		Charge,	
 		LeapAttack,
 		None,

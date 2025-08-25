@@ -2,20 +2,20 @@ using Godot;
 using System;
 
 namespace Inventory{
-	enum Helmets{
+	public enum Helmets{
 		RustyHelmet,
 		SteelHelmet,
 		Empty
 	}
 
-	enum Armors{
+	public enum Armors{
 		QuiltedArmor,
 		LeatherArmor,
 		SteelPlateArmor,
 		Empty
 	}
 
-	enum Weapons{
+	public enum Weapons{
 		WoodenClub,
 		IronSword,
 		SteelLongSword,
@@ -24,7 +24,7 @@ namespace Inventory{
 		Empty
 	}
 
-	enum OffHands{
+	public enum OffHands{
 		WoodenShield,
 		IronShield,
 		TowerShield,

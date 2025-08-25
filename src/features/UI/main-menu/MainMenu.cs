@@ -4,6 +4,9 @@ using Inventory;
 using Skills;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Text.Json;
+using System.Threading.Tasks;
 using UI;
 
 public partial class MainMenu : Control, WithSceneManager
@@ -20,8 +23,9 @@ public partial class MainMenu : Control, WithSceneManager
 		Enum.TryParse(buttonName, out buttonEnum);
 		switch(buttonEnum){
 			case MainMenuItems.NewGame:
-				var firstLevel = _firstLevelScene.Instantiate();
-				SceneManager.ChangeScene(firstLevel);
+                // var firstLevel = _firstLevelScene.Instantiate();
+                // SceneManager.ChangeScene(firstLevel);
+                _ = _CreateNewGame();
 				break;
 			default:
 				var defaultLevel = _firstLevelScene.Instantiate();
@@ -33,12 +37,30 @@ public partial class MainMenu : Control, WithSceneManager
 	}
 
 
-	private void _CreateNewGame(){
-		//I don't need to save an initial newGame for this prototype, the character isn't customizable so I can just start the same game every time
+	private async Task _CreateNewGame(){
+		var path = Files.SavesPath;
+		var fileName = "new_game.json";
 		var saveGame = new {
 			LevelIndex = 0,
-			LevelName = "Tutorial"
+			LevelName = Levels.LevelNames.Tutorial.ToString(),
+			Turn = 0, 
+			Environment = Path.Join(Files.LevelEnvironmentsPath, "level_1_pieces.csv"),
+			Pieces = Path.Join(Files.LevelPiecesPath, "level_1_pieces.csv"),
+			Player = new NewMainCharacter(),
+			OtherStatefulPieces = new List<object>(),
+
+
 		};
+
+		//await Files.SaveJson(saveGame, path, fileName);
+		await Files.SaveJsonIfNoneExists(saveGame, path, fileName);
+
+		await Files.SaveJson(
+			new{CurrentSave = "new_game.json"}, 
+			Files.SavesPath,
+			"current.json"
+		);
+
 		var firstLevel = _firstLevelScene.Instantiate();
 		SceneManager.ChangeScene(firstLevel);		
 	}

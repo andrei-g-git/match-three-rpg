@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://c3ucpjdm5toec"]
+[gd_scene load_steps=6 format=3 uid="uid://c3ucpjdm5toec"]
 
 [ext_resource type="Theme" uid="uid://4vhtfcejeyv6" path="res://src/themes/ui_biggest.tres" id="1_qk7l8"]
 [ext_resource type="Script" uid="uid://bfah3ynlpdy2k" path="res://src/features/UI/main-menu/MainMenu.cs" id="1_xmwv2"]
 [ext_resource type="PackedScene" uid="uid://vv3xapj4lprc" path="res://src/in_game.tscn" id="2_rj4sn"]
 [ext_resource type="Script" uid="uid://d0sw1q0t0rbh8" path="res://src/features/UI/main-menu/MainMenuItem.cs" id="3_n877p"]
+[ext_resource type="Script" uid="uid://x0k8ny5s07cc" path="res://src/features/UI/main-menu/Initializations.cs" id="5_871j7"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -83,6 +84,9 @@ theme = ExtResource("1_qk7l8")
 text = "Feedback"
 script = ExtResource("3_n877p")
 _menuItem = 4
+
+[node name="Initializations" type="Node" parent="."]
+script = ExtResource("5_871j7")
 
 [connection signal="MenuItemPressed" from="MainContainer/MenusWrapper/Menus/NewGame" to="." method="HandleMainItemPressed"]
 [connection signal="MenuItemPressed" from="MainContainer/MenusWrapper/Menus/Load" to="." method="HandleMainItemPressed"]

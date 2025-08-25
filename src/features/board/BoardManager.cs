@@ -1,4 +1,5 @@
 using Board;
+using Content;
 using Godot;
 using Godot.Collections;
 //using System.Collections.Generic;
@@ -12,9 +13,15 @@ public partial class BoardManager : PanelContainer
 	[Export] private Node _model;
 
 	public override void _Ready(){
-		var env = Files.LoadCsv("D:\\projects\\match3\\mapping\\New folder\\9_08_0.csv");
+		var currentGame = Files.LoadJson<object>(Files.SavesPath, "current.json");// as CurrentlySavable;
+		var currentGameName = "ererg";//currentGame.CurrentSave;
+		var loadedGame = Files.LoadJson<object>(Files.SavesPath, currentGameName) as SavableGame;
+		var environmentPath = loadedGame.Environment;
+		var tilesPath = loadedGame.Pieces;
+
+		var env = Files.LoadCsv(environmentPath);//"D:\\projects\\match3\\mapping\\New folder\\9_08_0.csv");
 		var environmentCellStructure = Hex.StringGridToEnums(env);
-		var tileNames = Files.LoadCsv("D:\\projects\\match3\\mapping\\New folder\\9_08_1.csv");
+		var tileNames = Files.LoadCsv(tilesPath);//"D:\\projects\\match3\\mapping\\New folder\\9_08_1.csv");
 		var tileTypes = Hex.StringGridToEnums(tileNames);		
 
 		_PopulateMap(
