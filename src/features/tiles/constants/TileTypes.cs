@@ -4,39 +4,39 @@ using Godot.Collections;
 namespace Tiles {
 	public enum TileTypes
 	{
-		Archer,/////////////////////////////
+		Archer,
 
-		Barrel,/////////////////////////////////////////
-		BgShit, //delete obviously
+		Barrel,
 		Blank,
 		Boulder, //env
 		Brush, //env
 		Chair, //now the initials matrix won't show unique tiles
 		Charge,
-		Chest,////////////////////////////
-		Cart,/////////////////////////////////
-		Defensive,//////////////////////////////////
-		Energy,////////////////////////////////////
+		Chest,
+		Cart,
+		Defensive,
+		Energy,
+		EmptySolid,
 		Ensnare,
-		Fighter,/////////////////////////////////////
+		Fighter,
 		Grass, //Env
-		Health,////////////////////////////////////
+		Health,
 		JavelinThrow,
 		LeapAttack,
-		Melee,//////////////////////////////////////
-		MeleeBuff,//////////////////////////////////
-		Player,/////////////////////////////////////
-		Ranged,//////////////////////////////
-		RangedBuff,///////////////////////////
+		Melee,
+		MeleeBuff,
+		Player,
+		Ranged,//
+		RangedBuff,
 		ShieldBash,
 		Shock,
-		Stamina,///////////////////////////
+		Stamina,
 		Table,
 		Tech,
 		TreeLower, //env
 		TreeUpper, //env
-		Unlock,/////////////////////////////////////////
-		Walk,////////////////////////////////
+		Unlock,
+		Walk,
 		Wall,
 		Water, //env
 	}
@@ -53,6 +53,7 @@ namespace Tiles {
 			{"cart", TileTypes.Cart},
 			{"defensive", TileTypes.Defensive},
 			{"energy", TileTypes.Energy},
+			//{"empty_solid", TileTypes.EmptySolid},
 			{"ensnare", TileTypes.Ensnare},
 			{"fighter", TileTypes.Fighter},
 			{"health", TileTypes.Health},
@@ -78,7 +79,7 @@ namespace Tiles {
 			{"tree_lower", TileTypes.TreeLower}, 
 			{"tree_upper", TileTypes.TreeUpper}, 		
 			{"water", TileTypes.Water}, 							
-			{ "0", TileTypes.BgShit},{"1", TileTypes.BgShit},{"2", TileTypes.BgShit},{"3", TileTypes.BgShit},{"4", TileTypes.BgShit},{"5", TileTypes.BgShit},{"6", TileTypes.BgShit},{"7", TileTypes.BgShit},{"8", TileTypes.BgShit},{"9", TileTypes.BgShit},{"10", TileTypes.BgShit},{"11", TileTypes.BgShit},{"112", TileTypes.BgShit},{"13", TileTypes.BgShit},{"14", TileTypes.BgShit},{"15", TileTypes.BgShit},
+			{ "0", TileTypes.EmptySolid},{"1", TileTypes.EmptySolid},{"2", TileTypes.EmptySolid},{"3", TileTypes.EmptySolid},{"4", TileTypes.EmptySolid},{"5", TileTypes.EmptySolid},{"6", TileTypes.EmptySolid},{"7", TileTypes.EmptySolid},{"8", TileTypes.EmptySolid},{"9", TileTypes.EmptySolid},{"10", TileTypes.EmptySolid},{"11", TileTypes.EmptySolid},{"12", TileTypes.EmptySolid},{"13", TileTypes.EmptySolid},{"14", TileTypes.EmptySolid},{"15", TileTypes.EmptySolid},
 		};
 
 		public static TileTypes GetEnum(string key)

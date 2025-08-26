@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://vv3xapj4lprc"]
+[gd_scene load_steps=18 format=3 uid="uid://vv3xapj4lprc"]
 
 [ext_resource type="Script" uid="uid://dy1o6fmi8i4pb" path="res://src/features/board/BoardManager.cs" id="1_k7s5h"]
 [ext_resource type="Texture2D" uid="uid://clk8i0g07rccs" path="res://assets/images/environment/map.png" id="2_dw1vl"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://bdnle4kn0dce5" path="res://src/features/board/model/TileMatcher.cs" id="12_4s2tm"]
 [ext_resource type="PackedScene" uid="uid://dn6stm1p41x01" path="res://src/features/tiles/variations/blank/blank.tscn" id="12_fusuk"]
 [ext_resource type="PackedScene" uid="uid://cjtuswk80if5y" path="res://src/features/tiles/variations/cart/cart.tscn" id="13_25lnr"]
+[ext_resource type="PackedScene" uid="uid://ctl87t7smg5el" path="res://src/features/tiles/variations/empty-solid/empty_solid.tscn" id="14_6bwww"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kc8ui"]
 texture = ExtResource("2_dw1vl")
@@ -106,7 +107,7 @@ _tileContainer = NodePath("../../Tiles")
 script = ExtResource("7_ygp36")
 _tileMapLayer = NodePath("../../Environment")
 _boardModel = NodePath("..")
-_packedTileScenes = Array[PackedScene]([ExtResource("8_2r3xs"), ExtResource("9_4s2tm"), ExtResource("10_fusuk"), ExtResource("11_25lnr"), ExtResource("12_fusuk"), ExtResource("13_25lnr")])
+_packedTileScenes = Array[PackedScene]([ExtResource("8_2r3xs"), ExtResource("9_4s2tm"), ExtResource("10_fusuk"), ExtResource("11_25lnr"), ExtResource("12_fusuk"), ExtResource("13_25lnr"), ExtResource("14_6bwww")])
 
 [node name="TileMatcher" type="Node" parent="MainContainer/PanelContainer/Model" node_paths=PackedStringArray("_tileFactory", "_tileContainer")]
 script = ExtResource("12_4s2tm")
