@@ -5,6 +5,7 @@ using Godot.Collections;
 //using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 
 public partial class BoardManager : PanelContainer
@@ -13,8 +14,11 @@ public partial class BoardManager : PanelContainer
 	[Export] private Node _model;
 
 	public override void _Ready(){
-		var currentGame = Files.LoadJson<object>(Files.SavesPath, "current.json");// as CurrentlySavable;
-		var currentGameName = "ererg";//currentGame.CurrentSave;
+		var currentGame = Files.LoadJson<CurrentSaveGame>(Files.SavesPath, "current.json")
+			.GetAwaiter()
+			.GetResult();// as CurrentlySavable;
+		var currentGameName = currentGame.CurrentSave;
+		//GD.Print("current game name:  ", currentGameName);
 		var loadedGame = Files.LoadJson<object>(Files.SavesPath, currentGameName) as SavableGame;
 		var environmentPath = loadedGame.Environment;
 		var tilesPath = loadedGame.Pieces;
@@ -43,6 +47,11 @@ public partial class BoardManager : PanelContainer
 		_TestSaveFile(path, "Save1.json", json);
 	}
 
+	
+	private async Task<string> _LoadCurrentGameName(){
+		var currentGame = await Files.LoadJson<CurrentSaveGame>(Files.SavesPath, "current.json") as CurrentlySavable;
+		return currentGame.CurrentSave;		
+	}
 
 
 	//this is a bit too manager-y for a simple manager, I should have a separate model for the environment tile map, etc and do this stuff there...

@@ -1,12 +1,15 @@
 using Common;
+using Content;
 using Godot;
 using Inventory;
 using Skills;
+using Stats;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Tiles;
 using UI;
 
 public partial class MainMenu : Control, WithSceneManager
@@ -40,7 +43,7 @@ public partial class MainMenu : Control, WithSceneManager
 	private async Task _CreateNewGame(){
 		var path = Files.SavesPath;
 		var fileName = "new_game.json";
-		var saveGame = new {
+		var saveGame = new GameSave{
 			LevelIndex = 0,
 			LevelName = Levels.LevelNames.Tutorial.ToString(),
 			Turn = 0, 
@@ -56,7 +59,7 @@ public partial class MainMenu : Control, WithSceneManager
 		await Files.SaveJsonIfNoneExists(saveGame, path, fileName);
 
 		await Files.SaveJson(
-			new{CurrentSave = "new_game.json"}, 
+			new CurrentSaveGame{CurrentSave = "new_game.json"}, 
 			Files.SavesPath,
 			"current.json"
 		);
@@ -66,20 +69,20 @@ public partial class MainMenu : Control, WithSceneManager
 	}
 }
 
-class NewMainCharacter{
-	public object Stats{get;set;} = new{
-		Attributes = new{
+class NewMainCharacter: SavablePlayer
+{
+	public StatBased Stats{get;set;} = new ActorStats{
+		Attributes = new Attributes{
 			Strength = 10,
 			Agility = 7,
 			Constitution = 10, 
 			Intelligence = 5
 		},
-		DerivedStats = new{ //since they're derived, I'm goint to have to ... derive them ... so doing that here just so I can save it is awkward, I should just calculate them after loading
-			CurrentHealth = 10 * 2,
-		}
+		CurrentHealth = 10 * 2,
+		CurrentEnergy = 5 * 2
 	};
 
-	public List<object> Skills{get;set;} = [
+	public List<CountableSkill> Skills{get;set;} = [
 		new{
 			Name=SkillNames.Melee.Charge.ToString(),
 			Uses=99
@@ -90,7 +93,7 @@ class NewMainCharacter{
 		},
 	];	
 
-	public object Equipment{get;set;} = new{
+	public Gearable Equipment{get;set;} = new{
 		Head = Helmets.RustyHelmet.ToString(),
 		Torso = Armors.QuiltedArmor.ToString(),
 		Weapon = Weapons.WoodenClub.ToString(),

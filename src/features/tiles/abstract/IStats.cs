@@ -1,7 +1,9 @@
-namespace Tiles;
+namespace Stats;
 
 public interface StatBased{
     public Attributive Attributes{get;set;}
+    public int CurrentHealth{get;set;}
+    public int CurrentEnergy{get;set;}
 }
 
 public interface Attributive{

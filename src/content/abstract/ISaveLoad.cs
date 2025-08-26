@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using Inventory;
 using Skills;
-using Tiles;
+using Stats;
 
 namespace Content;
 public interface CurrentlySavable{
-    public string CurrentSave{get;}
+    public string CurrentSave{get;set;}
 }
 
 public interface SavableGame{

@@ -99,12 +99,12 @@ public static class Files
 	}
 
 
-    public static async Task<object?> LoadJson<T>(string path, string fileName){
+    public static async Task<T> LoadJson<T>(string path, string fileName){
 		var fullPath = System.IO.Path.Join(_userPath, path, fileName);
         try{
             string json = await System.IO.File.ReadAllTextAsync(fullPath, Encoding.UTF8).ConfigureAwait(false);
             var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-			var deserialized = JsonSerializer.Deserialize<object>(json, options);
+			var deserialized = JsonSerializer.Deserialize<T>(json, options);
             return deserialized;
         }
         catch (System.IO.FileNotFoundException){
