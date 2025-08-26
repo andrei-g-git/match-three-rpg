@@ -6,6 +6,7 @@ using Godot.Collections;
 using System.IO;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Tiles;
 
 
 public partial class BoardManager : PanelContainer
@@ -13,38 +14,45 @@ public partial class BoardManager : PanelContainer
 	[Export] private TileMapLayer _tileMap;
 	[Export] private Node _model;
 
+	private Grid<TileTypes> _tileTypes;
+
 	public override void _Ready(){
-		var currentGame = Files.LoadJson<CurrentSaveGame>(Files.SavesPath, "current.json")
-			.GetAwaiter()
-			.GetResult();// as CurrentlySavable;
-		var currentGameName = currentGame.CurrentSave;
-		//GD.Print("current game name:  ", currentGameName);
-		var loadedGame = Files.LoadJson<object>(Files.SavesPath, currentGameName) as SavableGame;
-		var environmentPath = loadedGame.Environment;
-		var tilesPath = loadedGame.Pieces;
+		Files.LoadJson<CurrentSaveGame>(Files.SavesPath, "current.json")
+			.ContinueWith(task => {
+				var currentGame = task.Result;
+				var currentGameName = currentGame.CurrentSave;
+				Files.LoadJson<GameSave>(Files.SavesPath, currentGameName)
+					.ContinueWith(t => {
+						var loadedGame = t.Result; // This fails but not the first LoadJson call
 
-		var env = Files.LoadCsv(environmentPath);//"D:\\projects\\match3\\mapping\\New folder\\9_08_0.csv");
-		var environmentCellStructure = Hex.StringGridToEnums(env);
-		var tileNames = Files.LoadCsv(tilesPath);//"D:\\projects\\match3\\mapping\\New folder\\9_08_1.csv");
-		var tileTypes = Hex.StringGridToEnums(tileNames);		
+						var environmentPath = loadedGame.Environment;
+						var tilesPath = loadedGame.Pieces;
 
-		_PopulateMap(
-			_tileMap,
-			env,
-			_MakeTileCoordDict()
-		);		
+						var env = Files.LoadCsv(environmentPath);//"D:\\projects\\match3\\mapping\\New folder\\9_08_0.csv");
+						var environmentCellStructure = Hex.StringGridToEnums(env);
+						var tileNames = Files.LoadCsv(tilesPath);//"D:\\projects\\match3\\mapping\\New folder\\9_08_1.csv");
+						/* var */ _tileTypes = Hex.StringGridToEnums(tileNames);		
 
-		(_model as Organizable).Initialize(tileTypes);
+						_PopulateMap(
+							_tileMap,
+							env,
+							_MakeTileCoordDict()
+						);		
+
+						//(_model as Organizable).Initialize(tileTypes);
 
 
-		var bp = 123;
+						var bp = 123;							
+					});
+			
+			});
 
-		var zTestSave = new ZTest(tileNames.GetGridAs2DList());
-		var json = JsonSerializer.Serialize(zTestSave);
-		GD.Print(json);
-		var path = ProjectSettings.GlobalizePath("user://");
+		//the above is async, while adding children to dones inside the SceneTree is main-thread-only.
+		//I need to fix this mess.
+		GetTree().CreateTimer(2).Timeout += () => {
+			(_model as Organizable).Initialize(_tileTypes);
+		};
 
-		_TestSaveFile(path, "Save1.json", json);
 	}
 
 	

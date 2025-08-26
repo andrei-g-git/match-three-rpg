@@ -18,8 +18,9 @@ public static class Files
 
 
 	public static Grid<string>LoadCsv(string path){
+		var fullPath = System.IO.Path.Join(_userPath, path);
 		Grid<string> grid = new Grid<string>();
-		var file = FileAccess.Open(path, FileAccess.ModeFlags.Read);
+		var file = FileAccess.Open(fullPath, FileAccess.ModeFlags.Read);
 		while(!file.EofReached()){
 			//var row = new Array<string>(file.GetCsvLine());
 			var row = new List<string>(file.GetCsvLine());

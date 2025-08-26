@@ -47,9 +47,9 @@ public partial class MainMenu : Control, WithSceneManager
 			LevelIndex = 0,
 			LevelName = Levels.LevelNames.Tutorial.ToString(),
 			Turn = 0, 
-			Environment = Path.Join(Files.LevelEnvironmentsPath, "level_1_pieces.csv"),
+			Environment = Path.Join(Files.LevelEnvironmentsPath, "level_1_environment.csv"),
 			Pieces = Path.Join(Files.LevelPiecesPath, "level_1_pieces.csv"),
-			Player = new NewMainCharacter(),
+			Player = _CreateNewPlayerCharacter(),
 			OtherStatefulPieces = new List<object>(),
 
 
@@ -67,36 +67,38 @@ public partial class MainMenu : Control, WithSceneManager
 		var firstLevel = _firstLevelScene.Instantiate();
 		SceneManager.ChangeScene(firstLevel);		
 	}
+
+
+	private PlayerSave _CreateNewPlayerCharacter(){
+		return new PlayerSave{
+			Stats = new ActorStats{
+				Attributes = new Attributes{
+					Strength = 10,
+					Agility = 7,
+					Constitution = 10, 
+					Intelligence = 5
+				},
+				CurrentHealth = 10 * 2,
+				CurrentEnergy = 5 * 2
+			},
+			Skills = [
+				new SkillWithCount{
+					Name=SkillNames.Melee.Charge.ToString(),
+					Uses=99
+				},
+				new SkillWithCount{
+					Name=SkillNames.Melee.LeapAttack.ToString(),
+					Uses=99
+				},
+			],	
+			Equipment = new Gear{
+				Head = Helmets.RustyHelmet.ToString(),
+				Torso = Armors.QuiltedArmor.ToString(),
+				Weapon = Weapons.WoodenClub.ToString(),
+				OffHand = OffHands.WoodenShield.ToString()
+			}
+		};
+	}
 }
 
-class NewMainCharacter: SavablePlayer
-{
-	public StatBased Stats{get;set;} = new ActorStats{
-		Attributes = new Attributes{
-			Strength = 10,
-			Agility = 7,
-			Constitution = 10, 
-			Intelligence = 5
-		},
-		CurrentHealth = 10 * 2,
-		CurrentEnergy = 5 * 2
-	};
 
-	public List<CountableSkill> Skills{get;set;} = [
-		new{
-			Name=SkillNames.Melee.Charge.ToString(),
-			Uses=99
-		},
-		new{
-			Name=SkillNames.Melee.LeapAttack.ToString(),
-			Uses=99
-		},
-	];	
-
-	public Gearable Equipment{get;set;} = new{
-		Head = Helmets.RustyHelmet.ToString(),
-		Torso = Armors.QuiltedArmor.ToString(),
-		Weapon = Weapons.WoodenClub.ToString(),
-		OffHand = OffHands.WoodenShield.ToString()
-	};
-}

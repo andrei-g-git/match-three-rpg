@@ -7,6 +7,6 @@ namespace Skills;
 // }
 
 public interface CountableSkill{
-    public SkillNames.All Name{get;set;}
+    public /* SkillNames.All */ string Name{get;set;}
     public int Uses{get;set;}
 }

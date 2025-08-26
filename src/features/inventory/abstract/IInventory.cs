@@ -1,8 +1,8 @@
 namespace Inventory;
 
 public interface Gearable{
-    public Helmets Head {get;set;}
-    public Armors Torso {get;set;}
-    public Weapons Weapon {get;set;}
-    public OffHands OffHand {get;set;}
+    public string Head {get;set;}
+    public string Torso {get;set;}
+    public string Weapon {get;set;}
+    public string OffHand {get;set;}
 }
