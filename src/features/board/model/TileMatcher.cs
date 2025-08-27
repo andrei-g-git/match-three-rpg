@@ -35,13 +35,23 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
             var gotMatches = _CheckNewMatchesAndProcess(probeGrid); //enqueues new match groups
                                     //THIS RUNS BEFORE OLD MATCHES ARE REMOVED!!
             if(gotMatches){
-                _SwapTileNodes(sourceTile, targetTile);
-                Tiles = probeGrid;  
-                if(_matchGroupQueue.Peek() != null){
-                    GetTree().CreateTimer(1).Timeout += () => { //temporary ... nothing more permanent eh...
-                        _ActivateMatchedTilesAndCollapseGrid(_matchGroupQueue);
-                    };
-                }            
+                var player = Tiles.FindItemByType(typeof(Playable));
+
+                if(player is not null && player is MatchableBounds matchingRange){
+                    var matchGroupsAreInRange = matchingRange.IsMatchGroupInRange(_matchGroupQueue, Tiles);
+                    if(matchGroupsAreInRange){
+                        _SwapTileNodes(sourceTile, targetTile);
+                        Tiles = probeGrid;  
+                        if(_matchGroupQueue.Peek() != null){
+                            GetTree().CreateTimer(1).Timeout += () => { //temporary ... nothing more permanent eh...
+                                _ActivateMatchedTilesAndCollapseGrid(_matchGroupQueue);
+                            };
+                        }                         
+                    }else{
+                        GD.Print("Player is not in rage!");
+                    }
+                }
+           
             }
             return gotMatches;            
         }

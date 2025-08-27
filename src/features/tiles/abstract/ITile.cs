@@ -31,4 +31,6 @@ namespace Tiles{
     public interface Agentive{}
 
     public interface Permeable{}
+
+    public interface Playable{}
 }

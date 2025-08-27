@@ -99,4 +99,18 @@ public class Grid<[MustBeVariant] T>//: ICloneable
 		}
 		return grid;		
 	}
+
+	public T FindItemByType(Type interfaceOrClass){
+		if(!interfaceOrClass.IsInterface && !interfaceOrClass.IsClass){
+			throw new ArgumentException("Expected interface or class :", nameof(interfaceOrClass));
+		}
+		foreach(var column in _grid){
+			foreach(var item in column){
+				if(item != null && interfaceOrClass.IsInstanceOfType(item)){
+					return item;
+				}
+			}
+		}
+		return default;
+	}
 }

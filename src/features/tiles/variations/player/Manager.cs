@@ -5,10 +5,11 @@ using Godot;
 using Tiles;
 
 namespace Player{
-	public partial class Manager : Control, Tile, AccessableBoard, Movable, Mapable, Swappable, Permeable
+	public partial class Manager : Control, Tile, AccessableBoard, Movable, Mapable, Swappable, Permeable, MatchableBounds, Playable
 	{
 		[ExportGroup("behaviors")]
 		[Export] private Node _swapping;
+        [Export] private Node _matchingRange;
 
 		[ExportGroup("tweeners")]
 		[Export] private Node _moveTweener;
@@ -17,7 +18,7 @@ namespace Player{
         public TileTypes AA => Type; //for debugging
 		public Node Board {set {(_swapping as AccessableBoard).Board = value;}}
         public Tileable Map { set => (_moveTweener as Mapable).Map = value; }
-
+        public int MatchRange => (_matchingRange as MatchableBounds).MatchRange;
 
         public override void _Ready(){
             (_popTweener as Creatable).Pop();
@@ -38,6 +39,9 @@ namespace Player{
             throw new System.NotImplementedException();
         }
 
+        public bool IsMatchGroupInRange(Queue<List<Vector2I>> matchGroupQueue, Grid<Control> board){
+            return (_matchingRange as MatchableBounds).IsMatchGroupInRange(matchGroupQueue, board);
+        }
     }	
 }
 

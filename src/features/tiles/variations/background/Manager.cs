@@ -3,7 +3,7 @@ using System;
 using Tiles;
 
 namespace Background{
-    public partial class Manager : Control, Tile, Immobile, Empty, Environmental //Empty might cause problems
+    public partial class Manager : Control, Tile, /* Immobile, */Permeable, Empty, Environmental //Empty might cause problems
     {
         public TileTypes Type => TileTypes.Background;
 

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Godot;
 
 namespace Tiles{
@@ -12,5 +13,10 @@ namespace Tiles{
 
     public interface Matchable{
         public void BeginPostMatchProcessDependingOnPlayerPosition(Vector2I ownPosition, Node playerTile, bool playerAjacent);
+    }
+
+    public interface MatchableBounds{
+        public int MatchRange{get;}
+        public bool IsMatchGroupInRange(Queue<List<Vector2I>> matchGroupQueue, Grid<Control> board); 
     }
 }
