@@ -117,7 +117,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
         for(int x=0; x<Tiles.Width; x++){
             for(int y=0; y<Tiles.Height; y++){
                 var tileNode = Tiles.GetItem(x, y);
-                if(tileNode is Empty){
+                if(tileNode is Empty && tileNode is not Environmental){
                     var tileType = spawnTiles[random.RandWeighted(spawnWeights)]; 
                     var spawnedTile = (_tileFactory as TileMaking).Create(tileType) as Control;
                     Tiles.SetCell(spawnedTile, x, y);   

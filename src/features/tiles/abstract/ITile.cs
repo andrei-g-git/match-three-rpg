@@ -25,4 +25,6 @@ namespace Tiles{
     public interface Empty{}
 
     public interface Immobile{}
+
+    public interface Environmental{}
 }
