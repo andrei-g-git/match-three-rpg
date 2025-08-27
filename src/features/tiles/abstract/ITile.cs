@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Godot;
+using Stats;
 
 namespace Tiles{
     public interface Tile{
@@ -33,4 +34,8 @@ namespace Tiles{
     public interface Permeable{}
 
     public interface Playable{}
+
+    public interface WithAttributes{
+        public Attributive Attributes{set;}
+    }
 }
