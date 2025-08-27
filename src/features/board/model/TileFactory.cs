@@ -61,6 +61,10 @@ namespace Board{
 					(tile as AccessableBoard).Board = _boardModel;
 					(tile as Mapable).Map = _tileMapLayer as Tileable;
 					break;
+				case TileTypes.Player:
+					(tile as AccessableBoard).Board = _boardModel;
+					(tile as Mapable).Map = _tileMapLayer as Tileable;
+					break;					
 				// case TileTypes.Fighter:
 				// 	(tile as Mapable).Map = environment as Tileable;
 				// 	(tile as Actor).TurnQueue = (boardModel as IBoard.Model).TurnQueue;

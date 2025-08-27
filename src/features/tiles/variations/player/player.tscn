@@ -1,0 +1,68 @@
+[gd_scene load_steps=9 format=3 uid="uid://neacnhoii1ja"]
+
+[ext_resource type="Script" uid="uid://bi3h2kor8um1g" path="res://src/features/tiles/variations/player/Manager.cs" id="1_4gdcj"]
+[ext_resource type="Texture2D" uid="uid://bctjbbgf43ggl" path="res://assets/images/tiles/player.png" id="2_xn80g"]
+[ext_resource type="Script" uid="uid://cy1k0w8awxnxt" path="res://src/features/tiles/DragAndDrop.cs" id="3_dohfl"]
+[ext_resource type="Script" uid="uid://dd71kn6t4pyhr" path="res://src/features/tiles/behaviors/Swapping.cs" id="4_ceqvu"]
+[ext_resource type="Script" uid="uid://bo1vqtqcusngb" path="res://src/features/tiles/behaviors/Removing.cs" id="5_krwou"]
+[ext_resource type="Script" uid="uid://dmkt3wetl7b0l" path="res://src/features/tiles/animations/MoveTweener.cs" id="6_xxn2p"]
+[ext_resource type="Script" uid="uid://whroff6nwt7n" path="res://src/features/tiles/animations/ScaleUpFade.cs" id="7_47kl3"]
+[ext_resource type="Script" uid="uid://dkxyfo8ok7v3x" path="res://src/features/tiles/animations/Pop.cs" id="8_17kow"]
+
+[node name="Player" type="Control" node_paths=PackedStringArray("_swapping", "_moveTweener", "_popTweener")]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_4gdcj")
+_swapping = NodePath("Behaviors/Swapping")
+_moveTweener = NodePath("Tweeners/Move")
+_popTweener = NodePath("Tweeners/Pop")
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+layout_mode = 0
+offset_left = -32.0
+offset_top = -27.5
+offset_right = 32.0
+offset_bottom = 27.5
+pivot_offset = Vector2(32, 27.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="AspectRatioContainer"]
+position = Vector2(32, 27.5)
+texture = ExtResource("2_xn80g")
+
+[node name="DragAndDrop" type="Control" parent="AspectRatioContainer" node_paths=PackedStringArray("_tileNode", "_container", "_sprite")]
+layout_mode = 2
+mouse_filter = 1
+script = ExtResource("3_dohfl")
+_tileNode = NodePath("../..")
+_container = NodePath("..")
+_sprite = NodePath("../Sprite2D")
+
+[node name="Behaviors" type="Node" parent="."]
+
+[node name="Swapping" type="Node" parent="Behaviors" node_paths=PackedStringArray("_tileRoot")]
+script = ExtResource("4_ceqvu")
+_tileRoot = NodePath("../..")
+
+[node name="Removing" type="Node" parent="Behaviors" node_paths=PackedStringArray("_tileRoot")]
+script = ExtResource("5_krwou")
+_tileRoot = NodePath("../..")
+
+[node name="Tweeners" type="Node" parent="."]
+
+[node name="Move" type="Node" parent="Tweeners" node_paths=PackedStringArray("_tileRoot")]
+script = ExtResource("6_xxn2p")
+_tileRoot = NodePath("../..")
+_duration = 0.5
+
+[node name="ScaleUpFade" type="Node" parent="Tweeners" node_paths=PackedStringArray("_tileRoot")]
+script = ExtResource("7_47kl3")
+_tileRoot = NodePath("../..")
+_duration = 1.0
+
+[node name="Pop" type="Node" parent="Tweeners" node_paths=PackedStringArray("_tileRoot")]
+script = ExtResource("8_17kow")
+_tileRoot = NodePath("../..")
+_duration = 0.7
+
+[connection signal="EngagedBy" from="AspectRatioContainer/DragAndDrop" to="Behaviors/Swapping" method="SwapWith"]
+[connection signal="Destroying" from="Behaviors/Removing" to="Tweeners/ScaleUpFade" method="Disappear"]

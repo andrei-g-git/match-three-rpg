@@ -1,3 +1,55 @@
+using System.Collections.Generic;
+using Board;
+using Common;
+using Godot;
+using Tiles;
+
+namespace Player{
+	public partial class Manager : Control, Tile, AccessableBoard, Movable, Mapable, Swappable, Permeable
+	{
+		[ExportGroup("behaviors")]
+		[Export] private Node _swapping;
+
+		[ExportGroup("tweeners")]
+		[Export] private Node _moveTweener;
+        [Export] private Node _popTweener;
+		public TileTypes Type => TileTypes.Melee;
+        public TileTypes AA => Type; //for debugging
+		public Node Board {set {(_swapping as AccessableBoard).Board = value;}}
+        public Tileable Map { set => (_moveTweener as Mapable).Map = value; }
+
+
+        public override void _Ready(){
+            (_popTweener as Creatable).Pop();
+        }
+
+
+        public void MoveTo(Vector2I target){
+            (_moveTweener as Movable).MoveTo(target);
+        }
+
+
+		public void MoveOnPath(Stack<Vector2I> path){
+			(_moveTweener as Movable).MoveOnPath(path);
+		}
+
+        public void SwapWith(Control tile)
+        {
+            throw new System.NotImplementedException();
+        }
+
+    }	
+}
+
+
+
+
+
+
+
+
+
+
 // using Common;
 // using Godot;
 // using Godot.Collections;

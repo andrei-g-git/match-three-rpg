@@ -295,7 +295,8 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
                     var bottom = Hex.FindBottomClamped(new Vector2I(x, y), Tiles.Width, Tiles.Height);  
                     if(bottom.X>=0 && bottom.Y>=0){
                         if(Tiles.GetItem(x, y) is Collapsable collapsable){
-                            if(Tiles.GetItem(bottom.X, bottom.Y) is not Immobile){
+                            //if(Tiles.GetItem(bottom.X, bottom.Y) is not Immobile){
+                            if(Tiles.GetItem(bottom.X, bottom.Y) is not Permeable){
                                 collapsing = _FallToLowerCellAndStorePath(x, y, bottom, list3D, collapsing, originalGrid);
                                 var bp = 123;
                             }else{
@@ -366,7 +367,8 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
         var contiguousSolidCells = new List<Vector2I>();
         for(int i=bottom.Y; i<Tiles.Height; i++){
             var checkedTile = Tiles.GetItem(column, i);
-            if(checkedTile is Immobile){ 
+            //if(checkedTile is Immobile || checkedTile is Agentive){ 
+            if(checkedTile is Permeable){ 
                 contiguousSolidCells.Add(new Vector2I(column, i));
             }else{
                 break;

@@ -27,4 +27,8 @@ namespace Tiles{
     public interface Immobile{}
 
     public interface Environmental{}
+
+    public interface Agentive{}
+
+    public interface Permeable{}
 }
