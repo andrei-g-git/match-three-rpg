@@ -2,7 +2,10 @@ using Board;
 using Content;
 using Godot;
 using Godot.Collections;
+using Stats;
+
 //using System.Collections.Generic;
+
 using System.IO;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -13,8 +16,10 @@ public partial class BoardManager : PanelContainer
 {
 	[Export] private TileMapLayer _tileMap;
 	[Export] private Node _model;
+	[Export] private Node _tileFactory;
 
 	private Grid<TileTypes> _tileTypes;
+	private GameSave _loadedGame;
 
 	public override void _Ready(){
 		Files.LoadJson<CurrentSaveGame>(Files.SavesPath, "current.json")
@@ -23,10 +28,10 @@ public partial class BoardManager : PanelContainer
 				var currentGameName = currentGame.CurrentSave;
 				Files.LoadJson<GameSave>(Files.SavesPath, currentGameName)
 					.ContinueWith(t => {
-						var loadedGame = t.Result; // This fails but not the first LoadJson call
+						_loadedGame = t.Result; // This fails but not the first LoadJson call
 
-						var environmentPath = loadedGame.Environment;
-						var tilesPath = loadedGame.Pieces;
+						var environmentPath = _loadedGame.Environment;
+						var tilesPath = _loadedGame.Pieces;
 
 						var env = Files.LoadCsv(environmentPath);//"D:\\projects\\match3\\mapping\\New folder\\9_08_0.csv");
 						var environmentCellStructure = Hex.StringGridToEnums(env);
@@ -40,8 +45,6 @@ public partial class BoardManager : PanelContainer
 						);		
 
 						//(_model as Organizable).Initialize(tileTypes);
-
-
 						var bp = 123;							
 					});
 			
@@ -51,6 +54,17 @@ public partial class BoardManager : PanelContainer
 		//I need to fix this mess.
 		GetTree().CreateTimer(2).Timeout += () => {
 			(_model as Organizable).Initialize(_tileTypes);
+
+			var player = (_model as WithTiles).Tiles.FindItemByType(typeof(Playable));
+			var loadedAttributes = _loadedGame.Player.Stats.Attributes; //well this sucks on multiple levels
+			var attributes = new Attributes{
+				Strength = loadedAttributes.Strength,
+				Agility = loadedAttributes.Agility,
+				Constitution = loadedAttributes.Constitution,
+				Intelligence = loadedAttributes.Intelligence
+			};
+			(player as DerivableStats).Attributes = attributes;	
+			GD.Print("maxxxx energy:  ", (player as DerivableStats).GetMaxEnergy())	;	
 		};
 
 	}

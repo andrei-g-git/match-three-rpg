@@ -18,9 +18,9 @@ namespace Content{
         public List<object> OtherStatefulPieces{get; set;}
     }
 
-        public class PlayerSave/* : SavablePlayer */{ ///can't deserialize abstarctions
-            public /* StatBased */ ActorStats Stats{get;set;}
-            public List</* CountableSkill */SkillWithCount> Skills{get;set;}
-            public /* Gearable */Gear Equipment{get;set;} 
-        }    
+    public class PlayerSave/* : SavablePlayer */{ ///can't deserialize abstarctions
+        public /* StatBased */ ActorStats Stats{get;set;}
+        public List</* CountableSkill */SkillWithCount> Skills{get;set;}
+        public /* Gearable */Gear Equipment{get;set;} 
+    }    
 }

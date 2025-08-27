@@ -1,21 +1,25 @@
-[gd_scene load_steps=10 format=3 uid="uid://neacnhoii1ja"]
+[gd_scene load_steps=13 format=3 uid="uid://neacnhoii1ja"]
 
 [ext_resource type="Script" uid="uid://bi3h2kor8um1g" path="res://src/features/tiles/variations/player/Manager.cs" id="1_4gdcj"]
 [ext_resource type="Texture2D" uid="uid://bctjbbgf43ggl" path="res://assets/images/tiles/player.png" id="2_xn80g"]
 [ext_resource type="Script" uid="uid://cy1k0w8awxnxt" path="res://src/features/tiles/DragAndDrop.cs" id="3_dohfl"]
 [ext_resource type="Script" uid="uid://dd71kn6t4pyhr" path="res://src/features/tiles/behaviors/Swapping.cs" id="4_ceqvu"]
+[ext_resource type="Script" uid="uid://cxbie8wh5asp6" path="res://src/features/tiles/stats/PlayerStats.cs" id="4_krwou"]
 [ext_resource type="Script" uid="uid://bo1vqtqcusngb" path="res://src/features/tiles/behaviors/Removing.cs" id="5_krwou"]
+[ext_resource type="Script" uid="uid://n8dgo35jxat5" path="res://src/features/tiles/stats/PlayerDerivedStats.cs" id="5_xxn2p"]
 [ext_resource type="Script" uid="uid://b2vearjcetqcv" path="res://src/features/tiles/behaviors/MatchingRange.cs" id="6_xn80g"]
 [ext_resource type="Script" uid="uid://dmkt3wetl7b0l" path="res://src/features/tiles/animations/MoveTweener.cs" id="6_xxn2p"]
 [ext_resource type="Script" uid="uid://whroff6nwt7n" path="res://src/features/tiles/animations/ScaleUpFade.cs" id="7_47kl3"]
+[ext_resource type="Script" uid="uid://dp5fwk7pxd2pe" path="res://src/features/tiles/behaviors/EnergyCollector.cs" id="7_dohfl"]
 [ext_resource type="Script" uid="uid://dkxyfo8ok7v3x" path="res://src/features/tiles/animations/Pop.cs" id="8_17kow"]
 
-[node name="Player" type="Control" node_paths=PackedStringArray("_swapping", "_matchingRange", "_moveTweener", "_popTweener")]
+[node name="Player" type="Control" node_paths=PackedStringArray("_swapping", "_matchingRange", "_derivedStats", "_moveTweener", "_popTweener")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_4gdcj")
 _swapping = NodePath("Behaviors/Swapping")
 _matchingRange = NodePath("Behaviors/MatchingRange")
+_derivedStats = NodePath("Stats-should not have scr/Derived")
 _moveTweener = NodePath("Tweeners/Move")
 _popTweener = NodePath("Tweeners/Pop")
 
@@ -39,6 +43,13 @@ _tileNode = NodePath("../..")
 _container = NodePath("..")
 _sprite = NodePath("../Sprite2D")
 
+[node name="Stats-should not have scr" type="Node" parent="." node_paths=PackedStringArray("_derivedStats")]
+script = ExtResource("4_krwou")
+_derivedStats = NodePath("Derived")
+
+[node name="Derived" type="Node" parent="Stats-should not have scr"]
+script = ExtResource("5_xxn2p")
+
 [node name="Behaviors" type="Node" parent="."]
 
 [node name="Swapping" type="Node" parent="Behaviors" node_paths=PackedStringArray("_tileRoot")]
@@ -53,6 +64,9 @@ _tileRoot = NodePath("../..")
 script = ExtResource("6_xn80g")
 _matchRange = 3
 _tileRoot = NodePath("../..")
+
+[node name="EnergyCollector" type="Node" parent="Behaviors"]
+script = ExtResource("7_dohfl")
 
 [node name="Tweeners" type="Node" parent="."]
 

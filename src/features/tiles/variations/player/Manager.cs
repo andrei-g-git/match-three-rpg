@@ -2,24 +2,39 @@ using System.Collections.Generic;
 using Board;
 using Common;
 using Godot;
+using Stats;
 using Tiles;
 
 namespace Player{
-	public partial class Manager : Control, Tile, AccessableBoard, Movable, Mapable, Swappable, Permeable, MatchableBounds, Playable
+	public partial class Manager : Control, Tile, AccessableBoard, Movable, Mapable, Swappable, Permeable, MatchableBounds, Playable, Attributive, DerivableStats
 	{
 		[ExportGroup("behaviors")]
 		[Export] private Node _swapping;
         [Export] private Node _matchingRange;
-
+        [ExportGroup("stats")]
+        [Export] private Node _derivedStats;	
 		[ExportGroup("tweeners")]
 		[Export] private Node _moveTweener;
         [Export] private Node _popTweener;
-		public TileTypes Type => TileTypes.Melee;
+		public TileTypes Type => TileTypes.Player;
         public TileTypes AA => Type; //for debugging
 		public Node Board {set {(_swapping as AccessableBoard).Board = value;}}
         public Tileable Map { set => (_moveTweener as Mapable).Map = value; }
         public int MatchRange => (_matchingRange as MatchableBounds).MatchRange;
-
+        private Attributive _attributes;
+        public Attributive Attributes{
+            get => _attributes;
+            set{
+                _attributes = value;
+                DerivedStats.Attributes = value;
+            }
+        }
+        public DerivableStats DerivedStats => _derivedStats as DerivableStats;
+        public int Strength {get;}
+        public int Agility {get;}
+        public int Constitution {get;}
+        public int Intelligence {get;}
+        
         public override void _Ready(){
             (_popTweener as Creatable).Pop();
         }
@@ -42,6 +57,37 @@ namespace Player{
         public bool IsMatchGroupInRange(Queue<List<Vector2I>> matchGroupQueue, Grid<Control> board){
             return (_matchingRange as MatchableBounds).IsMatchGroupInRange(matchGroupQueue, board);
         }
+
+        public void IncreaseStrength(int amount){
+            Attributes.IncreaseStrength(amount);
+        }
+        public void IncreaseAgility(int amount){
+            Attributes.IncreaseAgility(amount);
+        }
+        public void IncreaseConstitution(int amount){
+            Attributes.IncreaseConstitution(amount);
+        }
+        public void IncreaseIntelligence(int amount){
+            Attributes.IncreaseIntelligence(amount);
+        }
+
+        public void SubtractStrength(int amount){
+            Attributes.SubtractStrength(amount);
+        }
+        public void SubtractAgility(int amount){
+            Attributes.SubtractAgility(amount);
+        }
+        public void SubtractConstitution(int amount){
+            Attributes.SubtractConstitution(amount);
+        }
+        public void SubtractIntelligence(int amount){
+            Attributes.SubtractIntelligence(amount);
+        }	
+
+
+        public int GetMaxEnergy(){
+            return DerivedStats.GetMaxEnergy();
+        }        
     }	
 }
 

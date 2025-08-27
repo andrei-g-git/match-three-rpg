@@ -6,11 +6,11 @@ namespace Stats{
         public int CurrentEnergy { get; set; }
     }
 
-    public class Attributes//: Attributive
-    {
-        public int Strength{get;set;}
-        public int Agility{get;set;}
-        public int Constitution{get;set;}
-        public int Intelligence{get;set;}
-    }    
+    // public class Attributes: Attributive
+    // {
+    //     public int Strength{get;set;}
+    //     public int Agility{get;set;}
+    //     public int Constitution{get;set;}
+    //     public int Intelligence{get;set;}
+    // }    
 }

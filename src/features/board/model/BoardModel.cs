@@ -3,12 +3,15 @@ using Tiles;
 
 namespace Board;
 
-public partial class BoardModel : Node, Organizable, MatchableBoard//, WithTiles
+public partial class BoardModel : Node, Organizable, MatchableBoard, WithTiles
 {
     [Export] private Node _tileOrganizer;
     [Export] private Node _tileMatcher;
     [Export] private Node _tileFactory;
     [Export] private Node _tileContainer;
+
+    public Grid<Control> Tiles { get => (_tileOrganizer as WithTiles).Tiles; set => (_tileOrganizer as WithTiles).Tiles = value; }
+
     // private Grid<Control> _tiles;
     // public Grid<Control> Tiles {
     //     get => _tiles; 
