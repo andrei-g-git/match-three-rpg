@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://vv3xapj4lprc"]
+[gd_scene load_steps=25 format=3 uid="uid://vv3xapj4lprc"]
 
 [ext_resource type="Script" uid="uid://dy1o6fmi8i4pb" path="res://src/features/board/BoardManager.cs" id="1_k7s5h"]
 [ext_resource type="Texture2D" uid="uid://clk8i0g07rccs" path="res://assets/images/environment/map.png" id="2_dw1vl"]
@@ -19,6 +19,7 @@
 [ext_resource type="Script" uid="uid://485we3tfl7vk" path="res://src/features/UI/StatusBar.cs" id="17_057js"]
 [ext_resource type="Script" uid="uid://kary54w5mpd8" path="res://src/features/UI/Hud.cs" id="17_q2jqf"]
 [ext_resource type="Script" uid="uid://djqo663m7vx35" path="res://src/features/UI/UIEventBus.cs" id="19_amteu"]
+[ext_resource type="PackedScene" uid="uid://bd6owm6pwgyaa" path="res://src/features/tiles/variations/walk/walk.tscn" id="19_s5hp3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x10rj"]
 
@@ -138,7 +139,7 @@ script = ExtResource("7_ygp36")
 _tileMapLayer = NodePath("../../Environment")
 _boardModel = NodePath("..")
 _uiEventBus = NodePath("../../../../Events/UIEventBus")
-_packedTileScenes = Array[PackedScene]([ExtResource("8_2r3xs"), ExtResource("9_4s2tm"), ExtResource("10_fusuk"), ExtResource("11_25lnr"), ExtResource("12_fusuk"), ExtResource("13_25lnr"), ExtResource("14_6bwww"), ExtResource("15_x10rj")])
+_packedTileScenes = Array[PackedScene]([ExtResource("8_2r3xs"), ExtResource("9_4s2tm"), ExtResource("10_fusuk"), ExtResource("11_25lnr"), ExtResource("12_fusuk"), ExtResource("13_25lnr"), ExtResource("14_6bwww"), ExtResource("15_x10rj"), ExtResource("19_s5hp3")])
 
 [node name="TileMatcher" type="Node" parent="MainContainer/PanelContainer/Model" node_paths=PackedStringArray("_tileFactory", "_tileContainer")]
 script = ExtResource("12_4s2tm")

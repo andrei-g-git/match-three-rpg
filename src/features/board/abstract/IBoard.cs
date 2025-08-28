@@ -19,6 +19,7 @@ namespace Board{
 	public interface Organizable{
 		public void Initialize(Grid<TileTypes> tileTypes);
 		//public Grid<Control> Tiles{get;set;}	
+		public void TransferTileToTile(Control sourceTile, Control targetTile);
 
 	}
 

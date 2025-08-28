@@ -29,4 +29,8 @@ namespace Tiles{
     public interface ReactiveToMatches{
         public void ReactToMatchesBySkillType(List<Vector2I> matches, SkillGroups skillGroup);
     }
+
+    public interface Walkable{
+        public void LeadPlayer(Control tile);
+    }
 }

@@ -32,4 +32,8 @@ public partial class BoardModel : Node, Organizable, MatchableBoard, WithTiles
     public bool TryMatching(Control sourceTile, Control targetTile){
         return (_tileMatcher as MatchableBoard).TryMatching(sourceTile, targetTile);
     }
+
+    public void TransferTileToTile(Control sourceTile, Control targetTile){
+        (_tileOrganizer as Organizable).TransferTileToTile(sourceTile, targetTile);
+    }
 }

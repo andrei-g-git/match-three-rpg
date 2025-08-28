@@ -11,7 +11,9 @@ public partial class Swapping : Node, Swappable, AccessableBoard
 
     public void SwapWith(Control tile){
         var matchSuccessful = (Board as MatchableBoard).TryMatching(tile, _tileRoot as Control);
-        if(!matchSuccessful){
+        if(matchSuccessful){
+            
+        }else{
             GD.Print("can't match");
         }
     }

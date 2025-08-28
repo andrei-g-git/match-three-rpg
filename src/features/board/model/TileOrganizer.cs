@@ -31,5 +31,10 @@ public partial class TileOrganizer: Node, Organizable, WithTiles
             }
         }
         return _board;				
-    }    
+    }   
+
+    public void TransferTileToTile(Control sourceTile, Control targetTile){
+        var target = Tiles.GetCellFor(targetTile);
+        (sourceTile as Movable).MoveTo(target);
+    } 
 }
