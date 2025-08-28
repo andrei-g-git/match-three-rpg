@@ -2,10 +2,12 @@ using System.Collections.Generic;
 using Board;
 using Common;
 using Godot;
+using Skills;
 using Tiles;
+using static Skills.SkillNames;
 
 namespace Melee{
-	public partial class Manager : Control, Tile, AccessableBoard, Movable, Mapable, Collapsable, Matchable, Swappable
+	public partial class Manager : Control, Tile, AccessableBoard, Movable, Mapable, Collapsable, Matchable, Swappable, SkillBased
 	{
 		[ExportGroup("behaviors")]
 		[Export] private Node _swapping;
@@ -16,6 +18,7 @@ namespace Melee{
         [Export] private Node _popTweener;
 		public TileTypes Type => TileTypes.Melee;
         public TileTypes AA => Type; //for debugging
+        public SkillGroups SkillGroup{get; private set;} = SkillGroups.Defensive;        
 		public Node Board {set {(_swapping as AccessableBoard).Board = value;}}
         public Tileable Map { set => (_moveTweener as Mapable).Map = value; }
 

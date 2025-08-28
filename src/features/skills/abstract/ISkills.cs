@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using static Skills.SkillNames;
 
 namespace Skills;
 
@@ -9,4 +10,8 @@ namespace Skills;
 public interface CountableSkill{
     public /* SkillNames.All */ string Name{get;set;}
     public int Uses{get;set;}
+}
+
+public interface SkillBased{
+    public SkillGroups SkillGroup{get;}
 }

@@ -7,7 +7,7 @@ using Tiles;
 using static Skills.SkillNames;
 
 namespace Player{
-	public partial class Manager : Control, Tile, AccessableBoard, Movable, Mapable, Swappable, Permeable, MatchableBounds, Playable, Attributive, DerivableStats, Classy, CollectableEnergy, RelayableUIEvents
+	public partial class Manager : Control, Tile, AccessableBoard, Movable, Mapable, Swappable, Permeable, MatchableBounds, Playable, Attributive, DerivableStats, Classy, CollectableEnergy, RelayableUIEvents, ReactiveToMatches
 	{
 		[ExportGroup("behaviors")]
 		[Export] private Node _swapping;
@@ -119,6 +119,12 @@ namespace Player{
         public void UpdateEnergyBar(int amount, int max){ //NO INTERFACE, ONLY USING TO CONNECT SIGNAL IN EDITOR
             UIEventBus.Publish(Events.EnergyChanged, [amount, max]);
         }
+
+
+        public void ReactToMatchesBySkillType(List<Vector2I> matches, SkillGroups skillGroup){
+            FillEnergy(matches.Count, skillGroup);
+        }
+
 
 
         public void TestDelete(){

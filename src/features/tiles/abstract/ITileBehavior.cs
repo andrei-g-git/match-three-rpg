@@ -25,4 +25,8 @@ namespace Tiles{
         public void FillEnergy(int magnitude, SkillGroups skillGroup);
         public void SpendEnergy(int amount);
     }
+
+    public interface ReactiveToMatches{
+        public void ReactToMatchesBySkillType(List<Vector2I> matches, SkillGroups skillGroup);
+    }
 }

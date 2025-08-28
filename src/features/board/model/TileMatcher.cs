@@ -1,6 +1,7 @@
 using Board;
 using Godot;
 using Godot.Collections;
+using Skills;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -91,6 +92,12 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
     private void _ActivateMatchedTilesAndCollapseGrid(Queue<List<Vector2I>> matchGroupQueue){ //all this dependency injection is kind of useless if I hard code helper funcions... this is not a pure function
         var group = matchGroupQueue.Dequeue();
         var matchQueue = new Queue<Vector2I>(group);
+
+        //fill player energy --- assume that the only tiles that can be matched are skill group tiles --- although maybe walkable tiles might also be matched to gains some special benefit like more placeable walk tiles
+        var player = Tiles.FindItemByType(typeof(Playable)) as ReactiveToMatches;
+        var tile1 = Tiles.GetItem(group[0]) as SkillBased;
+        player.ReactToMatchesBySkillType(group, tile1.SkillGroup);
+
         _RunMatchedTileBehaviors(matchQueue);
 
         _CollapseTiles();
