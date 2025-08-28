@@ -55,8 +55,8 @@ public partial class MainMenu : Control, WithSceneManager
 
 		};
 
-		//await Files.SaveJson(saveGame, path, fileName);
-		await Files.SaveJsonIfNoneExists(saveGame, path, fileName);
+		await Files.SaveJson(saveGame, path, fileName);
+		//await Files.SaveJsonIfNoneExists(saveGame, path, fileName);
 
 		await Files.SaveJson(
 			new CurrentSaveGame{CurrentSave = "new_game.json"}, 
@@ -78,8 +78,8 @@ public partial class MainMenu : Control, WithSceneManager
 					Constitution = 10, 
 					Intelligence = 5
 				},
-				CurrentHealth = 10 * 2,
-				CurrentEnergy = 5 * 2
+				Health = PlayerDerivedStats.GetMaxHealth(10),
+				Energy = PlayerDerivedStats.GetMaxEnergy(5)
 			},
 			Skills = [
 				new SkillWithCount{
@@ -91,6 +91,7 @@ public partial class MainMenu : Control, WithSceneManager
 					Uses=99
 				},
 			],	
+			Class = Classes.Fighter.ToString(),
 			Equipment = new Gear{
 				Head = Helmets.RustyHelmet.ToString(),
 				Torso = Armors.QuiltedArmor.ToString(),

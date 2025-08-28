@@ -2,8 +2,8 @@ namespace Stats{
     public class ActorStats//: StatBased
     {
         public /* Attributive */Attributes Attributes{get;set;}
-        public int CurrentHealth { get; set; }
-        public int CurrentEnergy { get; set; }
+        public int Health { get; set; }
+        public int Energy { get; set; }
     }
 
     // public class Attributes: Attributive

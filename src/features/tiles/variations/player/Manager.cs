@@ -6,13 +6,15 @@ using Stats;
 using Tiles;
 
 namespace Player{
-	public partial class Manager : Control, Tile, AccessableBoard, Movable, Mapable, Swappable, Permeable, MatchableBounds, Playable, Attributive, DerivableStats
+	public partial class Manager : Control, Tile, AccessableBoard, Movable, Mapable, Swappable, Permeable, MatchableBounds, Playable, Attributive, DerivableStats, Classy
 	{
 		[ExportGroup("behaviors")]
 		[Export] private Node _swapping;
         [Export] private Node _matchingRange;
+
         [ExportGroup("stats")]
-        [Export] private Node _derivedStats;	
+        [Export] private Node _derivedStats;
+
 		[ExportGroup("tweeners")]
 		[Export] private Node _moveTweener;
         [Export] private Node _popTweener;
@@ -34,7 +36,11 @@ namespace Player{
         public int Agility {get;}
         public int Constitution {get;}
         public int Intelligence {get;}
-        
+        public int Health {get => DerivedStats.Health; set => DerivedStats.Health = value;}
+        public int Energy {get => DerivedStats.Energy; set => DerivedStats.Energy = value;}
+        public Classes Class{get;set;}
+
+
         public override void _Ready(){
             (_popTweener as Creatable).Pop();
         }
@@ -87,7 +93,18 @@ namespace Player{
 
         public int GetMaxEnergy(){
             return DerivedStats.GetMaxEnergy();
-        }        
+        }   
+
+        public int GetMaxHealth(){
+            return DerivedStats.GetMaxHealth();
+        } 
+
+
+
+
+        public void TestDelete(){
+            var bp = 1123;
+        }    
     }	
 }
 

@@ -40,4 +40,8 @@ public class Attributes : Attributive
     public void SubtractStrength(int amount){
         Strength -= amount;
     }	
+
+    // public class DerivedStatsSerializable{
+    //     public int 
+    // }
 }    

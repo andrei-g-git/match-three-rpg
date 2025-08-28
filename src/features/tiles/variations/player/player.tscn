@@ -65,8 +65,10 @@ script = ExtResource("6_xn80g")
 _matchRange = 3
 _tileRoot = NodePath("../..")
 
-[node name="EnergyCollector" type="Node" parent="Behaviors"]
+[node name="EnergyCollector" type="Node" parent="Behaviors" node_paths=PackedStringArray("_derivedStats", "_player")]
 script = ExtResource("7_dohfl")
+_derivedStats = NodePath("../../Stats-should not have scr/Derived")
+_player = NodePath("../..")
 
 [node name="Tweeners" type="Node" parent="."]
 

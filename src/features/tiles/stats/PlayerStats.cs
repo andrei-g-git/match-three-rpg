@@ -10,10 +10,11 @@ public partial class PlayerStats : Node, StatBased, Attributive, DerivableStats 
 	public int Strength {get;}
 	public int Agility {get;}
 	public int Constitution {get;}
-	public int Intelligence {get;}	
+	public int Intelligence {get;}
+    public int Health {get => DerivedStats.Health; set => DerivedStats.Health = value;}
+    public int Energy {get => DerivedStats.Energy; set => DerivedStats.Energy = value;}
 
-
-	public override void _Ready()
+    public override void _Ready()
 	{
 	}
 
@@ -48,4 +49,9 @@ public partial class PlayerStats : Node, StatBased, Attributive, DerivableStats 
 	public int GetMaxEnergy(){
 		return DerivedStats.GetMaxEnergy();
 	}
+
+    public int GetMaxHealth(){
+        return DerivedStats.GetMaxHealth();
+    }
+
 }

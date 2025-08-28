@@ -3,8 +3,11 @@ using Content;
 using Godot;
 using Godot.Collections;
 using Stats;
+using System;
+
 
 //using System.Collections.Generic;
+
 
 using System.IO;
 using System.Text.Json;
@@ -63,8 +66,20 @@ public partial class BoardManager : PanelContainer
 				Constitution = loadedAttributes.Constitution,
 				Intelligence = loadedAttributes.Intelligence
 			};
-			(player as DerivableStats).Attributes = attributes;	
-			GD.Print("maxxxx energy:  ", (player as DerivableStats).GetMaxEnergy())	;	
+			var stats = _loadedGame.Player.Stats; //this really, REALLY sucks
+
+			var derivableStats = player as DerivableStats;
+			derivableStats.Attributes = attributes;	
+			derivableStats.Health = stats.Health;
+			derivableStats.Energy = stats.Energy;
+
+			Classes playerClass;
+			Enum.TryParse(_loadedGame.Player.Class, out playerClass);
+			(player as Classy).Class = playerClass;
+
+			GD.Print("maxxxx energy:  ", (player as DerivableStats).GetMaxEnergy());
+			GD.Print("class:  ", (player as Classy).Class.ToString());
+			//(player as Player.Manager).TestDelete();	
 		};
 
 	}

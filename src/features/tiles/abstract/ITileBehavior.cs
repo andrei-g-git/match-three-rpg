@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Godot;
+using static Skills.SkillNames;
 
 namespace Tiles{
     public interface Swappable{
@@ -18,5 +19,10 @@ namespace Tiles{
     public interface MatchableBounds{
         public int MatchRange{get;}
         public bool IsMatchGroupInRange(Queue<List<Vector2I>> matchGroupQueue, Grid<Control> board); 
+    }
+
+    public interface CollectableEnergy{
+        public void FillEnergy(int magnitude, SkillGroups skillGroup);
+        public void SpendEnergy(int amount);
     }
 }

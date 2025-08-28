@@ -22,5 +22,6 @@ namespace Content{
         public /* StatBased */ ActorStats Stats{get;set;}
         public List</* CountableSkill */SkillWithCount> Skills{get;set;}
         public /* Gearable */Gear Equipment{get;set;} 
+        public string Class{get;set;}
     }    
 }

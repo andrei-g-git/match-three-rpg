@@ -26,5 +26,12 @@ public interface Attributive{
 
 public interface DerivableStats{
 	public Attributive Attributes{set;}
+	public int Health{get;set;}
+	public int Energy{get;set;}
 	public int GetMaxEnergy();
+	public int GetMaxHealth();
+}
+
+public interface Classy{
+	public Classes Class{get;set;}
 }
