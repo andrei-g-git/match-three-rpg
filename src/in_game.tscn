@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://vv3xapj4lprc"]
+[gd_scene load_steps=24 format=3 uid="uid://vv3xapj4lprc"]
 
 [ext_resource type="Script" uid="uid://dy1o6fmi8i4pb" path="res://src/features/board/BoardManager.cs" id="1_k7s5h"]
 [ext_resource type="Texture2D" uid="uid://clk8i0g07rccs" path="res://assets/images/environment/map.png" id="2_dw1vl"]
@@ -16,6 +16,14 @@
 [ext_resource type="PackedScene" uid="uid://cjtuswk80if5y" path="res://src/features/tiles/variations/cart/cart.tscn" id="13_25lnr"]
 [ext_resource type="PackedScene" uid="uid://fo5qk4kae7aq" path="res://src/features/tiles/variations/background/background.tscn" id="14_6bwww"]
 [ext_resource type="PackedScene" uid="uid://neacnhoii1ja" path="res://src/features/tiles/variations/player/player.tscn" id="15_x10rj"]
+[ext_resource type="Script" uid="uid://485we3tfl7vk" path="res://src/features/UI/StatusBar.cs" id="17_057js"]
+[ext_resource type="Script" uid="uid://kary54w5mpd8" path="res://src/features/UI/Hud.cs" id="17_q2jqf"]
+[ext_resource type="Script" uid="uid://djqo663m7vx35" path="res://src/features/UI/UIEventBus.cs" id="19_amteu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x10rj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_057js"]
+bg_color = Color(0, 0.463429, 0.739759, 1)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kc8ui"]
 texture = ExtResource("2_dw1vl")
@@ -64,7 +72,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MainContainer" type="VBoxContainer" parent="."]
+[node name="Events" type="Node" parent="."]
+
+[node name="UIEventBus" type="Node" parent="Events"]
+script = ExtResource("19_amteu")
+
+[node name="MainContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -75,6 +88,22 @@ grow_vertical = 2
 [node name="PanelContainer" type="PanelContainer" parent="MainContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+
+[node name="Hud" type="Control" parent="MainContainer/PanelContainer" node_paths=PackedStringArray("_uiEventBus", "_energyBar")]
+layout_mode = 2
+script = ExtResource("17_q2jqf")
+_uiEventBus = NodePath("../../../Events/UIEventBus")
+_energyBar = NodePath("EnergyBar")
+
+[node name="EnergyBar" type="ProgressBar" parent="MainContainer/PanelContainer/Hud"]
+layout_mode = 0
+offset_left = 323.0
+offset_top = 16.0
+offset_right = 419.0
+offset_bottom = 51.0
+theme_override_styles/background = SubResource("StyleBoxFlat_x10rj")
+theme_override_styles/fill = SubResource("StyleBoxFlat_057js")
+script = ExtResource("17_057js")
 
 [node name="TilesPanel" type="PanelContainer" parent="MainContainer/PanelContainer" node_paths=PackedStringArray("_tileMap", "_model")]
 custom_minimum_size = Vector2(0, 450)
@@ -104,10 +133,11 @@ _tileFactory = NodePath("../TileFactory")
 _environment = NodePath("../../Environment")
 _tileContainer = NodePath("../../Tiles")
 
-[node name="TileFactory" type="Node" parent="MainContainer/PanelContainer/Model" node_paths=PackedStringArray("_tileMapLayer", "_boardModel")]
+[node name="TileFactory" type="Node" parent="MainContainer/PanelContainer/Model" node_paths=PackedStringArray("_tileMapLayer", "_boardModel", "_uiEventBus")]
 script = ExtResource("7_ygp36")
 _tileMapLayer = NodePath("../../Environment")
 _boardModel = NodePath("..")
+_uiEventBus = NodePath("../../../../Events/UIEventBus")
 _packedTileScenes = Array[PackedScene]([ExtResource("8_2r3xs"), ExtResource("9_4s2tm"), ExtResource("10_fusuk"), ExtResource("11_25lnr"), ExtResource("12_fusuk"), ExtResource("13_25lnr"), ExtResource("14_6bwww"), ExtResource("15_x10rj")])
 
 [node name="TileMatcher" type="Node" parent="MainContainer/PanelContainer/Model" node_paths=PackedStringArray("_tileFactory", "_tileContainer")]

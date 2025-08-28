@@ -9,6 +9,7 @@ namespace Board{
 	{
 		[Export] private Node _tileMapLayer;
 		[Export] private Node _boardModel;
+		[Export] private Node _uiEventBus;
 		[Export] private Array<PackedScene> _packedTileScenes;
 
 		private Dictionary<TileTypes, PackedScene> _tilesWithScenes;
@@ -64,6 +65,7 @@ namespace Board{
 				case TileTypes.Player:
 					(tile as AccessableBoard).Board = _boardModel;
 					(tile as Mapable).Map = _tileMapLayer as Tileable;
+					(tile as RelayableUIEvents).UIEventBus = _uiEventBus as RemoteSignaling;
 					break;					
 				// case TileTypes.Fighter:
 				// 	(tile as Mapable).Map = environment as Tileable;

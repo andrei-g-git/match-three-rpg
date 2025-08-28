@@ -8,20 +8,23 @@ using static Skills.SkillNames;
 
 public partial class EnergyCollector : Node, CollectableEnergy, WithAttributes
 {
-	//[Export] private Node actor;
-	//[Export] private Node energyProcessor;
-	//[Export] private Node SomeEnergyProcessor; //will have access to player stats and actor(to get class)
-
 	[Export] private Node _derivedStats;
 	[Export] private Node _player;
-	public Attributive Attributes{private get;set;} //not set!!    set in Player Manager
+	public Attributive Attributes{private get;set;} 
 
 
 	[Signal]
 	public delegate void EnergyChangedEventHandler(int energy, int maxEnergy);
 
     public override void _Ready(){
-		//EmitSignal(SignalName.EnergyChanged, energy, maxEnergy); this emits before connecting to statusbar update
+
+	}
+
+	public void InitializeHud(){ //NOT INTERFACE METHOD
+		var derived = _derivedStats as DerivableStats;
+		var energy = derived.Energy;
+		
+		EmitSignal(SignalName.EnergyChanged, energy, derived.GetMaxEnergy()); 
 	}
 
     public void FillEnergy(int magnitude, SkillGroups skillGroup){
@@ -31,7 +34,7 @@ public partial class EnergyCollector : Node, CollectableEnergy, WithAttributes
 		var energy = derived.Energy;
 		derived.Energy = Math.Clamp(energy + fill, 0, derived.GetMaxEnergy());
 
-		EmitSignal(SignalName.EnergyChanged, energy, derived.GetMaxEnergy());
+		EmitSignal(SignalName.EnergyChanged, energy, derived.GetMaxEnergy()); //gets picked up by player manager, which publishes through event bus
     }
 
 	public void SpendEnergy(int amount){

@@ -77,6 +77,8 @@ public partial class BoardManager : PanelContainer
 			Enum.TryParse(_loadedGame.Player.Class, out playerClass);
 			(player as Classy).Class = playerClass;
 
+			(player as Player.Manager).InitializeHud();
+
 			GD.Print("maxxxx energy:  ", (player as DerivableStats).GetMaxEnergy());
 			GD.Print("class:  ", (player as Classy).Class.ToString());
 			//(player as Player.Manager).TestDelete();	

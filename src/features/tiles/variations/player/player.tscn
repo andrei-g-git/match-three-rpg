@@ -13,12 +13,13 @@
 [ext_resource type="Script" uid="uid://dp5fwk7pxd2pe" path="res://src/features/tiles/behaviors/EnergyCollector.cs" id="7_dohfl"]
 [ext_resource type="Script" uid="uid://dkxyfo8ok7v3x" path="res://src/features/tiles/animations/Pop.cs" id="8_17kow"]
 
-[node name="Player" type="Control" node_paths=PackedStringArray("_swapping", "_matchingRange", "_derivedStats", "_moveTweener", "_popTweener")]
+[node name="Player" type="Control" node_paths=PackedStringArray("_swapping", "_matchingRange", "_energyCollector", "_derivedStats", "_moveTweener", "_popTweener")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_4gdcj")
 _swapping = NodePath("Behaviors/Swapping")
 _matchingRange = NodePath("Behaviors/MatchingRange")
+_energyCollector = NodePath("Behaviors/EnergyCollector")
 _derivedStats = NodePath("Stats-should not have scr/Derived")
 _moveTweener = NodePath("Tweeners/Move")
 _popTweener = NodePath("Tweeners/Pop")
@@ -89,3 +90,4 @@ _duration = 0.7
 
 [connection signal="EngagedBy" from="AspectRatioContainer/DragAndDrop" to="Behaviors/Swapping" method="SwapWith"]
 [connection signal="Destroying" from="Behaviors/Removing" to="Tweeners/ScaleUpFade" method="Disappear"]
+[connection signal="EnergyChanged" from="Behaviors/EnergyCollector" to="." method="UpdateEnergyBar"]

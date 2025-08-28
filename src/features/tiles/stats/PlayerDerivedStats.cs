@@ -8,12 +8,12 @@ public partial class PlayerDerivedStats : Node, DerivableStats
     private int _health;
     public int Health{
         get => _health;
-        set => Math.Clamp(value, 0, GetMaxHealth());
+        set => _health = Math.Clamp(value, 0, GetMaxHealth());
     }
     private int _energy;
     public int Energy{
         get => _energy;
-        set => Math.Clamp(value, 0, GetMaxEnergy());
+        set =>_energy = Math.Clamp(value, 0, GetMaxEnergy());
     }    
 
     public override void _Ready(){

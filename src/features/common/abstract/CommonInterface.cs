@@ -20,6 +20,11 @@ namespace Common{
         //public void Publish(Events event_, ParameterDict[] parameters);
         public void Publish(Events event_, Array<Variant> parameters);
         public void Publish(Events event_);
-        public void Subscribe(Action callback, Events event_);
+        //public void Subscribe(/* Action callback */Callable callable, Events event_);
+        public void Subscribe<[MustBeVariant]T1, [MustBeVariant]T2>(Action<T1, T2> callback, Events event_);
+    }
+
+    public interface RelayableUIEvents{
+        public RemoteSignaling UIEventBus{set;}
     }
 }

@@ -79,7 +79,7 @@ public partial class MainMenu : Control, WithSceneManager
 					Intelligence = 5
 				},
 				Health = PlayerDerivedStats.GetMaxHealth(10),
-				Energy = PlayerDerivedStats.GetMaxEnergy(5)
+				Energy = PlayerDerivedStats.GetMaxEnergy(5) - 3 //test
 			},
 			Skills = [
 				new SkillWithCount{

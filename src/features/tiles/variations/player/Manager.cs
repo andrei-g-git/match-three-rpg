@@ -4,13 +4,15 @@ using Common;
 using Godot;
 using Stats;
 using Tiles;
+using static Skills.SkillNames;
 
 namespace Player{
-	public partial class Manager : Control, Tile, AccessableBoard, Movable, Mapable, Swappable, Permeable, MatchableBounds, Playable, Attributive, DerivableStats, Classy
+	public partial class Manager : Control, Tile, AccessableBoard, Movable, Mapable, Swappable, Permeable, MatchableBounds, Playable, Attributive, DerivableStats, Classy, CollectableEnergy, RelayableUIEvents
 	{
 		[ExportGroup("behaviors")]
 		[Export] private Node _swapping;
         [Export] private Node _matchingRange;
+        [Export] private Node _energyCollector;
 
         [ExportGroup("stats")]
         [Export] private Node _derivedStats;
@@ -39,6 +41,9 @@ namespace Player{
         public int Health {get => DerivedStats.Health; set => DerivedStats.Health = value;}
         public int Energy {get => DerivedStats.Energy; set => DerivedStats.Energy = value;}
         public Classes Class{get;set;}
+
+
+        public RemoteSignaling UIEventBus{private get; set;} //NO INTERFACE FOR THIS YET
 
 
         public override void _Ready(){
@@ -99,7 +104,21 @@ namespace Player{
             return DerivedStats.GetMaxHealth();
         } 
 
+        public void FillEnergy(int magnitude, SkillGroups skillGroup){
+            (_energyCollector as CollectableEnergy).FillEnergy(magnitude, skillGroup);
+        }
 
+        public void SpendEnergy(int amount){
+            (_energyCollector as CollectableEnergy).SpendEnergy(amount);
+        }
+
+        public void InitializeHud(){ //NOT INTERFACE METHOD
+            (_energyCollector as EnergyCollector).InitializeHud();
+        }
+
+        public void UpdateEnergyBar(int amount, int max){ //NO INTERFACE, ONLY USING TO CONNECT SIGNAL IN EDITOR
+            UIEventBus.Publish(Events.EnergyChanged, [amount, max]);
+        }
 
 
         public void TestDelete(){
