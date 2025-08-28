@@ -19,7 +19,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
     private TileTypes[] _spawnTiles;
 
     public override void _Ready(){
-		_spawnOddsByTileType = new(){
+		_spawnOddsByTileType = new(){ 
 			{TileTypes.Defensive, 3},
             {TileTypes.Melee, 3},
             {TileTypes.Ranged, 3},
@@ -33,8 +33,9 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
         if(sourceTile is Swappable && targetTile is Swappable){
             Debugging.PrintStackedGridInitials(Tiles.GetGridAs2DList(), 2, 2, "STACKED Grid before current match attempt:");
             var probeGrid = _SwapCellsInTemporaryGrid(sourceTile, targetTile, Tiles);   
+            //EVERYTHING BELOW THIS SHOULD BE A PUBLIC METHOD that I can also use in the tileOrganizer to resolve new matches resulting from transfering tiles
             var gotMatches = _CheckNewMatchesAndProcess(probeGrid); //enqueues new match groups
-                                    //THIS RUNS BEFORE OLD MATCHES ARE REMOVED!!
+                                    //THIS RUNS BEFORE OLD MATCHES ARE REMOVED!!  (does it still?...)
             if(gotMatches){
                 var player = Tiles.FindItemByType(typeof(Playable));
 
@@ -142,7 +143,6 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
                 }
             }
         }
-
     }
 
 

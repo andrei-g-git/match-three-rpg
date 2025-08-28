@@ -1,3 +1,5 @@
+using System.Linq;
+using System.Threading.Tasks;
 using Godot;
 using Tiles;
 
@@ -9,6 +11,21 @@ public partial class TileOrganizer: Node, Organizable, WithTiles
     [Export] private Node _environment;
     [Export] private Node _tileContainer;
     public Grid<Control> Tiles {get; set;}
+    private float[] _spawnWeights;
+    private TileTypes[] _spawnTiles;
+    private System.Collections.Generic.Dictionary<TileTypes, int> _spawnOddsByTileType;
+    
+    public override void _Ready(){
+		_spawnOddsByTileType = new(){ 
+			{TileTypes.Defensive, 3},
+            {TileTypes.Melee, 3},
+            {TileTypes.Ranged, 3},
+            {TileTypes.Tech, 3},
+            {TileTypes.Walk, 3}, //distinct from what's in tileMatcher
+		};
+		_spawnWeights = [.._spawnOddsByTileType.Select(item => item.Value)];   
+        _spawnTiles = [.._spawnOddsByTileType.Select(item => item.Key)];   
+    }
 
     public void Initialize(Grid<TileTypes> tileTypes){
         (_tileFactory as TileMaking).Initialize();
@@ -20,21 +37,43 @@ public partial class TileOrganizer: Node, Organizable, WithTiles
         Grid<TileTypes> tileTable,
         TileMaking factory
     ){
-        var _board = new Grid<Control>(tileTable.Width, tileTable.Height);
+        var board = new Grid<Control>(tileTable.Width, tileTable.Height);
         for (int x = 0; x < tileTable.Width; x++){
             for (int y = 0; y < tileTable.Height; y++){
                 var tileName = tileTable.GetItem(y, x); //REVERSED
                 if (tileName != TileTypes.Blank){
                     var tile = (Control) factory.Create(tileName);
-                    _board.SetCell(tile, x, y);
+                    board.SetCell(tile, x, y);
                 }
             }
         }
-        return _board;				
+        return board;				
     }   
 
-    public void TransferTileToTile(Control sourceTile, Control targetTile){
+    public async Task TransferTileToTile(Control sourceTile, Control targetTile){
         var target = Tiles.GetCellFor(targetTile);
+        var source = Tiles.GetCellFor(sourceTile);
+        Tiles.SetCell(sourceTile, target);
         (sourceTile as Movable).MoveTo(target);
+
+        //result is an array that stores the signal parameters, don't need here
+        /* var result = */ await ToSignal(targetTile, "Removed"); 
+
+        _FillEmptyCell(source, _spawnWeights, _spawnTiles); //THIS DOES NOT HANDLE POSSIBLE NEW MATCHES, SHOULD MAKE NEW METHOD IN TileMatcher
+
+        GD.Print("former player position is now:  ", (Tiles.GetItem(source) as Tile).Type);
     } 
+
+
+    private void _FillEmptyCell(Vector2I cell, float[] spawnWeights, TileTypes[] spawnTiles){
+        var random = new RandomNumberGenerator();
+        var tileType = spawnTiles[random.RandWeighted(spawnWeights)]; 
+        var spawnedTile = (_tileFactory as TileMaking).Create(tileType) as Control;
+        Tiles.SetCell(spawnedTile, cell);   
+        _AddTile(spawnedTile, cell); 
+    }
+
+    private void _AddTile(Control tile, Vector2I cell){
+        (_tileContainer as Viewable).Add(tile, cell);
+    }        
 }

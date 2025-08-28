@@ -15,7 +15,7 @@ public partial class Walkway : Node, Walkable, AccessableBoard
 		if(tile is Playable player){
 			GD.Print("transfering player over walkway");
 			//player.receiveWalkPoint() or player.spendStamina() or something
-			(Board as Organizable).TransferTileToTile(tile, _tileRoot as Control);
+			_ = (Board as Organizable).TransferTileToTile(tile, _tileRoot as Control);
 			EmitSignal(SignalName.Transfering);
 		}else{
 			EmitSignal(SignalName.TrySwapping, tile);

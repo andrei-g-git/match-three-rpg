@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Godot;
 using Tiles;
 
@@ -33,7 +34,7 @@ public partial class BoardModel : Node, Organizable, MatchableBoard, WithTiles
         return (_tileMatcher as MatchableBoard).TryMatching(sourceTile, targetTile);
     }
 
-    public void TransferTileToTile(Control sourceTile, Control targetTile){
-        (_tileOrganizer as Organizable).TransferTileToTile(sourceTile, targetTile);
+    public async Task TransferTileToTile(Control sourceTile, Control targetTile){
+        await (_tileOrganizer as Organizable).TransferTileToTile(sourceTile, targetTile);
     }
 }

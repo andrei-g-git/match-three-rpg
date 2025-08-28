@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Godot;
 using Godot.Collections;
 using Tiles;
@@ -19,7 +20,7 @@ namespace Board{
 	public interface Organizable{
 		public void Initialize(Grid<TileTypes> tileTypes);
 		//public Grid<Control> Tiles{get;set;}	
-		public void TransferTileToTile(Control sourceTile, Control targetTile);
+		public Task TransferTileToTile(Control sourceTile, Control targetTile);
 
 	}
 

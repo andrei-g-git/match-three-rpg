@@ -74,4 +74,5 @@ _duration = 0.7
 [connection signal="Transfering" from="Behaviors/Walkway" to="Behaviors/Removing" method="PrepDestroy"]
 [connection signal="TrySwapping" from="Behaviors/Walkway" to="Behaviors/Swapping" method="SwapWith"]
 [connection signal="Destroying" from="Behaviors/Removing" to="Tweeners/ScaleUpFade" method="Disappear"]
+[connection signal="Removed" from="Behaviors/Removing" to="." method="OnRemoved"]
 [connection signal="FinishedFading" from="Tweeners/ScaleUpFade" to="Behaviors/Removing" method="Remove"]

@@ -25,7 +25,7 @@ namespace Walk{
                 (_walkway as AccessableBoard).Board = value;
             }}
         public Tileable Map { set => (_moveTweener as Mapable).Map = value; }
-
+        [Signal] public delegate void RemovedEventHandler();
 
         public override void _Ready(){
             (_popTweener as Creatable).Pop();
@@ -45,6 +45,10 @@ namespace Walk{
         public void SwapWith(Control tile)
         {
             throw new System.NotImplementedException();
+        }
+
+        public void OnRemoved(){ //NOT INTERFACE METHOD
+            EmitSignal(SignalName.Removed);
         }
     }		
 }
