@@ -8,13 +8,14 @@ public partial class SpringForthAndBack : Node, Mapable
 	[Export] private float _duration;
 	[Export(PropertyHint.Range, "0, 1, 0.01")] private float _lungeMagnitude;
 	[Export] private Control _tileRoot;
-    public Tileable Map {private get;set;}
+    public Tileable Map {private get;set;} //don't need this
 	[Signal] public delegate void FinishesedAttackingEventHandler();
 
     public void Attack(Control targetTile){
 		var source = _tileRoot.Position;
-		var target = Map.PositionToCell(targetTile.Position);
-		var diff = source - target; //or the other way around?
+		var target = targetTile.Position;
+
+		var diff = target - source;
 
 		var lungeTo = new Vector2(
 			source.X + diff.X * _lungeMagnitude,
@@ -28,8 +29,8 @@ public partial class SpringForthAndBack : Node, Mapable
 			"position", 
 			lungeTo, 
 			_duration
-		)
-			.AsRelative();	
+		);
+			//.AsRelative();	
 		tween.TweenProperty(
 			_tileRoot, 
 			"position", 
