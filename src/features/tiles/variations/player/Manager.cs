@@ -7,12 +7,13 @@ using Tiles;
 using static Skills.SkillNames;
 
 namespace Player{
-	public partial class Manager : Control, Tile, AccessableBoard, Movable, Mapable, Swappable, Permeable, MatchableBounds, Playable, Attributive, DerivableStats, Classy, CollectableEnergy, RelayableUIEvents, ReactiveToMatches
+	public partial class Manager : Control, Tile, AccessableBoard, Movable, Mapable, Swappable, Permeable, MatchableBounds, Playable, Attributive, DerivableStats, Classy, CollectableEnergy, RelayableUIEvents, ReactiveToMatches, Offensive
 	{
 		[ExportGroup("behaviors")]
 		[Export] private Node _swapping;
         [Export] private Node _matchingRange;
         [Export] private Node _energyCollector;
+        [Export] private Node _offense;
 
         [ExportGroup("stats")]
         [Export] private Node _derivedStats;
@@ -20,10 +21,16 @@ namespace Player{
 		[ExportGroup("tweeners")]
 		[Export] private Node _moveTweener;
         [Export] private Node _popTweener;
+        [Export] private Node _attackTweener;
 		public TileTypes Type => TileTypes.Player;
         public TileTypes AA => Type; //for debugging
 		public Node Board {set {(_swapping as AccessableBoard).Board = value;}}
-        public Tileable Map { set => (_moveTweener as Mapable).Map = value; }
+        public Tileable Map { 
+            set {
+                (_moveTweener as Mapable).Map = value;
+                (_attackTweener as Mapable).Map = value;
+            } 
+        }
         public int MatchRange => (_matchingRange as MatchableBounds).MatchRange;
         private Attributive _attributes;
         public Attributive Attributes{
@@ -125,11 +132,9 @@ namespace Player{
             FillEnergy(matches.Count, skillGroup);
         }
 
-
-
-        public void TestDelete(){
-            var bp = 1123;
-        }    
+        public void Attack(Control target){
+            (_offense as Offensive).Attack(target);
+        }
     }	
 }
 

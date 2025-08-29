@@ -35,3 +35,20 @@ public interface DerivableStats{
 public interface Classy{
 	public Classes Class{get;set;}
 }
+
+public interface WithHealth{
+    public int Health{get;set;} 
+    public int MaxHealth{get;}
+}
+
+public interface WithDefense{
+	public int Defense{get;set;}
+}
+
+public interface WithDamage{
+	public int Damage{get;set;}
+}
+
+public interface WithSpeed{
+	public int Speed{get;set;}
+}

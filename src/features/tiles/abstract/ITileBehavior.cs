@@ -33,4 +33,16 @@ namespace Tiles{
     public interface Walkable{
         public void LeadPlayer(Control tile);
     }
+
+    public interface Defensible{
+        public void TakeDamage(int damage);
+    }
+
+    public interface Offensive{
+        public void Attack(Control target/* , int momentum */); //will have separate interfaces for skill offensive behaviors
+    }
+
+    public interface Engageable{
+        public void ProcessEngagementBy(Control engagingActor);
+    }
 }

@@ -38,4 +38,8 @@ namespace Tiles{
     public interface WithAttributes{
         public Attributive Attributes{set;}
     }
+
+    public interface Recoiling{
+        public void Recoil();
+    }
 }
