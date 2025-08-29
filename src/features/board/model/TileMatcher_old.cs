@@ -45,6 +45,11 @@ public partial class TileMatcher_old : Node, MatchableBoard, WithTiles
         return _hasMatches;
     }
 
+
+    public void MatchWithoutSwapping(){
+        
+    }
+
     private void _ActivateMatchedTilesAndCollapseGrid(Queue<List<Vector2I>> matchGroupQueue, Grid<Control> grid){ //all this dependency injection is kind of useless if I hard code helper funcions... this is not a pure function
         var group = matchGroupQueue.Dequeue();
         var matchQueue = new Queue<Vector2I>(group);

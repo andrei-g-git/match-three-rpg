@@ -61,6 +61,18 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
     }
 
 
+    public void MatchWithoutSwapping(){
+        var gotMatches = _CheckNewMatchesAndProcess(Tiles);   
+        if(gotMatches){
+            if(_matchGroupQueue.Peek() != null){
+                GetTree().CreateTimer(1).Timeout += () => { //temporary ... nothing more permanent eh...
+                    _ActivateMatchedTilesAndCollapseGrid(_matchGroupQueue);
+                };
+            }                         
+        }             
+    }
+
+
     private void _SwapTileNodes(Control sourceTile, Control targetTile){
         var source = Tiles.GetCellFor(sourceTile);
         var target = Tiles.GetCellFor(targetTile);

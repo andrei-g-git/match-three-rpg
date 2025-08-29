@@ -128,11 +128,12 @@ _tileOrganizer = NodePath("TileOrganizer")
 _tileMatcher = NodePath("TileMatcher")
 _tileFactory = NodePath("TileFactory")
 
-[node name="TileOrganizer" type="Node" parent="MainContainer/PanelContainer/Model" node_paths=PackedStringArray("_tileFactory", "_environment", "_tileContainer")]
+[node name="TileOrganizer" type="Node" parent="MainContainer/PanelContainer/Model" node_paths=PackedStringArray("_tileFactory", "_environment", "_tileContainer", "_tileMatcher")]
 script = ExtResource("6_ygp36")
 _tileFactory = NodePath("../TileFactory")
 _environment = NodePath("../../Environment")
 _tileContainer = NodePath("../../Tiles")
+_tileMatcher = NodePath("../TileMatcher")
 
 [node name="TileFactory" type="Node" parent="MainContainer/PanelContainer/Model" node_paths=PackedStringArray("_tileMapLayer", "_boardModel", "_uiEventBus")]
 script = ExtResource("7_ygp36")

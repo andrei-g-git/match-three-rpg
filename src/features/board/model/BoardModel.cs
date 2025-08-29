@@ -37,4 +37,8 @@ public partial class BoardModel : Node, Organizable, MatchableBoard, WithTiles
     public async Task TransferTileToTile(Control sourceTile, Control targetTile){
         await (_tileOrganizer as Organizable).TransferTileToTile(sourceTile, targetTile);
     }
+
+    public void MatchWithoutSwapping(){
+        (_tileMatcher as MatchableBoard).MatchWithoutSwapping();
+    }
 }

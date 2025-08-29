@@ -10,6 +10,7 @@ public partial class TileOrganizer: Node, Organizable, WithTiles
     [Export] private Node _tileFactory;
     [Export] private Node _environment;
     [Export] private Node _tileContainer;
+    [Export] private Node _tileMatcher;
     public Grid<Control> Tiles {get; set;}
     private float[] _spawnWeights;
     private TileTypes[] _spawnTiles;
@@ -60,6 +61,8 @@ public partial class TileOrganizer: Node, Organizable, WithTiles
         /* var result = */ await ToSignal(targetTile, "Removed"); 
 
         _FillEmptyCell(source, _spawnWeights, _spawnTiles); //THIS DOES NOT HANDLE POSSIBLE NEW MATCHES, SHOULD MAKE NEW METHOD IN TileMatcher
+
+        (_tileMatcher as MatchableBoard).MatchWithoutSwapping();
 
         GD.Print("former player position is now:  ", (Tiles.GetItem(source) as Tile).Type);
     } 

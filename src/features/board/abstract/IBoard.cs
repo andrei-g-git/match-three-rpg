@@ -30,6 +30,7 @@ namespace Board{
 
 	public interface MatchableBoard{
 		public bool TryMatching(Control sourceTile, Control targetTile); 
+		public void MatchWithoutSwapping();
 	}
 
 	public interface WithTiles{
