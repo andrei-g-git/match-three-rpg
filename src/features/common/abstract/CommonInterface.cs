@@ -27,4 +27,8 @@ namespace Common{
     public interface RelayableUIEvents{
         public RemoteSignaling UIEventBus{set;}
     }
+
+    public interface Modelable{
+        public void Notify();
+    }
 }

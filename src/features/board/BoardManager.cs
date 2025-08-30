@@ -20,6 +20,7 @@ public partial class BoardManager : PanelContainer
 	[Export] private TileMapLayer _tileMap;
 	[Export] private Node _model;
 	[Export] private Node _tileFactory;
+	[Export] private Node _selectedSkillsModel; 
 
 	private Grid<TileTypes> _tileTypes;
 	private GameSave _loadedGame;
@@ -79,9 +80,12 @@ public partial class BoardManager : PanelContainer
 
 			(player as Player.Manager).InitializeHud();
 
-			GD.Print("maxxxx energy:  ", (player as DerivableStats).GetMaxEnergy());
-			GD.Print("class:  ", (player as Classy).Class.ToString());
-			//(player as Player.Manager).TestDelete();	
+
+			var skillGroups = _loadedGame.Player.SkillGroups; //this is a dictionary. fortunately the impl has an interface. I may be able to deserializse and add 
+			// to the SelectedSkillsModel directly, then it can be notified and then the UI works
+
+
+
 		};
 
 	}

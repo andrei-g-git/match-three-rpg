@@ -53,43 +53,4 @@ public partial class ShakeOnce : Node, Recoiling
 			}
 		};			
 	}
-
-
-	// private void _Shake(int shakeDistanceX, int shakeDistanceY, float duration){
-	// 	var random = new Random();
-	// 	var xShake = random.Next(-shakeDistanceX, shakeDistanceX);
-	// 	var yShake = random.Next(-shakeDistanceY, shakeDistanceY);
-    //     var tween = CreateTween()
-	// 		.SetTrans(Tween.TransitionType.Elastic)
-	// 		.SetEase(Tween.EaseType.Out);
-    //     tween.TweenProperty(
-    //         _tileRoot,
-    //         "position",
-    //         new Vector2(xShake, yShake),
-    //         duration
-    //     )
-    //         .AsRelative();
-	// 	_shakes--;
-	// 	tween.Finished += () => {
-	// 		if(_shakes > 0){
-	// 			_Shake(shakeDistanceX, shakeDistanceY, duration);
-	// 		}else{
-	// 			_GoBackToOriginalPosition(0.1f);
-	// 		}
-	// 	};
-	// }	
-
-	// private void _GoBackToOriginalPosition(float duration){
-	// 	// var x = _tileRoot.Position.X;
-	// 	// var y = _tileRoot.Position.Y;
-    //     var tween = CreateTween()
-	// 		.SetTrans(Tween.TransitionType.Spring)
-	// 		.SetEase(Tween.EaseType.Out);	
-    //     tween.TweenProperty(
-    //         _tileRoot,
-    //         "position",
-    //         _originalPosition,//new Vector2(x, y)
-    //         duration
-    //     );				
-	// }
 }

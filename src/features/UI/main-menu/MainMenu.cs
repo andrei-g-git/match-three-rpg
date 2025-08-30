@@ -81,16 +81,61 @@ public partial class MainMenu : Control, WithSceneManager
 				Health = PlayerDerivedStats.GetMaxHealth(10),
 				Energy = PlayerDerivedStats.GetMaxEnergy(5) - 3 //test
 			},
-			Skills = [
-				new SkillWithCount{
-					Name=SkillNames.Melee.Charge.ToString(),
-					Uses=99
+			SkillGroups = new Dictionary<string, SkillGroup>(){
+				{
+					SkillNames.SkillGroups.Melee.ToString(), 
+					new SkillGroup{
+						Skills = [
+							new SkillWithCount{
+								Name=SkillNames.Melee.Charge.ToString(),
+								Uses=99
+							},
+							new SkillWithCount{
+								Name=SkillNames.Melee.LeapAttack.ToString(),
+								Uses=99
+							},
+							new SkillWithCount{
+								Name=SkillNames.Melee.Whirlwind.ToString(),
+								Uses=99
+							}						
+						]
+					}					
 				},
-				new SkillWithCount{
-					Name=SkillNames.Melee.LeapAttack.ToString(),
-					Uses=99
+				{
+					SkillNames.SkillGroups.Ranged.ToString(), 
+					new SkillGroup{
+						Skills = [
+							new SkillWithCount{
+								Name=SkillNames.Ranged.ThrowWeapon.ToString(),
+								Uses=99
+							}						
+						]
+					}					
 				},
-			],	
+				{
+					SkillNames.SkillGroups.Defensive.ToString(),
+					new SkillGroup{
+						Skills = [
+							new SkillWithCount{
+								Name=SkillNames.Defensive.ShieldBash.ToString(),
+								Uses=99
+							}						
+						]
+					}
+				},
+				{
+					SkillNames.SkillGroups.Tech.ToString(),
+					new SkillGroup{
+						Skills = [
+							new SkillWithCount{
+								Name=SkillNames.Tech.Ensnare.ToString(),
+								Uses=99
+							}						
+						]
+					}
+				}				
+			},
+	
 			Class = Classes.Fighter.ToString(),
 			Equipment = new Gear{
 				Head = Helmets.RustyHelmet.ToString(),

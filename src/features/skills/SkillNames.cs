@@ -6,6 +6,7 @@ public class SkillNames{
 	public enum All{
 		Charge,	
 		LeapAttack,
+		Whirlwind,
 		None,
 		ThrowWeapon, 
 		ShieldBash,
@@ -14,10 +15,11 @@ public class SkillNames{
 
 	public enum Melee{
 		Charge = All.Charge,	
-		LeapAttack =  All.LeapAttack
+		LeapAttack =  All.LeapAttack,
+		Whirlwind = All.Whirlwind
 	}
 	public enum Ranged{
-		JavelinThrow = All.ThrowWeapon
+		ThrowWeapon = All.ThrowWeapon
 	}
 	public enum Defensive{
 		ShieldBash = All.ShieldBash	

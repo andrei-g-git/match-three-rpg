@@ -20,7 +20,8 @@ namespace Content{
 
     public class PlayerSave/* : SavablePlayer */{ ///can't deserialize abstarctions
         public /* StatBased */ ActorStats Stats{get;set;}
-        public List</* CountableSkill */SkillWithCount> Skills{get;set;}
+        //public List</* CountableSkill */SkillWithCount> Skills{get;set;}
+        public /* SkillGroup[] */ Dictionary<string, SkillGroup> SkillGroups { get; set; }
         public /* Gearable */Gear Equipment{get;set;} 
         public string Class{get;set;}
     }    

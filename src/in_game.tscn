@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://vv3xapj4lprc"]
+[gd_scene load_steps=35 format=3 uid="uid://vv3xapj4lprc"]
 
 [ext_resource type="Script" uid="uid://dy1o6fmi8i4pb" path="res://src/features/board/BoardManager.cs" id="1_k7s5h"]
 [ext_resource type="Texture2D" uid="uid://clk8i0g07rccs" path="res://assets/images/environment/map.png" id="2_dw1vl"]
@@ -21,6 +21,15 @@
 [ext_resource type="Script" uid="uid://djqo663m7vx35" path="res://src/features/UI/UIEventBus.cs" id="19_amteu"]
 [ext_resource type="PackedScene" uid="uid://bd6owm6pwgyaa" path="res://src/features/tiles/variations/walk/walk.tscn" id="19_s5hp3"]
 [ext_resource type="PackedScene" uid="uid://dbpwe34yxcfuf" path="res://src/features/tiles/variations/fighter/fighter.tscn" id="20_fjexy"]
+[ext_resource type="Script" uid="uid://byx4kqe8rgr43" path="res://src/features/skills/PlayerSkillsModel.cs" id="22_10pv0"]
+[ext_resource type="Texture2D" uid="uid://c3twceykx1fxf" path="res://assets/images/tiles/charge.png" id="22_gtevj"]
+[ext_resource type="Texture2D" uid="uid://o7ate3k72l8g" path="res://assets/images/tiles/leapAttack.png" id="23_oqk24"]
+[ext_resource type="Script" uid="uid://brll1nni2ffjy" path="res://src/features/skills/SkillGroupsController.cs" id="23_w8nfc"]
+[ext_resource type="Texture2D" uid="uid://d0qn323g46s7n" path="res://assets/images/tiles/ensnare.png" id="24_w8nfc"]
+[ext_resource type="Texture2D" uid="uid://baxfw6v3hfftv" path="res://assets/images/tiles/whirlwind.png" id="25_r27v6"]
+[ext_resource type="Texture2D" uid="uid://dfnetxbrtpqr6" path="res://assets/images/tiles/throwWeapon.png" id="26_10pv0"]
+[ext_resource type="Texture2D" uid="uid://bpyts1xl2yh0l" path="res://assets/images/tiles/shieldBash.png" id="27_crjdv"]
+[ext_resource type="Script" uid="uid://fshl3bovmk2h" path="res://src/features/skills/SkillSelection.cs" id="29_crjdv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x10rj"]
 
@@ -147,3 +156,88 @@ _packedTileScenes = Array[PackedScene]([ExtResource("8_2r3xs"), ExtResource("9_4
 script = ExtResource("12_4s2tm")
 _tileFactory = NodePath("../TileFactory")
 _tileContainer = NodePath("../../Tiles")
+
+[node name="PlayerSkills" type="Node" parent="MainContainer/PanelContainer/Model"]
+script = ExtResource("22_10pv0")
+
+[node name="i don\'t like this here___" type="Node" parent="MainContainer/PanelContainer/Model/PlayerSkills"]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainContainer"]
+custom_minimum_size = Vector2(512, 0)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MainContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SkillGroups" type="HBoxContainer" parent="MainContainer/VBoxContainer/MarginContainer" node_paths=PackedStringArray("_playerSkillsModel", "_melee", "_ranged", "_defensive", "_tech")]
+layout_mode = 2
+script = ExtResource("23_w8nfc")
+_playerSkillsModel = NodePath("../../../PanelContainer/Model/PlayerSkills")
+_melee = NodePath("MeleeSkills")
+_ranged = NodePath("RangedSkills")
+_defensive = NodePath("DefensiveSkills")
+_tech = NodePath("TechSkills")
+
+[node name="MeleeSkills" type="ItemList" parent="MainContainer/VBoxContainer/MarginContainer/SkillGroups"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+same_column_width = true
+fixed_column_width = 64
+icon_mode = 0
+fixed_icon_size = Vector2i(64, 55)
+script = ExtResource("29_crjdv")
+_skillMap = Dictionary[int, Texture2D]({
+0: ExtResource("22_gtevj"),
+1: ExtResource("23_oqk24"),
+2: ExtResource("25_r27v6")
+})
+
+[node name="RangedSkills" type="ItemList" parent="MainContainer/VBoxContainer/MarginContainer/SkillGroups"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+same_column_width = true
+fixed_column_width = 64
+icon_mode = 0
+fixed_icon_size = Vector2i(64, 55)
+script = ExtResource("29_crjdv")
+_skillGroup = 1
+_skillMap = Dictionary[int, Texture2D]({
+0: ExtResource("26_10pv0"),
+4: null
+})
+
+[node name="DefensiveSkills" type="ItemList" parent="MainContainer/VBoxContainer/MarginContainer/SkillGroups"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+same_column_width = true
+fixed_column_width = 64
+icon_mode = 0
+fixed_icon_size = Vector2i(64, 55)
+script = ExtResource("29_crjdv")
+_skillGroup = 2
+_skillMap = Dictionary[int, Texture2D]({
+5: ExtResource("27_crjdv")
+})
+
+[node name="TechSkills" type="ItemList" parent="MainContainer/VBoxContainer/MarginContainer/SkillGroups"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+same_column_width = true
+fixed_column_width = 64
+icon_mode = 0
+fixed_icon_size = Vector2i(64, 55)
+script = ExtResource("29_crjdv")
+_skillGroup = 3
+_skillMap = Dictionary[int, Texture2D]({
+6: ExtResource("24_w8nfc")
+})
+
+[connection signal="SelectedSkillFromGroup" from="MainContainer/VBoxContainer/MarginContainer/SkillGroups/MeleeSkills" to="MainContainer/VBoxContainer/MarginContainer/SkillGroups" method="OnSkillSelectedFromGroup"]
+[connection signal="item_selected" from="MainContainer/VBoxContainer/MarginContainer/SkillGroups/MeleeSkills" to="MainContainer/VBoxContainer/MarginContainer/SkillGroups/MeleeSkills" method="OnItemSelected"]
+[connection signal="SelectedSkillFromGroup" from="MainContainer/VBoxContainer/MarginContainer/SkillGroups/RangedSkills" to="MainContainer/VBoxContainer/MarginContainer/SkillGroups" method="OnSkillSelectedFromGroup"]
+[connection signal="item_selected" from="MainContainer/VBoxContainer/MarginContainer/SkillGroups/RangedSkills" to="MainContainer/VBoxContainer/MarginContainer/SkillGroups/RangedSkills" method="OnItemSelected"]
+[connection signal="SelectedSkillFromGroup" from="MainContainer/VBoxContainer/MarginContainer/SkillGroups/DefensiveSkills" to="MainContainer/VBoxContainer/MarginContainer/SkillGroups" method="OnSkillSelectedFromGroup"]
+[connection signal="item_selected" from="MainContainer/VBoxContainer/MarginContainer/SkillGroups/DefensiveSkills" to="MainContainer/VBoxContainer/MarginContainer/SkillGroups/DefensiveSkills" method="OnItemSelected"]
+[connection signal="SelectedSkillFromGroup" from="MainContainer/VBoxContainer/MarginContainer/SkillGroups/TechSkills" to="MainContainer/VBoxContainer/MarginContainer/SkillGroups" method="OnSkillSelectedFromGroup"]
+[connection signal="item_selected" from="MainContainer/VBoxContainer/MarginContainer/SkillGroups/TechSkills" to="MainContainer/VBoxContainer/MarginContainer/SkillGroups/TechSkills" method="OnItemSelected"]
