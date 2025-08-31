@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dbpwe34yxcfuf"]
+[gd_scene load_steps=13 format=3 uid="uid://dbpwe34yxcfuf"]
 
 [ext_resource type="Script" uid="uid://b00gbtd8quyh" path="res://src/features/tiles/variations/fighter/Manager.cs" id="1_81q7e"]
 [ext_resource type="Texture2D" uid="uid://ckh7ug4poxr4w" path="res://assets/images/tiles/fighter.png" id="1_dlaht"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://p0ymm4ytnxjy" path="res://src/features/tiles/behaviors/Defender.cs" id="7_x447s"]
 [ext_resource type="Script" uid="uid://cdaoc138ep2k4" path="res://src/features/tiles/behaviors/Engagement.cs" id="7_xmyc7"]
 [ext_resource type="Script" uid="uid://dkxyfo8ok7v3x" path="res://src/features/tiles/animations/Pop.cs" id="8_abjmt"]
+[ext_resource type="Script" path="res://src/features/tiles/behaviors/Hostility.cs" id="8_xsd4e"]
 [ext_resource type="Script" uid="uid://e2s0xy666sc2" path="res://src/features/tiles/animations/ShakeOnce.cs" id="11_xmyc7"]
 
 [node name="Fighter" type="Control" node_paths=PackedStringArray("_defender", "_stats", "_moveTweener", "_popTweener", "_recoil")]
@@ -64,6 +65,9 @@ _stats = NodePath("../Stats")
 [node name="Engagement" type="Node" parent="Behaviors" node_paths=PackedStringArray("_tileRoot")]
 script = ExtResource("7_xmyc7")
 _tileRoot = NodePath("../..")
+
+[node name="Hostility" type="Node" parent="Behaviors"]
+script = ExtResource("8_xsd4e")
 
 [node name="Tweeners" type="Node" parent="."]
 

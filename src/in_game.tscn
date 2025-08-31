@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://vv3xapj4lprc"]
+[gd_scene load_steps=36 format=3 uid="uid://vv3xapj4lprc"]
 
 [ext_resource type="Script" uid="uid://dy1o6fmi8i4pb" path="res://src/features/board/BoardManager.cs" id="1_k7s5h"]
 [ext_resource type="Texture2D" uid="uid://clk8i0g07rccs" path="res://assets/images/environment/map.png" id="2_dw1vl"]
@@ -21,6 +21,7 @@
 [ext_resource type="Script" uid="uid://djqo663m7vx35" path="res://src/features/UI/UIEventBus.cs" id="19_amteu"]
 [ext_resource type="PackedScene" uid="uid://bd6owm6pwgyaa" path="res://src/features/tiles/variations/walk/walk.tscn" id="19_s5hp3"]
 [ext_resource type="PackedScene" uid="uid://dbpwe34yxcfuf" path="res://src/features/tiles/variations/fighter/fighter.tscn" id="20_fjexy"]
+[ext_resource type="Script" uid="uid://bt865kjovyit6" path="res://src/features/board/model/TileQuery.cs" id="22_7t1so"]
 [ext_resource type="Script" uid="uid://byx4kqe8rgr43" path="res://src/features/skills/PlayerSkillsModel.cs" id="22_10pv0"]
 [ext_resource type="Texture2D" uid="uid://c3twceykx1fxf" path="res://assets/images/tiles/charge.png" id="22_gtevj"]
 [ext_resource type="Texture2D" uid="uid://o7ate3k72l8g" path="res://assets/images/tiles/leapAttack.png" id="23_oqk24"]
@@ -131,10 +132,11 @@ layout_mode = 2
 script = ExtResource("4_dw1vl")
 environment = NodePath("../Environment")
 
-[node name="Model" type="Node" parent="MainContainer/PanelContainer" node_paths=PackedStringArray("_tileOrganizer", "_tileMatcher", "_tileFactory", "_selectedSkillsModel")]
+[node name="Model" type="Node" parent="MainContainer/PanelContainer" node_paths=PackedStringArray("_tileOrganizer", "_tileMatcher", "_tileQuery", "_tileFactory", "_selectedSkillsModel")]
 script = ExtResource("5_qxmgw")
 _tileOrganizer = NodePath("TileOrganizer")
 _tileMatcher = NodePath("TileMatcher")
+_tileQuery = NodePath("TileQuery")
 _tileFactory = NodePath("TileFactory")
 _selectedSkillsModel = NodePath("PlayerSkills")
 
@@ -156,6 +158,9 @@ _packedTileScenes = Array[PackedScene]([ExtResource("8_2r3xs"), ExtResource("9_4
 script = ExtResource("12_4s2tm")
 _tileFactory = NodePath("../TileFactory")
 _tileContainer = NodePath("../../Tiles")
+
+[node name="TileQuery" type="Node" parent="MainContainer/PanelContainer/Model"]
+script = ExtResource("22_7t1so")
 
 [node name="PlayerSkills" type="Node" parent="MainContainer/PanelContainer/Model"]
 script = ExtResource("22_10pv0")

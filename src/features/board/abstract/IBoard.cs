@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Godot;
 using Godot.Collections;
@@ -36,4 +37,11 @@ namespace Board{
 	public interface WithTiles{
 		public Grid<Control> Tiles{get;set;}		
 	}
+
+	public interface Queriable{
+		public List<Control> GetNeighboringTiles(Vector2I center);
+		public List<Control> GetAllActors();
+		public Control FindNextTileInLine(List<Vector2I> line);
+	}
+
 }

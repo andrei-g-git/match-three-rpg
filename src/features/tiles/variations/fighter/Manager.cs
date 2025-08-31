@@ -7,10 +7,11 @@ using Tiles;
 using static Skills.SkillNames;
 
 namespace Fighter{
-	public partial class Manager : Control, Tile, /* AccessableBoard, */ Movable, Mapable, Permeable, RelayableUIEvents, Defensible, WithHealth, WithDefense, WithDamage, WithSpeed
+	public partial class Manager : Control, Tile, /* AccessableBoard, */ Movable, Mapable, Permeable, RelayableUIEvents, Defensible, WithHealth, WithDefense, WithDamage, WithSpeed, Disposition
 	{
 		[ExportGroup("behaviors")]
         [Export] private Node _defender;
+        [Export] private Node _hostility;
 
         [ExportGroup("stats")]
         [Export] private Node _stats;
@@ -27,10 +28,9 @@ namespace Fighter{
         public int Defense {get => (_stats as WithDefense).Defense; set => (_stats as WithDefense).Defense = value;}
         public int Damage {get => (_stats as WithDamage).Damage; set => (_stats as WithDamage).Damage = value;}
         public int Speed {get => (_stats as WithSpeed).Speed; set => (_stats as WithSpeed).Speed = value;}
-
-
         public RemoteSignaling UIEventBus{private get; set;} //NO INTERFACE FOR THIS YET
-
+        public bool IsAggressive { get => (_hostility as Disposition).IsAggressive; set => (_hostility as Disposition).IsAggressive = value; }
+        public bool IsEnemy { get => (_hostility as Disposition).IsAggressive; set => (_hostility as Disposition).IsAggressive = value; }		
 
         public override void _Ready(){
             (_popTweener as Creatable).Pop();

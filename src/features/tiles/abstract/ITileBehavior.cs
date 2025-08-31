@@ -45,4 +45,10 @@ namespace Tiles{
     public interface Engageable{
         public void ProcessEngagementBy(Control engagingActor);
     }
+
+    public interface Disposition{
+        
+        public bool IsAggressive{get;set;}
+        public bool IsEnemy{get;set;}
+    }    
 }

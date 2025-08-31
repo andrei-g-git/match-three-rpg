@@ -96,7 +96,7 @@ public static class Hex{
 	}
 
 	
-	public static Vector2I FindNextInLine(Array<Vector2I> line){
+	public static Vector2I FindNextInLine(List<Vector2I> line){
 		var _length = line.Count;
 		if(_length >=2){
 			var secondToLast = line[_length-2];
@@ -119,7 +119,7 @@ public static class Hex{
 	}
 
 	public static bool CheckIfNeighbor(Vector2I center, Vector2I celllToCheck){
-		var neighbors = new Array<Vector2I>(){
+		var neighbors = new List<Vector2I>(){
 			FindTop(center),
 			FindBottom(center),
 			FindTopRight(center),

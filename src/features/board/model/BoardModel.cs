@@ -1,13 +1,15 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Godot;
 using Tiles;
 
 namespace Board;
 
-public partial class BoardModel : Node, Organizable, MatchableBoard, WithTiles
+public partial class BoardModel : Node, Organizable, MatchableBoard, WithTiles, Queriable
 {
     [Export] private Node _tileOrganizer;
     [Export] private Node _tileMatcher;
+    [Export] private Node _tileQuery;
     [Export] private Node _tileFactory;
     [Export] private Node _tileContainer;
 	[Export] private Node _selectedSkillsModel;     
@@ -42,4 +44,16 @@ public partial class BoardModel : Node, Organizable, MatchableBoard, WithTiles
     public void MatchWithoutSwapping(){
         (_tileMatcher as MatchableBoard).MatchWithoutSwapping();
     }
+
+    public List<Control> GetNeighboringTiles(Vector2I center){
+        return (_tileQuery as Queriable).GetNeighboringTiles(center);
+    }
+
+    public List<Control> GetAllActors(){
+        return (_tileQuery as Queriable).GetAllActors();
+    }
+
+    public Control FindNextTileInLine(List<Vector2I> line){
+        return (_tileQuery as Queriable).FindNextTileInLine(line);
+    }   
 }
