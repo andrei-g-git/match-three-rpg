@@ -21,7 +21,7 @@ public partial class SkillGroupsController : HBoxContainer, ControllableSkillGro
 			_defensive,
 			_tech
 		);
-		(_playerSkillsModel as Modelable).Notify();
+		//(_playerSkillsModel as Modelable).Notify(); //runs before async game save load
 	}
 
 	public void OnSkillSelectedFromGroup(string skill, string group){

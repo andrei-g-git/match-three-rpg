@@ -81,10 +81,11 @@ public partial class MainMenu : Control, WithSceneManager
 				Health = PlayerDerivedStats.GetMaxHealth(10),
 				Energy = PlayerDerivedStats.GetMaxEnergy(5) - 3 //test
 			},
-			SkillGroups = new Dictionary<string, SkillGroup>(){
-				{
-					SkillNames.SkillGroups.Melee.ToString(), 
+			SkillGroups = [//new Dictionary<string, SkillGroup>(){
+				//{
+					//SkillNames.SkillGroups.Melee.ToString(), 
 					new SkillGroup{
+						Group = SkillNames.SkillGroups.Melee.ToString(),
 						Skills = [
 							new SkillWithCount{
 								Name=SkillNames.Melee.Charge.ToString(),
@@ -99,33 +100,36 @@ public partial class MainMenu : Control, WithSceneManager
 								Uses=99
 							}						
 						]
-					}					
-				},
-				{
-					SkillNames.SkillGroups.Ranged.ToString(), 
+					},					
+				//},
+				//{
+					//SkillNames.SkillGroups.Ranged.ToString(), 
 					new SkillGroup{
+						Group = SkillNames.SkillGroups.Ranged.ToString(),
 						Skills = [
 							new SkillWithCount{
 								Name=SkillNames.Ranged.ThrowWeapon.ToString(),
 								Uses=99
 							}						
 						]
-					}					
-				},
-				{
-					SkillNames.SkillGroups.Defensive.ToString(),
+					},					
+				//},
+				//{
+					//SkillNames.SkillGroups.Defensive.ToString(),
 					new SkillGroup{
+						Group = SkillNames.SkillGroups.Defensive.ToString(),
 						Skills = [
 							new SkillWithCount{
 								Name=SkillNames.Defensive.ShieldBash.ToString(),
 								Uses=99
 							}						
 						]
-					}
-				},
-				{
-					SkillNames.SkillGroups.Tech.ToString(),
+					},
+				//},
+				//{
+					//SkillNames.SkillGroups.Tech.ToString(),
 					new SkillGroup{
+						Group = SkillNames.SkillGroups.Tech.ToString(),
 						Skills = [
 							new SkillWithCount{
 								Name=SkillNames.Tech.Ensnare.ToString(),
@@ -133,8 +137,9 @@ public partial class MainMenu : Control, WithSceneManager
 							}						
 						]
 					}
-				}				
-			},
+				//}	
+			],			
+			//},
 	
 			Class = Classes.Fighter.ToString(),
 			Equipment = new Gear{

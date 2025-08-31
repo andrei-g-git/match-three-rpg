@@ -10,6 +10,7 @@ public partial class BoardModel : Node, Organizable, MatchableBoard, WithTiles
     [Export] private Node _tileMatcher;
     [Export] private Node _tileFactory;
     [Export] private Node _tileContainer;
+	[Export] private Node _selectedSkillsModel;     
 
     public Grid<Control> Tiles { get => (_tileOrganizer as WithTiles).Tiles; set => (_tileOrganizer as WithTiles).Tiles = value; }
 

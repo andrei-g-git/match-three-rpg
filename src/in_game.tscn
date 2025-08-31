@@ -90,13 +90,11 @@ script = ExtResource("19_amteu")
 
 [node name="MainContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_right = 904.0
+offset_bottom = 450.0
 
-[node name="PanelContainer" type="PanelContainer" parent="MainContainer"]
+[node name="PanelContainer" type="MarginContainer" parent="MainContainer"]
+custom_minimum_size = Vector2(420, 0)
 layout_mode = 2
 size_flags_vertical = 3
 
@@ -116,12 +114,13 @@ theme_override_styles/background = SubResource("StyleBoxFlat_x10rj")
 theme_override_styles/fill = SubResource("StyleBoxFlat_057js")
 script = ExtResource("17_057js")
 
-[node name="TilesPanel" type="PanelContainer" parent="MainContainer/PanelContainer" node_paths=PackedStringArray("_tileMap", "_model")]
+[node name="TilesPanel" type="PanelContainer" parent="MainContainer/PanelContainer" node_paths=PackedStringArray("_tileMap", "_model", "_selectedSkillsModel")]
 custom_minimum_size = Vector2(0, 450)
 layout_mode = 2
 script = ExtResource("1_k7s5h")
 _tileMap = NodePath("../Environment")
 _model = NodePath("../Model")
+_selectedSkillsModel = NodePath("../Model/PlayerSkills")
 
 [node name="Environment" type="TileMapLayer" parent="MainContainer/PanelContainer"]
 tile_set = SubResource("TileSet_bs6l1")
@@ -132,11 +131,12 @@ layout_mode = 2
 script = ExtResource("4_dw1vl")
 environment = NodePath("../Environment")
 
-[node name="Model" type="Node" parent="MainContainer/PanelContainer" node_paths=PackedStringArray("_tileOrganizer", "_tileMatcher", "_tileFactory")]
+[node name="Model" type="Node" parent="MainContainer/PanelContainer" node_paths=PackedStringArray("_tileOrganizer", "_tileMatcher", "_tileFactory", "_selectedSkillsModel")]
 script = ExtResource("5_qxmgw")
 _tileOrganizer = NodePath("TileOrganizer")
 _tileMatcher = NodePath("TileMatcher")
 _tileFactory = NodePath("TileFactory")
+_selectedSkillsModel = NodePath("PlayerSkills")
 
 [node name="TileOrganizer" type="Node" parent="MainContainer/PanelContainer/Model" node_paths=PackedStringArray("_tileFactory", "_environment", "_tileContainer", "_tileMatcher")]
 script = ExtResource("6_ygp36")
@@ -163,7 +163,7 @@ script = ExtResource("22_10pv0")
 [node name="i don\'t like this here___" type="Node" parent="MainContainer/PanelContainer/Model/PlayerSkills"]
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MainContainer"]
-custom_minimum_size = Vector2(512, 0)
+custom_minimum_size = Vector2(480, 0)
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="MainContainer/VBoxContainer"]
@@ -181,11 +181,10 @@ _tech = NodePath("TechSkills")
 
 [node name="MeleeSkills" type="ItemList" parent="MainContainer/VBoxContainer/MarginContainer/SkillGroups"]
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 10
 same_column_width = true
-fixed_column_width = 64
 icon_mode = 0
-fixed_icon_size = Vector2i(64, 55)
 script = ExtResource("29_crjdv")
 _skillMap = Dictionary[int, Texture2D]({
 0: ExtResource("22_gtevj"),
@@ -195,25 +194,22 @@ _skillMap = Dictionary[int, Texture2D]({
 
 [node name="RangedSkills" type="ItemList" parent="MainContainer/VBoxContainer/MarginContainer/SkillGroups"]
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 10
 same_column_width = true
-fixed_column_width = 64
 icon_mode = 0
-fixed_icon_size = Vector2i(64, 55)
 script = ExtResource("29_crjdv")
 _skillGroup = 1
 _skillMap = Dictionary[int, Texture2D]({
-0: ExtResource("26_10pv0"),
-4: null
+4: ExtResource("26_10pv0")
 })
 
 [node name="DefensiveSkills" type="ItemList" parent="MainContainer/VBoxContainer/MarginContainer/SkillGroups"]
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 10
 same_column_width = true
-fixed_column_width = 64
 icon_mode = 0
-fixed_icon_size = Vector2i(64, 55)
 script = ExtResource("29_crjdv")
 _skillGroup = 2
 _skillMap = Dictionary[int, Texture2D]({
@@ -222,11 +218,10 @@ _skillMap = Dictionary[int, Texture2D]({
 
 [node name="TechSkills" type="ItemList" parent="MainContainer/VBoxContainer/MarginContainer/SkillGroups"]
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 10
 same_column_width = true
-fixed_column_width = 64
 icon_mode = 0
-fixed_icon_size = Vector2i(64, 55)
 script = ExtResource("29_crjdv")
 _skillGroup = 3
 _skillMap = Dictionary[int, Texture2D]({

@@ -25,7 +25,8 @@ public partial class PlayerSkillsModel : Node, ManageableSkills, Modelable
 		(MeleeGroupUi as SelectableSkills).UpdateSkills(Melee.Skills);
 		(RangedGroupUi as SelectableSkills).UpdateSkills(Ranged.Skills);
 		(DefensiveGroupUi as SelectableSkills).UpdateSkills(Defensive.Skills);
-		(TechGroupUi as SelectableSkills).UpdateSkills(Tech.Skills);		
+		(TechGroupUi as SelectableSkills).UpdateSkills(Tech.Skills);	
+		var bp = 123;	
 	}
 	
     public void SetSelectedSkill(SkillNames.All skill, SkillNames.SkillGroups group){
@@ -49,6 +50,7 @@ public partial class PlayerSkillsModel : Node, ManageableSkills, Modelable
 				SelectedTech = isSkill? skillEnum : default;
 				break;											
 		}
+		var bp = 123;
 	}
 
 	public void RegisterAll(Control meleeGroupUi, Control rangedGroupUi, Control defensiveGroupUi, Control techGroupUi){

@@ -1,7 +1,6 @@
 using Godot;
 using Godot.Collections;
 using Skills;
-using System;
 using Util;
 
 public partial class SkillSelection : ItemList, SelectableSkills
@@ -18,10 +17,10 @@ public partial class SkillSelection : ItemList, SelectableSkills
 		Clear();
 		foreach(var skill in skillsAndUses){
 			var itemName = StringUtils.SplitPascal(skill.Name) + " " + skill.Uses.ToString() + " left"; 
-			var index = AddItem(itemName);
-			AddIconItem(_skillMap[skill.GetSkillEnum()]);
+			var index = AddItem(itemName, _skillMap[skill.GetSkillEnum()]);
 			SetItemMetadata(index, skill.Name);
 		}
+		var bp = 123;
     }
 
 	public void OnItemSelected(/* ItemList itemlist, */ int index){

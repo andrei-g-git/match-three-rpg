@@ -1,7 +1,9 @@
 using Board;
+using Common;
 using Content;
 using Godot;
 using Godot.Collections;
+using Skills;
 using Stats;
 using System;
 
@@ -10,6 +12,7 @@ using System;
 
 
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Tiles;
@@ -81,10 +84,19 @@ public partial class BoardManager : PanelContainer
 			(player as Player.Manager).InitializeHud();
 
 
-			var skillGroups = _loadedGame.Player.SkillGroups; //this is a dictionary. fortunately the impl has an interface. I may be able to deserializse and add 
-			// to the SelectedSkillsModel directly, then it can be notified and then the UI works
+			var skillGroups = _loadedGame.Player.SkillGroups; 
+			var skillsModel = _selectedSkillsModel as ManageableSkills;
+			// skillsModel.Melee = skillGroupsDict[SkillNames.SkillGroups.Melee.ToString()];
+			// skillsModel.Ranged = skillGroupsDict[SkillNames.SkillGroups.Ranged.ToString()];
+			// skillsModel.Defensive = skillGroupsDict[SkillNames.SkillGroups.Defensive.ToString()];
+			// skillsModel.Tech = skillGroupsDict[SkillNames.SkillGroups.Tech.ToString()];
 
+			skillsModel.Melee = skillGroups.Where(group => (group as GroupableSkills).Group == SkillNames.SkillGroups.Melee.ToString()).ElementAt(0);
+			skillsModel.Ranged = skillGroups.Where(group => (group as GroupableSkills).Group == SkillNames.SkillGroups.Ranged.ToString()).ElementAt(0);
+			skillsModel.Defensive = skillGroups.Where(group => (group as GroupableSkills).Group == SkillNames.SkillGroups.Defensive.ToString()).ElementAt(0);
+			skillsModel.Tech = skillGroups.Where(group => (group as GroupableSkills).Group == SkillNames.SkillGroups.Tech.ToString()).ElementAt(0);
 
+			(_selectedSkillsModel as Modelable).Notify();
 
 		};
 
