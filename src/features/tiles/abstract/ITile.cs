@@ -42,4 +42,11 @@ namespace Tiles{
     public interface Recoiling{
         public void Recoil();
     }
+
+    public interface OfPlayer{
+        public Playable Player{get;set;}
+    }
+    public interface WithTileRoot{
+        public Control TileRoot{get;set;}
+    }
 }

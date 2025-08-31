@@ -60,12 +60,22 @@ public partial class TileOrganizer: Node, Organizable, WithTiles
         //result is an array that stores the signal parameters, don't need here
         /* var result = */ await ToSignal(targetTile, "Removed"); 
 
-        _FillEmptyCell(source, _spawnWeights, _spawnTiles); //THIS DOES NOT HANDLE POSSIBLE NEW MATCHES, SHOULD MAKE NEW METHOD IN TileMatcher
+        _FillEmptyCell(source, _spawnWeights, _spawnTiles); 
 
         (_tileMatcher as MatchableBoard).MatchWithoutSwapping();
 
         GD.Print("former player position is now:  ", (Tiles.GetItem(source) as Tile).Type);
     } 
+
+    public async Task TransferTileTo(Control tile, Vector2I target){
+        var currentCell = Tiles.GetCellFor(tile);
+        Tiles.SetCell(tile, target);
+        (tile as Movable).MoveTo(target);
+        await ToSignal(tile, "FinishedAllAnimations");
+        _FillEmptyCell(currentCell, _spawnWeights, _spawnTiles); 
+        (_tileMatcher as MatchableBoard).MatchWithoutSwapping();
+
+    }
 
 
     private void _FillEmptyCell(Vector2I cell, float[] spawnWeights, TileTypes[] spawnTiles){

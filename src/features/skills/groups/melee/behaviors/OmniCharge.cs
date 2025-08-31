@@ -1,20 +1,25 @@
+using System.Collections.Generic;
 using Board;
 using Godot;
 using Godot.Collections;
 using Tiles;
 
-public partial class OmniCharge : Node, /* Traversing.IBehavior, */ AccessableBoard
+public partial class OmniCharge : Node, /* Movable, */ AccessableBoard, WithTileRoot
 {
     [Export] private Node _sceneRoot;  
     public Node Board { get; set; }
+    public Control TileRoot {get; set;}
+
     private int _pathIndex = 0;
     [Signal]
     public delegate void AttackingEventHandler(Node enemy, int coveredTileDistance);    
     [Signal]
     public delegate void FinishedMovingEventHandler();
 
-    public void ProcessPath(Array<Vector2I> path){
-        (_sceneRoot as Dashing.IAnimator).DashToNext(path, _pathIndex, ProcessPath);
+    public void ProcessPath(List<Vector2I> path){
+        //(_sceneRoot as Movable).DashToNext(path, _pathIndex, ProcessPath);
+        //(_sceneRoot as Movable).MoveTo()
+        _ = (Board as Organizable).TransferTileTo(TileRoot, path[_pathIndex]); //has ToSignal that awaits end of all animations for that cell stage
         var neighbors = (Board as Queriable).GetNeighboringTiles(path[_pathIndex]);
         foreach(var tile in neighbors){    
             if(tile is Disposition actor && actor.IsEnemy){
