@@ -5,16 +5,16 @@ using System;
 
 public partial class SkillFactory : Node, SkillMaking//, Initializable
 {
-    [Export] private Array<PackedScene> _skillPackedScenes;
+    //[Export] private Array<PackedScene> _skillPackedScenes;
     //[Export] private TileMapLayer _environment;
-    private Dictionary<SkillNames.All, PackedScene> _skillsWithScenes = [];
+    [Export] private Dictionary<SkillNames.All, PackedScene> _skillsWithScenes;// = [];
 
     // public void Initialize(){
     //     _skillsWithScenes = _AssociateSkillScenesWithTheirNames(_skillPackedScenes);
     // }    
 
     public Node Create(SkillNames.All skillName){
-		_AssociateSkillScenesWithTheirNames(_skillPackedScenes);
+		//_AssociateSkillScenesWithTheirNames(_skillPackedScenes);
         var packedScene = _skillsWithScenes[skillName];
         var skill = packedScene.Instantiate() as Node; //Control;
         InitializeSkill(skillName, skill);
@@ -30,7 +30,7 @@ public partial class SkillFactory : Node, SkillMaking//, Initializable
         }
     }
 
-    private Dictionary<SkillNames.All, PackedScene> _AssociateSkillScenesWithTheirNames(Array<PackedScene> packedScenes){
+    private Dictionary<SkillNames.All, PackedScene> _AssociateSkillScenesWithTheirNames(Array<PackedScene> packedScenes){ //don't need
         var dict = new Dictionary<SkillNames.All, PackedScene>();
         foreach (PackedScene scene in packedScenes){
             var instance = scene.Instantiate();

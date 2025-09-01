@@ -1,9 +1,10 @@
+using System.Collections.Generic;
 using Board;
 using Godot;
 using Skills;
 using Tiles;
 
-public partial class Whirlwind : Node, Skill, WithTileRoot, AccessableBoard
+public partial class Whirlwind : Node, Skill, WithTileRoot, AccessableBoard, Traversing
 {
 	[Export] private Node _omniCharge;
 	
@@ -25,4 +26,8 @@ public partial class Whirlwind : Node, Skill, WithTileRoot, AccessableBoard
 	public void OnFinishedTransfering(){
 		TileRoot.EmitSignal("FinishedTransfering"); //Not great ... not great
 	}
+
+    public void ProcessPath(List<Vector2I> path){
+        (_omniCharge as Traversing).ProcessPath(path);
+    }
 }

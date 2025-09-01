@@ -18,7 +18,7 @@ namespace Ranged{
         [Export] private Node _popTweener;
 		public TileTypes Type => TileTypes.Ranged;
         public TileTypes AA => Type; //for debugging
-        public SkillGroups SkillGroup{get; private set;} = SkillGroups.Defensive;
+        public SkillGroups SkillGroup{get; private set;} = SkillGroups.Ranged;
 		public Node Board {set {(_swapping as AccessableBoard).Board = value;}}
         public Tileable Map { set => (_moveTweener as Mapable).Map = value; }
 

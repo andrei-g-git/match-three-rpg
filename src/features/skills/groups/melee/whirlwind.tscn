@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://bhhhuxs0n6tbc"]
+[gd_scene load_steps=14 format=3 uid="uid://bhhhuxs0n6tbc"]
 
 [ext_resource type="Script" uid="uid://dl04jbmdc5haa" path="res://src/features/skills/groups/melee/Whirlwind.cs" id="1_gkfxs"]
 [ext_resource type="Texture2D" uid="uid://bbj0542jaiqf2" path="res://assets/images/vfx/skills/whirlwind.png" id="2_4wysy"]
 [ext_resource type="Script" uid="uid://rqxpvyfyevmh" path="res://src/features/skills/groups/melee/behaviors/OmniCharge.cs" id="2_xlded"]
 [ext_resource type="Script" uid="uid://bh601heiqlu68" path="res://src/features/tiles/behaviors/Offense.cs" id="3_4wysy"]
 [ext_resource type="Script" uid="uid://gx8lrv8hswuo" path="res://src/features/skills/groups/melee/WhirlwindSprite.cs" id="3_7scee"]
+[ext_resource type="Script" uid="uid://md5ys0in2caq" path="res://src/features/tiles/behaviors/DamageCalculator.cs" id="6_7scee"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7scee"]
 atlas = ExtResource("2_4wysy")
@@ -76,7 +77,8 @@ _sceneRoot = NodePath("..")
 script = ExtResource("3_4wysy")
 damageCalculator = NodePath("../DamageCalculator")
 
-[node name="DamageCalculator" type="Node" parent="."]
+[node name="DamageCalculator" type="Node" parent="." node_paths=PackedStringArray("skill")]
+script = ExtResource("6_7scee")
+skill = NodePath("..")
 
 [connection signal="Attacking" from="OmniCharge" to="Offense" method="AttackWithMomentum"]
-[connection signal="FinishedMoving" from="OmniCharge" to="." method="OnFinishedTransfering"]

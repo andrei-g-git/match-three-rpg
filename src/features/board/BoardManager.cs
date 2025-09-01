@@ -23,6 +23,7 @@ public partial class BoardManager : PanelContainer
 	[Export] private TileMapLayer _tileMap;
 	[Export] private Node _model;
 	[Export] private Node _tileFactory;
+	[Export] private Node _playerSkillsModel;
 	//[Export] private Node _selectedSkillsModel; 
 
 	private Grid<TileTypes> _tileTypes;
@@ -85,7 +86,8 @@ public partial class BoardManager : PanelContainer
 
 
 			var skillGroups = _loadedGame.Player.SkillGroups; 
-			var skillsModel = (player as Player.Manager).SkillsModel;// _selectedSkillsModel as ManageableSkills;
+			var skillsModel =  _playerSkillsModel as ManageableSkills;
+			(player as Player.Manager).SkillsModel = skillsModel;
 			// skillsModel.Melee = skillGroupsDict[SkillNames.SkillGroups.Melee.ToString()];
 			// skillsModel.Ranged = skillGroupsDict[SkillNames.SkillGroups.Ranged.ToString()];
 			// skillsModel.Defensive = skillGroupsDict[SkillNames.SkillGroups.Defensive.ToString()];
@@ -164,11 +166,4 @@ public partial class BoardManager : PanelContainer
 		}
 	}
 
-}
-
-public  class ZTest(System.Collections.Generic.List<System.Collections.Generic.List<string>> grid)
-{
-    public System.Collections.Generic.List<System.Collections.Generic.List<string>> Grid { get; set; } = grid;
-    public string Name{get;set;} = "minimyny";
-	public int Age{get;set;} = 69;
 }

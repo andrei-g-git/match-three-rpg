@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using Tiles;
 
-public partial class TileQuery : Node, Queriable, Mapable
+public partial class TileQuery : Node, Queriable, Mapable, WithTiles
 {
 	
     public Grid<Control> Tiles {get; set;}
@@ -18,7 +18,7 @@ public partial class TileQuery : Node, Queriable, Mapable
 		var neighboringCells = _GetNeighboringCells(center);
 		var neighboringTiles = new List<Control>();
 		foreach(var cell in neighboringCells){
-			if(cell.X >= 0 && cell.Y >= 0){
+			if(cell.X >= 0 && cell.Y >= 0 && cell.X < Tiles.Width && cell.Y < Tiles.Height){
 				neighboringTiles.Add(Tiles.GetItem(cell.X, cell.Y));
 			}
 		}

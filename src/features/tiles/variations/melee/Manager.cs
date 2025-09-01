@@ -18,7 +18,7 @@ namespace Melee{
         [Export] private Node _popTweener;
 		public TileTypes Type => TileTypes.Melee;
         public TileTypes AA => Type; //for debugging
-        public SkillGroups SkillGroup{get; private set;} = SkillGroups.Defensive;        
+        public SkillGroups SkillGroup{get; private set;} = SkillGroups.Melee;        
 		public Node Board {set {(_swapping as AccessableBoard).Board = value;}}
         public Tileable Map { set => (_moveTweener as Mapable).Map = value; }
 

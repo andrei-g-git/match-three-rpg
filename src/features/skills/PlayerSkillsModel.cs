@@ -65,4 +65,18 @@ public partial class PlayerSkillsModel : Node, ManageableSkills, Modelable, Skil
         return (_skillFactory as SkillMaking).Create(type);
     }
 
+	public SkillNames.All GetSelectedInGroup(SkillNames.SkillGroups group){
+		switch(group){
+			case SkillNames.SkillGroups.Melee:
+				return SelectedMelee;
+			case SkillNames.SkillGroups.Ranged:
+				return SelectedRanged;
+			case SkillNames.SkillGroups.Defensive:
+				return SelectedDefensive;
+			case SkillNames.SkillGroups.Tech:
+				return SelectedTech;	
+			default:
+				return default;						
+		}
+	}
 }

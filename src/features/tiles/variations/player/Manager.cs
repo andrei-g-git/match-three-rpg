@@ -10,7 +10,7 @@ using static Skills.SkillNames;
 namespace Player{
 	public partial class Manager : Control, Tile, AccessableBoard, Movable, Mapable, Swappable, Permeable, MatchableBounds, Playable, Attributive, DerivableStats, Classy, CollectableEnergy, RelayableUIEvents, ReactiveToMatches, Offensive, Skillful, TraversableMatching
 	{
-        [Export] Node _skillsModel; //DOES NOT HAVE INTERFACE 
+        //[Export] Node _skillsModel; //DOES NOT HAVE INTERFACE 
 		[ExportGroup("behaviors")]
 		[Export] private Node _swapping;
         [Export] private Node _matchingRange;
@@ -60,7 +60,7 @@ namespace Player{
 
         public RemoteSignaling UIEventBus{private get; set;} //NO INTERFACE FOR THIS YET
         public Node Skill { set => (_skillSlot as Skillful).Skill = value; }
-        public ManageableSkills SkillsModel => _skillsModel as ManageableSkills; //DOES NOT HAVE INTERFACE 
+        public ManageableSkills SkillsModel {get;set;}//=> _skillsModel as ManageableSkills; //DOES NOT HAVE INTERFACE 
 
         [Signal] public delegate void FinishedTransferingEventHandler(); //rn the skill calls this directly
 
@@ -139,9 +139,10 @@ namespace Player{
         }
 
 
-        public void ReactToMatchesBySkillType(List<Vector2I> matches, SkillGroups skillGroup, SkillNames.All skillType, bool isAdjacent){
+        public void ReactToMatchesBySkillType(List<Vector2I> matches, SkillGroups skillGroup, /* SkillNames.All skillType, */ bool isAdjacent){
             if(isAdjacent){
-                var skill = (_skillsModel as SkillMaking).Create(skillType) as Skill;
+                var skillType = (SkillsModel).GetSelectedInGroup(skillGroup);
+                var skill = (SkillsModel as SkillMaking).Create(skillType) as Skill;
                 (_matchesTraversal as TraversableMatching).ReceivePathAndSkill(matches, skill);
             }else{
                 FillEnergy(matches.Count, skillGroup);                

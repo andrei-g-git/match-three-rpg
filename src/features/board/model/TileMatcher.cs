@@ -111,7 +111,9 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
         var player = Tiles.FindItemByType(typeof(Playable)) as ReactiveToMatches;
         var tile1 = Tiles.GetItem(group[0]) as SkillBased;
         
-        player.ReactToMatchesBySkillType(group, tile1.SkillGroup);
+        var playerCell = Tiles.GetCellFor(player as Control);
+        var isAdjacent = (_tileQuery as Queriable).IsCellAdjacentToLine(playerCell, group);
+        player.ReactToMatchesBySkillType(group, tile1.SkillGroup, isAdjacent);
 
         _RunMatchedTileBehaviors(matchQueue);
 

@@ -40,6 +40,7 @@ public interface ManageableSkills{
     public void SetSelectedSkill(SkillNames.All skill, SkillNames.SkillGroups group);
     public void SetSelectedSkill(string skill, string group);
     public void RegisterAll(Control meleeGroupUi, Control rangedGroupUi, Control defensiveGroupUi, Control techGroupUi);
+    public SkillNames.All GetSelectedInGroup(SkillNames.SkillGroups group);
 }
 
 public interface SelectableSkills{
