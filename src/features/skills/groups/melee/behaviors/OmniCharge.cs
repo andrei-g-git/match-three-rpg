@@ -2,19 +2,17 @@ using System.Collections.Generic;
 using Board;
 using Godot;
 using Godot.Collections;
+using Skills;
 using Tiles;
 
-public partial class OmniCharge : Node, /* Movable, */ AccessableBoard, WithTileRoot
+public partial class OmniCharge : Node, /* Movable, */ Traversing, AccessableBoard, WithTileRoot
 {
     [Export] private Node _sceneRoot;  
     public Node Board { get; set; }
     public Control TileRoot {get; set;}
-
     private int _pathIndex = 0;
-    [Signal]
-    public delegate void AttackingEventHandler(Node enemy, int coveredTileDistance);    
-    [Signal]
-    public delegate void FinishedMovingEventHandler();
+    [Signal] public delegate void AttackingEventHandler(Control enemy, int coveredTileDistance);    
+    [Signal] public delegate void FinishedTransferingEventHandler();
 
     public void ProcessPath(List<Vector2I> path){
         //(_sceneRoot as Movable).DashToNext(path, _pathIndex, ProcessPath);
@@ -23,12 +21,12 @@ public partial class OmniCharge : Node, /* Movable, */ AccessableBoard, WithTile
         var neighbors = (Board as Queriable).GetNeighboringTiles(path[_pathIndex]);
         foreach(var tile in neighbors){    
             if(tile is Disposition actor && actor.IsEnemy){
-                EmitSignal(SignalName.Attacking, actor as Node, _pathIndex + 1);
+                EmitSignal(SignalName.Attacking, actor as Control, _pathIndex + 1);
             }
         }
         _pathIndex++;
         if(_pathIndex >= path.Count){
-            EmitSignal(SignalName.FinishedMoving);
+            EmitSignal(SignalName.FinishedTransfering);
         }
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Godot;
+using Skills;
 using static Skills.SkillNames;
 
 namespace Tiles{
@@ -27,7 +28,7 @@ namespace Tiles{
     }
 
     public interface ReactiveToMatches{
-        public void ReactToMatchesBySkillType(List<Vector2I> matches, SkillGroups skillGroup);
+        public void ReactToMatchesBySkillType(List<Vector2I> matches, SkillGroups skillGroup, SkillNames.All skillType, bool isAdjacent);
     }
 
     public interface Walkable{
@@ -39,7 +40,8 @@ namespace Tiles{
     }
 
     public interface Offensive{
-        public void Attack(Control target/* , int momentum */); //will have separate interfaces for skill offensive behaviors
+        public void Attack(Control target/* , int momentum */); 
+        public void AttackWithMomentum(Control target, int momentum); 
     }
 
     public interface Engageable{
@@ -50,5 +52,14 @@ namespace Tiles{
         
         public bool IsAggressive{get;set;}
         public bool IsEnemy{get;set;}
-    }    
+    }  
+
+    public interface CalculatableDamage {
+        public int CalculateDamageFromMomentum(int tilesCovered);
+    } 
+
+
+    public interface TraversableMatching{
+        public void ReceivePathAndSkill(List<Vector2I> path, Skill/* ful */ skill);
+    }       
 }

@@ -23,7 +23,7 @@ public partial class BoardManager : PanelContainer
 	[Export] private TileMapLayer _tileMap;
 	[Export] private Node _model;
 	[Export] private Node _tileFactory;
-	[Export] private Node _selectedSkillsModel; 
+	//[Export] private Node _selectedSkillsModel; 
 
 	private Grid<TileTypes> _tileTypes;
 	private GameSave _loadedGame;
@@ -85,7 +85,7 @@ public partial class BoardManager : PanelContainer
 
 
 			var skillGroups = _loadedGame.Player.SkillGroups; 
-			var skillsModel = _selectedSkillsModel as ManageableSkills;
+			var skillsModel = (player as Player.Manager).SkillsModel;// _selectedSkillsModel as ManageableSkills;
 			// skillsModel.Melee = skillGroupsDict[SkillNames.SkillGroups.Melee.ToString()];
 			// skillsModel.Ranged = skillGroupsDict[SkillNames.SkillGroups.Ranged.ToString()];
 			// skillsModel.Defensive = skillGroupsDict[SkillNames.SkillGroups.Defensive.ToString()];
@@ -96,7 +96,7 @@ public partial class BoardManager : PanelContainer
 			skillsModel.Defensive = skillGroups.Where(group => (group as GroupableSkills).Group == SkillNames.SkillGroups.Defensive.ToString()).ElementAt(0);
 			skillsModel.Tech = skillGroups.Where(group => (group as GroupableSkills).Group == SkillNames.SkillGroups.Tech.ToString()).ElementAt(0);
 
-			(_selectedSkillsModel as Modelable).Notify();
+			(/* _selectedSkillsModel */skillsModel as Modelable).Notify();
 
 		};
 

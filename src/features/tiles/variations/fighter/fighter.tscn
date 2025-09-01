@@ -10,7 +10,7 @@
 [ext_resource type="Script" uid="uid://p0ymm4ytnxjy" path="res://src/features/tiles/behaviors/Defender.cs" id="7_x447s"]
 [ext_resource type="Script" uid="uid://cdaoc138ep2k4" path="res://src/features/tiles/behaviors/Engagement.cs" id="7_xmyc7"]
 [ext_resource type="Script" uid="uid://dkxyfo8ok7v3x" path="res://src/features/tiles/animations/Pop.cs" id="8_abjmt"]
-[ext_resource type="Script" path="res://src/features/tiles/behaviors/Hostility.cs" id="8_xsd4e"]
+[ext_resource type="Script" uid="uid://bwnp3h3h358d0" path="res://src/features/tiles/behaviors/Hostility.cs" id="8_xsd4e"]
 [ext_resource type="Script" uid="uid://e2s0xy666sc2" path="res://src/features/tiles/animations/ShakeOnce.cs" id="11_xmyc7"]
 
 [node name="Fighter" type="Control" node_paths=PackedStringArray("_defender", "_stats", "_moveTweener", "_popTweener", "_recoil")]

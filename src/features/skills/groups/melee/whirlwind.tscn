@@ -1,0 +1,82 @@
+[gd_scene load_steps=13 format=3 uid="uid://bhhhuxs0n6tbc"]
+
+[ext_resource type="Script" uid="uid://dl04jbmdc5haa" path="res://src/features/skills/groups/melee/Whirlwind.cs" id="1_gkfxs"]
+[ext_resource type="Texture2D" uid="uid://bbj0542jaiqf2" path="res://assets/images/vfx/skills/whirlwind.png" id="2_4wysy"]
+[ext_resource type="Script" uid="uid://rqxpvyfyevmh" path="res://src/features/skills/groups/melee/behaviors/OmniCharge.cs" id="2_xlded"]
+[ext_resource type="Script" uid="uid://bh601heiqlu68" path="res://src/features/tiles/behaviors/Offense.cs" id="3_4wysy"]
+[ext_resource type="Script" uid="uid://gx8lrv8hswuo" path="res://src/features/skills/groups/melee/WhirlwindSprite.cs" id="3_7scee"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7scee"]
+atlas = ExtResource("2_4wysy")
+region = Rect2(412, 8, 162, 120)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5who3"]
+atlas = ExtResource("2_4wysy")
+region = Rect2(604, 8, 162, 120)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f3txc"]
+atlas = ExtResource("2_4wysy")
+region = Rect2(796, 8, 162, 120)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vq2it"]
+atlas = ExtResource("2_4wysy")
+region = Rect2(988, 8, 162, 120)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ov0la"]
+atlas = ExtResource("2_4wysy")
+region = Rect2(1180, 8, 162, 120)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v2rrt"]
+atlas = ExtResource("2_4wysy")
+region = Rect2(1372, 8, 162, 120)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6087q"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7scee")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5who3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f3txc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vq2it")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ov0la")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v2rrt")
+}],
+"loop": false,
+"name": &"default",
+"speed": 12.0
+}]
+
+[node name="Whirlwind" type="Control" node_paths=PackedStringArray("_omniCharge")]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_gkfxs")
+_omniCharge = NodePath("OmniCharge")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_6087q")
+frame = 5
+frame_progress = 1.0
+script = ExtResource("3_7scee")
+
+[node name="OmniCharge" type="Node" parent="." node_paths=PackedStringArray("_sceneRoot")]
+script = ExtResource("2_xlded")
+_sceneRoot = NodePath("..")
+
+[node name="Offense" type="Node" parent="." node_paths=PackedStringArray("damageCalculator")]
+script = ExtResource("3_4wysy")
+damageCalculator = NodePath("../DamageCalculator")
+
+[node name="DamageCalculator" type="Node" parent="."]
+
+[connection signal="Attacking" from="OmniCharge" to="Offense" method="AttackWithMomentum"]
+[connection signal="FinishedMoving" from="OmniCharge" to="." method="OnFinishedTransfering"]

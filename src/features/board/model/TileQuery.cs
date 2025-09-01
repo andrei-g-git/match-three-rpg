@@ -48,5 +48,18 @@ public partial class TileQuery : Node, Queriable, Mapable
 			return Tiles.GetItem(next.X, next.Y);				
 		}
 		return null;
-	}	
+	}
+
+
+	public bool IsCellAdjacentToLine(Vector2I cell, List<Vector2I> line){
+		for(int i = 0; i < line.Count; i++){
+			var neighbors = _GetNeighboringCells(line[i]);
+			foreach(var neighbor in neighbors){
+				if(neighbor == cell){
+					return true;
+				}
+			}	
+		}	
+		return false;		
+	}		
 }

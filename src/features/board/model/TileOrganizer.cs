@@ -71,7 +71,7 @@ public partial class TileOrganizer: Node, Organizable, WithTiles
         var currentCell = Tiles.GetCellFor(tile);
         Tiles.SetCell(tile, target);
         (tile as Movable).MoveTo(target);
-        await ToSignal(tile, "FinishedAllAnimations");
+        await ToSignal(tile, "FinishedTransfering");
         _FillEmptyCell(currentCell, _spawnWeights, _spawnTiles); 
         (_tileMatcher as MatchableBoard).MatchWithoutSwapping();
 

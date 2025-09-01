@@ -31,4 +31,8 @@ namespace Common{
     public interface Modelable{
         public void Notify();
     }
+
+    public interface AnimatableSprite{
+        public void PlayOnce();
+    }
 }

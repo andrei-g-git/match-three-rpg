@@ -12,6 +12,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
 {
     [Export] private Node _tileFactory;
     [Export] private Node _tileContainer;
+    [Export] private Node _tileQuery;
     public Grid<Control> Tiles{get;set;}	
     private Queue<List<Vector2I>> _matchGroupQueue = [];
     private System.Collections.Generic.Dictionary<TileTypes, int> _spawnOddsByTileType;
@@ -109,6 +110,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
         //fill player energy --- assume that the only tiles that can be matched are skill group tiles --- although maybe walkable tiles might also be matched to gains some special benefit like more placeable walk tiles
         var player = Tiles.FindItemByType(typeof(Playable)) as ReactiveToMatches;
         var tile1 = Tiles.GetItem(group[0]) as SkillBased;
+        
         player.ReactToMatchesBySkillType(group, tile1.SkillGroup);
 
         _RunMatchedTileBehaviors(matchQueue);
@@ -165,14 +167,14 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
 
     private void _RunMatchedTileBehaviors(Queue<Vector2I>matchQueue){
         if(matchQueue.Count>0){
-            _ActivateMatcedTileAndRemove(matchQueue);
+            _ActivateMatchedTileAndRemove(matchQueue); 
 
-            _RunMatchedTileBehaviors(matchQueue); //wha?...
+            _RunMatchedTileBehaviors(matchQueue); 
         }     
     }    
 
 
-    private void _ActivateMatcedTileAndRemove(Queue<Vector2I> matches){
+    private void _ActivateMatchedTileAndRemove(Queue<Vector2I> matches){
         if(matches.Count > 0){ 
             var cell = matches.Dequeue();
 
@@ -184,7 +186,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
             if(tile is Matchable matchable){
                 matchable.BeginPostMatchProcessDependingOnPlayerPosition(cell, null, false);
             }
-            _ActivateMatcedTileAndRemove(matches);
+            _ActivateMatchedTileAndRemove(matches);
         }      
     }
 

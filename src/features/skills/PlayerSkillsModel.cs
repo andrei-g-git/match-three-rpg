@@ -3,8 +3,9 @@ using Godot;
 using Skills;
 using System;
 
-public partial class PlayerSkillsModel : Node, ManageableSkills, Modelable
+public partial class PlayerSkillsModel : Node, ManageableSkills, Modelable, SkillMaking
 {
+	[Export] Node _skillFactory;
 	public GroupableSkills Melee{get;set;}
     public GroupableSkills Ranged{get;set;}
     public GroupableSkills Defensive{get;set;}
@@ -59,4 +60,9 @@ public partial class PlayerSkillsModel : Node, ManageableSkills, Modelable
         DefensiveGroupUi = defensiveGroupUi;
         TechGroupUi = techGroupUi;        
     }
+
+    public Node Create(SkillNames.All type){
+        return (_skillFactory as SkillMaking).Create(type);
+    }
+
 }

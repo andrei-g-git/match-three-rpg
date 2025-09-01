@@ -4,10 +4,6 @@ using static Skills.SkillNames;
 
 namespace Skills;
 
-// public interface Skillful{
-//     public List<CountableSkill> Skills{get;set;}
-// }
-
 public interface CountableSkill{
     public string Name{get;set;}
     public int Uses{get;set;}
@@ -53,6 +49,20 @@ public interface SelectableSkills{
 public interface ControllableSkillGroups{
     public void OnSkillSelectedFromGroup(string skill, string group);
 }
+
+public interface Skillful{
+    public Node Skill{set;}
+}
+
+
+public interface Skill{
+
+}
+
+public interface SkillMaking{
+    public Node Create(SkillNames.All type);
+}
+
 
 
 

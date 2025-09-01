@@ -41,6 +41,10 @@ public partial class BoardModel : Node, Organizable, MatchableBoard, WithTiles, 
         await (_tileOrganizer as Organizable).TransferTileToTile(sourceTile, targetTile);
     }
 
+    public async Task TransferTileTo(Control tile, Vector2I target){
+        await (_tileOrganizer as Organizable).TransferTileTo(tile, target);
+    }    
+
     public void MatchWithoutSwapping(){
         (_tileMatcher as MatchableBoard).MatchWithoutSwapping();
     }
@@ -55,5 +59,7 @@ public partial class BoardModel : Node, Organizable, MatchableBoard, WithTiles, 
 
     public Control FindNextTileInLine(List<Vector2I> line){
         return (_tileQuery as Queriable).FindNextTileInLine(line);
-    }   
+    }
+
+
 }

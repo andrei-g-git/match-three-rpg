@@ -2,18 +2,22 @@ using System.Collections.Generic;
 using Board;
 using Common;
 using Godot;
+using Skills;
 using Stats;
 using Tiles;
 using static Skills.SkillNames;
 
 namespace Player{
-	public partial class Manager : Control, Tile, AccessableBoard, Movable, Mapable, Swappable, Permeable, MatchableBounds, Playable, Attributive, DerivableStats, Classy, CollectableEnergy, RelayableUIEvents, ReactiveToMatches, Offensive
+	public partial class Manager : Control, Tile, AccessableBoard, Movable, Mapable, Swappable, Permeable, MatchableBounds, Playable, Attributive, DerivableStats, Classy, CollectableEnergy, RelayableUIEvents, ReactiveToMatches, Offensive, Skillful, TraversableMatching
 	{
+        [Export] Node _skillsModel; //DOES NOT HAVE INTERFACE 
 		[ExportGroup("behaviors")]
 		[Export] private Node _swapping;
         [Export] private Node _matchingRange;
         [Export] private Node _energyCollector;
         [Export] private Node _offense;
+        [Export] private Node _skillSlot;
+        [Export] private Node _matchesTraversal;
 
         [ExportGroup("stats")]
         [Export] private Node _derivedStats;
@@ -24,7 +28,11 @@ namespace Player{
         [Export] private Node _attackTweener;
 		public TileTypes Type => TileTypes.Player;
         public TileTypes AA => Type; //for debugging
-		public Node Board {set {(_swapping as AccessableBoard).Board = value;}}
+		public Node Board {
+            set {
+                (_swapping as AccessableBoard).Board = value;
+                (_skillSlot as AccessableBoard).Board = value;
+        }}
         public Tileable Map { 
             set {
                 (_moveTweener as Mapable).Map = value;
@@ -51,7 +59,10 @@ namespace Player{
 
 
         public RemoteSignaling UIEventBus{private get; set;} //NO INTERFACE FOR THIS YET
+        public Node Skill { set => (_skillSlot as Skillful).Skill = value; }
+        public ManageableSkills SkillsModel => _skillsModel as ManageableSkills; //DOES NOT HAVE INTERFACE 
 
+        [Signal] public delegate void FinishedTransferingEventHandler(); //rn the skill calls this directly
 
         public override void _Ready(){
             (_popTweener as Creatable).Pop();
@@ -128,12 +139,25 @@ namespace Player{
         }
 
 
-        public void ReactToMatchesBySkillType(List<Vector2I> matches, SkillGroups skillGroup){
-            FillEnergy(matches.Count, skillGroup);
+        public void ReactToMatchesBySkillType(List<Vector2I> matches, SkillGroups skillGroup, SkillNames.All skillType, bool isAdjacent){
+            if(isAdjacent){
+                var skill = (_skillsModel as SkillMaking).Create(skillType) as Skill;
+                (_matchesTraversal as TraversableMatching).ReceivePathAndSkill(matches, skill);
+            }else{
+                FillEnergy(matches.Count, skillGroup);                
+            }
+
         }
 
         public void Attack(Control target){
             (_offense as Offensive).Attack(target);
+        }
+        public void AttackWithMomentum(Control target, int momentum){
+            (_offense as Offensive).AttackWithMomentum(target, momentum);
+        }   
+
+        public void ReceivePathAndSkill(List<Vector2I> path, Skill/* ful */ skill){
+            (_matchesTraversal as TraversableMatching).ReceivePathAndSkill(path, skill);
         }
     }	
 }

@@ -215,4 +215,5 @@ public static class Hex{
             IterateNorthEastDiagonal(grid, diagonal);
         }
 	}
+
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://neacnhoii1ja"]
+[gd_scene load_steps=19 format=3 uid="uid://neacnhoii1ja"]
 
 [ext_resource type="Script" uid="uid://bi3h2kor8um1g" path="res://src/features/tiles/variations/player/Manager.cs" id="1_4gdcj"]
 [ext_resource type="Texture2D" uid="uid://bctjbbgf43ggl" path="res://assets/images/tiles/player.png" id="2_xn80g"]
@@ -10,10 +10,13 @@
 [ext_resource type="Script" uid="uid://byx4kqe8rgr43" path="res://src/features/skills/PlayerSkillsModel.cs" id="6_17kow"]
 [ext_resource type="Script" uid="uid://b2vearjcetqcv" path="res://src/features/tiles/behaviors/MatchingRange.cs" id="6_xn80g"]
 [ext_resource type="Script" uid="uid://dmkt3wetl7b0l" path="res://src/features/tiles/animations/MoveTweener.cs" id="6_xxn2p"]
+[ext_resource type="Script" uid="uid://bcmvmt30x83aq" path="res://src/features/skills/SkillSlot.cs" id="6_ybiiv"]
 [ext_resource type="Script" uid="uid://whroff6nwt7n" path="res://src/features/tiles/animations/ScaleUpFade.cs" id="7_47kl3"]
 [ext_resource type="Script" uid="uid://dp5fwk7pxd2pe" path="res://src/features/tiles/behaviors/EnergyCollector.cs" id="7_dohfl"]
 [ext_resource type="Script" uid="uid://dkxyfo8ok7v3x" path="res://src/features/tiles/animations/Pop.cs" id="8_17kow"]
+[ext_resource type="Script" uid="uid://bw0yags88t6ah" path="res://src/features/skills/SkillFactory.cs" id="8_ot1tn"]
 [ext_resource type="Script" uid="uid://bh601heiqlu68" path="res://src/features/tiles/behaviors/Offense.cs" id="10_xxn2p"]
+[ext_resource type="Script" uid="uid://cby7yncus5qqu" path="res://src/features/tiles/behaviors/MatchesTraversal.cs" id="13_nd62f"]
 [ext_resource type="Script" uid="uid://m05lgru2ui7v" path="res://src/features/tiles/animations/SpringForthAndBack.cs" id="14_47kl3"]
 
 [node name="Player" type="Control" node_paths=PackedStringArray("_swapping", "_matchingRange", "_energyCollector", "_offense", "_derivedStats", "_moveTweener", "_popTweener", "_attackTweener")]
@@ -56,8 +59,19 @@ _derivedStats = NodePath("Derived")
 [node name="Derived" type="Node" parent="Stats-should not have scr"]
 script = ExtResource("5_xxn2p")
 
+[node name="SkillSlot" type="Control" parent="." node_paths=PackedStringArray("_tileRoot")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("6_ybiiv")
+_tileRoot = NodePath("..")
+
 [node name="Skills" type="Node" parent="."]
 script = ExtResource("6_17kow")
+
+[node name="SkillFactory" type="Node" parent="Skills"]
+script = ExtResource("8_ot1tn")
 
 [node name="Behaviors" type="Node" parent="."]
 
@@ -81,6 +95,9 @@ _player = NodePath("../..")
 
 [node name="Offense" type="Node" parent="Behaviors"]
 script = ExtResource("10_xxn2p")
+
+[node name="MatchesTraversal" type="Node" parent="Behaviors"]
+script = ExtResource("13_nd62f")
 
 [node name="Tweeners" type="Node" parent="."]
 
