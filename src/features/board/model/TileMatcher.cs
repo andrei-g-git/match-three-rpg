@@ -103,7 +103,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
     } 
 
 
-    private void _ActivateMatchedTilesAndCollapseGrid(Queue<List<Vector2I>> matchGroupQueue){ //all this dependency injection is kind of useless if I hard code helper funcions... this is not a pure function
+    private async void _ActivateMatchedTilesAndCollapseGrid(Queue<List<Vector2I>> matchGroupQueue){ //all this dependency injection is kind of useless if I hard code helper funcions... this is not a pure function
         var group = matchGroupQueue.Dequeue();
         var matchQueue = new Queue<Vector2I>(group);
 
@@ -113,9 +113,12 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
         
         var playerCell = Tiles.GetCellFor(player as Control);
         var isAdjacent = (_tileQuery as Queriable).IsCellAdjacentToLine(playerCell, group);
-        player.ReactToMatchesBySkillType(group, tile1.SkillGroup, isAdjacent);
+
+        //player.ReactToMatchesBySkillType(group, tile1.SkillGroup, isAdjacent);
 
         _RunMatchedTileBehaviors(matchQueue);
+
+        await player.ReactToMatchesBySkillType(group, tile1.SkillGroup, isAdjacent);
 
         _CollapseTiles();
         var bp = 123;
@@ -176,7 +179,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
     }    
 
 
-    private void _ActivateMatchedTileAndRemove(Queue<Vector2I> matches){
+    private void _ActivateMatchedTileAndRemove(Queue<Vector2I> matches){ //need to make sure this is awaited
         if(matches.Count > 0){ 
             var cell = matches.Dequeue();
 

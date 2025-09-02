@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Board;
 using Godot;
 using Skills;
@@ -24,10 +25,15 @@ public partial class Whirlwind : Node, Skill, WithTileRoot, AccessableBoard, Tra
 
 
 	public void OnFinishedTransfering(){
-		TileRoot.EmitSignal("FinishedTransfering"); //Not great ... not great
+		//TileRoot.EmitSignal("FinishedTransfering"); //Not great ... not great
+		(TileRoot as Player.Manager).EmitTransferFinished();
 	}
 
     public void ProcessPath(List<Vector2I> path){
         (_omniCharge as Traversing).ProcessPath(path);
+    }
+
+    public async Task ProcessPath(List<Vector2I> path, bool testOverload){
+        await (_omniCharge as Traversing).ProcessPath(path, true);
     }
 }

@@ -22,7 +22,7 @@ namespace Board{
 		public void Initialize(Grid<TileTypes> tileTypes);
 		//public Grid<Control> Tiles{get;set;}	
 		public Task TransferTileToTile(Control sourceTile, Control targetTile);
-		public Task TransferTileTo(Control tile, Vector2I target);
+		public /* Task */ void TransferTileTo(Control tile, Vector2I target);
 
 	}
 

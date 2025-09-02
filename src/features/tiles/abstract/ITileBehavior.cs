@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Godot;
 using Skills;
 using static Skills.SkillNames;
@@ -28,7 +29,7 @@ namespace Tiles{
     }
 
     public interface ReactiveToMatches{
-        public void ReactToMatchesBySkillType(List<Vector2I> matches, SkillGroups skillGroup, /* SkillNames.All skillType, */ bool isAdjacent);
+        public /* void */Task ReactToMatchesBySkillType(List<Vector2I> matches, SkillGroups skillGroup, /* SkillNames.All skillType, */ bool isAdjacent);
     }
 
     public interface Walkable{
@@ -60,6 +61,6 @@ namespace Tiles{
 
 
     public interface TraversableMatching{
-        public void ReceivePathAndSkill(List<Vector2I> path, Skill/* ful */ skill);
+        public /* void */ Task ReceivePathAndSkill(List<Vector2I> path, Skill/* ful */ skill);
     }       
 }

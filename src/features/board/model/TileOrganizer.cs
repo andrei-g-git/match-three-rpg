@@ -67,11 +67,19 @@ public partial class TileOrganizer: Node, Organizable, WithTiles
         GD.Print("former player position is now:  ", (Tiles.GetItem(source) as Tile).Type);
     } 
 
-    public async Task TransferTileTo(Control tile, Vector2I target){
+    public /* async Task */ void TransferTileTo(Control tile, Vector2I target){
+        ///
+        var watch = System.Diagnostics.Stopwatch.StartNew();
+        /// 
         var currentCell = Tiles.GetCellFor(tile);
         Tiles.SetCell(tile, target);
         (tile as Movable).MoveTo(target);
-        await ToSignal(tile, "FinishedTransfering");
+        //await ToSignal(tile, "FinishedTransfering");
+        //await (tile as Player.Manager).WaitForTransferFinishedSignal();
+        //
+        watch.Stop();
+        GD.Print("TransferTileTo   milliseconds:  ", watch.ElapsedMilliseconds);
+        //
         _FillEmptyCell(currentCell, _spawnWeights, _spawnTiles); 
         (_tileMatcher as MatchableBoard).MatchWithoutSwapping();
 

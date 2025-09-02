@@ -60,7 +60,7 @@ public partial class BoardManager : PanelContainer
 
 		//the above is async, while adding children to dones inside the SceneTree is main-thread-only.
 		//I need to fix this mess.
-		GetTree().CreateTimer(2).Timeout += () => {
+		GetTree().CreateTimer(1).Timeout += () => {
 			(_model as Organizable).Initialize(_tileTypes);
 
 			var player = (_model as WithTiles).Tiles.FindItemByType(typeof(Playable));

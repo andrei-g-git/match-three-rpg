@@ -69,9 +69,10 @@ frame = 5
 frame_progress = 1.0
 script = ExtResource("3_7scee")
 
-[node name="OmniCharge" type="Node" parent="." node_paths=PackedStringArray("_sceneRoot")]
+[node name="OmniCharge" type="Node" parent="." node_paths=PackedStringArray("_sceneRoot", "_sprite")]
 script = ExtResource("2_xlded")
 _sceneRoot = NodePath("..")
+_sprite = NodePath("../AnimatedSprite2D")
 
 [node name="Offense" type="Node" parent="." node_paths=PackedStringArray("damageCalculator")]
 script = ExtResource("3_4wysy")
@@ -82,3 +83,4 @@ script = ExtResource("6_7scee")
 skill = NodePath("..")
 
 [connection signal="Attacking" from="OmniCharge" to="Offense" method="AttackWithMomentum"]
+[connection signal="FinishedTransfering" from="OmniCharge" to="." method="OnFinishedTransfering"]

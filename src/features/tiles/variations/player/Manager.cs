@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Board;
 using Common;
 using Godot;
@@ -139,11 +141,11 @@ namespace Player{
         }
 
 
-        public void ReactToMatchesBySkillType(List<Vector2I> matches, SkillGroups skillGroup, /* SkillNames.All skillType, */ bool isAdjacent){
+        public /* void */async Task ReactToMatchesBySkillType(List<Vector2I> matches, SkillGroups skillGroup, /* SkillNames.All skillType, */ bool isAdjacent){
             if(isAdjacent){
                 var skillType = (SkillsModel).GetSelectedInGroup(skillGroup);
                 var skill = (SkillsModel as SkillMaking).Create(skillType) as Skill;
-                (_matchesTraversal as TraversableMatching).ReceivePathAndSkill(matches, skill);
+                await (_matchesTraversal as TraversableMatching).ReceivePathAndSkill(matches, skill);
             }else{
                 FillEnergy(matches.Count, skillGroup);                
             }
@@ -157,8 +159,20 @@ namespace Player{
             (_offense as Offensive).AttackWithMomentum(target, momentum);
         }   
 
-        public void ReceivePathAndSkill(List<Vector2I> path, Skill/* ful */ skill){
-            (_matchesTraversal as TraversableMatching).ReceivePathAndSkill(path, skill);
+        public /* void */async Task ReceivePathAndSkill(List<Vector2I> path, Skill/* ful */ skill){
+            //await (_matchesTraversal as TraversableMatching).ReceivePathAndSkill(path, skill);
+        }
+
+        public async Task WaitForTransferFinishedSignal(){
+            await ToSignal(this, SignalName.FinishedTransfering);
+        }
+
+        public void ConnectTransferFinished(Action callback){
+            Connect(SignalName.FinishedTransfering, Callable.From(callback));
+        }
+
+        public void EmitTransferFinished(){
+            EmitSignal(SignalName.FinishedTransfering);
         }
     }	
 }
