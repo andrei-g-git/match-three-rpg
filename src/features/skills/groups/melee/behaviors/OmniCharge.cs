@@ -18,7 +18,8 @@ public partial class OmniCharge : Node, /* Movable, */ Traversing, AccessableBoa
     [Signal] public delegate void FinishedPathEventHandler();
 
     public void ProcessPath(List<Vector2I> path){ 
-        /* _ =  */(Board as Organizable).TransferTileTo(TileRoot, path[_pathIndex]); 
+        /* _ =  *///(Board as Organizable).TransferTileTo(TileRoot, path[_pathIndex]); 
+        (TileRoot as Movable).MoveTo(path[_pathIndex]);
         var neighbors = (Board as Queriable).GetNeighboringTiles(path[_pathIndex]);
         foreach(var tile in neighbors){    
             if(tile is Disposition actor && actor.IsEnemy){

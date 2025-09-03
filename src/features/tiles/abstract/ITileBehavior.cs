@@ -12,6 +12,7 @@ namespace Tiles{
     public interface Removable{
         public void PrepDestroy();
         public void Remove();
+        public Task WaitForRemoved();
     }
 
     public interface Matchable{

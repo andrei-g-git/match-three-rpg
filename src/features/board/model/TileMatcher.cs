@@ -5,6 +5,7 @@ using Skills;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Tiles;
 using Util;
 
@@ -48,6 +49,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
                         if(_matchGroupQueue.Peek() != null){
                             GetTree().CreateTimer(1.5).Timeout += () => { //temporary ... nothing more permanent eh...
                                 _ActivateMatchedTilesAndCollapseGrid(_matchGroupQueue);
+                                var bp = 123;
                             };
                         }                         
                     }else{
@@ -123,11 +125,13 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
 
             //player.ReactToMatchesBySkillType(group, tile1.SkillGroup, isAdjacent);
 
-            _RunMatchedTileBehaviors(matchQueue); ///make this async so it blanks out tiles before player changes his coordinates and replaces the blanks
+            await _RunMatchedTileBehaviors(matchQueue); ///make this async so it blanks out tiles before player changes his coordinates and replaces the blanks
+
+            var bpp = 123;
 
             await player.ReactToMatchesBySkillType(group, tile1.SkillGroup, isAdjacent);     
 
-            var bpp = 132;                 
+            bpp = 132;                 
         } 
 
         _CollapseTiles();
@@ -180,16 +184,16 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
     }
 
 
-    private void _RunMatchedTileBehaviors(Queue<Vector2I>matchQueue){
+    private /* void */async Task _RunMatchedTileBehaviors(Queue<Vector2I>matchQueue){
         if(matchQueue.Count>0){
-            _ActivateMatchedTileAndRemove(matchQueue); 
+            await _ActivateMatchedTileAndRemove(matchQueue); 
 
-            _RunMatchedTileBehaviors(matchQueue); 
+            await _RunMatchedTileBehaviors(matchQueue); 
         }     
     }    
 
 
-    private void _ActivateMatchedTileAndRemove(Queue<Vector2I> matches){ //need to make sure this is awaited
+    private /* void */async Task _ActivateMatchedTileAndRemove(Queue<Vector2I> matches){ //need to make sure this is awaited
         if(matches.Count > 0){ 
             var cell = matches.Dequeue();
 
@@ -200,8 +204,10 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
             );
             if(tile is Matchable matchable){
                 matchable.BeginPostMatchProcessDependingOnPlayerPosition(cell, null, false);
+                //await ToSignal(tile, "Removed");
+                await (tile as Removable).WaitForRemoved();
             }
-            _ActivateMatchedTileAndRemove(matches);
+            await _ActivateMatchedTileAndRemove(matches);
         }      
     }
 

@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Threading.Tasks;
 using Tiles;
 
 public partial class Removing : Node, Removable
@@ -15,5 +16,10 @@ public partial class Removing : Node, Removable
         EmitSignal(SignalName.Removed);        
 		_tileRoot.QueueFree();
 
+    }
+
+    public async Task WaitForRemoved(){
+        await ToSignal(this, SignalName.Removed);
+        var bp = 123;
     }
 }

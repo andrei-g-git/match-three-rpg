@@ -22,6 +22,7 @@ namespace Defensive{
 		public Node Board {set {(_swapping as AccessableBoard).Board = value;}}
         public Tileable Map { set => (_moveTweener as Mapable).Map = value; }
 
+        [Signal] public delegate void RemovedEventHandler();
 
         public override void _Ready(){
             (_popTweener as Creatable).Pop();
@@ -44,6 +45,10 @@ namespace Defensive{
         public void SwapWith(Control tile)
         {
             throw new System.NotImplementedException();
+        }
+
+        public void OnRemoved(){
+            EmitSignal(SignalName.Removed); //should queueFree here, not in the remove behavior
         }
     }	
 }

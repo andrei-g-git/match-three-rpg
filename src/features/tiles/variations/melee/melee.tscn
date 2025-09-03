@@ -10,12 +10,13 @@
 [ext_resource type="Script" uid="uid://whroff6nwt7n" path="res://src/features/tiles/animations/ScaleUpFade.cs" id="9_p70jn"]
 [ext_resource type="Script" uid="uid://dkxyfo8ok7v3x" path="res://src/features/tiles/animations/Pop.cs" id="9_tua7i"]
 
-[node name="Melee" type="Control" node_paths=PackedStringArray("_swapping", "_matching", "_moveTweener", "_popTweener")]
+[node name="Melee" type="Control" node_paths=PackedStringArray("_swapping", "_matching", "_removing", "_moveTweener", "_popTweener")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_xe2b7")
 _swapping = NodePath("Behaviors/Swapping")
 _matching = NodePath("Behaviors/Matching")
+_removing = NodePath("Behaviors/Removing")
 _moveTweener = NodePath("Tweeners/Move")
 _popTweener = NodePath("Tweeners/Pop")
 
@@ -71,4 +72,6 @@ _duration = 0.7
 
 [connection signal="EngagedBy" from="AspectRatioContainer/DragAndDrop" to="Behaviors/Swapping" method="SwapWith"]
 [connection signal="Destroying" from="Behaviors/Removing" to="Tweeners/ScaleUpFade" method="Disappear"]
+[connection signal="Removed" from="Behaviors/Removing" to="." method="OnRemoved"]
 [connection signal="MatchedRemotely" from="Behaviors/Matching" to="Behaviors/Removing" method="PrepDestroy"]
+[connection signal="FinishedFading" from="Tweeners/ScaleUpFade" to="Behaviors/Removing" method="Remove"]
