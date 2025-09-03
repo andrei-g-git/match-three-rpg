@@ -29,6 +29,10 @@ public partial class Whirlwind : Node, Skill, WithTileRoot, AccessableBoard, Tra
 		(TileRoot as Player.Manager).EmitTransferFinished();
 	}
 
+	public void OnFinishedPath(){
+		(TileRoot as Player.Manager).EmitPathFinished();
+	}
+
     public void ProcessPath(List<Vector2I> path){
         (_omniCharge as Traversing).ProcessPath(path);
     }

@@ -34,6 +34,7 @@ namespace Player{
             set {
                 (_swapping as AccessableBoard).Board = value;
                 (_skillSlot as AccessableBoard).Board = value;
+                (_matchesTraversal as AccessableBoard).Board = value;
         }}
         public Tileable Map { 
             set {
@@ -64,7 +65,8 @@ namespace Player{
         public Node Skill { set => (_skillSlot as Skillful).Skill = value; }
         public ManageableSkills SkillsModel {get;set;}//=> _skillsModel as ManageableSkills; //DOES NOT HAVE INTERFACE 
 
-        [Signal] public delegate void FinishedTransferingEventHandler(); //rn the skill calls this directly
+        [Signal] public delegate void FinishedTransferingEventHandler(); //rn the skill calls these directly
+        [Signal] public delegate void FinishedPathEventHandler();
 
         public override void _Ready(){
             (_popTweener as Creatable).Pop();
@@ -174,6 +176,10 @@ namespace Player{
         public void EmitTransferFinished(){
             EmitSignal(SignalName.FinishedTransfering);
         }
+
+        public void EmitPathFinished(){
+            EmitSignal(SignalName.FinishedPath);
+        }        
     }	
 }
 

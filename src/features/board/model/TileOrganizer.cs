@@ -51,6 +51,13 @@ public partial class TileOrganizer: Node, Organizable, WithTiles
         return board;				
     }   
 
+
+    public void RelocateTile(Control tile, Vector2I target){
+        var source = Tiles.GetCellFor(tile);
+        Tiles.SetCell(tile, target);
+        Tiles.SetCell((_tileFactory as TileMaking).Create(TileTypes.Blank) as Control, source);
+    }
+
     public async Task TransferTileToTile(Control sourceTile, Control targetTile){
         var target = Tiles.GetCellFor(targetTile);
         var source = Tiles.GetCellFor(sourceTile);
@@ -84,8 +91,8 @@ public partial class TileOrganizer: Node, Organizable, WithTiles
         watch.Stop();
         GD.Print("TransferTileTo   milliseconds:  ", watch.ElapsedMilliseconds);
         //
-        _FillEmptyCell(currentCell, _spawnWeights, _spawnTiles); 
-        (_tileMatcher as MatchableBoard).MatchWithoutSwapping();
+        //_FillEmptyCell(currentCell, _spawnWeights, _spawnTiles); 
+        //(_tileMatcher as MatchableBoard).MatchWithoutSwapping();
 
     }
 

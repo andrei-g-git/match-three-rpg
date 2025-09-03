@@ -45,6 +45,12 @@ public partial class BoardModel : Node, Organizable, MatchableBoard, WithTiles, 
         /* await  */(_tileOrganizer as Organizable).TransferTileTo(tile, target);
     }    
 
+
+    public void RelocateTile(Control tile, Vector2I target){
+        (_tileOrganizer as Organizable).RelocateTile(tile, target);
+    }
+
+
     public void MatchWithoutSwapping(){
         (_tileMatcher as MatchableBoard).MatchWithoutSwapping();
     }
@@ -68,4 +74,6 @@ public partial class BoardModel : Node, Organizable, MatchableBoard, WithTiles, 
     public bool IsCellAdjacentToLine(Vector2I cell, List<Vector2I> line){
         return (_tileQuery as Queriable).IsCellAdjacentToLine(cell, line);
     }
+
+
 }

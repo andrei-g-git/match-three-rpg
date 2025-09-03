@@ -15,6 +15,7 @@ public partial class OmniCharge : Node, /* Movable, */ Traversing, AccessableBoa
     private int _pathIndex = 0; //I should reset this but normally the skill is removed after use so maybe it's fine
     [Signal] public delegate void AttackingEventHandler(Control enemy, int coveredTileDistance);    
     [Signal] public delegate void FinishedTransferingEventHandler();
+    [Signal] public delegate void FinishedPathEventHandler();
 
     public void ProcessPath(List<Vector2I> path){ 
         /* _ =  */(Board as Organizable).TransferTileTo(TileRoot, path[_pathIndex]); 
@@ -26,8 +27,7 @@ public partial class OmniCharge : Node, /* Movable, */ Traversing, AccessableBoa
         }
         _pathIndex++;
         if(_pathIndex >= path.Count){
-            //EmitSignal(SignalName.FinishedTransfering);
-            //remove clause
+            EmitSignal(SignalName.FinishedPath);
         }else{
             ProcessPath(path);
         }
@@ -38,14 +38,17 @@ public partial class OmniCharge : Node, /* Movable, */ Traversing, AccessableBoa
     public async Task ProcessPath(List<Vector2I> path, bool testOverload) {
         if (_pathIndex >= path.Count) {
             //EmitSignal(SignalName.FinishedTransfering);
+            EmitSignal(SignalName.FinishedPath);
             return;
         }
 
         _sprite.Play();
 
+
+        /* await */ (Board as Organizable).TransferTileTo(TileRoot, path[_pathIndex]);
         await (_sprite as WhirlwindSprite).WaitForAnimationFinished();
         //await ToSignal(_sprite, /* _sprite.AnimationFinished */"animation_finished");
-        /* await */ (Board as Organizable).TransferTileTo(TileRoot, path[_pathIndex]);
+
 
         var neighbors = (Board as Queriable).GetNeighboringTiles(path[_pathIndex]);
         foreach (var tile in neighbors) {

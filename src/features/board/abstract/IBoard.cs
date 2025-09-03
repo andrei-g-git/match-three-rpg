@@ -23,6 +23,7 @@ namespace Board{
 		//public Grid<Control> Tiles{get;set;}	
 		public Task TransferTileToTile(Control sourceTile, Control targetTile);
 		public /* Task */ void TransferTileTo(Control tile, Vector2I target);
+		public void RelocateTile(Control tile, Vector2I target);
 
 	}
 

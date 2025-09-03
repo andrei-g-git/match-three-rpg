@@ -46,7 +46,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
                         _SwapTileNodes(sourceTile, targetTile);
                         Tiles = probeGrid;  
                         if(_matchGroupQueue.Peek() != null){
-                            GetTree().CreateTimer(1).Timeout += () => { //temporary ... nothing more permanent eh...
+                            GetTree().CreateTimer(1.5).Timeout += () => { //temporary ... nothing more permanent eh...
                                 _ActivateMatchedTilesAndCollapseGrid(_matchGroupQueue);
                             };
                         }                         
@@ -123,7 +123,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
 
             //player.ReactToMatchesBySkillType(group, tile1.SkillGroup, isAdjacent);
 
-            _RunMatchedTileBehaviors(matchQueue);
+            _RunMatchedTileBehaviors(matchQueue); ///make this async so it blanks out tiles before player changes his coordinates and replaces the blanks
 
             await player.ReactToMatchesBySkillType(group, tile1.SkillGroup, isAdjacent);     
 
@@ -133,7 +133,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
         _CollapseTiles();
         var bp = 123;
 
-        GetTree().CreateTimer(1).Timeout += () => { //booooo! Also I can't have these running in parallel
+        GetTree().CreateTimer(1.5).Timeout += () => { //booooo! Also I can't have these running in parallel
             _FillUpEmptyCells(_spawnWeights, _spawnTiles);   
 
             Debugging.PrintStackedGridInitials(Tiles.GetGridAs2DList(), 2, 2, "STACKED Grid:");
