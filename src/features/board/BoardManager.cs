@@ -24,27 +24,32 @@ public partial class BoardManager : PanelContainer
 	[Export] private Node _model;
 	[Export] private Node _tileFactory;
 	[Export] private Node _playerSkillsModel;
-	//[Export] private Node _selectedSkillsModel; 
 
 	private Grid<TileTypes> _tileTypes;
 	private GameSave _loadedGame;
 
 	public override void _Ready(){
+		InitializeLevel();
+
+	}
+
+
+	public void InitializeLevel(){
 		Files.LoadJson<CurrentSaveGame>(Files.SavesPath, "current.json")
 			.ContinueWith(task => {
 				var currentGame = task.Result;
 				var currentGameName = currentGame.CurrentSave;
 				Files.LoadJson<GameSave>(Files.SavesPath, currentGameName)
 					.ContinueWith(t => {
-						_loadedGame = t.Result; // This fails but not the first LoadJson call
+						_loadedGame = t.Result; 
 
 						var environmentPath = _loadedGame.Environment;
 						var tilesPath = _loadedGame.Pieces;
 
-						var env = Files.LoadCsv(environmentPath);//"D:\\projects\\match3\\mapping\\New folder\\9_08_0.csv");
+						var env = Files.LoadCsv(environmentPath);
 						var environmentCellStructure = Hex.StringGridToEnums(env);
-						var tileNames = Files.LoadCsv(tilesPath);//"D:\\projects\\match3\\mapping\\New folder\\9_08_1.csv");
-						/* var */ _tileTypes = Hex.StringGridToEnums(tileNames);		
+						var tileNames = Files.LoadCsv(tilesPath);
+						_tileTypes = Hex.StringGridToEnums(tileNames);		
 
 						_PopulateMap(
 							_tileMap,
@@ -88,20 +93,15 @@ public partial class BoardManager : PanelContainer
 			var skillGroups = _loadedGame.Player.SkillGroups; 
 			var skillsModel =  _playerSkillsModel as ManageableSkills;
 			(player as Player.Manager).SkillsModel = skillsModel;
-			// skillsModel.Melee = skillGroupsDict[SkillNames.SkillGroups.Melee.ToString()];
-			// skillsModel.Ranged = skillGroupsDict[SkillNames.SkillGroups.Ranged.ToString()];
-			// skillsModel.Defensive = skillGroupsDict[SkillNames.SkillGroups.Defensive.ToString()];
-			// skillsModel.Tech = skillGroupsDict[SkillNames.SkillGroups.Tech.ToString()];
 
 			skillsModel.Melee = skillGroups.Where(group => (group as GroupableSkills).Group == SkillNames.SkillGroups.Melee.ToString()).ElementAt(0);
 			skillsModel.Ranged = skillGroups.Where(group => (group as GroupableSkills).Group == SkillNames.SkillGroups.Ranged.ToString()).ElementAt(0);
 			skillsModel.Defensive = skillGroups.Where(group => (group as GroupableSkills).Group == SkillNames.SkillGroups.Defensive.ToString()).ElementAt(0);
 			skillsModel.Tech = skillGroups.Where(group => (group as GroupableSkills).Group == SkillNames.SkillGroups.Tech.ToString()).ElementAt(0);
 
-			(/* _selectedSkillsModel */skillsModel as Modelable).Notify();
+			(skillsModel as Modelable).Notify();
 
 		};
-
 	}
 
 	
