@@ -49,6 +49,10 @@ public partial class BoardModel : Node, Organizable, MatchableBoard, WithTiles, 
         (_tileMatcher as MatchableBoard).MatchWithoutSwapping();
     }
 
+    public void CollapseGridAndCheckNewMatches(){
+        (_tileMatcher as MatchableBoard).CollapseGridAndCheckNewMatches();
+    }
+
     public List<Control> GetNeighboringTiles(Vector2I center){
         return (_tileQuery as Queriable).GetNeighboringTiles(center);
     }

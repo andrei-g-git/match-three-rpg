@@ -60,9 +60,13 @@ public partial class TileOrganizer: Node, Organizable, WithTiles
         //result is an array that stores the signal parameters, don't need here
         /* var result = */ await ToSignal(targetTile, "Removed"); 
 
-        _FillEmptyCell(source, _spawnWeights, _spawnTiles); 
+        //_FillEmptyCell(source, _spawnWeights, _spawnTiles); 
 
-        (_tileMatcher as MatchableBoard).MatchWithoutSwapping();
+        //(_tileMatcher as MatchableBoard).MatchWithoutSwapping();
+
+        Tiles.SetCell((_tileFactory as TileMaking).Create(TileTypes.Blank) as Control, source);
+
+        (_tileMatcher as MatchableBoard).CollapseGridAndCheckNewMatches();
 
         GD.Print("former player position is now:  ", (Tiles.GetItem(source) as Tile).Type);
     } 

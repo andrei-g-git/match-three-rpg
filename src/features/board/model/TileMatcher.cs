@@ -74,6 +74,10 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
     }
 
 
+    public void CollapseGridAndCheckNewMatches(){
+        _ActivateMatchedTilesAndCollapseGrid(_matchGroupQueue);
+    }
+
     private void _SwapTileNodes(Control sourceTile, Control targetTile){
         var source = Tiles.GetCellFor(sourceTile);
         var target = Tiles.GetCellFor(targetTile);
@@ -104,21 +108,27 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
 
 
     private async void _ActivateMatchedTilesAndCollapseGrid(Queue<List<Vector2I>> matchGroupQueue){ //all this dependency injection is kind of useless if I hard code helper funcions... this is not a pure function
-        var group = matchGroupQueue.Dequeue();
-        var matchQueue = new Queue<Vector2I>(group);
+        var group = new List<Vector2I>();  
+        if(matchGroupQueue.Count > 0){
+            group = matchGroupQueue.Dequeue();  
 
-        //fill player energy --- assume that the only tiles that can be matched are skill group tiles --- although maybe walkable tiles might also be matched to gains some special benefit like more placeable walk tiles
-        var player = Tiles.FindItemByType(typeof(Playable)) as ReactiveToMatches;
-        var tile1 = Tiles.GetItem(group[0]) as SkillBased;
-        
-        var playerCell = Tiles.GetCellFor(player as Control);
-        var isAdjacent = (_tileQuery as Queriable).IsCellAdjacentToLine(playerCell, group);
+            var matchQueue = new Queue<Vector2I>(group);
 
-        //player.ReactToMatchesBySkillType(group, tile1.SkillGroup, isAdjacent);
+            //fill player energy --- assume that the only tiles that can be matched are skill group tiles --- although maybe walkable tiles might also be matched to gains some special benefit like more placeable walk tiles
+            var player = Tiles.FindItemByType(typeof(Playable)) as ReactiveToMatches;
+            var tile1 = Tiles.GetItem(group[0]) as SkillBased;
+            
+            var playerCell = Tiles.GetCellFor(player as Control);
+            var isAdjacent = (_tileQuery as Queriable).IsCellAdjacentToLine(playerCell, group);
 
-        _RunMatchedTileBehaviors(matchQueue);
+            //player.ReactToMatchesBySkillType(group, tile1.SkillGroup, isAdjacent);
 
-        await player.ReactToMatchesBySkillType(group, tile1.SkillGroup, isAdjacent);
+            _RunMatchedTileBehaviors(matchQueue);
+
+            await player.ReactToMatchesBySkillType(group, tile1.SkillGroup, isAdjacent);     
+
+            var bpp = 132;                 
+        } 
 
         _CollapseTiles();
         var bp = 123;
