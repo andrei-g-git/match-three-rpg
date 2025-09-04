@@ -1,0 +1,92 @@
+[gd_scene load_steps=13 format=3 uid="uid://cmvpga1j811ia"]
+
+[ext_resource type="Script" uid="uid://2htym24smeh2" path="res://src/features/tiles/variations/archer/Manager.cs" id="1_j42bo"]
+[ext_resource type="Texture2D" uid="uid://c45ptn2o1rcmg" path="res://assets/images/tiles/new/goblin.png" id="2_tv040"]
+[ext_resource type="Script" uid="uid://cy1k0w8awxnxt" path="res://src/features/tiles/DragAndDrop.cs" id="3_dx3t4"]
+[ext_resource type="Script" uid="uid://bo1vqtqcusngb" path="res://src/features/tiles/behaviors/Removing.cs" id="4_lr25n"]
+[ext_resource type="Script" uid="uid://cwtutlrlcmfb4" path="res://src/features/tiles/stats/enemies/OrcStats.cs" id="5_rt408"]
+[ext_resource type="Script" uid="uid://p0ymm4ytnxjy" path="res://src/features/tiles/behaviors/Defender.cs" id="6_gbd4a"]
+[ext_resource type="Script" uid="uid://cdaoc138ep2k4" path="res://src/features/tiles/behaviors/Engagement.cs" id="7_8t7aj"]
+[ext_resource type="Script" uid="uid://bwnp3h3h358d0" path="res://src/features/tiles/behaviors/Hostility.cs" id="8_ml7jp"]
+[ext_resource type="Script" uid="uid://dmkt3wetl7b0l" path="res://src/features/tiles/animations/MoveTweener.cs" id="9_kupxh"]
+[ext_resource type="Script" uid="uid://whroff6nwt7n" path="res://src/features/tiles/animations/ScaleUpFade.cs" id="10_4iat3"]
+[ext_resource type="Script" uid="uid://dkxyfo8ok7v3x" path="res://src/features/tiles/animations/Pop.cs" id="11_eujui"]
+[ext_resource type="Script" uid="uid://e2s0xy666sc2" path="res://src/features/tiles/animations/ShakeOnce.cs" id="12_u73oc"]
+
+[node name="Archer" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 55.0
+offset_bottom = 55.0
+script = ExtResource("1_j42bo")
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+layout_mode = 0
+offset_left = -32.0
+offset_top = -27.5
+offset_right = 32.0
+offset_bottom = 27.5
+pivot_offset = Vector2(32, 27.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="AspectRatioContainer"]
+position = Vector2(32, 27.5)
+texture = ExtResource("2_tv040")
+
+[node name="DragAndDrop" type="Control" parent="AspectRatioContainer" node_paths=PackedStringArray("_tileNode", "_container", "_sprite")]
+layout_mode = 2
+mouse_filter = 1
+script = ExtResource("3_dx3t4")
+_tileNode = NodePath("../..")
+_container = NodePath("..")
+_sprite = NodePath("../Sprite2D")
+
+[node name="Behaviors" type="Node" parent="."]
+
+[node name="Removing" type="Node" parent="Behaviors" node_paths=PackedStringArray("_tileRoot")]
+script = ExtResource("4_lr25n")
+_tileRoot = NodePath("../..")
+
+[node name="Stats" type="Node" parent="Behaviors"]
+script = ExtResource("5_rt408")
+_maxHealth = 10
+_defense = 1
+_damage = 2
+_speed = 1
+
+[node name="Defender" type="Node" parent="Behaviors" node_paths=PackedStringArray("_stats")]
+script = ExtResource("6_gbd4a")
+_stats = NodePath("../Stats")
+
+[node name="Engagement" type="Node" parent="Behaviors" node_paths=PackedStringArray("_tileRoot")]
+script = ExtResource("7_8t7aj")
+_tileRoot = NodePath("../..")
+
+[node name="Hostility" type="Node" parent="Behaviors"]
+script = ExtResource("8_ml7jp")
+
+[node name="Tweeners" type="Node" parent="."]
+
+[node name="Move" type="Node" parent="Tweeners" node_paths=PackedStringArray("_tileRoot")]
+script = ExtResource("9_kupxh")
+_tileRoot = NodePath("../..")
+_duration = 0.5
+
+[node name="ScaleUpFade" type="Node" parent="Tweeners" node_paths=PackedStringArray("_tileRoot")]
+script = ExtResource("10_4iat3")
+_tileRoot = NodePath("../..")
+_duration = 1.0
+
+[node name="Pop" type="Node" parent="Tweeners" node_paths=PackedStringArray("_tileRoot")]
+script = ExtResource("11_eujui")
+_tileRoot = NodePath("../..")
+_duration = 0.7
+
+[node name="Recoil" type="Node" parent="Tweeners" node_paths=PackedStringArray("_tileRoot")]
+script = ExtResource("12_u73oc")
+_tileRoot = NodePath("../..")
+_duration = 0.2
+_maxShakes = 3
+_shakeMagnitude = 0.2
+
+[connection signal="EngagedBy" from="AspectRatioContainer/DragAndDrop" to="Behaviors/Engagement" method="ProcessEngagementBy"]
+[connection signal="Destroying" from="Behaviors/Removing" to="Tweeners/ScaleUpFade" method="Disappear"]

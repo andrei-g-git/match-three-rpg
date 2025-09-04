@@ -28,6 +28,9 @@ public partial class BoardManager : PanelContainer
 	private Grid<TileTypes> _tileTypes;
 	private GameSave _loadedGame;
 
+	private static readonly string _userPath = ProjectSettings.GlobalizePath("user://"); //delete
+
+
 	public override void _Ready(){
 		InitializeLevel();
 
@@ -35,12 +38,20 @@ public partial class BoardManager : PanelContainer
 
 
 	public void InitializeLevel(){
+
+						// //delete
+						// var delete = System.IO.Path.Join(_userPath, Files.SavesPath, "new_game.json");
+						// CreateLogMessagePopup(delete);		
+
+						// var delete2 = System.IO.Path.Join(_userPath, Files.SavesPath, "current.json");
+						// CreateLogMessagePopup(delete2);	
 		Files.LoadJson<CurrentSaveGame>(Files.SavesPath, "current.json")
 			.ContinueWith(task => {
 				var currentGame = task.Result;
 				var currentGameName = currentGame.CurrentSave;
 				Files.LoadJson<GameSave>(Files.SavesPath, currentGameName)
 					.ContinueWith(t => {
+
 						_loadedGame = t.Result; 
 
 						var environmentPath = _loadedGame.Environment;
@@ -101,6 +112,8 @@ public partial class BoardManager : PanelContainer
 
 			(skillsModel as Modelable).Notify();
 
+			// var griddd = (_model as WithTiles).Tiles.GetGridAs2DList();
+			// CreateLogMessagePopup(skillsModel.Melee.Group);	
 		};
 	}
 
@@ -165,5 +178,16 @@ public partial class BoardManager : PanelContainer
 			GD.Print(exception);
 		}
 	}
+
+public async void CreateLogMessagePopup(string text){
+    var dlg = new AcceptDialog();
+    dlg.DialogText = text;
+    AddChild(dlg);
+    dlg.PopupCentered();
+
+    await ToSignal(dlg, "popup_hide");
+    dlg.QueueFree();
+}
+
 
 }

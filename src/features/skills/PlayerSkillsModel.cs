@@ -28,6 +28,9 @@ public partial class PlayerSkillsModel : Node, ManageableSkills, Modelable, Skil
 		(DefensiveGroupUi as SelectableSkills).UpdateSkills(Defensive.Skills);
 		(TechGroupUi as SelectableSkills).UpdateSkills(Tech.Skills);	
 		var bp = 123;	
+		//CreateLogMessagePopup(Melee.Group);
+
+
 	}
 	
     public void SetSelectedSkill(SkillNames.All skill, SkillNames.SkillGroups group){
@@ -79,4 +82,14 @@ public partial class PlayerSkillsModel : Node, ManageableSkills, Modelable, Skil
 				return default;						
 		}
 	}
+					//delete
+					public async void CreateLogMessagePopup(string text){
+						var dlg = new AcceptDialog();
+						dlg.DialogText = text;
+						AddChild(dlg);
+						dlg.PopupCentered();
+
+						await ToSignal(dlg, "popup_hide");
+						dlg.QueueFree();
+					}	
 }

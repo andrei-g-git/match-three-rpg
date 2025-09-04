@@ -1,7 +1,7 @@
 [gd_scene load_steps=17 format=3 uid="uid://neacnhoii1ja"]
 
 [ext_resource type="Script" uid="uid://bi3h2kor8um1g" path="res://src/features/tiles/variations/player/Manager.cs" id="1_4gdcj"]
-[ext_resource type="Texture2D" uid="uid://bctjbbgf43ggl" path="res://assets/images/tiles/player.png" id="2_xn80g"]
+[ext_resource type="Texture2D" uid="uid://blwt3lnwis0e2" path="res://assets/images/tiles/new/player.png" id="2_ybiiv"]
 [ext_resource type="Script" uid="uid://cy1k0w8awxnxt" path="res://src/features/tiles/DragAndDrop.cs" id="3_dohfl"]
 [ext_resource type="Script" uid="uid://dd71kn6t4pyhr" path="res://src/features/tiles/behaviors/Swapping.cs" id="4_ceqvu"]
 [ext_resource type="Script" uid="uid://cxbie8wh5asp6" path="res://src/features/tiles/stats/PlayerStats.cs" id="4_krwou"]
@@ -42,7 +42,7 @@ pivot_offset = Vector2(32, 27.5)
 
 [node name="Sprite2D" type="Sprite2D" parent="AspectRatioContainer"]
 position = Vector2(32, 27.5)
-texture = ExtResource("2_xn80g")
+texture = ExtResource("2_ybiiv")
 
 [node name="DragAndDrop" type="Control" parent="AspectRatioContainer" node_paths=PackedStringArray("_tileNode", "_container", "_sprite")]
 layout_mode = 2

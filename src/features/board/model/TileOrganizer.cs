@@ -32,6 +32,9 @@ public partial class TileOrganizer: Node, Organizable, WithTiles
         (_tileFactory as TileMaking).Initialize();
         Tiles = _MakeTileNodes(tileTypes, _tileFactory as TileMaking);
         (_tileContainer as Viewable).Initialize(Tiles);
+
+        //delete
+        //CreateLogMessagePopup((Tiles.GetItem(4, 4) as Tile).Type.ToString());        
     }
 
     private Grid<Control> _MakeTileNodes(
@@ -112,5 +115,18 @@ public partial class TileOrganizer: Node, Organizable, WithTiles
 
     private void _AddTile(Control tile, Vector2I cell){
         (_tileContainer as Viewable).Add(tile, cell);
-    }        
+    }   
+
+
+
+
+					public async void CreateLogMessagePopup(string text){
+						var dlg = new AcceptDialog();
+						dlg.DialogText = text;
+						AddChild(dlg);
+						dlg.PopupCentered();
+
+						await ToSignal(dlg, "popup_hide");
+						dlg.QueueFree();
+					}	         
 }
