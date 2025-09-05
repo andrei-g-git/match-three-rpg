@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://donsygddio07a"]
 
 [ext_resource type="Script" uid="uid://dlbv8lpt2bi54" path="res://src/features/tiles/variations/ranged/Manager.cs" id="1_kqcq3"]
-[ext_resource type="Texture2D" uid="uid://tsaa17h5hm0r" path="res://assets/images/tiles/new/ranged.png" id="2_ws851"]
+[ext_resource type="Texture2D" uid="uid://cdpc3wgf4lwot" path="res://assets/images/tiles/new/ranged-green.png" id="2_ws851"]
 [ext_resource type="Script" uid="uid://cy1k0w8awxnxt" path="res://src/features/tiles/DragAndDrop.cs" id="3_8667k"]
 [ext_resource type="Script" uid="uid://dd71kn6t4pyhr" path="res://src/features/tiles/behaviors/Swapping.cs" id="4_gb7wv"]
 [ext_resource type="Script" uid="uid://bo1vqtqcusngb" path="res://src/features/tiles/behaviors/Removing.cs" id="5_3h75h"]
@@ -10,12 +10,13 @@
 [ext_resource type="Script" uid="uid://dkxyfo8ok7v3x" path="res://src/features/tiles/animations/Pop.cs" id="9_ege0x"]
 [ext_resource type="Script" uid="uid://whroff6nwt7n" path="res://src/features/tiles/animations/ScaleUpFade.cs" id="9_ws851"]
 
-[node name="Ranged" type="Control" node_paths=PackedStringArray("_swapping", "_matching", "_moveTweener", "_popTweener")]
+[node name="Ranged" type="Control" node_paths=PackedStringArray("_swapping", "_matching", "_removing", "_moveTweener", "_popTweener")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_kqcq3")
 _swapping = NodePath("Behaviors/Swapping")
 _matching = NodePath("Behaviors/Matching")
+_removing = NodePath("Behaviors/Removing")
 _moveTweener = NodePath("Tweeners/Move")
 _popTweener = NodePath("Tweeners/Pop")
 
@@ -62,7 +63,7 @@ _duration = 0.5
 [node name="ScaleUpFade" type="Node" parent="Tweeners" node_paths=PackedStringArray("_tileRoot")]
 script = ExtResource("9_ws851")
 _tileRoot = NodePath("../..")
-_duration = 1.0
+_duration = 0.1
 
 [node name="Pop" type="Node" parent="Tweeners" node_paths=PackedStringArray("_tileRoot")]
 script = ExtResource("9_ege0x")

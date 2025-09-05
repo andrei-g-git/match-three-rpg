@@ -1,9 +1,9 @@
-[gd_scene load_steps=39 format=3 uid="uid://vv3xapj4lprc"]
+[gd_scene load_steps=40 format=3 uid="uid://vv3xapj4lprc"]
 
 [ext_resource type="Script" uid="uid://dy1o6fmi8i4pb" path="res://src/features/board/BoardManager.cs" id="1_k7s5h"]
-[ext_resource type="Texture2D" uid="uid://clk8i0g07rccs" path="res://assets/images/environment/map.png" id="2_dw1vl"]
 [ext_resource type="Script" uid="uid://cgm6rlm3gw3je" path="res://src/features/board/Environment.cs" id="3_da6o6"]
 [ext_resource type="Script" uid="uid://ci3qi6w5dumc2" path="res://src/features/board/TileContainer.cs" id="4_dw1vl"]
+[ext_resource type="Texture2D" uid="uid://bhrgljbqv1p6a" path="res://assets/images/tiles/new/tile_sheet_128px_by_128px.png" id="5_1dyqb"]
 [ext_resource type="Script" uid="uid://dqkgqnxmg0ulc" path="res://src/features/board/model/BoardModel.cs" id="5_qxmgw"]
 [ext_resource type="Script" uid="uid://dmgfp5d31ssv" path="res://src/features/board/model/TileOrganizer.cs" id="6_ygp36"]
 [ext_resource type="Script" uid="uid://7sg44immrx2m" path="res://src/features/board/model/TileFactory.cs" id="7_ygp36"]
@@ -21,6 +21,7 @@
 [ext_resource type="Script" uid="uid://djqo663m7vx35" path="res://src/features/UI/UIEventBus.cs" id="19_amteu"]
 [ext_resource type="PackedScene" uid="uid://bd6owm6pwgyaa" path="res://src/features/tiles/variations/walk/walk.tscn" id="19_s5hp3"]
 [ext_resource type="PackedScene" uid="uid://dbpwe34yxcfuf" path="res://src/features/tiles/variations/fighter/fighter.tscn" id="20_fjexy"]
+[ext_resource type="PackedScene" uid="uid://cmvpga1j811ia" path="res://src/features/tiles/variations/archer/archer.tscn" id="21_mmsvb"]
 [ext_resource type="Script" uid="uid://bt865kjovyit6" path="res://src/features/board/model/TileQuery.cs" id="22_7t1so"]
 [ext_resource type="Script" uid="uid://byx4kqe8rgr43" path="res://src/features/skills/PlayerSkillsModel.cs" id="22_10pv0"]
 [ext_resource type="Texture2D" uid="uid://c3twceykx1fxf" path="res://assets/images/tiles/charge.png" id="22_gtevj"]
@@ -40,34 +41,48 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_057js"]
 bg_color = Color(0, 0.463429, 0.739759, 1)
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kc8ui"]
-texture = ExtResource("2_dw1vl")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mmsvb"]
+texture = ExtResource("5_1dyqb")
 texture_region_size = Vector2i(64, 55)
 0:0/0 = 0
-0:0/0/custom_data_0 = &"a"
+0:0/0/custom_data_0 = &"grass"
+0:0/0/custom_data_1 = true
+0:1/0 = 0
+0:1/0/custom_data_0 = &"water_1"
 1:0/0 = 0
-1:0/0/custom_data_0 = &"b"
+1:0/0/custom_data_0 = &"boulder"
 2:0/0 = 0
-2:0/0/custom_data_0 = &"c"
+2:0/0/custom_data_0 = &"tree_lower"
 3:0/0 = 0
 3:0/0/custom_data_0 = &"tree_upper"
-0:1/0 = 0
-0:1/0/custom_data_0 = &"d"
-1:1/0 = 0
-1:1/0/custom_data_0 = &"e"
-2:1/0 = 0
-2:1/0/custom_data_0 = &"f"
+4:0/0 = 0
+4:0/0/custom_data_0 = &"brush"
+4:1/0 = 0
+4:1/0/custom_data_0 = &"water_5"
 3:1/0 = 0
-3:1/0/custom_data_0 = &"tree_lower"
+3:1/0/custom_data_0 = &"water_4"
+1:1/0 = 0
+1:1/0/custom_data_0 = &"water_2"
+2:1/0 = 0
+2:1/0/custom_data_0 = &"water_3"
 0:2/0 = 0
-0:2/0/custom_data_0 = &"boulder"
+0:2/0/custom_data_0 = &"water_6"
 1:2/0 = 0
-1:2/0/custom_data_0 = &"water"
+1:2/0/custom_data_0 = &"water_7"
 2:2/0 = 0
-2:2/0/custom_data_0 = &"brush"
+2:2/0/custom_data_0 = &"water_8"
 3:2/0 = 0
-3:2/0/custom_data_0 = &"grass"
-3:2/0/custom_data_1 = true
+3:2/0/custom_data_0 = &"water_9"
+4:2/0 = 0
+4:2/0/custom_data_0 = &"water_10"
+3:3/0 = 0
+3:3/0/custom_data_0 = &"water_20"
+2:3/0 = 0
+2:3/0/custom_data_0 = &"water_13"
+1:3/0 = 0
+1:3/0/custom_data_0 = &"water_12"
+0:3/0 = 0
+0:3/0/custom_data_0 = &"water_11"
 
 [sub_resource type="TileSet" id="TileSet_bs6l1"]
 tile_shape = 3
@@ -77,15 +92,18 @@ custom_data_layer_0/name = "name"
 custom_data_layer_0/type = 21
 custom_data_layer_1/name = "navigable"
 custom_data_layer_1/type = 1
-sources/0 = SubResource("TileSetAtlasSource_kc8ui")
+sources/0 = SubResource("TileSetAtlasSource_mmsvb")
 
 [node name="Level" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = -620.0
+offset_bottom = -350.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(1.63, 1.63)
 
 [node name="Events" type="Node" parent="."]
 
@@ -156,7 +174,7 @@ script = ExtResource("7_ygp36")
 _tileMapLayer = NodePath("../../Environment")
 _boardModel = NodePath("..")
 _uiEventBus = NodePath("../../../../Events/UIEventBus")
-_packedTileScenes = Array[PackedScene]([ExtResource("8_2r3xs"), ExtResource("9_4s2tm"), ExtResource("10_fusuk"), ExtResource("11_25lnr"), ExtResource("12_fusuk"), ExtResource("13_25lnr"), ExtResource("14_6bwww"), ExtResource("15_x10rj"), ExtResource("19_s5hp3"), ExtResource("20_fjexy")])
+_packedTileScenes = Array[PackedScene]([ExtResource("8_2r3xs"), ExtResource("9_4s2tm"), ExtResource("10_fusuk"), ExtResource("11_25lnr"), ExtResource("12_fusuk"), ExtResource("13_25lnr"), ExtResource("14_6bwww"), ExtResource("15_x10rj"), ExtResource("19_s5hp3"), ExtResource("20_fjexy"), ExtResource("21_mmsvb")])
 
 [node name="TileMatcher" type="Node" parent="MainContainer/PanelContainer/Model" node_paths=PackedStringArray("_tileFactory", "_tileContainer", "_tileQuery")]
 script = ExtResource("12_4s2tm")
@@ -245,10 +263,10 @@ _skillMap = Dictionary[int, Texture2D]({
 
 [node name="RestartLevel" type="Button" parent="." node_paths=PackedStringArray("_boardManager")]
 layout_mode = 0
-offset_left = 1195.0
-offset_top = 13.0
-offset_right = 1260.0
-offset_bottom = 67.0
+offset_left = 908.0
+offset_top = 3.0
+offset_right = 973.0
+offset_bottom = 57.0
 text = "Restart 
 Level"
 script = ExtResource("34_1dyqb")

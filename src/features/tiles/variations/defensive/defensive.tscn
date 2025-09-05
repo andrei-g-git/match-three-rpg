@@ -10,7 +10,7 @@
 [ext_resource type="Script" uid="uid://whroff6nwt7n" path="res://src/features/tiles/animations/ScaleUpFade.cs" id="9_1sfff"]
 [ext_resource type="Script" uid="uid://dkxyfo8ok7v3x" path="res://src/features/tiles/animations/Pop.cs" id="9_aldut"]
 
-[node name="Defensive" type="Control" node_paths=PackedStringArray("_swapping", "_matching", "_moveTweener", "_popTweener")]
+[node name="Defensive" type="Control" node_paths=PackedStringArray("_swapping", "_matching", "_removing", "_moveTweener", "_popTweener")]
 custom_minimum_size = Vector2(55, 55)
 layout_mode = 3
 anchors_preset = 0
@@ -19,6 +19,7 @@ offset_bottom = 55.0
 script = ExtResource("1_5nojl")
 _swapping = NodePath("Behaviors/Swapping")
 _matching = NodePath("Behaviors/Matching")
+_removing = NodePath("Behaviors/Removing")
 _moveTweener = NodePath("Tweeners/Move")
 _popTweener = NodePath("Tweeners/Pop")
 
@@ -65,7 +66,7 @@ _duration = 0.5
 [node name="ScaleUpFade" type="Node" parent="Tweeners" node_paths=PackedStringArray("_tileRoot")]
 script = ExtResource("9_1sfff")
 _tileRoot = NodePath("../..")
-_duration = 1.0
+_duration = 0.1
 
 [node name="Pop" type="Node" parent="Tweeners" node_paths=PackedStringArray("_tileRoot")]
 script = ExtResource("9_aldut")

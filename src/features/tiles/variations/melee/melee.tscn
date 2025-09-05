@@ -63,7 +63,7 @@ _duration = 0.5
 [node name="ScaleUpFade" type="Node" parent="Tweeners" node_paths=PackedStringArray("_tileRoot")]
 script = ExtResource("9_p70jn")
 _tileRoot = NodePath("../..")
-_duration = 1.0
+_duration = 0.1
 
 [node name="Pop" type="Node" parent="Tweeners" node_paths=PackedStringArray("_tileRoot")]
 script = ExtResource("9_tua7i")

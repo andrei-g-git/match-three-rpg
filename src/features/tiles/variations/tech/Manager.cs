@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Board;
 using Common;
 using Godot;
@@ -7,11 +8,12 @@ using Tiles;
 using static Skills.SkillNames;
 
 namespace Tech{
-	public partial class Manager : Control, Tile, AccessableBoard, Movable, Mapable, Collapsable, Matchable, Swappable, SkillBased
+	public partial class Manager : Control, Tile, AccessableBoard, Movable, Mapable, Collapsable, Matchable, Swappable, SkillBased, Removable
 	{
 		[ExportGroup("behaviors")]
 		[Export] private Node _swapping;
 		[Export] private Node _matching;
+        [Export] private Node _removing;
 		
 		[ExportGroup("tweeners")]
 		[Export] private Node _moveTweener;
@@ -51,6 +53,22 @@ namespace Tech{
 
         public void OnRemoved(){
             EmitSignal(SignalName.Removed); //should queueFree here, not in the remove behavior
+        }
+
+        public async Task WaitForRemoved(){ //not in
+            //await ToSignal(this, SignalName.Removed);
+            await (_removing as Removable).WaitForRemoved();
+            var pb = 123;
+        }
+
+        public void PrepDestroy() //great...
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Remove()
+        {
+            throw new System.NotImplementedException();
         }
     }		
 }

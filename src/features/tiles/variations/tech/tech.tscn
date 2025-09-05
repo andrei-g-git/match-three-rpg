@@ -10,12 +10,13 @@
 [ext_resource type="Script" uid="uid://whroff6nwt7n" path="res://src/features/tiles/animations/ScaleUpFade.cs" id="9_h7j41"]
 [ext_resource type="Script" uid="uid://dkxyfo8ok7v3x" path="res://src/features/tiles/animations/Pop.cs" id="9_i1mv1"]
 
-[node name="Tech" type="Control" node_paths=PackedStringArray("_swapping", "_matching", "_moveTweener", "_popTweener")]
+[node name="Tech" type="Control" node_paths=PackedStringArray("_swapping", "_matching", "_removing", "_moveTweener", "_popTweener")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_tg00n")
 _swapping = NodePath("Behaviors/Swapping")
 _matching = NodePath("Behaviors/Matching")
+_removing = NodePath("Behaviors/Removing")
 _moveTweener = NodePath("Tweeners/Move")
 _popTweener = NodePath("Tweeners/Pop")
 
@@ -62,7 +63,7 @@ _duration = 0.5
 [node name="ScaleUpFade" type="Node" parent="Tweeners" node_paths=PackedStringArray("_tileRoot")]
 script = ExtResource("9_h7j41")
 _tileRoot = NodePath("../..")
-_duration = 1.0
+_duration = 0.1
 
 [node name="Pop" type="Node" parent="Tweeners" node_paths=PackedStringArray("_tileRoot")]
 script = ExtResource("9_i1mv1")

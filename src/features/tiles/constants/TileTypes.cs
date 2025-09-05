@@ -74,6 +74,7 @@ namespace Tiles {
 			{"walk", TileTypes.Walk},
 			{"wall", TileTypes.Wall },
 			{"-1", TileTypes.Blank},
+			{"water_1", TileTypes.Blank},{"water_2", TileTypes.Blank},{"water_3", TileTypes.Blank},{"water_4", TileTypes.Blank},{"water_5", TileTypes.Blank},{"water_6", TileTypes.Blank},{"water_7", TileTypes.Blank},{"water_8", TileTypes.Blank},{"water_9", TileTypes.Blank},{"water_10", TileTypes.Blank},{"water_11", TileTypes.Blank},{"water_12", TileTypes.Blank},{"water_13", TileTypes.Blank},{"water_14", TileTypes.Blank},{"water_15", TileTypes.Blank},{"water_16", TileTypes.Blank},{"water_17", TileTypes.Blank},{"water_18", TileTypes.Blank},{"water_19", TileTypes.Blank},{"water_20", TileTypes.Blank},
 			{"boulder", TileTypes.Boulder}, 
 			{"brush", TileTypes.Brush}, 
 			{"grass", TileTypes.Grass}, 
