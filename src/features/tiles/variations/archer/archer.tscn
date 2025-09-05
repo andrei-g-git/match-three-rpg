@@ -69,6 +69,8 @@ _tileRoot = NodePath("../..")
 
 [node name="Hostility" type="Node" parent="Behaviors"]
 script = ExtResource("8_ml7jp")
+isAggressive = true
+isEnemy = true
 
 [node name="Tweeners" type="Node" parent="."]
 

@@ -52,10 +52,10 @@ namespace Player{
             }
         }
         public DerivableStats DerivedStats => _derivedStats as DerivableStats;
-        public int Strength {get;}
-        public int Agility {get;}
-        public int Constitution {get;}
-        public int Intelligence {get;}
+        public int Strength => Attributes.Strength;//{get;}
+        public int Agility => Attributes.Agility;//{get;}
+        public int Constitution => Attributes.Constitution;//{get;}
+        public int Intelligence => Attributes.Intelligence;//{get;}
         public int Health {get => DerivedStats.Health; set => DerivedStats.Health = value;}
         public int Energy {get => DerivedStats.Energy; set => DerivedStats.Energy = value;}
         public Classes Class{get;set;}

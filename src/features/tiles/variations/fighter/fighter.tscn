@@ -13,13 +13,14 @@
 [ext_resource type="Script" uid="uid://bwnp3h3h358d0" path="res://src/features/tiles/behaviors/Hostility.cs" id="8_xsd4e"]
 [ext_resource type="Script" uid="uid://e2s0xy666sc2" path="res://src/features/tiles/animations/ShakeOnce.cs" id="11_xmyc7"]
 
-[node name="Fighter" type="Control" node_paths=PackedStringArray("_defender", "_stats", "_moveTweener", "_popTweener", "_recoil")]
+[node name="Fighter" type="Control" node_paths=PackedStringArray("_defender", "_hostility", "_stats", "_moveTweener", "_popTweener", "_recoil")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 55.0
 offset_bottom = 55.0
 script = ExtResource("1_81q7e")
 _defender = NodePath("Behaviors/Defender")
+_hostility = NodePath("Behaviors/Hostility")
 _stats = NodePath("Behaviors/Stats")
 _moveTweener = NodePath("Tweeners/Move")
 _popTweener = NodePath("Tweeners/Pop")
@@ -68,6 +69,8 @@ _tileRoot = NodePath("../..")
 
 [node name="Hostility" type="Node" parent="Behaviors"]
 script = ExtResource("8_xsd4e")
+isAggressive = true
+isEnemy = true
 
 [node name="Tweeners" type="Node" parent="."]
 

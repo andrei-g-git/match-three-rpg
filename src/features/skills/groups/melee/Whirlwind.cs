@@ -8,6 +8,7 @@ using Tiles;
 public partial class Whirlwind : Node, Skill, WithTileRoot, AccessableBoard, Traversing
 {
 	[Export] private Node _omniCharge;
+	[Export] private Node _damageCalculator;
 	
 	private Control _tileRoot;
 	public Control TileRoot{
@@ -15,6 +16,7 @@ public partial class Whirlwind : Node, Skill, WithTileRoot, AccessableBoard, Tra
 		set{
 			_tileRoot = value;
 			(_omniCharge as WithTileRoot).TileRoot = value;
+			(_damageCalculator as WithTileRoot).TileRoot = value;
 	}}
 	private Node _board;
     public Node Board { 
