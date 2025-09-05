@@ -59,6 +59,7 @@ public partial class TileOrganizer: Node, Organizable, WithTiles
         var source = Tiles.GetCellFor(tile);
         Tiles.SetCell(tile, target);
         Tiles.SetCell((_tileFactory as TileMaking).Create(TileTypes.Blank) as Control, source);
+        var bp = 123;
     }
 
     public async Task TransferTileToTile(Control sourceTile, Control targetTile){

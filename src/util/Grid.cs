@@ -1,14 +1,11 @@
 using Godot;
-using Godot.Collections;
 using System;
 using System.Collections.Generic;
 
-//namespace Util;
-public class Grid<[MustBeVariant] T>//: ICloneable
+public class Grid<[MustBeVariant] T>
 {
 	public int Width => _grid.Count;
 	public int Height => _grid.Count > 0? _grid[0].Count : 0;
-	//private Array<Array<T>> _grid = [];
 	private List<List<T>> _grid = [];
 
 	public Grid(){
@@ -16,29 +13,16 @@ public class Grid<[MustBeVariant] T>//: ICloneable
 	}
 	
 	public Grid(int width, int height){
-		// _grid.Resize(width); //guess I don't need to with a list
-		// foreach(var row in _grid){ //logic in the constructor...
-		// 	row.Resize(height);
-		// }
-
-		// _grid = new(width);
-		// for (int i = 0; i < width; i++){
-		// 	var row = new List<T>(height);
-		// 	for (int j = 0; j < height; j++){
-		// 		row.Add(default); //I have no idea what this does, but I can't initialize to null so...
-		// 	}
-		// 	_grid.Add(row);
-		// }
 		_grid = _Make2DList(width, height);
 	}
 
-	public void Initialize(T item){ //this doesn't work if the item is another data structure or an object reference
-		for (int i = 0; i < Width; i++){
-			for (int j = 0; j < Height; j++){
-				_grid[i][j] = item;
-			}
-		}		
-	}
+	// public void Initialize(T item){  //this will set eveny item to the same object reference
+	// 	for (int i = 0; i < Width; i++){
+	// 		for (int j = 0; j < Height; j++){
+	// 			_grid[i][j] = item;
+	// 		}
+	// 	}		
+	// }
 
 	public void SetCell(T item, Vector2I cell){
 		_grid[cell.X][cell.Y] = item;
@@ -67,33 +51,38 @@ public class Grid<[MustBeVariant] T>//: ICloneable
 		return new Vector2I(-69, -420);		
 	}
 
-	public void AddRow(/* Array */List<T> row){
+	public void AddRow(List<T> row){
 		_grid.Add(row);
 	}
 
     public Grid<T> Clone(){
-		var gridCopy = _Make2DList(Width, Height);//new List<List<T>>();
+		var gridCopy = _Make2DList(Width, Height);
 		for(int x=0;x<Width;x++){
 			for(int y=0;y<Height;y++){
 				gridCopy[x][y] = _grid[x][y];
 			}		
 		}
         return new Grid<T>(Width, Height){
-			//_grid = _grid.Duplicate(true) //this is a deep copy so maybe it could cause issues if it also clones the items instead of assigning their references
 			_grid = gridCopy
 		};
     }
 
 
-	public List<List<T>> GetGridAs2DList() => _grid;
-
+	//public List<List<T>> GetGridAs2DList() => _grid;
+	public List<List<T>> GetGridAs2DList(){
+		var copy = new List<List<T>>(Width);
+		for(int x=0;x<Width;x++){
+			copy.Add(new List<T>(_grid[x]));
+		}
+		return copy;
+	}
 
 	private List<List<T>> _Make2DList(int width, int height){
 		var grid = new List<List<T>>(width);
 		for (int i = 0; i < width; i++){
 			var row = new List<T>(height);
 			for (int j = 0; j < height; j++){
-				row.Add(default); //I have no idea what this does, but I can't initialize to null so...
+				row.Add(default); 
 			}
 			grid.Add(row);
 		}

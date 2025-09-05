@@ -34,9 +34,10 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
     public bool TryMatching(Control sourceTile, Control targetTile){
         if(sourceTile is Swappable && targetTile is Swappable){
             Debugging.PrintStackedGridInitials(Tiles.GetGridAs2DList(), 2, 2, "STACKED Grid before current match attempt:");
-            var probeGrid = _SwapCellsInTemporaryGrid(sourceTile, targetTile, Tiles);   
+            //var probeGrid = _SwapCellsInTemporaryGrid(sourceTile, targetTile, Tiles);   //this makes another grid instance that's not shared with other component models
+            _SwapCells(sourceTile, targetTile);
             //EVERYTHING BELOW THIS SHOULD BE A PUBLIC METHOD that I can also use in the tileOrganizer to resolve new matches resulting from transfering tiles
-            var gotMatches = _CheckNewMatchesAndProcess(probeGrid); //enqueues new match groups
+            var gotMatches = _CheckNewMatchesAndProcess(Tiles); //enqueues new match groups
                                     //THIS RUNS BEFORE OLD MATCHES ARE REMOVED!!  (does it still?...)
             if(gotMatches){
                 var player = Tiles.FindItemByType(typeof(Playable));
@@ -45,7 +46,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
                     var matchGroupsAreInRange = matchingRange.IsMatchGroupInRange(_matchGroupQueue, Tiles);
                     if(matchGroupsAreInRange){
                         _SwapTileNodes(sourceTile, targetTile);
-                        Tiles = probeGrid;  
+                        //Tiles = probeGrid;  //already mutated
                         if(_matchGroupQueue.Peek() != null){
                             GetTree().CreateTimer(1.5).Timeout += () => { //temporary ... nothing more permanent eh...
                                 _ActivateMatchedTilesAndCollapseGrid(_matchGroupQueue);
@@ -54,6 +55,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
                         }                         
                     }else{
                         GD.Print("Player is not in rage!");
+                        _SwapCells(targetTile, sourceTile); //reverse, hope this works
                     }
                 }
            
@@ -212,15 +214,24 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
     }
 
 
-    private Grid<Control> _SwapCellsInTemporaryGrid(Control sourceTile, Control targetTile, Grid<Control> grid){
-        var probeGrid = grid.Clone();
-        var source = grid.GetCellFor(sourceTile);
-        var target = grid.GetCellFor(targetTile);
+    // private Grid<Control> _SwapCellsInTemporaryGrid(Control sourceTile, Control targetTile, Grid<Control> grid){ //THIS IS BAD, IT MAKES A NEW GRID INSTANCE THAT IT DOES NOT SHARE WITH OTEHR MODELS
+    //     var probeGrid = grid.Clone();
+    //     var source = grid.GetCellFor(sourceTile);
+    //     var target = grid.GetCellFor(targetTile);
 
-        probeGrid.SetCell(targetTile, source.X, source.Y); 
-        probeGrid.SetCell(sourceTile, target.X, target.Y);   
-        return probeGrid;  
-    }   
+    //     probeGrid.SetCell(targetTile, source.X, source.Y); 
+    //     probeGrid.SetCell(sourceTile, target.X, target.Y);   
+    //     return probeGrid;  
+    // }   
+
+
+    private void _SwapCells(Control sourceTile, Control targetTile){ //THIS IS BAD, IT MAKES A NEW GRID INSTANCE THAT IT DOES NOT SHARE WITH OTEHR MODELS
+        var source = Tiles.GetCellFor(sourceTile);
+        var target = Tiles.GetCellFor(targetTile);
+
+        Tiles.SetCell(targetTile, source.X, source.Y); 
+        Tiles.SetCell(sourceTile, target.X, target.Y);  
+    }  
 
 
     private void _FindMatchingGroupsInLine(List<Vector2I> line, List<List<Vector2I>> matchGroups, Grid<Control> grid){
