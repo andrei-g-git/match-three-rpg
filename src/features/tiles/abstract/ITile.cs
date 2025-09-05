@@ -49,4 +49,8 @@ namespace Tiles{
     public interface WithTileRoot{
         public Control TileRoot{get;set;}
     }
+
+    public interface WhiteFlashable{
+        public void FlashOnce();
+    }
 }

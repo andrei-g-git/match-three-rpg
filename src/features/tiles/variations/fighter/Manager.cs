@@ -20,6 +20,7 @@ namespace Fighter{
 		[Export] private Node _moveTweener;
         [Export] private Node _popTweener;
         [Export] private Node _recoil;
+        [Export] private Node _flashWhite;
 		public TileTypes Type => TileTypes.Fighter;
         public TileTypes AA => Type; //for debugging
         public Tileable Map { set => (_moveTweener as Mapable).Map = value; }
@@ -41,6 +42,7 @@ namespace Fighter{
 
         public void TestCurry(int unimportantValue){
             (_recoil as Recoiling).Recoil();
+            (_flashWhite as WhiteFlashable).FlashOnce();
         }
 
 
