@@ -33,6 +33,8 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
 
     public bool TryMatching(Control sourceTile, Control targetTile){
         if(sourceTile is Swappable && targetTile is Swappable){
+            var initialSource = Tiles.GetCellFor(sourceTile);
+            var initialTarget = Tiles.GetCellFor(targetTile);
             Debugging.PrintStackedGridInitials(Tiles.GetGridAs2DList(), 2, 2, "STACKED Grid before current match attempt:");
             //var probeGrid = _SwapCellsInTemporaryGrid(sourceTile, targetTile, Tiles);   //this makes another grid instance that's not shared with other component models
             _SwapCells(sourceTile, targetTile);
@@ -45,7 +47,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
                 if(player is not null && player is MatchableBounds matchingRange){
                     var matchGroupsAreInRange = matchingRange.IsMatchGroupInRange(_matchGroupQueue, Tiles);
                     if(matchGroupsAreInRange){
-                        _SwapTileNodes(sourceTile, targetTile);
+                        _SwapTileNodesUsingInitialBoard(sourceTile, targetTile, initialSource, initialTarget);
                         //Tiles = probeGrid;  //already mutated
                         if(_matchGroupQueue.Peek() != null){
                             GetTree().CreateTimer(1.5).Timeout += () => { //temporary ... nothing more permanent eh...
@@ -86,7 +88,14 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
         var source = Tiles.GetCellFor(sourceTile);
         var target = Tiles.GetCellFor(targetTile);
         (sourceTile as Movable).MoveTo(target);
+        var bp = 123;
         (targetTile as Movable).MoveTo(source);
+        bp = 2345;
+    }
+
+    private void _SwapTileNodesUsingInitialBoard(Control sourceTile, Control targetTile, Vector2I initialSource, Vector2I initialTarget){
+        (sourceTile as Movable).MoveTo(initialTarget);
+        (targetTile as Movable).MoveTo(initialSource);
     }
 
 

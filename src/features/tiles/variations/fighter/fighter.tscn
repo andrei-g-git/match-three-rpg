@@ -94,8 +94,8 @@ _duration = 0.7
 [node name="Recoil" type="Node" parent="Tweeners" node_paths=PackedStringArray("_tileRoot")]
 script = ExtResource("11_xmyc7")
 _tileRoot = NodePath("../..")
-_duration = 0.2
-_maxShakes = 3
+_duration = 0.1
+_maxShakes = 2
 _shakeMagnitude = 0.2
 
 [node name="FlashWhite" type="Node" parent="Tweeners" node_paths=PackedStringArray("_tileRoot", "_sprite")]

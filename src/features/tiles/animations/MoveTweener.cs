@@ -14,6 +14,7 @@ public partial class MoveTweener : Node, Movable, Mapable
 	[Signal] public delegate void FinishedMovingEventHandler();
 
 	public void MoveTo(Vector2I target){
+		var ownPosTest = (_tileRoot as Control).Position;
 		var pixelTarget = Map.CellToPosition(target);
 		Tween tween = CreateTween()
 			.SetTrans(Tween.TransitionType.Sine)

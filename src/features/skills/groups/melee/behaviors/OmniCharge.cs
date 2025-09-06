@@ -52,7 +52,6 @@ public partial class OmniCharge : Node, /* Movable, */ Traversing, AccessableBoa
 
 
         var neighbors = (Board as Queriable).GetNeighboringTiles(path[_pathIndex]);
-        //var alreadyHit = new List<Control>([]);
         foreach (var tile in neighbors) {
             if (tile is Disposition actor && actor.IsEnemy) {
                 if(!_alreadyHit.Contains(tile)){
