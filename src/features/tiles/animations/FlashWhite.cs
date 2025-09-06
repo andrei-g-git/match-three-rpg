@@ -6,33 +6,35 @@ public partial class FlashWhite : Node, WhiteFlashable
 {
 	[Export] private Control _tileRoot;
 	[Export] private float _duration;
+    [Export] private Sprite2D _sprite;
 
 
 	public void FlashOnce(){
-		var originalColor = _tileRoot.Modulate;
+		var originalColor = _tileRoot.Modulate; //this is for the root, not the sprite!!!
+        //var originalColor = _sprite.Modulate;
+        //_sprite.Modulate = Colors.Red;//Color.FromHsv(originalColor.H, 0, originalColor.V);
+		var tween = CreateTween()
+			.SetTrans(Tween.TransitionType.Sine);
+        var toWhite = tween.TweenProperty(
+            _tileRoot,
+            "modulate",
+            Colors.Red,
+            _duration
+        );
 
-		var tween = CreateTween();
+        var toOriginal = tween.TweenProperty(
+            _tileRoot,
+            "modulate",
+            originalColor,
+            _duration
+        )
+			.SetDelay(_duration);		
+
+		// tween.TweenProperty(_tileRoot, "modulate", Colors.White, _duration)
 		// 	.SetTrans(Tween.TransitionType.Sine);
-        // var toWhite = tween.TweenProperty(
-        //     _tileRoot,
-        //     "modulate",
-        //     Colors.White,
-        //     _duration
-        // );
-
-        // var toOriginal = tween.TweenProperty(
-        //     _tileRoot,
-        //     "modulate",
-        //     originalColor,
-        //     _duration
-        // )
-		// 	.SetDelay(_duration);		
-
-		tween.TweenProperty(_tileRoot, "modulate", Colors.White, _duration)
-			.SetTrans(Tween.TransitionType.Sine);
-		tween.TweenProperty(_tileRoot, "modulate", originalColor, _duration)
-			.SetDelay(_duration)
-			.SetTrans(Tween.TransitionType.Sine);
+		// tween.TweenProperty(_tileRoot, "modulate", originalColor, _duration)
+		// 	.SetDelay(_duration)
+		// 	.SetTrans(Tween.TransitionType.Sine);
 	}
 }
 

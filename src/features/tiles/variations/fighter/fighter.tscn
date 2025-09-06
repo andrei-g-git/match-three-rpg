@@ -98,10 +98,11 @@ _duration = 0.2
 _maxShakes = 3
 _shakeMagnitude = 0.2
 
-[node name="FlashWhite" type="Node" parent="Tweeners" node_paths=PackedStringArray("_tileRoot")]
+[node name="FlashWhite" type="Node" parent="Tweeners" node_paths=PackedStringArray("_tileRoot", "_sprite")]
 script = ExtResource("13_e3x4h")
 _tileRoot = NodePath("../..")
-_duration = 0.9
+_duration = 0.5
+_sprite = NodePath("../../AspectRatioContainer/Sprite2D")
 
 [connection signal="EngagedBy" from="AspectRatioContainer/DragAndDrop" to="Behaviors/Engagement" method="ProcessEngagementBy"]
 [connection signal="Destroying" from="Behaviors/Removing" to="Tweeners/ScaleUpFade" method="Disappear"]
