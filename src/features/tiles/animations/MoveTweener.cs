@@ -4,6 +4,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Tiles;
 
 public partial class MoveTweener : Node, Movable, Mapable
@@ -49,4 +50,7 @@ public partial class MoveTweener : Node, Movable, Mapable
 		bp = 122;
 	}	
 
+	public async Task WaitUntilMoved(){
+		await ToSignal(this, SignalName.FinishedMoving);
+	}
 }

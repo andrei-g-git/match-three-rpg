@@ -47,13 +47,13 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
                 if(player is not null && player is MatchableBounds matchingRange){
                     var matchGroupsAreInRange = matchingRange.IsMatchGroupInRange(_matchGroupQueue, Tiles);
                     if(matchGroupsAreInRange){
-                        _SwapTileNodesUsingInitialBoard(sourceTile, targetTile, initialSource, initialTarget);
+                        _ = _SwapTileNodesUsingInitialBoard(sourceTile, targetTile, initialSource, initialTarget);
                         //Tiles = probeGrid;  //already mutated
                         if(_matchGroupQueue.Peek() != null){
-                            GetTree().CreateTimer(1.5).Timeout += () => { //temporary ... nothing more permanent eh...
+                            //GetTree().CreateTimer(0.5).Timeout += () => { //temporary ... nothing more permanent eh...
                                 _ActivateMatchedTilesAndCollapseGrid(_matchGroupQueue);
                                 var bp = 123;
-                            };
+                            //};
                         }                         
                     }else{
                         GD.Print("Player is not in rage!");
@@ -93,9 +93,10 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
         bp = 2345;
     }
 
-    private void _SwapTileNodesUsingInitialBoard(Control sourceTile, Control targetTile, Vector2I initialSource, Vector2I initialTarget){
+    private /* void */async Task _SwapTileNodesUsingInitialBoard(Control sourceTile, Control targetTile, Vector2I initialSource, Vector2I initialTarget){
         (sourceTile as Movable).MoveTo(initialTarget);
         (targetTile as Movable).MoveTo(initialSource);
+        await (targetTile as Movable).WaitUntilMoved();
     }
 
 
@@ -148,34 +149,36 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
         _CollapseTiles();
         var bp = 123;
 
-        GetTree().CreateTimer(1.5).Timeout += () => { //booooo! Also I can't have these running in parallel
-            _FillUpEmptyCells(_spawnWeights, _spawnTiles);   
+        //GetTree().CreateTimer(1.5).Timeout += () => { //booooo! Also I can't have these running in parallel
+            _ = _FillUpEmptyCells(_spawnWeights, _spawnTiles);   
 
             Debugging.PrintStackedGridInitials(Tiles.GetGridAs2DList(), 2, 2, "STACKED Grid:");
             bp = 123;
             if(matchGroupQueue.Count > 0){ //I dequeue on every match that's found
-                GetTree().CreateTimer(1).Timeout += () => { //I really need to stop doing this
+                //GetTree().CreateTimer(1).Timeout += () => { //I really need to stop doing this
                     (_tileContainer as Viewable).UpdatePositions(Tiles); //<<<<
                     _ActivateMatchedTilesAndCollapseGrid(matchGroupQueue);  
-                };
+                //};
             }else{
                 _CheckNewMatchesAndProcess(Tiles); //New <<<<<<<<<<<<<<<<<<<
                 if(matchGroupQueue.Count > 0){ //this doesn't make much sense but it kind of does...
-                    GetTree().CreateTimer(1).Timeout += () => { 
+                    //GetTree().CreateTimer(1).Timeout += () => { 
                         (_tileContainer as Viewable).UpdatePositions(Tiles); //<<<<
                         _ActivateMatchedTilesAndCollapseGrid(matchGroupQueue);  
-                    };
+                    //};
                 }            
             }                      
-        };
+        //};
 
 
 
     }
 
 
-    private void _FillUpEmptyCells(float[] spawnWeights, TileTypes[] spawnTiles){ //this doesn't seem to get all of them...
+    private /* void */async Task _FillUpEmptyCells(float[] spawnWeights, TileTypes[] spawnTiles){ //this doesn't seem to get all of them...
         var random = new RandomNumberGenerator();
+        var xx = 0;
+        var yy = 0;
         for(int x=0; x<Tiles.Width; x++){
             for(int y=0; y<Tiles.Height; y++){
                 var tileNode = Tiles.GetItem(x, y);
@@ -183,10 +186,13 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
                     var tileType = spawnTiles[random.RandWeighted(spawnWeights)]; 
                     var spawnedTile = (_tileFactory as TileMaking).Create(tileType) as Control;
                     Tiles.SetCell(spawnedTile, x, y);   
-                    _AddTile(spawnedTile, new Vector2I(x, y));             
+                    _AddTile(spawnedTile, new Vector2I(x, y));   
+                    xx = x;
+                    yy = y;          
                 }
             }
         }
+        await (Tiles.GetItem(xx, yy) as Creatable).WaitUntilCreated();
     }
 
 
@@ -390,11 +396,14 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
             }   
         }
         
-        MoveTilesOnTheirPaths(list3D, originalGrid);
+        _ = MoveTilesOnTheirPaths(list3D, originalGrid); //not sure if this awaits the move signal...
+        var bppp = 1232;
     }   
 
 
-    private void MoveTilesOnTheirPaths(List<List<Array<Vector2I>>> pathGrid, Grid<Control> originalGrid){
+    private /* void */ async Task MoveTilesOnTheirPaths(List<List<Array<Vector2I>>> pathGrid, Grid<Control> originalGrid){
+        var aa = 0;
+        var bb = 0;
         for(int a=0;a<pathGrid.Count;a++){
             for(int b=0;b<pathGrid[0].Count;b++){    
                 if(pathGrid[a][b] != null){
@@ -404,10 +413,13 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
                     if(tile != null && tile is Collapsable && tile is Movable movable){
                         path.Reverse(); //because I loop columns bottom-up when processing the paths
                         movable.MoveOnPath(new Stack<Vector2I>(path));
+                        aa = a;
+                        bb = b;
                     }                    
                 }
             }
-        }        
+        } 
+        await (originalGrid.GetItem(aa, bb) as Movable).WaitUntilMoved();       
     }
 
 

@@ -8,7 +8,7 @@ using Tiles;
 using static Skills.SkillNames;
 
 namespace Tech{
-	public partial class Manager : Control, Tile, AccessableBoard, Movable, Mapable, Collapsable, Matchable, Swappable, SkillBased, Removable
+	public partial class Manager : Control, Tile, AccessableBoard, Movable, Mapable, Collapsable, Matchable, Swappable, SkillBased, Removable, Creatable
 	{
 		[ExportGroup("behaviors")]
 		[Export] private Node _swapping;
@@ -41,6 +41,10 @@ namespace Tech{
 			(_moveTweener as Movable).MoveOnPath(path);
 		}
 
+        public async Task WaitUntilMoved(){
+            await (_moveTweener as Movable).WaitUntilMoved();
+        }
+
 
         public void BeginPostMatchProcessDependingOnPlayerPosition(Vector2I ownPosition, Node playerTile, bool playerAjacent){
             (_matching as Matchable).BeginPostMatchProcessDependingOnPlayerPosition(ownPosition, playerTile, playerAjacent);
@@ -69,6 +73,14 @@ namespace Tech{
         public void Remove()
         {
             throw new System.NotImplementedException();
+        }  
+
+        public void Pop() {
+            (_popTweener as Creatable).Pop();
+        }
+
+        public async Task WaitUntilCreated(){
+            await (_popTweener as Creatable).WaitUntilCreated();
         }
     }		
 }

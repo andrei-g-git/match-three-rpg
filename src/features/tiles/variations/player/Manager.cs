@@ -10,7 +10,7 @@ using Tiles;
 using static Skills.SkillNames;
 
 namespace Player{
-	public partial class Manager : Control, Tile, AccessableBoard, Movable, Mapable, Swappable, Permeable, MatchableBounds, Playable, Attributive, DerivableStats, Classy, CollectableEnergy, RelayableUIEvents, ReactiveToMatches, Offensive, Skillful, TraversableMatching
+	public partial class Manager : Control, Tile, AccessableBoard, Movable, Mapable, Swappable, Permeable, MatchableBounds, Playable, Attributive, DerivableStats, Classy, CollectableEnergy, RelayableUIEvents, ReactiveToMatches, Offensive, Skillful, TraversableMatching, Creatable
 	{
         //[Export] Node _skillsModel; //DOES NOT HAVE INTERFACE 
 		[ExportGroup("behaviors")]
@@ -81,6 +81,10 @@ namespace Player{
 		public void MoveOnPath(Stack<Vector2I> path){
 			(_moveTweener as Movable).MoveOnPath(path);
 		}
+
+        public async Task WaitUntilMoved(){
+            await (_moveTweener as Movable).WaitUntilMoved();
+        }
 
         public void SwapWith(Control tile)
         {
@@ -179,7 +183,15 @@ namespace Player{
 
         public void EmitPathFinished(){
             EmitSignal(SignalName.FinishedPath);
-        }        
+        }    
+
+        public void Pop() {
+            (_popTweener as Creatable).Pop();
+        }
+
+        public async Task WaitUntilCreated(){
+            await (_popTweener as Creatable).WaitUntilCreated();
+        }      
     }	
 }
 

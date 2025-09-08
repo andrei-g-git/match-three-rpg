@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Board;
 using Common;
 using Godot;
@@ -53,6 +54,10 @@ namespace Archer{
 		public void MoveOnPath(Stack<Vector2I> path){
 			(_moveTweener as Movable).MoveOnPath(path);
 		}
+
+        public async Task WaitUntilMoved(){
+            await (_moveTweener as Movable).WaitUntilMoved();
+        }
 
         public void SwapWith(Control tile)
         {

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Godot;
 using Stats;
 
@@ -11,6 +12,7 @@ namespace Tiles{
     public interface Movable{
         public void MoveTo(Vector2I target);
         public void MoveOnPath(Stack<Vector2I> path);
+        public Task WaitUntilMoved();
     }
 
     public interface DisappearingTile{
@@ -19,6 +21,7 @@ namespace Tiles{
 
     public interface Creatable{
         public void Pop();
+        public Task WaitUntilCreated();
     }
 
     public interface Collapsable{}

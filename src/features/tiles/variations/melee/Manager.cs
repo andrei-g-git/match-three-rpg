@@ -8,7 +8,7 @@ using Tiles;
 using static Skills.SkillNames;
 
 namespace Melee{
-	public partial class Manager : Control, Tile, AccessableBoard, Movable, Mapable, Collapsable, Matchable, Swappable, SkillBased, Removable
+	public partial class Manager : Control, Tile, AccessableBoard, Movable, Mapable, Collapsable, Matchable, Swappable, SkillBased, Removable, Creatable
 	{
 		[ExportGroup("behaviors")]
 		[Export] private Node _swapping;
@@ -34,6 +34,10 @@ namespace Melee{
 
         public void MoveTo(Vector2I target){
             (_moveTweener as Movable).MoveTo(target);
+        }
+
+        public async Task WaitUntilMoved(){
+            await (_moveTweener as Movable).WaitUntilMoved();
         }
 
 
@@ -69,6 +73,14 @@ namespace Melee{
         public void Remove()
         {
             throw new System.NotImplementedException();
+        }  
+
+        public void Pop() {
+            (_popTweener as Creatable).Pop();
+        }
+
+        public async Task WaitUntilCreated(){
+            await (_popTweener as Creatable).WaitUntilCreated();
         }
     }	
 }

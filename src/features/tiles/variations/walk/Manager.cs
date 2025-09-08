@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Board;
 using Common;
 using Godot;
@@ -7,7 +8,7 @@ using Tiles;
 using static Skills.SkillNames;
 
 namespace Walk{
-	public partial class Manager : Control, Tile, AccessableBoard, Movable, Mapable, Collapsable, Swappable
+	public partial class Manager : Control, Tile, AccessableBoard, Movable, Mapable, Collapsable, Swappable, Creatable
 	{
 		[ExportGroup("behaviors")]
 		[Export] private Node _swapping; 
@@ -41,6 +42,10 @@ namespace Walk{
 			(_moveTweener as Movable).MoveOnPath(path);
 		}
 
+        public async Task WaitUntilMoved(){
+            await (_moveTweener as Movable).WaitUntilMoved();
+        }
+
 
         public void SwapWith(Control tile)
         {
@@ -49,6 +54,14 @@ namespace Walk{
 
         public void OnRemoved(){ //NOT INTERFACE METHOD
             EmitSignal(SignalName.Removed);
+        }  
+
+        public void Pop() {
+            (_popTweener as Creatable).Pop();
+        }
+
+        public async Task WaitUntilCreated(){
+            await (_popTweener as Creatable).WaitUntilCreated();
         }
     }		
 }
