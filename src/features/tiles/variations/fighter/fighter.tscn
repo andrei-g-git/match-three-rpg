@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dbpwe34yxcfuf"]
+[gd_scene load_steps=19 format=3 uid="uid://dbpwe34yxcfuf"]
 
 [ext_resource type="Script" uid="uid://b00gbtd8quyh" path="res://src/features/tiles/variations/fighter/Manager.cs" id="1_81q7e"]
 [ext_resource type="Script" uid="uid://cy1k0w8awxnxt" path="res://src/features/tiles/DragAndDrop.cs" id="2_81q7e"]
@@ -11,8 +11,12 @@
 [ext_resource type="Script" uid="uid://cdaoc138ep2k4" path="res://src/features/tiles/behaviors/Engagement.cs" id="7_xmyc7"]
 [ext_resource type="Script" uid="uid://dkxyfo8ok7v3x" path="res://src/features/tiles/animations/Pop.cs" id="8_abjmt"]
 [ext_resource type="Script" uid="uid://bwnp3h3h358d0" path="res://src/features/tiles/behaviors/Hostility.cs" id="8_xsd4e"]
+[ext_resource type="Script" uid="uid://dwgqsc14gts06" path="res://src/features/tiles/behaviors/Pathfinding.cs" id="9_ayxtl"]
 [ext_resource type="Script" uid="uid://b7lfifx1qdl5x" path="res://src/features/tiles/behaviors/Turn.cs" id="9_sb5bf"]
+[ext_resource type="Script" uid="uid://cejgaleq77orn" path="res://src/features/tiles/behaviors/Ai.cs" id="10_qo0sn"]
+[ext_resource type="Script" uid="uid://uwokervc8xwp" path="res://src/features/tiles/behaviors/Sentinel.cs" id="11_qjawe"]
 [ext_resource type="Script" uid="uid://e2s0xy666sc2" path="res://src/features/tiles/animations/ShakeOnce.cs" id="11_xmyc7"]
+[ext_resource type="Script" uid="uid://20thatvwrhec" path="res://src/features/tiles/behaviors/Chase.cs" id="12_qjawe"]
 [ext_resource type="Script" uid="uid://v4rkcw3mfxm0" path="res://src/features/tiles/animations/FlashWhite.cs" id="13_e3x4h"]
 
 [node name="Fighter" type="Control" node_paths=PackedStringArray("_defender", "_hostility", "_turn", "_stats", "_moveTweener", "_popTweener", "_recoil", "_flashWhite")]
@@ -23,7 +27,7 @@ offset_bottom = 55.0
 script = ExtResource("1_81q7e")
 _defender = NodePath("Behaviors/Defender")
 _hostility = NodePath("Behaviors/Hostility")
-_turn = NodePath("Behaviors/Turn")
+_turn = NodePath("Behaviors/AI/Turn")
 _stats = NodePath("Behaviors/Stats")
 _moveTweener = NodePath("Tweeners/Move")
 _popTweener = NodePath("Tweeners/Pop")
@@ -50,7 +54,8 @@ _tileNode = NodePath("../..")
 _container = NodePath("..")
 _sprite = NodePath("../Sprite2D")
 
-[node name="Behaviors" type="Node" parent="."]
+[node name="Behaviors" type="Control" parent="."]
+anchors_preset = 0
 
 [node name="Removing" type="Node" parent="Behaviors" node_paths=PackedStringArray("_tileRoot")]
 script = ExtResource("4_xmyc7")
@@ -76,7 +81,26 @@ script = ExtResource("8_xsd4e")
 isAggressive = true
 isEnemy = true
 
-[node name="Turn" type="Node" parent="Behaviors"]
+[node name="Pathfinding" type="Control" parent="Behaviors"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("9_ayxtl")
+
+[node name="AI" type="Node" parent="Behaviors"]
+script = ExtResource("10_qo0sn")
+
+[node name="Sentinel" type="Node" parent="Behaviors/AI" node_paths=PackedStringArray("_tileRoot")]
+script = ExtResource("11_qjawe")
+_watchRadius = 4
+_tileRoot = NodePath("../../..")
+
+[node name="Chase" type="Node" parent="Behaviors/AI" node_paths=PackedStringArray("_pathfinding", "_tileRoot")]
+script = ExtResource("12_qjawe")
+_pathfinding = NodePath("../../Pathfinding")
+_tileRoot = NodePath("../../..")
+
+[node name="Turn" type="Node" parent="Behaviors/AI"]
 script = ExtResource("9_sb5bf")
 
 [node name="Tweeners" type="Node" parent="."]
@@ -111,3 +135,5 @@ _sprite = NodePath("../../AspectRatioContainer/Sprite2D")
 
 [connection signal="EngagedBy" from="AspectRatioContainer/DragAndDrop" to="Behaviors/Engagement" method="ProcessEngagementBy"]
 [connection signal="Destroying" from="Behaviors/Removing" to="Tweeners/ScaleUpFade" method="Disappear"]
+[connection signal="StartedSearching" from="Behaviors/AI" to="Behaviors/AI/Sentinel" method="StandWatch"]
+[connection signal="FoundPlayer" from="Behaviors/AI/Sentinel" to="Behaviors/AI/Chase" method="ChaseActor"]

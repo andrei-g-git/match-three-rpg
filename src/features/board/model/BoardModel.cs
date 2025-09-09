@@ -17,13 +17,18 @@ public partial class BoardModel : Node, Organizable, MatchableBoard, WithTiles, 
 	[Export] private Node _selectedSkillsModel;     
     [Export] private Node _turns;
 
-    public Grid<Control> Tiles { get => (_tileOrganizer as WithTiles).Tiles; set => (_tileOrganizer as WithTiles).Tiles = value; }
-    //public Tileable Map { set => (_tileQuery as Mapable).Map = value; }
+    public Grid<Control> Tiles { 
+        get => (_tileOrganizer as WithTiles).Tiles; 
+        set {
+            (_tileOrganizer as WithTiles).Tiles = value;
+            (_turns as WithTiles).Tiles = value;          
+        } 
+    }
 
 
     public override void _Ready(){
         (_tileQuery as Mapable).Map = _environment as Tileable;
-        (_turns as WithTiles).Tiles = (_tileOrganizer as WithTiles).Tiles; //or in the setter...
+
     }
 
     public void Initialize(Grid<TileTypes> tileTypes){
@@ -32,6 +37,13 @@ public partial class BoardModel : Node, Organizable, MatchableBoard, WithTiles, 
         (_tileMatcher as WithTiles).Tiles = (_tileOrganizer as WithTiles).Tiles;
 
         (_tileQuery as WithTiles).Tiles = (_tileOrganizer as WithTiles).Tiles;
+        (_turns as WithTiles).Tiles = (_tileOrganizer as WithTiles).Tiles;
+        //(_turns as Initializable).Initialize(); //happens before player stats are loaded, need speed stat...
+    }
+
+
+    public void InitializeTurnQueue(){ //NOT INTERFACE METHOD
+        (_turns as Initializable).Initialize();
     }
 
 

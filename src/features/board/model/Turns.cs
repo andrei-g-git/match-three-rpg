@@ -21,6 +21,7 @@ public partial class Turns : Node, Sequential, Initializable, /* AccessableBoard
 		ArrangeActorsBySpeed();
 		_turnQueue = new Queue<Control>();
 		PopulateQueue();
+		var bp = 123;
 	}
 
 	public void AdvanceTurn(){
@@ -65,8 +66,16 @@ public partial class Turns : Node, Sequential, Initializable, /* AccessableBoard
 
 	private void ArrangeActorsBySpeed(){
 		_actors = _actors
-			.OrderBy(item => (item as DerivableStats).Speed)
+			.OrderBy(actor => 
+				(actor as DerivableStats)?.Speed ??
+				(actor as WithSpeed)?.Speed ??
+				0//default
+			)
 			.Reverse()
 			.ToList();
+
+		_actors.RemoveAll(actor => 
+			(actor as DerivableStats)?.Speed == 0 || 
+			(actor as WithSpeed)?.Speed == 0);			
 	}
 }

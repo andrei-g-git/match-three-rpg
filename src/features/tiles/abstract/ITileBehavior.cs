@@ -68,5 +68,17 @@ namespace Tiles{
     public interface TurnBased{
         public void EndTurn();
         public void BeginTurn();
-    }        
+    }   
+
+    public interface AI{
+        public void Resume();
+    }   
+
+    public interface Vigilance{
+        public void StandWatch();
+    } 
+
+    public interface Pursuing{
+        public void ChaseActor(Vector2I cell);
+    }       
 }
