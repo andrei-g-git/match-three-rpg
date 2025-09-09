@@ -171,11 +171,12 @@ _environment = NodePath("../../Environment")
 _tileContainer = NodePath("../../Tiles")
 _tileMatcher = NodePath("../TileMatcher")
 
-[node name="TileFactory" type="Node" parent="MainContainer/PanelContainer/Model" node_paths=PackedStringArray("_tileMapLayer", "_boardModel", "_uiEventBus")]
+[node name="TileFactory" type="Node" parent="MainContainer/PanelContainer/Model" node_paths=PackedStringArray("_tileMapLayer", "_boardModel", "_uiEventBus", "_turnQueue")]
 script = ExtResource("7_ygp36")
 _tileMapLayer = NodePath("../../Environment")
 _boardModel = NodePath("..")
 _uiEventBus = NodePath("../../../../Events/UIEventBus")
+_turnQueue = NodePath("../Turns")
 _packedTileScenes = Array[PackedScene]([ExtResource("8_2r3xs"), ExtResource("9_4s2tm"), ExtResource("10_fusuk"), ExtResource("11_25lnr"), ExtResource("12_fusuk"), ExtResource("13_25lnr"), ExtResource("14_6bwww"), ExtResource("15_x10rj"), ExtResource("19_s5hp3"), ExtResource("20_fjexy"), ExtResource("21_mmsvb")])
 
 [node name="TileMatcher" type="Node" parent="MainContainer/PanelContainer/Model" node_paths=PackedStringArray("_tileFactory", "_tileContainer", "_tileQuery")]

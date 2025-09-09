@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Board;
 using Godot;
 using Stats;
 
@@ -32,7 +33,9 @@ namespace Tiles{
 
     public interface Environmental{}
 
-    public interface Agentive{}
+    public interface Agentive{
+        public Sequential TurnQueue{set;}
+    }
 
     public interface Permeable{}
 

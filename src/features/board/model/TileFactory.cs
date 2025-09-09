@@ -10,6 +10,8 @@ namespace Board{
 		[Export] private Node _tileMapLayer;
 		[Export] private Node _boardModel;
 		[Export] private Node _uiEventBus;
+		[Export] private Node _turnQueue;
+		[ExportGroup("packed scenes")]
 		[Export] private Array<PackedScene> _packedTileScenes;
 
 		private Dictionary<TileTypes, PackedScene> _tilesWithScenes;
@@ -66,15 +68,22 @@ namespace Board{
 					(tile as AccessableBoard).Board = _boardModel;
 					(tile as Mapable).Map = _tileMapLayer as Tileable;
 					(tile as RelayableUIEvents).UIEventBus = _uiEventBus as RemoteSignaling;
+					(tile as Agentive).TurnQueue = _turnQueue as Sequential;
 					break;		
 				case TileTypes.Walk:
 					(tile as AccessableBoard).Board = _boardModel;
 					(tile as Mapable).Map = _tileMapLayer as Tileable;
 					break;								
-				// case TileTypes.Fighter:
-				// 	(tile as Mapable).Map = environment as Tileable;
-				// 	(tile as Actor).TurnQueue = (boardModel as IBoard.Model).TurnQueue;
-				// 	break;
+				case TileTypes.Fighter:
+					//(tile as AccessableBoard).Board = _boardModel;
+					//(tile as Mapable).Map = environment as Tileable;
+					(tile as Agentive).TurnQueue = _turnQueue as Sequential;					
+					break;
+				case TileTypes.Archer:
+					//(tile as AccessableBoard).Board = _boardModel;
+					//(tile as Mapable).Map = environment as Tileable;
+					(tile as Agentive).TurnQueue = _turnQueue as Sequential;					
+					break;					
 				// case TileTypes.Walk:
 				// 	(tile as AccessableTileContainer).TileContainer = tileContainer;
 				// 	(tile as Mapable).Map = environment as Tileable;

@@ -20,6 +20,7 @@ namespace Player{
         [Export] private Node _offense;
         [Export] private Node _skillSlot;
         [Export] private Node _matchesTraversal;
+        [Export] private Node _turn;
 
         [ExportGroup("stats")]
         [Export] private Node _derivedStats;
@@ -65,12 +66,16 @@ namespace Player{
         public RemoteSignaling UIEventBus{private get; set;} //NO INTERFACE FOR THIS YET
         public Node Skill { set => (_skillSlot as Skillful).Skill = value; }
         public ManageableSkills SkillsModel {get;set;}//=> _skillsModel as ManageableSkills; //DOES NOT HAVE INTERFACE 
+        public Sequential TurnQueue{private get; set;}
 
         [Signal] public delegate void FinishedTransferingEventHandler(); //rn the skill calls these directly
         [Signal] public delegate void FinishedPathEventHandler();
 
         public override void _Ready(){
             (_popTweener as Creatable).Pop();
+
+			(_turn as Turn).ConnectRequestedTurnEnd(TurnQueue.AdvanceTurn);
+			//(_turn as Turn).ConnectRequestedTurnStart(inputBlocker.AllowInput);             
         }
 
 

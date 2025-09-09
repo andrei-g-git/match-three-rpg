@@ -13,7 +13,7 @@ namespace Archer{
 		[ExportGroup("behaviors")]
         [Export] private Node _defender;
         [Export] private Node _hostility;
-
+        [Export] private Node _turn;
         [ExportGroup("stats")]
         [Export] private Node _stats;
 
@@ -32,12 +32,15 @@ namespace Archer{
         public RemoteSignaling UIEventBus{private get; set;} //NO INTERFACE FOR THIS YET
         public bool IsAggressive { get => (_hostility as Disposition).IsAggressive; set => (_hostility as Disposition).IsAggressive = value; }
         public bool IsEnemy { get => (_hostility as Disposition).IsAggressive; set => (_hostility as Disposition).IsAggressive = value; }		
+        public Sequential TurnQueue{private get; set;}	
 
         public override void _Ready(){
             (_popTweener as Creatable).Pop();
 
             //_defender.Connect("TookDamage", _recoil, nameof(TestCurry));
             (_defender as Defender).ConnectTookDamage(TestCurry);
+
+            (_turn as Turn).ConnectRequestedTurnEnd(TurnQueue.AdvanceTurn);
         }
 
         public void TestCurry(int unimportantValue){
