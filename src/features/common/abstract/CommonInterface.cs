@@ -35,4 +35,8 @@ namespace Common{
     public interface AnimatableSprite{
         public void PlayOnce();
     }
+
+    public interface Initializable{
+        public void Initialize();
+    }
 }

@@ -63,5 +63,10 @@ namespace Tiles{
 
     public interface TraversableMatching{
         public /* void */ Task ReceivePathAndSkill(List<Vector2I> path, Skill/* ful */ skill);
-    }       
+    }   
+
+    public interface TurnBased{
+        public void EndTurn();
+        public void BeginTurn();
+    }        
 }

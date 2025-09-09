@@ -102,4 +102,19 @@ public class Grid<[MustBeVariant] T>
 		}
 		return default;
 	}
+
+	public List<T> FindAllItemsOfType(Type interfaceOrClass){
+		if(!interfaceOrClass.IsInterface && !interfaceOrClass.IsClass){
+			throw new ArgumentException("Expected interface or class :", nameof(interfaceOrClass));
+		}
+		var list = new List<T>();
+		foreach(var column in _grid){
+			foreach(var item in column){
+				if(item != null && interfaceOrClass.IsInstanceOfType(item)){
+					list.Add(item);
+				}
+			}
+		}
+		return list;				
+	}
 }

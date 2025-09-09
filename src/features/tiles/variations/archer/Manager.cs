@@ -8,7 +8,7 @@ using Tiles;
 using static Skills.SkillNames;
 
 namespace Archer{
-	public partial class Manager : Control, Tile, /* AccessableBoard, */ Movable, Mapable, Permeable, RelayableUIEvents, Defensible, WithHealth, WithDefense, WithDamage, WithSpeed, Disposition
+	public partial class Manager : Control, Tile, /* AccessableBoard, */ Movable, Mapable, Permeable, RelayableUIEvents, Defensible, WithHealth, WithDefense, WithDamage, WithSpeed, Disposition, Creatable, Agentive
 	{
 		[ExportGroup("behaviors")]
         [Export] private Node _defender;
@@ -66,7 +66,15 @@ namespace Archer{
 
         public void TakeDamage(int damage){
             (_defender as Defensible).TakeDamage(damage); 
-        }   
+        }  
+
+        public void Pop() {
+            (_popTweener as Creatable).Pop();
+        }
+
+        public async Task WaitUntilCreated(){
+            await (_popTweener as Creatable).WaitUntilCreated();
+        }
     }	
 }
 

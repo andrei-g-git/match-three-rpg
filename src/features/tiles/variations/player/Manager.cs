@@ -10,7 +10,7 @@ using Tiles;
 using static Skills.SkillNames;
 
 namespace Player{
-	public partial class Manager : Control, Tile, AccessableBoard, Movable, Mapable, Swappable, Permeable, MatchableBounds, Playable, Attributive, DerivableStats, Classy, CollectableEnergy, RelayableUIEvents, ReactiveToMatches, Offensive, Skillful, TraversableMatching, Creatable
+	public partial class Manager : Control, Tile, AccessableBoard, Movable, Mapable, Swappable, Permeable, MatchableBounds, Playable, Attributive, DerivableStats, Classy, CollectableEnergy, RelayableUIEvents, ReactiveToMatches, Offensive, Skillful, TraversableMatching, Creatable, Agentive
 	{
         //[Export] Node _skillsModel; //DOES NOT HAVE INTERFACE 
 		[ExportGroup("behaviors")]
@@ -58,6 +58,7 @@ namespace Player{
         public int Intelligence => Attributes.Intelligence;//{get;}
         public int Health {get => DerivedStats.Health; set => DerivedStats.Health = value;}
         public int Energy {get => DerivedStats.Energy; set => DerivedStats.Energy = value;}
+        public int Speed {get => DerivedStats.Speed; set => DerivedStats.Speed = value;}
         public Classes Class{get;set;}
 
 
@@ -191,7 +192,12 @@ namespace Player{
 
         public async Task WaitUntilCreated(){
             await (_popTweener as Creatable).WaitUntilCreated();
-        }      
+        }
+
+        public int GetSpeed(){
+            return (_derivedStats as DerivableStats).GetSpeed();
+        }
+
     }	
 }
 

@@ -13,6 +13,7 @@ public partial class PlayerStats : Node, StatBased, Attributive, DerivableStats 
 	public int Intelligence {get;}
     public int Health {get => DerivedStats.Health; set => DerivedStats.Health = value;}
     public int Energy {get => DerivedStats.Energy; set => DerivedStats.Energy = value;}
+	public int Speed {get => DerivedStats.Speed; set => DerivedStats.Speed = value;}
 
     public override void _Ready()
 	{
@@ -54,4 +55,7 @@ public partial class PlayerStats : Node, StatBased, Attributive, DerivableStats 
         return DerivedStats.GetMaxHealth();
     }
 
+    public int GetSpeed(){
+        return DerivedStats.GetSpeed();
+    }
 }

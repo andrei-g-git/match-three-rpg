@@ -28,8 +28,10 @@ public interface DerivableStats{
 	public Attributive Attributes{set;}
 	public int Health{get;set;}
 	public int Energy{get;set;}
+	public int Speed{get;set;}
 	public int GetMaxEnergy();
 	public int GetMaxHealth();
+	public int GetSpeed();
 }
 
 public interface Classy{

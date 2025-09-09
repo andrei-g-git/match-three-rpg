@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://vv3xapj4lprc"]
+[gd_scene load_steps=41 format=3 uid="uid://vv3xapj4lprc"]
 
 [ext_resource type="Script" uid="uid://dy1o6fmi8i4pb" path="res://src/features/board/BoardManager.cs" id="1_k7s5h"]
 [ext_resource type="Script" uid="uid://cgm6rlm3gw3je" path="res://src/features/board/Environment.cs" id="3_da6o6"]
@@ -28,6 +28,7 @@
 [ext_resource type="Texture2D" uid="uid://o7ate3k72l8g" path="res://assets/images/tiles/leapAttack.png" id="23_oqk24"]
 [ext_resource type="Script" uid="uid://brll1nni2ffjy" path="res://src/features/skills/SkillGroupsController.cs" id="23_w8nfc"]
 [ext_resource type="Script" uid="uid://bw0yags88t6ah" path="res://src/features/skills/SkillFactory.cs" id="24_ewl7t"]
+[ext_resource type="Script" uid="uid://dqjkhfo3u3eah" path="res://src/features/board/model/Turns.cs" id="24_kr07k"]
 [ext_resource type="Texture2D" uid="uid://d0qn323g46s7n" path="res://assets/images/tiles/ensnare.png" id="24_w8nfc"]
 [ext_resource type="PackedScene" uid="uid://bhhhuxs0n6tbc" path="res://src/features/skills/groups/melee/whirlwind.tscn" id="25_qx8qf"]
 [ext_resource type="Texture2D" uid="uid://baxfw6v3hfftv" path="res://assets/images/tiles/whirlwind.png" id="25_r27v6"]
@@ -153,7 +154,7 @@ layout_mode = 2
 script = ExtResource("4_dw1vl")
 environment = NodePath("../Environment")
 
-[node name="Model" type="Node" parent="MainContainer/PanelContainer" node_paths=PackedStringArray("_tileOrganizer", "_tileMatcher", "_tileQuery", "_tileFactory", "_environment", "_selectedSkillsModel")]
+[node name="Model" type="Node" parent="MainContainer/PanelContainer" node_paths=PackedStringArray("_tileOrganizer", "_tileMatcher", "_tileQuery", "_tileFactory", "_environment", "_selectedSkillsModel", "_turns")]
 script = ExtResource("5_qxmgw")
 _tileOrganizer = NodePath("TileOrganizer")
 _tileMatcher = NodePath("TileMatcher")
@@ -161,6 +162,7 @@ _tileQuery = NodePath("TileQuery")
 _tileFactory = NodePath("TileFactory")
 _environment = NodePath("../Environment")
 _selectedSkillsModel = NodePath("PlayerSkills")
+_turns = NodePath("Turns")
 
 [node name="TileOrganizer" type="Node" parent="MainContainer/PanelContainer/Model" node_paths=PackedStringArray("_tileFactory", "_environment", "_tileContainer", "_tileMatcher")]
 script = ExtResource("6_ygp36")
@@ -184,6 +186,9 @@ _tileQuery = NodePath("../TileQuery")
 
 [node name="TileQuery" type="Node" parent="MainContainer/PanelContainer/Model"]
 script = ExtResource("22_7t1so")
+
+[node name="Turns" type="Node" parent="MainContainer/PanelContainer/Model"]
+script = ExtResource("24_kr07k")
 
 [node name="PlayerSkills" type="Node" parent="MainContainer/PanelContainer/Model" node_paths=PackedStringArray("_skillFactory")]
 script = ExtResource("22_10pv0")

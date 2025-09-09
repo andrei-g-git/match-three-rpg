@@ -4,6 +4,7 @@ namespace Stats{
         public /* Attributive */Attributes Attributes{get;set;}
         public int Health { get; set; }
         public int Energy { get; set; }
+        public int Speed { get; set; }
     }
 
     // public class Attributes: Attributive

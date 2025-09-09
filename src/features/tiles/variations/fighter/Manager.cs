@@ -8,7 +8,7 @@ using Tiles;
 using static Skills.SkillNames;
 
 namespace Fighter{
-	public partial class Manager : Control, Tile, /* AccessableBoard, */ Movable, Mapable, Permeable, RelayableUIEvents, Defensible, WithHealth, WithDefense, WithDamage, WithSpeed, Disposition, Creatable
+	public partial class Manager : Control, Tile, /* AccessableBoard, */ Movable, Mapable, Permeable, RelayableUIEvents, Defensible, WithHealth, WithDefense, WithDamage, WithSpeed, Disposition, Creatable, Agentive
 	{
 		[ExportGroup("behaviors")]
         [Export] private Node _defender;

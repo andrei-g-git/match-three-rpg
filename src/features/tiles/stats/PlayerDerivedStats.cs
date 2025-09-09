@@ -15,7 +15,11 @@ public partial class PlayerDerivedStats : Node, DerivableStats
         get => _energy;
         set =>_energy = Math.Clamp(value, 0, GetMaxEnergy());
     }    
-
+    private int _speed;
+    public int Speed{
+        get => _speed;
+        set => _speed = Math.Clamp(value, 0, GetSpeed());
+    }
     public override void _Ready(){
         //GD.Print("max energy:  ", GetMaxEnergy());
     }
@@ -36,4 +40,12 @@ public partial class PlayerDerivedStats : Node, DerivableStats
     public static int GetMaxHealth(int health){
         return health * 2;
     }  
+    public static int GetSpeed(int agility){
+        return agility;
+    }
+
+    public int GetSpeed(){
+        return Attributes.Agility;
+    }
+
 }

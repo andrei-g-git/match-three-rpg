@@ -79,7 +79,8 @@ public partial class MainMenu : Control, WithSceneManager
 					Intelligence = 5
 				},
 				Health = PlayerDerivedStats.GetMaxHealth(10),
-				Energy = PlayerDerivedStats.GetMaxEnergy(5) - 3 //test
+				Energy = PlayerDerivedStats.GetMaxEnergy(5) - 3, //test
+				Speed = PlayerDerivedStats.GetSpeed(7)
 			},
 			SkillGroups = [//new Dictionary<string, SkillGroup>(){
 				//{

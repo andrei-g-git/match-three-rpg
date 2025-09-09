@@ -48,4 +48,11 @@ namespace Board{
 		public bool IsCellAdjacentToLine(Vector2I cell, List<Vector2I> line);
 	}
 
+	public interface Sequential{
+		public Control CurrentActor{get;}
+		public void AdvanceTurn();
+		public bool IsPlayerTurn();
+		public void AddActor(Control actor);		
+	}
+
 }
