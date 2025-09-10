@@ -47,9 +47,16 @@ public partial class BoardModel : Node, Organizable, MatchableBoard, WithTiles, 
     }
 
 
-    public bool TryMatching(Control sourceTile, Control targetTile){
-        return (_tileMatcher as MatchableBoard).TryMatching(sourceTile, targetTile);
+    public /* bool */async Task<bool> TryMatching(Control sourceTile, Control targetTile){
+        var gotMatches = await (_tileMatcher as MatchableBoard).TryMatching(sourceTile, targetTile);
+
+        return gotMatches;
     }
+
+    public void AdvanceTurn(){ //probably don't need. Also it's not an interface method
+        (_turns as Sequential).AdvanceTurn();
+    }
+
 
     public async Task TransferTileToTile(Control sourceTile, Control targetTile){
         await (_tileOrganizer as Organizable).TransferTileToTile(sourceTile, targetTile);
@@ -65,12 +72,12 @@ public partial class BoardModel : Node, Organizable, MatchableBoard, WithTiles, 
     }
 
 
-    public void MatchWithoutSwapping(){
-        (_tileMatcher as MatchableBoard).MatchWithoutSwapping();
+    public /* void */async Task MatchWithoutSwapping(){
+        await (_tileMatcher as MatchableBoard).MatchWithoutSwapping();
     }
 
-    public void CollapseGridAndCheckNewMatches(){
-        (_tileMatcher as MatchableBoard).CollapseGridAndCheckNewMatches();
+    public /* void */async Task CollapseGridAndCheckNewMatches(){
+        await (_tileMatcher as MatchableBoard).CollapseGridAndCheckNewMatches();
     }
 
     public List<Control> GetNeighboringTiles(Vector2I center){

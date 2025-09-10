@@ -14,11 +14,13 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
     [Export] private Node _tileFactory;
     [Export] private Node _tileContainer;
     [Export] private Node _tileQuery;
+    [Export] private Node _turns;
     public Grid<Control> Tiles{get;set;}	
     private Queue<List<Vector2I>> _matchGroupQueue = [];
     private System.Collections.Generic.Dictionary<TileTypes, int> _spawnOddsByTileType;
     private float[] _spawnWeights;
     private TileTypes[] _spawnTiles;
+    [Signal] public delegate void DoneMatchingEventHandler();
 
     public override void _Ready(){
 		_spawnOddsByTileType = new(){ 
@@ -31,7 +33,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
         _spawnTiles = [.._spawnOddsByTileType.Select(item => item.Key)];   
     }
 
-    public bool TryMatching(Control sourceTile, Control targetTile){
+    public /* bool */async Task<bool> TryMatching(Control sourceTile, Control targetTile){
         if(sourceTile is Swappable && targetTile is Swappable){
             var initialSource = Tiles.GetCellFor(sourceTile);
             var initialTarget = Tiles.GetCellFor(targetTile);
@@ -47,11 +49,11 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
                 if(player is not null && player is MatchableBounds matchingRange){
                     var matchGroupsAreInRange = matchingRange.IsMatchGroupInRange(_matchGroupQueue, Tiles);
                     if(matchGroupsAreInRange){
-                        _ = _SwapTileNodesUsingInitialBoard(sourceTile, targetTile, initialSource, initialTarget);
+                        /* _ = */ await _SwapTileNodesUsingInitialBoard(sourceTile, targetTile, initialSource, initialTarget);
                         //Tiles = probeGrid;  //already mutated
                         if(_matchGroupQueue.Peek() != null){
                             //GetTree().CreateTimer(0.5).Timeout += () => { //temporary ... nothing more permanent eh...
-                                _ActivateMatchedTilesAndCollapseGrid(_matchGroupQueue);
+                                await _ActivateMatchedTilesAndCollapseGrid(_matchGroupQueue);
                                 var bp = 123;
                             //};
                         }                         
@@ -60,7 +62,8 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
                         _SwapCells(targetTile, sourceTile); //reverse, hope this works
                     }
                 }
-           
+                //AdvanceTurn(); //this doens't look so good over here...
+                EmitSignal(SignalName.DoneMatching);
             }
             return gotMatches;            
         }
@@ -68,20 +71,24 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
     }
 
 
-    public void MatchWithoutSwapping(){
+    // private void AdvanceTurn(){
+    //     (_turns as Sequential).AdvanceTurn();
+    // }
+
+    public /* void */async Task MatchWithoutSwapping(){
         var gotMatches = _CheckNewMatchesAndProcess(Tiles);   
         if(gotMatches){
             if(_matchGroupQueue.Peek() != null){
-                GetTree().CreateTimer(1).Timeout += () => { //temporary ... nothing more permanent eh...
-                    _ActivateMatchedTilesAndCollapseGrid(_matchGroupQueue);
-                };
+                //GetTree().CreateTimer(1).Timeout += () => { //temporary ... nothing more permanent eh...
+                    await _ActivateMatchedTilesAndCollapseGrid(_matchGroupQueue);
+                //};
             }                         
         }             
     }
 
 
-    public void CollapseGridAndCheckNewMatches(){
-        _ActivateMatchedTilesAndCollapseGrid(_matchGroupQueue);
+    public /* void */async Task CollapseGridAndCheckNewMatches(){
+        await _ActivateMatchedTilesAndCollapseGrid(_matchGroupQueue);
     }
 
     private void _SwapTileNodes(Control sourceTile, Control targetTile){
@@ -97,6 +104,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
         (sourceTile as Movable).MoveTo(initialTarget);
         (targetTile as Movable).MoveTo(initialSource);
         await (targetTile as Movable).WaitUntilMoved();
+        var bp = 123;
     }
 
 
@@ -121,7 +129,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
     } 
 
 
-    private async void _ActivateMatchedTilesAndCollapseGrid(Queue<List<Vector2I>> matchGroupQueue){ //all this dependency injection is kind of useless if I hard code helper funcions... this is not a pure function
+    private async /* void */Task _ActivateMatchedTilesAndCollapseGrid(Queue<List<Vector2I>> matchGroupQueue){ //all this dependency injection is kind of useless if I hard code helper funcions... this is not a pure function
         var group = new List<Vector2I>();  
         if(matchGroupQueue.Count > 0){
             group = matchGroupQueue.Dequeue();  
@@ -146,7 +154,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
             bpp = 132;                 
         } 
 
-        _CollapseTiles();
+        await _CollapseTiles();
         var bp = 123;
 
         //GetTree().CreateTimer(1.5).Timeout += () => { //booooo! Also I can't have these running in parallel
@@ -157,14 +165,14 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
             if(matchGroupQueue.Count > 0){ //I dequeue on every match that's found
                 //GetTree().CreateTimer(1).Timeout += () => { //I really need to stop doing this
                     (_tileContainer as Viewable).UpdatePositions(Tiles); //<<<<
-                    _ActivateMatchedTilesAndCollapseGrid(matchGroupQueue);  
+                    await _ActivateMatchedTilesAndCollapseGrid(matchGroupQueue);  
                 //};
             }else{
                 _CheckNewMatchesAndProcess(Tiles); //New <<<<<<<<<<<<<<<<<<<
                 if(matchGroupQueue.Count > 0){ //this doesn't make much sense but it kind of does...
                     //GetTree().CreateTimer(1).Timeout += () => { 
                         (_tileContainer as Viewable).UpdatePositions(Tiles); //<<<<
-                        _ActivateMatchedTilesAndCollapseGrid(matchGroupQueue);  
+                        await _ActivateMatchedTilesAndCollapseGrid(matchGroupQueue);  
                     //};
                 }            
             }                      
@@ -361,7 +369,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
     }  
 
 
-    private void _CollapseTiles(){ //will only fall downward. Can pass through solids.
+    private /* void */ async Task _CollapseTiles(){ //will only fall downward. Can pass through solids.
         var collapsing = true;
         var pathGrid = new Grid<Array<Vector2I>>(Tiles.Width, Tiles.Height);
         var list3D = pathGrid.GetGridAs2DList();     
@@ -396,7 +404,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
             }   
         }
         
-        _ = MoveTilesOnTheirPaths(list3D, originalGrid); //not sure if this awaits the move signal...
+        /* _ = */await MoveTilesOnTheirPaths(list3D, originalGrid); //not sure if this awaits the move signal...
         var bppp = 1232;
     }   
 

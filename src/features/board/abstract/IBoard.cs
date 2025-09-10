@@ -32,9 +32,12 @@ namespace Board{
 	}
 
 	public interface MatchableBoard{
-		public bool TryMatching(Control sourceTile, Control targetTile); 
-		public void MatchWithoutSwapping();
-		public void CollapseGridAndCheckNewMatches();
+		//public bool TryMatching(Control sourceTile, Control targetTile); 
+		public Task<bool> TryMatching(Control sourceTile, Control targetTile); 
+		// public void MatchWithoutSwapping();
+		// public void CollapseGridAndCheckNewMatches();
+		public Task MatchWithoutSwapping();
+		public Task CollapseGridAndCheckNewMatches();
 	}
 
 	public interface WithTiles{

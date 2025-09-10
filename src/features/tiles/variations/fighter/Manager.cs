@@ -8,7 +8,7 @@ using Tiles;
 using static Skills.SkillNames;
 
 namespace Fighter{
-	public partial class Manager : Control, Tile, /* AccessableBoard, */ Movable, Mapable, Permeable, RelayableUIEvents, Defensible, WithHealth, WithDefense, WithDamage, WithSpeed, Disposition, Creatable, Agentive
+	public partial class Manager : Control, Tile, /* AccessableBoard, */ Movable, Mapable, Permeable, RelayableUIEvents, Defensible, WithHealth, WithDefense, WithDamage, WithSpeed, Disposition, Creatable, Agentive, TurnBased
 	{
 		[ExportGroup("behaviors")]
         [Export] private Node _defender;
@@ -65,7 +65,7 @@ namespace Fighter{
             await (_moveTweener as Movable).WaitUntilMoved();
         }
 
-        public void SwapWith(Control tile)
+        public /* void */async Task SwapWith(Control tile)
         {
             throw new System.NotImplementedException();
         }
@@ -81,6 +81,18 @@ namespace Fighter{
         public async Task WaitUntilCreated(){
             await (_popTweener as Creatable).WaitUntilCreated();
         }  
+
+        public void AdvanceTurn(){ //not Sequential interface, from Agentive
+            TurnQueue.AdvanceTurn();
+        }
+
+        public void EndTurn(){
+            (_turn as TurnBased).EndTurn();
+        }
+
+        public void BeginTurn(){
+            (_turn as TurnBased).BeginTurn();
+        }
     }	
 }
 

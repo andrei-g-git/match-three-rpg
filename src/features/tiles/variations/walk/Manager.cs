@@ -47,7 +47,7 @@ namespace Walk{
         }
 
 
-        public void SwapWith(Control tile)
+        public /* void */async Task SwapWith(Control tile)
         {
             throw new System.NotImplementedException();
         }

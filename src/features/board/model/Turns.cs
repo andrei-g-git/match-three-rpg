@@ -29,6 +29,11 @@ public partial class Turns : Node, Sequential, Initializable, /* AccessableBoard
 		UpdateActors();
 		CurrentActor = _turnQueue.Dequeue();
 		_turnQueue.Enqueue(CurrentActor);
+		// new
+		// foreach(var actor in _actors){ //I don't need to do this, plus, EndTurn is connected to this method wthich causes a stack overflow
+		// 	(actor as TurnBased).EndTurn();
+		// }
+		//
 		(CurrentActor as TurnBased).BeginTurn();
 		GD.Print((CurrentActor as Tile).Type.ToString(), "'s turn!");
 		var bp = 123;

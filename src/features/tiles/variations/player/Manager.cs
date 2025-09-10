@@ -10,7 +10,7 @@ using Tiles;
 using static Skills.SkillNames;
 
 namespace Player{
-	public partial class Manager : Control, Tile, AccessableBoard, Movable, Mapable, Swappable, Permeable, MatchableBounds, Playable, Attributive, DerivableStats, Classy, CollectableEnergy, RelayableUIEvents, ReactiveToMatches, Offensive, Skillful, TraversableMatching, Creatable, Agentive
+	public partial class Manager : Control, Tile, AccessableBoard, Movable, Mapable, Swappable, Permeable, MatchableBounds, Playable, Attributive, DerivableStats, Classy, CollectableEnergy, RelayableUIEvents, ReactiveToMatches, Offensive, Skillful, TraversableMatching, Creatable, Agentive, TurnBased
 	{
         //[Export] Node _skillsModel; //DOES NOT HAVE INTERFACE 
 		[ExportGroup("behaviors")]
@@ -92,7 +92,7 @@ namespace Player{
             await (_moveTweener as Movable).WaitUntilMoved();
         }
 
-        public void SwapWith(Control tile)
+        public /* void */async Task SwapWith(Control tile)
         {
             throw new System.NotImplementedException();
         }
@@ -201,8 +201,19 @@ namespace Player{
 
         public int GetSpeed(){
             return (_derivedStats as DerivableStats).GetSpeed();
+        }  
+
+        public void AdvanceTurn(){ //not Sequential interface, from Agentive
+            TurnQueue.AdvanceTurn();
         }
 
+        public void EndTurn(){
+            (_turn as TurnBased).EndTurn();
+        }
+
+        public void BeginTurn(){
+            (_turn as TurnBased).BeginTurn();
+        }
     }	
 }
 

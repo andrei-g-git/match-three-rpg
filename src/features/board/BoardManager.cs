@@ -114,6 +114,7 @@ public partial class BoardManager : PanelContainer
 			(skillsModel as Modelable).Notify();
 
 			(_model as BoardModel).InitializeTurnQueue();
+			(_model as BoardModel).AdvanceTurn();
 
 			// var griddd = (_model as WithTiles).Tiles.GetGridAs2DList();
 			// CreateLogMessagePopup(skillsModel.Melee.Group);	
