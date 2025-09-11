@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Board;
 using Godot;
 using Skills;
 using static Skills.SkillNames;
@@ -81,5 +82,11 @@ namespace Tiles{
 
     public interface Pursuing{
         public void ChaseActor(Vector2I cell);
-    }       
+    }     
+
+    public interface Pathfindable{
+        //public Tileable Map{set;}
+        //public Grid<Control> Tiles{set;}
+        public List<Vector2I> FindPath(Vector2I target);
+    }      
 }

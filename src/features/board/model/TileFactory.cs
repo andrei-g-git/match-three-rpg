@@ -76,7 +76,7 @@ namespace Board{
 					break;								
 				case TileTypes.Fighter:
 					(tile as AccessableBoard).Board = _boardModel;
-					//(tile as Mapable).Map = environment as Tileable;
+					(tile as Mapable).Map = _tileMapLayer as Tileable;
 					(tile as Agentive).TurnQueue = _turnQueue as Sequential;	
 
 					break;

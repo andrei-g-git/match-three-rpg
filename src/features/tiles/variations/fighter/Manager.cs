@@ -15,6 +15,9 @@ namespace Fighter{
         [Export] private Node _hostility;
         [Export] private Node _turn;
         [Export] private Node _sentinel;
+        [Export] private Node _chase;
+        [Export] private Node _pathfinding;
+        [Export] private Node _swapping;
 
         [ExportGroup("stats")]
         [Export] private Node _stats;
@@ -26,7 +29,12 @@ namespace Fighter{
         [Export] private Node _flashWhite;
 		public TileTypes Type => TileTypes.Fighter;
         public TileTypes AA => Type; //for debugging
-        public Tileable Map { set => (_moveTweener as Mapable).Map = value; }
+        public Tileable Map { set {
+            (_moveTweener as Mapable).Map = value;
+            (_sentinel as Mapable).Map = value;
+            (_chase as Mapable).Map = value;
+            (_pathfinding as Mapable).Map = value;
+        }}
         public int Health {get => (_stats as WithHealth).Health; set => (_stats as WithHealth).Health = value;}
         public int MaxHealth {get => (_stats as WithHealth).MaxHealth;}
         public int Defense {get => (_stats as WithDefense).Defense; set => (_stats as WithDefense).Defense = value;}
@@ -46,6 +54,9 @@ namespace Fighter{
             set {
                 //(_sentinel as WithTiles).Tiles = (value as WithTiles).Tiles;
                 (_sentinel as AccessableBoard).Board = value;
+                (_chase as AccessableBoard).Board = value;
+                (_pathfinding as AccessableBoard).Board = value;
+                (_swapping as AccessableBoard).Board = value;
         }}
 
 

@@ -1,8 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://dbpwe34yxcfuf"]
+[gd_scene load_steps=21 format=3 uid="uid://dbpwe34yxcfuf"]
 
 [ext_resource type="Script" uid="uid://b00gbtd8quyh" path="res://src/features/tiles/variations/fighter/Manager.cs" id="1_81q7e"]
 [ext_resource type="Script" uid="uid://cy1k0w8awxnxt" path="res://src/features/tiles/DragAndDrop.cs" id="2_81q7e"]
 [ext_resource type="Texture2D" uid="uid://bksbxdav7jui4" path="res://assets/images/tiles/new/orc.png" id="2_xsd4e"]
+[ext_resource type="Script" uid="uid://dd71kn6t4pyhr" path="res://src/features/tiles/behaviors/Swapping.cs" id="4_23cat"]
 [ext_resource type="Script" uid="uid://bo1vqtqcusngb" path="res://src/features/tiles/behaviors/Removing.cs" id="4_xmyc7"]
 [ext_resource type="Script" uid="uid://cwtutlrlcmfb4" path="res://src/features/tiles/stats/enemies/OrcStats.cs" id="6_81q7e"]
 [ext_resource type="Script" uid="uid://dmkt3wetl7b0l" path="res://src/features/tiles/animations/MoveTweener.cs" id="6_e3x4h"]
@@ -13,13 +14,14 @@
 [ext_resource type="Script" uid="uid://bwnp3h3h358d0" path="res://src/features/tiles/behaviors/Hostility.cs" id="8_xsd4e"]
 [ext_resource type="Script" uid="uid://dwgqsc14gts06" path="res://src/features/tiles/behaviors/Pathfinding.cs" id="9_ayxtl"]
 [ext_resource type="Script" uid="uid://b7lfifx1qdl5x" path="res://src/features/tiles/behaviors/Turn.cs" id="9_sb5bf"]
+[ext_resource type="Script" uid="uid://d0v01pb1vjoga" path="res://src/features/tiles/behaviors/AstarHex.cs" id="10_kfo3p"]
 [ext_resource type="Script" uid="uid://cejgaleq77orn" path="res://src/features/tiles/behaviors/Ai.cs" id="10_qo0sn"]
 [ext_resource type="Script" uid="uid://uwokervc8xwp" path="res://src/features/tiles/behaviors/Sentinel.cs" id="11_qjawe"]
 [ext_resource type="Script" uid="uid://e2s0xy666sc2" path="res://src/features/tiles/animations/ShakeOnce.cs" id="11_xmyc7"]
 [ext_resource type="Script" uid="uid://20thatvwrhec" path="res://src/features/tiles/behaviors/Chase.cs" id="12_qjawe"]
 [ext_resource type="Script" uid="uid://v4rkcw3mfxm0" path="res://src/features/tiles/animations/FlashWhite.cs" id="13_e3x4h"]
 
-[node name="Fighter" type="Control" node_paths=PackedStringArray("_defender", "_hostility", "_turn", "_sentinel", "_stats", "_moveTweener", "_popTweener", "_recoil", "_flashWhite")]
+[node name="Fighter" type="Control" node_paths=PackedStringArray("_defender", "_hostility", "_turn", "_sentinel", "_chase", "_pathfinding", "_swapping", "_stats", "_moveTweener", "_popTweener", "_recoil", "_flashWhite")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 55.0
@@ -29,6 +31,9 @@ _defender = NodePath("Behaviors/Defender")
 _hostility = NodePath("Behaviors/Hostility")
 _turn = NodePath("Behaviors/AI/Turn")
 _sentinel = NodePath("Behaviors/AI/Sentinel")
+_chase = NodePath("Behaviors/AI/Chase")
+_pathfinding = NodePath("Behaviors/Pathfinding")
+_swapping = NodePath("Behaviors/Swapping")
 _stats = NodePath("Behaviors/Stats")
 _moveTweener = NodePath("Tweeners/Move")
 _popTweener = NodePath("Tweeners/Pop")
@@ -58,6 +63,10 @@ _sprite = NodePath("../Sprite2D")
 [node name="Behaviors" type="Control" parent="."]
 anchors_preset = 0
 
+[node name="Swapping" type="Node" parent="Behaviors" node_paths=PackedStringArray("_tileRoot")]
+script = ExtResource("4_23cat")
+_tileRoot = NodePath("../..")
+
 [node name="Removing" type="Node" parent="Behaviors" node_paths=PackedStringArray("_tileRoot")]
 script = ExtResource("4_xmyc7")
 _tileRoot = NodePath("../..")
@@ -82,11 +91,16 @@ script = ExtResource("8_xsd4e")
 isAggressive = true
 isEnemy = true
 
-[node name="Pathfinding" type="Control" parent="Behaviors"]
+[node name="Pathfinding" type="Control" parent="Behaviors" node_paths=PackedStringArray("_tileRoot", "_astar")]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("9_ayxtl")
+_tileRoot = NodePath("../..")
+_astar = NodePath("../Astar")
+
+[node name="Astar" type="Node" parent="Behaviors"]
+script = ExtResource("10_kfo3p")
 
 [node name="AI" type="Node" parent="Behaviors"]
 script = ExtResource("10_qo0sn")
@@ -138,4 +152,5 @@ _sprite = NodePath("../../AspectRatioContainer/Sprite2D")
 [connection signal="Destroying" from="Behaviors/Removing" to="Tweeners/ScaleUpFade" method="Disappear"]
 [connection signal="StartedSearching" from="Behaviors/AI" to="Behaviors/AI/Sentinel" method="StandWatch"]
 [connection signal="FoundPlayer" from="Behaviors/AI/Sentinel" to="Behaviors/AI/Chase" method="ChaseActor"]
+[connection signal="TrySwapping" from="Behaviors/AI/Chase" to="Behaviors/Swapping" method="SwapWith"]
 [connection signal="RequestedTurnStart" from="Behaviors/AI/Turn" to="Behaviors/AI" method="Resume"]

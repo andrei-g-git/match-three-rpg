@@ -10,7 +10,7 @@ public partial class Sentinel : Node, Vigilance, Mapable, AccessableBoard//, Wit
 	[Export] private int _watchRadius;
 	[Export] private Control _tileRoot;
 	public Tileable Map{private get; set;}
-	private Grid<Control> _tiles;
+	//private Grid<Control> _tiles;
 	// public Grid<Control> Tiles{
 	// 	get => _tiles; 
 	// 	set{
