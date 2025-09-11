@@ -49,6 +49,8 @@ namespace Board{
 		public List<Control> GetAllActors();
 		public Control FindNextTileInLine(List<Vector2I> line);
 		public bool IsCellAdjacentToLine(Vector2I cell, List<Vector2I> line);
+		public List<Vector2I> GetCellsInRadiusAroundTileNode(int radius, Control tileAtCenter);
+		public Control GetItemAt(Vector2I cell);
 	}
 
 	public interface Sequential{

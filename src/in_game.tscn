@@ -278,6 +278,7 @@ Level"
 script = ExtResource("34_1dyqb")
 _boardManager = NodePath("../MainContainer/PanelContainer/TilesPanel")
 
+[connection signal="DoneMatching" from="MainContainer/PanelContainer/Model/TileOrganizer" to="MainContainer/PanelContainer/Model/Turns" method="AdvanceTurn"]
 [connection signal="DoneMatching" from="MainContainer/PanelContainer/Model/TileMatcher" to="MainContainer/PanelContainer/Model/Turns" method="AdvanceTurn"]
 [connection signal="SelectedSkillFromGroup" from="MainContainer/VBoxContainer/MarginContainer/SkillGroups/MeleeSkills" to="MainContainer/VBoxContainer/MarginContainer/SkillGroups" method="OnSkillSelectedFromGroup"]
 [connection signal="item_selected" from="MainContainer/VBoxContainer/MarginContainer/SkillGroups/MeleeSkills" to="MainContainer/VBoxContainer/MarginContainer/SkillGroups/MeleeSkills" method="OnItemSelected"]

@@ -15,6 +15,7 @@ public partial class TileOrganizer: Node, Organizable, WithTiles
     private float[] _spawnWeights;
     private TileTypes[] _spawnTiles;
     private System.Collections.Generic.Dictionary<TileTypes, int> _spawnOddsByTileType;
+    [Signal] public delegate void DoneMatchingEventHandler();
     
     public override void _Ready(){
 		_spawnOddsByTileType = new(){ 
@@ -77,9 +78,11 @@ public partial class TileOrganizer: Node, Organizable, WithTiles
 
         Tiles.SetCell((_tileFactory as TileMaking).Create(TileTypes.Blank) as Control, source);
 
-        (_tileMatcher as MatchableBoard).CollapseGridAndCheckNewMatches();
+        await (_tileMatcher as MatchableBoard).CollapseGridAndCheckNewMatches();
 
         GD.Print("former player position is now:  ", (Tiles.GetItem(source) as Tile).Type);
+        
+        EmitSignal(SignalName.DoneMatching);
     } 
 
     public /* async Task */ void TransferTileTo(Control tile, Vector2I target){

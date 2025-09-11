@@ -17,7 +17,7 @@ public partial class BoardModel : Node, Organizable, MatchableBoard, WithTiles, 
 	[Export] private Node _selectedSkillsModel;     
     [Export] private Node _turns;
 
-    public Grid<Control> Tiles { 
+    public Grid<Control> Tiles { //there's something wrong with this, when I passed it to the sentinel behavior, it works the first time, but it gets changed when it's time to StandWatch, it has weird Variation.Manager instances
         get => (_tileOrganizer as WithTiles).Tiles; 
         set {
             (_tileOrganizer as WithTiles).Tiles = value;
@@ -96,5 +96,12 @@ public partial class BoardModel : Node, Organizable, MatchableBoard, WithTiles, 
         return (_tileQuery as Queriable).IsCellAdjacentToLine(cell, line);
     }
 
+    public List<Vector2I> GetCellsInRadiusAroundTileNode(int radius, Control tileAtCenter){
+        return (_tileQuery as Queriable).GetCellsInRadiusAroundTileNode(radius, tileAtCenter);
+    }
+
+    public Control GetItemAt(Vector2I cell){
+		return (_tileQuery as Queriable).GetItemAt(cell);
+	}
 
 }

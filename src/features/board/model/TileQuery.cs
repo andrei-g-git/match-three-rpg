@@ -3,13 +3,14 @@ using Common;
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Tiles;
 
 public partial class TileQuery : Node, Queriable, Mapable, WithTiles
 {
 	
     public Grid<Control> Tiles {get; set;}
-    public Tileable Map {private get;set;}
+    public Tileable Map {private get;set;} //should be an export
 
     private List<Vector2I> _GetNeighboringCells(Vector2I center){
 		return [..(Map as TileMapLayer).GetSurroundingCells(center)];
@@ -23,6 +24,16 @@ public partial class TileQuery : Node, Queriable, Mapable, WithTiles
 			}
 		}
 		return neighboringTiles;
+	}
+
+	public Control GetItemAt(Vector2I cell){
+		return Tiles.GetItem(cell);
+	}
+
+	public List<Vector2I> GetCellsInRadiusAroundTileNode(int radius, Control tileAtCenter){
+		var tileCoordinates = Tiles.GetCellFor(tileAtCenter);
+		var watchedCells = Map.GetCellsInRadius(tileCoordinates, radius);
+		return [.. watchedCells];
 	}
 
 	public List<Control> GetAllActors(){

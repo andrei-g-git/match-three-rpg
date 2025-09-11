@@ -8,12 +8,13 @@ using Tiles;
 using static Skills.SkillNames;
 
 namespace Fighter{
-	public partial class Manager : Control, Tile, /* AccessableBoard, */ Movable, Mapable, Permeable, RelayableUIEvents, Defensible, WithHealth, WithDefense, WithDamage, WithSpeed, Disposition, Creatable, Agentive, TurnBased
+	public partial class Manager : Control, Tile, AccessableBoard, /* WithTiles, */  Movable, Mapable, Permeable, RelayableUIEvents, Defensible, WithHealth, WithDefense, WithDamage, WithSpeed, Disposition, Creatable, Agentive, TurnBased
 	{
 		[ExportGroup("behaviors")]
         [Export] private Node _defender;
         [Export] private Node _hostility;
         [Export] private Node _turn;
+        [Export] private Node _sentinel;
 
         [ExportGroup("stats")]
         [Export] private Node _stats;
@@ -35,6 +36,18 @@ namespace Fighter{
         public bool IsAggressive { get => (_hostility as Disposition).IsAggressive; set => (_hostility as Disposition).IsAggressive = value; }
         public bool IsEnemy { get => (_hostility as Disposition).IsAggressive; set => (_hostility as Disposition).IsAggressive = value; }		
         public Sequential TurnQueue{private get; set;}
+        private Grid<Control> _tiles;
+        // public Grid<Control> Tiles { //not using...
+        //     get => _tiles; 
+        //     set{
+        //         (_sentinel as WithTiles).Tiles = value;
+        // }}
+		public Node Board {
+            set {
+                //(_sentinel as WithTiles).Tiles = (value as WithTiles).Tiles;
+                (_sentinel as AccessableBoard).Board = value;
+        }}
+
 
         public override void _Ready(){
             (_popTweener as Creatable).Pop();
