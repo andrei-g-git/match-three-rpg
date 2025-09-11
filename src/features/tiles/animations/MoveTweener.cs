@@ -40,9 +40,9 @@ public partial class MoveTweener : Node, Movable, Mapable
 			tween.TweenProperty(_tileRoot, "position", (Vector2) pixelTarget, _duration);
 			
 			tween.Finished += () => {
-				if(path.Count>0){
+				//if(path.Count>0){
 					MoveOnPath(path);
-				}
+				//}
 			};				
 		}else{
 			EmitSignal(SignalName.FinishedMoving);
@@ -51,6 +51,8 @@ public partial class MoveTweener : Node, Movable, Mapable
 	}	
 
 	public async Task WaitUntilMoved(){
+		var bp = 123;
 		await ToSignal(this, SignalName.FinishedMoving);
+		bp = 1123;
 	}
 }

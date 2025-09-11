@@ -92,7 +92,7 @@ namespace Player{
             await (_moveTweener as Movable).WaitUntilMoved();
         }
 
-        public /* void */async Task SwapWith(Control tile)
+        public void/* async Task */ SwapWith(Control tile)
         {
             throw new System.NotImplementedException();
         }

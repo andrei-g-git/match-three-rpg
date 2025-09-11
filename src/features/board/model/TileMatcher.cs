@@ -54,7 +54,9 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
                         if(_matchGroupQueue.Peek() != null){
                             //GetTree().CreateTimer(0.5).Timeout += () => { //temporary ... nothing more permanent eh...
                                 await _ActivateMatchedTilesAndCollapseGrid(_matchGroupQueue);
+
                                 var bp = 123;
+
                             //};
                         }                         
                     }else{
@@ -403,8 +405,10 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
                 }
             }   
         }
-        
+        var bp2 = 12344;
+
         /* _ = */await MoveTilesOnTheirPaths(list3D, originalGrid); //not sure if this awaits the move signal...
+
         var bppp = 1232;
     }   
 
@@ -427,7 +431,12 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
                 }
             }
         } 
-        await (originalGrid.GetItem(aa, bb) as Movable).WaitUntilMoved();       
+
+        var bp = 1123;
+
+        await (originalGrid.GetItem(aa, bb) as Movable).WaitUntilMoved(); //this is dicey, maybe not even all tiles move...    
+
+        bp = 345;  
     }
 
 

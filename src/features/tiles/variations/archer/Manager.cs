@@ -62,7 +62,7 @@ namespace Archer{
             await (_moveTweener as Movable).WaitUntilMoved();
         }
 
-        public void SwapWith(Control tile)
+        public void/* async Task */ SwapWith(Control tile)
         {
             throw new System.NotImplementedException();
         }

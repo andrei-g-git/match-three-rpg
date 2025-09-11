@@ -6,8 +6,8 @@ using static Skills.SkillNames;
 
 namespace Tiles{
     public interface Swappable{
-        //public void SwapWith(Control tile);
-        public Task SwapWith(Control tile);
+        public void SwapWith(Control tile);
+        //public Task SwapWith(Control tile);
     }    
 
     public interface Removable{
