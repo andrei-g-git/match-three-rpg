@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://vv3xapj4lprc"]
+[gd_scene load_steps=42 format=3 uid="uid://vv3xapj4lprc"]
 
 [ext_resource type="Script" uid="uid://dy1o6fmi8i4pb" path="res://src/features/board/BoardManager.cs" id="1_k7s5h"]
 [ext_resource type="Script" uid="uid://cgm6rlm3gw3je" path="res://src/features/board/Environment.cs" id="3_da6o6"]
@@ -36,6 +36,7 @@
 [ext_resource type="Texture2D" uid="uid://bpyts1xl2yh0l" path="res://assets/images/tiles/shieldBash.png" id="27_crjdv"]
 [ext_resource type="Script" uid="uid://fshl3bovmk2h" path="res://src/features/skills/SkillSelection.cs" id="29_crjdv"]
 [ext_resource type="Script" uid="uid://cmg0gtq5dxumt" path="res://src/features/RestartLevel.cs" id="34_1dyqb"]
+[ext_resource type="Script" uid="uid://vx481amn178r" path="res://src/features/UI/EndTurn.cs" id="37_wou0k"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x10rj"]
 
@@ -277,6 +278,16 @@ text = "Restart
 Level"
 script = ExtResource("34_1dyqb")
 _boardManager = NodePath("../MainContainer/PanelContainer/TilesPanel")
+
+[node name="EndTurn" type="Button" parent="." node_paths=PackedStringArray("_turnQueue")]
+offset_left = 909.203
+offset_top = 86.5031
+offset_right = 974.203
+offset_bottom = 140.503
+text = "End
+Turn"
+script = ExtResource("37_wou0k")
+_turnQueue = NodePath("../MainContainer/PanelContainer/Model/Turns")
 
 [connection signal="DoneMatching" from="MainContainer/PanelContainer/Model/TileOrganizer" to="MainContainer/PanelContainer/Model/Turns" method="AdvanceTurn"]
 [connection signal="DoneSwapping" from="MainContainer/PanelContainer/Model/TileOrganizer" to="MainContainer/PanelContainer/Model/Turns" method="AdvanceTurn"]
