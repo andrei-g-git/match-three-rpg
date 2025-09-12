@@ -12,6 +12,7 @@ namespace Fighter{
 	{
 		[ExportGroup("behaviors")]
         [Export] private Node _defender;
+        //[Export] private Node _offender;
         [Export] private Node _hostility;
         [Export] private Node _turn;
         [Export] private Node _sentinel;
@@ -66,14 +67,14 @@ namespace Fighter{
             (_popTweener as Creatable).Pop();
 
             //_defender.Connect("TookDamage", _recoil, nameof(TestCurry));
-            (_defender as Defender).ConnectTookDamage(TestCurry);
+            //(_defender as DefenseForNpc).ConnectTookDamage(TestCurry);
 
             (_turn as Turn).ConnectRequestedTurnEnd(TurnQueue.AdvanceTurn);
         }
 
-        public void TestCurry(int unimportantValue){
-            (_recoil as Recoiling).Recoil();
-            (_flashWhite as WhiteFlashable).FlashOnce();
+        public void TestCurry(int unimportantValue){ //don't need this anymore
+            (_recoil as Recoiling).Recoil(unimportantValue);
+            (_flashWhite as WhiteFlashable).FlashOnce(unimportantValue);
         }
 
 

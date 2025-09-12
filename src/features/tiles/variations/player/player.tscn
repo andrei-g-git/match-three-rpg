@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://neacnhoii1ja"]
+[gd_scene load_steps=22 format=3 uid="uid://neacnhoii1ja"]
 
 [ext_resource type="Script" uid="uid://bi3h2kor8um1g" path="res://src/features/tiles/variations/player/Manager.cs" id="1_4gdcj"]
 [ext_resource type="Texture2D" uid="uid://blwt3lnwis0e2" path="res://assets/images/tiles/new/player.png" id="2_ybiiv"]
@@ -14,11 +14,15 @@
 [ext_resource type="Script" uid="uid://dp5fwk7pxd2pe" path="res://src/features/tiles/behaviors/EnergyCollector.cs" id="7_dohfl"]
 [ext_resource type="Script" uid="uid://dkxyfo8ok7v3x" path="res://src/features/tiles/animations/Pop.cs" id="8_17kow"]
 [ext_resource type="Script" uid="uid://bh601heiqlu68" path="res://src/features/tiles/behaviors/Offense.cs" id="10_xxn2p"]
+[ext_resource type="Script" uid="uid://p0ymm4ytnxjy" path="res://src/features/tiles/behaviors/Defender.cs" id="11_m7si5"]
 [ext_resource type="Script" uid="uid://cby7yncus5qqu" path="res://src/features/tiles/behaviors/MatchesTraversal.cs" id="13_nd62f"]
 [ext_resource type="Script" uid="uid://b7lfifx1qdl5x" path="res://src/features/tiles/behaviors/Turn.cs" id="13_ot1tn"]
 [ext_resource type="Script" uid="uid://m05lgru2ui7v" path="res://src/features/tiles/animations/SpringForthAndBack.cs" id="14_47kl3"]
+[ext_resource type="Script" uid="uid://bwnp3h3h358d0" path="res://src/features/tiles/behaviors/Hostility.cs" id="14_ot1tn"]
+[ext_resource type="Script" uid="uid://e2s0xy666sc2" path="res://src/features/tiles/animations/ShakeOnce.cs" id="20_ympln"]
+[ext_resource type="Script" uid="uid://v4rkcw3mfxm0" path="res://src/features/tiles/animations/FlashWhite.cs" id="21_plogw"]
 
-[node name="Player" type="Control" node_paths=PackedStringArray("_swapping", "_matchingRange", "_energyCollector", "_offense", "_skillSlot", "_matchesTraversal", "_turn", "_derivedStats", "_moveTweener", "_popTweener", "_attackTweener")]
+[node name="Player" type="Control" node_paths=PackedStringArray("_swapping", "_matchingRange", "_energyCollector", "_offense", "_defender", "_skillSlot", "_matchesTraversal", "_turn", "_hostility", "_derivedStats", "_moveTweener", "_popTweener", "_attackTweener")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_4gdcj")
@@ -26,9 +30,11 @@ _swapping = NodePath("Behaviors/Swapping")
 _matchingRange = NodePath("Behaviors/MatchingRange")
 _energyCollector = NodePath("Behaviors/EnergyCollector")
 _offense = NodePath("Behaviors/Offense")
+_defender = NodePath("Behaviors/Defender")
 _skillSlot = NodePath("SkillSlot")
 _matchesTraversal = NodePath("Behaviors/MatchesTraversal")
 _turn = NodePath("Behaviors/Turn")
+_hostility = NodePath("Behaviors/Hostility")
 _derivedStats = NodePath("Stats-should not have scr/Derived")
 _moveTweener = NodePath("Tweeners/Move")
 _popTweener = NodePath("Tweeners/Pop")
@@ -89,6 +95,10 @@ script = ExtResource("7_dohfl")
 _derivedStats = NodePath("../../Stats-should not have scr/Derived")
 _player = NodePath("../..")
 
+[node name="Defender" type="Node" parent="Behaviors" node_paths=PackedStringArray("_stats")]
+script = ExtResource("11_m7si5")
+_stats = NodePath("../../Stats-should not have scr/Derived")
+
 [node name="Offense" type="Node" parent="Behaviors"]
 script = ExtResource("10_xxn2p")
 
@@ -98,6 +108,11 @@ _tileRoot = NodePath("../..")
 
 [node name="Turn" type="Node" parent="Behaviors"]
 script = ExtResource("13_ot1tn")
+
+[node name="Hostility" type="Node" parent="Behaviors"]
+script = ExtResource("14_ot1tn")
+isAggressive = true
+isEnemy = true
 
 [node name="Tweeners" type="Node" parent="."]
 
@@ -122,7 +137,22 @@ _duration = 0.4
 _lungeMagnitude = 0.5
 _tileRoot = NodePath("../..")
 
+[node name="Recoil" type="Node" parent="Tweeners" node_paths=PackedStringArray("_tileRoot")]
+script = ExtResource("20_ympln")
+_tileRoot = NodePath("../..")
+_duration = 0.1
+_maxShakes = 2
+_shakeMagnitude = 0.2
+
+[node name="FlashWhite" type="Node" parent="Tweeners" node_paths=PackedStringArray("_tileRoot", "_sprite")]
+script = ExtResource("21_plogw")
+_tileRoot = NodePath("../..")
+_duration = 0.1
+_sprite = NodePath("../../AspectRatioContainer/Sprite2D")
+
 [connection signal="EngagedBy" from="AspectRatioContainer/DragAndDrop" to="Behaviors/Swapping" method="SwapWith"]
 [connection signal="Destroying" from="Behaviors/Removing" to="Tweeners/ScaleUpFade" method="Disappear"]
 [connection signal="EnergyChanged" from="Behaviors/EnergyCollector" to="." method="UpdateEnergyBar"]
+[connection signal="TookDamage" from="Behaviors/Defender" to="Tweeners/Recoil" method="Recoil"]
+[connection signal="TookDamage" from="Behaviors/Defender" to="Tweeners/FlashWhite" method="FlashOnce"]
 [connection signal="Attacked" from="Behaviors/Offense" to="Tweeners/SpringForthAndBack" method="Attack"]

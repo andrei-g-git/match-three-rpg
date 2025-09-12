@@ -38,13 +38,13 @@ namespace Archer{
             (_popTweener as Creatable).Pop();
 
             //_defender.Connect("TookDamage", _recoil, nameof(TestCurry));
-            (_defender as Defender).ConnectTookDamage(TestCurry);
+            (_defender as DefenseForNpc).ConnectTookDamage(TestCurry);
 
             (_turn as Turn).ConnectRequestedTurnEnd(TurnQueue.AdvanceTurn);
         }
 
         public void TestCurry(int unimportantValue){
-            (_recoil as Recoiling).Recoil();
+            (_recoil as Recoiling).Recoil(unimportantValue);
         }
 
 

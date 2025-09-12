@@ -9,7 +9,7 @@ public partial class FlashWhite : Node, WhiteFlashable
     [Export] private Sprite2D _sprite;
 
 
-	public void FlashOnce(){
+	public void FlashOnce(int magnitude){ //magnitude is in case the damage is very high and it needs to flash another color maybe...
 		var originalColor = _tileRoot.Modulate; //this is for the root, not the sprite!!!
         //var originalColor = _sprite.Modulate;
         //_sprite.Modulate = Colors.Red;//Color.FromHsv(originalColor.H, 0, originalColor.V);

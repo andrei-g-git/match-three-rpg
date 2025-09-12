@@ -12,15 +12,14 @@ public partial class Defender : Node, Defensible
 	public override void _Ready(){}
 
 	public void TakeDamage(int damage){
-		var healthSystem = _stats as WithHealth;
-		var finalDamage = Math.Max(0, damage - (_stats as WithDefense).Defense);
-		var health = healthSystem.Health;
-		healthSystem.Health = Math.Max(0, health - finalDamage); 
-		EmitSignal(SignalName.TookDamage, finalDamage);
+		var stats = _stats as DerivableStats;
+		var finalDamage = Math.Max(0, damage - stats.Defense);
+		stats.Health = Math.Max(0, stats.Health - finalDamage); 
+		EmitSignal(SignalName.TookDamage, finalDamage);		
 	}
 
-	public void ConnectTookDamage(Action<int> action){
-		Connect(SignalName.TookDamage, Callable.From(action));
-	}
+	// public void ConnectTookDamage(Action<int> action){
+	// 	Connect(SignalName.TookDamage, Callable.From(action));
+	// }
 	
 }

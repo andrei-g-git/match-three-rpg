@@ -5,6 +5,7 @@ namespace Stats{
         public int Health { get; set; }
         public int Energy { get; set; }
         public int Speed { get; set; }
+        public int Defense { get; set; }
     }
 
     // public class Attributes: Attributive

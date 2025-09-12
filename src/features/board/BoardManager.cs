@@ -94,6 +94,7 @@ public partial class BoardManager : PanelContainer
 			derivableStats.Health = stats.Health;
 			derivableStats.Energy = stats.Energy;
 			derivableStats.Speed = stats.Speed;
+			derivableStats.Defense = stats.Defense;
 
 			Classes playerClass;
 			Enum.TryParse(_loadedGame.Player.Class, out playerClass);

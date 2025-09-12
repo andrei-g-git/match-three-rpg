@@ -47,7 +47,7 @@ namespace Tiles{
     }
 
     public interface Recoiling{
-        public void Recoil();
+        public void Recoil(int magnitude);
     }
 
     public interface OfPlayer{
@@ -58,6 +58,6 @@ namespace Tiles{
     }
 
     public interface WhiteFlashable{
-        public void FlashOnce();
+        public void FlashOnce(int magnitude);
     }
 }

@@ -20,6 +20,11 @@ public partial class PlayerDerivedStats : Node, DerivableStats
         get => _speed;
         set => _speed = Math.Clamp(value, 0, GetSpeed());
     }
+    private int _defense;
+    public int Defense{
+        get => _defense;
+        set => _defense = Math.Clamp(value, 0, GetSpeed());
+    }    
     public override void _Ready(){
         //GD.Print("max energy:  ", GetMaxEnergy());
     }
@@ -48,4 +53,7 @@ public partial class PlayerDerivedStats : Node, DerivableStats
         return Attributes.Agility;
     }
 
+    public int GetDefense(){
+        return -69 * 420; //this will be a function of gear and maybe some other stat...
+    }
 }

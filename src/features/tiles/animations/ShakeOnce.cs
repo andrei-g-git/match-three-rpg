@@ -12,7 +12,7 @@ public partial class ShakeOnce : Node, Recoiling
 	private Vector2 _originalPosition;
 	[Signal] public delegate void RecoiledEventHandler();
 
-	public void Recoil(){
+	public void Recoil(int magnitude){ //if the damage is high I could factor in the magnitude and make the tile shake more violently
 		var size = _tileRoot.Size;
 		var shakeDistanceX = size.X * _shakeMagnitude;
 		var shakeDistanceY = size.Y * _shakeMagnitude;

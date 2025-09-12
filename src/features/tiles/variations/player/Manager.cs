@@ -10,7 +10,7 @@ using Tiles;
 using static Skills.SkillNames;
 
 namespace Player{
-	public partial class Manager : Control, Tile, AccessableBoard, Movable, Mapable, Swappable, Permeable, MatchableBounds, Playable, Attributive, DerivableStats, Classy, CollectableEnergy, RelayableUIEvents, ReactiveToMatches, Offensive, Skillful, TraversableMatching, Creatable, Agentive, TurnBased
+	public partial class Manager : Control, Tile, AccessableBoard, Movable, Mapable, Swappable, Permeable, MatchableBounds, Playable, Attributive, DerivableStats, Classy, CollectableEnergy, RelayableUIEvents, ReactiveToMatches, Offensive, Skillful, TraversableMatching, Creatable, Agentive, TurnBased, Disposition, Defensible
 	{
         //[Export] Node _skillsModel; //DOES NOT HAVE INTERFACE 
 		[ExportGroup("behaviors")]
@@ -18,9 +18,11 @@ namespace Player{
         [Export] private Node _matchingRange;
         [Export] private Node _energyCollector;
         [Export] private Node _offense;
+        [Export] private Node _defender;
         [Export] private Node _skillSlot;
         [Export] private Node _matchesTraversal;
         [Export] private Node _turn;
+        [Export] private Node _hostility;
 
         [ExportGroup("stats")]
         [Export] private Node _derivedStats;
@@ -60,6 +62,7 @@ namespace Player{
         public int Health {get => DerivedStats.Health; set => DerivedStats.Health = value;}
         public int Energy {get => DerivedStats.Energy; set => DerivedStats.Energy = value;}
         public int Speed {get => DerivedStats.Speed; set => DerivedStats.Speed = value;}
+        public int Defense {get => DerivedStats.Defense; set => DerivedStats.Defense = value;}
         public Classes Class{get;set;}
 
 
@@ -67,6 +70,9 @@ namespace Player{
         public Node Skill { set => (_skillSlot as Skillful).Skill = value; }
         public ManageableSkills SkillsModel {get;set;}//=> _skillsModel as ManageableSkills; //DOES NOT HAVE INTERFACE 
         public Sequential TurnQueue{private get; set;}
+        public bool IsAggressive { get => (_hostility as Disposition).IsAggressive; set => (_hostility as Disposition).IsAggressive = value; }
+        public bool IsEnemy { get => (_hostility as Disposition).IsEnemy; set => (_hostility as Disposition).IsEnemy = value; }
+
 
         [Signal] public delegate void FinishedTransferingEventHandler(); //rn the skill calls these directly
         [Signal] public delegate void FinishedPathEventHandler();
@@ -171,6 +177,10 @@ namespace Player{
             (_offense as Offensive).AttackWithMomentum(target, momentum);
         }   
 
+        public void TakeDamage(int damage){
+            (_defender as Defensible).TakeDamage(damage); 
+        } 
+
         public /* void */async Task ReceivePathAndSkill(List<Vector2I> path, Skill/* ful */ skill){
             //await (_matchesTraversal as TraversableMatching).ReceivePathAndSkill(path, skill);
         }
@@ -202,7 +212,9 @@ namespace Player{
         public int GetSpeed(){
             return (_derivedStats as DerivableStats).GetSpeed();
         }  
-
+        public int GetDefense(){
+            return (_derivedStats as DerivableStats).GetDefense();
+        }
         public void AdvanceTurn(){ //not Sequential interface, from Agentive
             TurnQueue.AdvanceTurn();
         }

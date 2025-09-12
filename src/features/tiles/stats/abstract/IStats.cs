@@ -29,9 +29,11 @@ public interface DerivableStats{
 	public int Health{get;set;}
 	public int Energy{get;set;}
 	public int Speed{get;set;}
+	public int Defense{get;set;}
 	public int GetMaxEnergy();
 	public int GetMaxHealth();
 	public int GetSpeed();
+	public int GetDefense();
 }
 
 public interface Classy{
