@@ -13,8 +13,9 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
 {
     [Export] private Node _tileFactory;
     [Export] private Node _tileContainer;
+    [Export] private Node _environment;
     [Export] private Node _tileQuery;
-    [Export] private Node _turns;
+    //[Export] private Node _turns;
     public Grid<Control> Tiles{get;set;}	
     private Queue<List<Vector2I>> _matchGroupQueue = [];
     private System.Collections.Generic.Dictionary<TileTypes, int> _spawnOddsByTileType;
@@ -150,8 +151,8 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
             await _RunMatchedTileBehaviors(matchQueue); ///make this async so it blanks out tiles before player changes his coordinates and replaces the blanks
 
             var bpp = 123;
-
-            await player.ReactToMatchesBySkillType(group, tile1.SkillGroup, isAdjacent);     
+            var path = _MakeMatchPath(group, playerCell);
+            await player.ReactToMatchesBySkillType(path, tile1.SkillGroup, isAdjacent);     
 
             bpp = 132;                 
         } 
@@ -182,6 +183,23 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
 
 
 
+    }
+
+
+    private List<Vector2I> _MakeMatchPath(List<Vector2I> line, Vector2I playerPosition){
+        var path = new List<Vector2I>(line);
+        for(int i = 0; i < path.Count; i++){
+            var neighbors = (_environment as TileMapLayer).GetSurroundingCells(line[i]);
+            foreach(var cell in neighbors){
+                if(cell == playerPosition){
+                    if(i > line.Count - 1 - i){
+                        path.Reverse();
+                        break;
+                    }						
+                }
+            }
+        }
+        return path;        
     }
 
 
