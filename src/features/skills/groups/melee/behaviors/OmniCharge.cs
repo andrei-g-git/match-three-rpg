@@ -18,21 +18,21 @@ public partial class OmniCharge : Node, /* Movable, */ Traversing, AccessableBoa
     [Signal] public delegate void FinishedPathEventHandler();
 
     public void ProcessPath(List<Vector2I> path){ 
-        /* _ =  *///(Board as Organizable).TransferTileTo(TileRoot, path[_pathIndex]); 
-        (TileRoot as Movable).MoveTo(path[_pathIndex]);
-        var neighbors = (Board as Queriable).GetNeighboringTiles(path[_pathIndex]);
-        foreach(var tile in neighbors){    
-            if(tile is Disposition actor && actor.IsEnemy){
-                EmitSignal(SignalName.Attacking, actor as Control, _pathIndex + 1);
-            }
-        }
-        _pathIndex++;
-        if(_pathIndex >= path.Count){
-            EmitSignal(SignalName.FinishedPath);
-        }else{
-            ProcessPath(path);
-        }
-        EmitSignal(SignalName.FinishedTransfering);
+        // /* _ =  *///(Board as Organizable).TransferTileTo(TileRoot, path[_pathIndex]); 
+        // (TileRoot as Movable).MoveTo(path[_pathIndex]);
+        // var neighbors = (Board as Queriable).GetNeighboringTiles(path[_pathIndex]);
+        // foreach(var tile in neighbors){    
+        //     if(tile is Disposition actor && actor.IsEnemy){
+        //         EmitSignal(SignalName.Attacking, actor as Control, _pathIndex + 1);
+        //     }
+        // }
+        // _pathIndex++;
+        // if(_pathIndex >= path.Count){
+        //     EmitSignal(SignalName.FinishedPath);
+        // }else{
+        //     ProcessPath(path);
+        // }
+        // EmitSignal(SignalName.FinishedTransfering);
     }
 
 
@@ -46,12 +46,20 @@ public partial class OmniCharge : Node, /* Movable, */ Traversing, AccessableBoa
         _sprite.Play();
 
 
-        /* await */ (Board as Organizable).TransferTileTo(TileRoot, path[_pathIndex]);
+        (Board as Organizable).TransferTileTo(TileRoot, path[_pathIndex]); //this just tweens the player to the spot, removed Grid setting, doing it somewhere else
+        /* 
+        
+            The player only moves his grid coordinates after the ProcessPath recursion ends, inside MathcesTraversal. 
+            I gotta be real careful with this and strive to integrate player grid-setting in here, eventially. 
+            I'll just exclude the Player from the neighbour check for now
+            In the mean time if there are scenarios where I need to hit something directly on the matching line, this may pose problems...
+
+         */
         await (_sprite as WhirlwindSprite).WaitForAnimationFinished();
         //await ToSignal(_sprite, /* _sprite.AnimationFinished */"animation_finished");
-
-
+        
         var neighbors = (Board as Queriable).GetNeighboringTiles(path[_pathIndex]);
+        neighbors.Remove(TileRoot); //!!!
         foreach (var tile in neighbors) {
             if (tile is Disposition actor && actor.IsEnemy) {
                 if(!_alreadyHit.Contains(tile)){
@@ -60,6 +68,7 @@ public partial class OmniCharge : Node, /* Movable, */ Traversing, AccessableBoa
                 _alreadyHit.Add(tile);
             }
         }
+        
         EmitSignal(SignalName.FinishedTransfering);
 
         _pathIndex++;

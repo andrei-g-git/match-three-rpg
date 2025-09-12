@@ -45,6 +45,8 @@ public partial class BoardManager : PanelContainer
 
 						// var delete2 = System.IO.Path.Join(_userPath, Files.SavesPath, "current.json");
 						// CreateLogMessagePopup(delete2);	
+		GD.Print("===================\n LEVEL START \n====================");
+
 		Files.LoadJson<CurrentSaveGame>(Files.SavesPath, "current.json")
 			.ContinueWith(task => {
 				var currentGame = task.Result;
