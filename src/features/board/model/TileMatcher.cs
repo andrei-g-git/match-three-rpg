@@ -452,7 +452,10 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
 
         var bp = 1123;
 
-        await (originalGrid.GetItem(aa, bb) as Movable).WaitUntilMoved(); //this is dicey, maybe not even all tiles move...    
+        if((originalGrid.GetItem(aa, bb) is Movable movableTile)){
+            await movableTile.WaitUntilMoved(); //this is dicey, maybe not even all tiles move...                
+        }
+
 
         bp = 345;  
     }
