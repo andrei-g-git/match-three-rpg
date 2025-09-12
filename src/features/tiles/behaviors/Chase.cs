@@ -11,7 +11,7 @@ public partial class Chase : Node, Pursuing, Mapable, /* WithTiles */AccessableB
 	//public Grid<Control> Tiles {get; set;}
 	public Node Board {private get; set;}
 	[Signal] public delegate void TrySwappingEventHandler(Control targetNode);
-	[Signal] public delegate void CaughtTargetEventHandler(Vector2I target);
+	[Signal] public delegate void CaughtTargetEventHandler(/* Vector2I target */Control targetNode);
 
 
 	public void ChaseActor(Vector2I cell){
@@ -22,7 +22,7 @@ public partial class Chase : Node, Pursuing, Mapable, /* WithTiles */AccessableB
 			var ownCoordinates = Map.PositionToCell(_tileRoot.Position);
 			var hasReachedActor = Hex.CheckIfNeighbor(ownCoordinates, cell);
 			if(hasReachedActor){
-				EmitSignal(SignalName.CaughtTarget, cell);
+				EmitSignal(SignalName.CaughtTarget, cell); //THIS IS INCONSISTENT, WILL ALLOW ENEMY TO ATTACK AFTER MOVING (not sure if I want that)
 			}else{
 				var target = shortestPath[1];
 				var targetNode = (Board as Queriable).GetItemAt(new Vector2I(target.X, target.Y));//tiles[target.X][target.Y];
@@ -31,8 +31,8 @@ public partial class Chase : Node, Pursuing, Mapable, /* WithTiles */AccessableB
 
 		}else{ //lol wtf... whatever... too lazy
 			if(shortestPath[1] == cell){
-				//var targetNode = (Board as Queriable).GetItemAt(new Vector2I(cell.X, cell.Y));//tiles[cell.X][cell.Y];
-				EmitSignal(SignalName.CaughtTarget, /* targetNode */cell);
+				var targetNode = (Board as Queriable).GetItemAt(new Vector2I(cell.X, cell.Y));//tiles[cell.X][cell.Y];
+				EmitSignal(SignalName.CaughtTarget, targetNode/* cell */);
 			}
 		}
 	}	

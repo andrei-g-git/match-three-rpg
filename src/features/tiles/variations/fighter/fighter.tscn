@@ -169,5 +169,6 @@ _tileRoot = NodePath("../..")
 [connection signal="Attacking" from="Behaviors/Engagement" to="Behaviors/Offense" method="Attack"]
 [connection signal="StartedSearching" from="Behaviors/AI" to="Behaviors/AI/Sentinel" method="StandWatch"]
 [connection signal="FoundPlayer" from="Behaviors/AI/Sentinel" to="Behaviors/AI/Chase" method="ChaseActor"]
+[connection signal="CaughtTarget" from="Behaviors/AI/Chase" to="Behaviors/Offense" method="Attack"]
 [connection signal="TrySwapping" from="Behaviors/AI/Chase" to="Behaviors/Swapping" method="SwapWith"]
 [connection signal="RequestedTurnStart" from="Behaviors/AI/Turn" to="Behaviors/AI" method="Resume"]
