@@ -9,35 +9,25 @@ public partial class Swapping : Node, Swappable, AccessableBoard
 {
     [Export] Node _tileRoot;
     public Node Board { private get; set;}
+    [Signal] public delegate void EngagingDirectlyEventHandler(Control targetNode);
 
-    public void/* async Task */ SwapWith(Control tile){
-        var bp = 123;
-        // var matchSuccessful = await (Board as MatchableBoard).TryMatching(tile, _tileRoot as Control);
-        // if(matchSuccessful){
-        //     //(_tileRoot as Agentive).AdvanceTurn();
-        //     /* 
-        //         emit signal Matched
-        //      */
-        // }else{
-        //     GD.Print("can't match");
-        //     /* 
-        //         emnit signal EngagingDirectly ---> need Engage behavior
-        //      */
-        // }
-        (Board as MatchableBoard).TryMatching(tile, _tileRoot as Control)
-            .ContinueWith(task => {
-                var matchSuccessful = task.Result;
-                if(matchSuccessful){
-                    //(_tileRoot as Agentive).AdvanceTurn();
-                    /* 
-                        emit signal Matched
-                     */
-                }else{
-                    GD.Print("can't match");
-                    /* 
-                        emnit signal EngagingDirectly ---> need Engage behavior
-                     */
-                }                
-            });      
+
+    public async void SwapWith(Control tile){
+        // (Board as MatchableBoard).TryMatching(tile, _tileRoot as Control)
+        //     .ContinueWith(task => {
+        //         var matchSuccessful = task.Result;
+        //         if(matchSuccessful){
+        //         }else{
+        //             GD.Print("can't match");
+        //             EmitSignal(SignalName.EngagingDirectly, tile);
+        //         }                
+        //     });      
+        var matchSuccessful = await (Board as MatchableBoard).TryMatching(tile, _tileRoot as Control);     
+        if(matchSuccessful){
+            
+        }else{
+            GD.Print("can't match");
+            EmitSignal(SignalName.EngagingDirectly, tile);
+        }            
     }
 }

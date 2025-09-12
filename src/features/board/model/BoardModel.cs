@@ -104,4 +104,7 @@ public partial class BoardModel : Node, Organizable, MatchableBoard, WithTiles, 
 		return (_tileQuery as Queriable).GetItemAt(cell);
 	}
 
+    public async Task MoveBySwapping(Control sourceTile, Control targetTile){
+        await (_tileOrganizer as Organizable).MoveBySwapping(sourceTile,targetTile);
+    }
 }

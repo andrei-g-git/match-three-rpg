@@ -24,7 +24,7 @@ namespace Board{
 		public Task TransferTileToTile(Control sourceTile, Control targetTile);
 		public /* Task */ void TransferTileTo(Control tile, Vector2I target);
 		public void RelocateTile(Control tile, Vector2I target);
-
+		public Task MoveBySwapping(Control sourceTile, Control targetTile);
 	}
 
 	public interface AccessableBoard{

@@ -18,6 +18,7 @@ namespace Fighter{
         [Export] private Node _chase;
         [Export] private Node _pathfinding;
         [Export] private Node _swapping;
+        [Export] private Node _engagement;
 
         [ExportGroup("stats")]
         [Export] private Node _stats;
@@ -57,6 +58,7 @@ namespace Fighter{
                 (_chase as AccessableBoard).Board = value;
                 (_pathfinding as AccessableBoard).Board = value;
                 (_swapping as AccessableBoard).Board = value;
+                (_engagement as AccessableBoard).Board = value;
         }}
 
 

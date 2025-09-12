@@ -16,6 +16,7 @@ public partial class TileOrganizer: Node, Organizable, WithTiles
     private TileTypes[] _spawnTiles;
     private System.Collections.Generic.Dictionary<TileTypes, int> _spawnOddsByTileType;
     [Signal] public delegate void DoneMatchingEventHandler();
+    [Signal] public delegate void DoneSwappingEventHandler();
     
     public override void _Ready(){
 		_spawnOddsByTileType = new(){ 
@@ -63,6 +64,21 @@ public partial class TileOrganizer: Node, Organizable, WithTiles
         var bp = 123;
     }
 
+    public async Task MoveBySwapping(Control sourceTile, Control targetTile){
+        if(targetTile is Swappable swappable){
+            var source = Tiles.GetCellFor(sourceTile);
+            var target = Tiles.GetCellFor(targetTile);
+            (sourceTile as Movable).MoveTo(target);
+            var bp = 123;
+            (targetTile as Movable).MoveTo(source);
+
+            await (targetTile as Movable).WaitUntilMoved();
+            bp = 2345;     
+            EmitSignal(SignalName.DoneSwapping);       
+        }
+    }
+
+
     public async Task TransferTileToTile(Control sourceTile, Control targetTile){
         var target = Tiles.GetCellFor(targetTile);
         var source = Tiles.GetCellFor(sourceTile);
@@ -82,7 +98,7 @@ public partial class TileOrganizer: Node, Organizable, WithTiles
 
         GD.Print("former player position is now:  ", (Tiles.GetItem(source) as Tile).Type);
         
-        EmitSignal(SignalName.DoneMatching);
+        EmitSignal(SignalName.DoneMatching); //shouldn't be "donematching" but whatever...
     } 
 
     public /* async Task */ void TransferTileTo(Control tile, Vector2I target){
