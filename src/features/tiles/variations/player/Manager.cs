@@ -31,6 +31,10 @@ namespace Player{
 		[Export] private Node _moveTweener;
         [Export] private Node _popTweener;
         [Export] private Node _attackTweener;
+
+        // [ExportGroup("state")]
+        // [Export]
+
 		public TileTypes Type => TileTypes.Player;
         public TileTypes AA => Type; //for debugging
 		public Node Board {
@@ -85,7 +89,7 @@ namespace Player{
         }
 
 
-        public void MoveTo(Vector2I target){
+        public void MoveTo(Vector2I target){ 
             (_moveTweener as Movable).MoveTo(target);
         }
 
@@ -226,6 +230,7 @@ namespace Player{
         public void BeginTurn(){
             (_turn as TurnBased).BeginTurn();
         }
+
     }	
 }
 

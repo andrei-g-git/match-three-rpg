@@ -29,7 +29,7 @@
 [ext_resource type="Script" uid="uid://brll1nni2ffjy" path="res://src/features/skills/SkillGroupsController.cs" id="23_w8nfc"]
 [ext_resource type="Script" uid="uid://bw0yags88t6ah" path="res://src/features/skills/SkillFactory.cs" id="24_ewl7t"]
 [ext_resource type="Script" uid="uid://dqjkhfo3u3eah" path="res://src/features/board/model/Turns.cs" id="24_kr07k"]
-[ext_resource type="Texture2D" uid="uid://d0qn323g46s7n" path="res://assets/images/tiles/ensnare.png" id="24_w8nfc"]
+[ext_resource type="Texture2D" uid="uid://d0qn323g46s7n" path="res://assets/images/tiles/old/ensnare.png" id="24_w8nfc"]
 [ext_resource type="PackedScene" uid="uid://bhhhuxs0n6tbc" path="res://src/features/skills/groups/melee/whirlwind.tscn" id="25_qx8qf"]
 [ext_resource type="Texture2D" uid="uid://baxfw6v3hfftv" path="res://assets/images/tiles/whirlwind.png" id="25_r27v6"]
 [ext_resource type="Texture2D" uid="uid://dfnetxbrtpqr6" path="res://assets/images/tiles/throwWeapon.png" id="26_10pv0"]
@@ -281,6 +281,7 @@ script = ExtResource("34_1dyqb")
 _boardManager = NodePath("../MainContainer/PanelContainer/TilesPanel")
 
 [node name="EndTurn" type="Button" parent="." node_paths=PackedStringArray("_turnQueue")]
+layout_mode = 0
 offset_left = 909.203
 offset_top = 86.5031
 offset_right = 974.203

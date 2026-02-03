@@ -11,6 +11,9 @@ public partial class MoveTweener : Node, Movable, Mapable
 {
 	[Export] private Node _tileRoot;
 	[Export] private float _duration;
+	[Export] private Node _dashState;
+	//[Export] private AnimatedSprite2D _sprite;
+	//[Export] private TileStates _animation;
     public Tileable Map { private get; set; }
 	[Signal] public delegate void FinishedMovingEventHandler();
 
@@ -22,8 +25,14 @@ public partial class MoveTweener : Node, Movable, Mapable
 			.SetEase(Tween.EaseType.Out);
 
 		tween.TweenProperty(_tileRoot, "position", (Vector2) pixelTarget, _duration);
+
+		//_PlaySpriteAnimation(_sprite, _animation, _duration); //<<<<< NEW
+		(_dashState as Stateful).Enter(); 
 		
-		tween.Finished += () => EmitSignal(SignalName.FinishedMoving);
+		tween.Finished += () => {
+			EmitSignal(SignalName.FinishedMoving); //this finishes before it finishes completely, leaving the animation too short...
+			(_dashState as Stateful).Exit();
+		};
 	}	
 
 	public void MoveOnPath(Stack<Vector2I> path){
@@ -55,4 +64,13 @@ public partial class MoveTweener : Node, Movable, Mapable
 		await ToSignal(this, SignalName.FinishedMoving);
 		bp = 1123;
 	}
+
+	//moved to individual states e.g. Dash
+	// private void _PlaySpriteAnimation(AnimatedSprite2D sprite, TileStates animation, float duration){
+	// 	var animationName = animation.ToString();
+	// 	var frames = sprite.SpriteFrames.GetFrameCount(animationName);
+	// 	var fps = frames * duration; 
+	// 	//sprite.SpriteFrames.SetAnimationSpeed(animationName, fps);
+	// 	sprite.Play(animationName, fps);
+	// }
 }

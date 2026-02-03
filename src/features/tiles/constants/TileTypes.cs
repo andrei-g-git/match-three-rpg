@@ -41,7 +41,15 @@ namespace Tiles {
 		Wall,
 		Water, //env
 	}
-
+	public enum TileStates{
+		Attack, 
+		Hurt,
+		Idle,
+		Move,
+		Dash,
+		Jump
+	}
+	
 	public class TileDict
 	{
 		private static readonly Dictionary<string, TileTypes> dict = new()

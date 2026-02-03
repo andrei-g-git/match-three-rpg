@@ -39,4 +39,9 @@ namespace Common{
     public interface Initializable{
         public void Initialize();
     }
+
+    public interface Stateful: IDisposable{
+        public void Enter();
+        public void Exit();        
+    }
 }

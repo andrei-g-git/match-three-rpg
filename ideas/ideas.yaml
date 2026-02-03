@@ -1,0 +1,163 @@
+-there are various 'walk tiles' that the character can swap without matching 
+	-if they are consumables:
+		-moving over them moves the actor 1 tile
+		-matching a group next to the actor transports him/her to the end of the match group
+		-a resetting inventory of walk tiles would act as your 'stamina bar'
+	-if they are not consumables they can't be matched and can only be swapped 1-by-1, otherwise there would be little incentive 	to match walk tiles since they would disappear and make the player spend wal tiles from own inventory
+
+-maybe fast classes like the archer can match only 2 walk tiles to teleport (PROB NO)
+
+-'walk' up to a spot where a matching swap can occur then swap to achieve an match action eg if you're a warrior and you match a grop of swords you're transported to the other end of the group like with walk tiles, but if there's an enemy at the end you deal damage to it. If the tiles are arrows then you don't move but still attack if there's an enemy at the end
+
+-empty cells will be filled up candy crush style but certain tiles like enemies or obstacles will stay in place, leaving the new falling tiles to pass through down to the next empty cell
+
+-the player can carry a limited amount of useful tiles that he/she can place on the map either anywhere or within a certain range. Maybe this pool of tiles resets each level and you must increase your stats to increase the starting pool.
+	-limited number of attacks for example. a warrior favors sword tiles, an archer favors arrow tiles. (PROB NO, there will be 	a litmited pool of skill uses which you must find, but maybe a small number is refreshed)
+
+-maybe you learn skills at level up and you get a refresh of a small number of uses each level, while you can find more on the map and can even use skills you haven't learned, but those won't refresh at room start
+
+-maybe class specific buff tiles can also be refreshed at room start eg. you get placeable melee tiles as a warrior and the more strenght you have, the more melee tiles you start with, but str already contributes to melee damage...
+-maybe there are passive skills that increase uses.... but I actually want the mechanics to be more gameplay oriented, where the player finds assets to use in combat rather than optimization-oriented where you build your character's stats & abilities
+
+		-it may be sometimes wise to carry action tiles unrelated to your class to get out of tight spots, but min-maxing should also be accomodated/viable
+
+-damage buffs through a match group is calculated as a factor of how many tiles the attack travels to it's target; if the attack has extra room to travel past it's adjacent target that extra damage won't apply to the target, but maybe the remaining buff could be stored for a later use
+
+
+-it's starting to sound like enemies have a massive advantage on you, which could be a curse or an opportunity, game design wise...
+
+-you can end your turn without performing actions
+
+-maybe the level size is not fixed and the MC can travel freely while the board updates to follow him/her. The level could be fair-sized but not infinite or gigantic to manage design and tile collapse performance
+
+-could have MULTIPLAYER?
+
+-attacking takes 1 turn; if you move without matching attack tiles in the direction of the enemy then you just move next to it and will have to spend the next turn attacking in place, if you want
+-matching attack tiles to 'teleport' toward enemy attacks automatically. Basically you can match attack tiles without setting up a teleport-behind-you action but you waste the benefit of attacking in the same turn
+-cannot swap enemy tile unless it will match special tiles like gravity spell or lasso tiles
+-ENEMY AI IS TOO COMPLICATED, IT WILL HAVE TO HAVE PLAYER-LIKE INTELIGENCE IF IT HAS TO  PLAY BY SIMILAR RULES 
+-it's probably better if the enemy can swap with any tile without needing to match
+-maybe it can still match and become stronger, would add another dimension to the game and is not dificult to implement (but it would be unintentional)
+-because I don't know how much incentive the player has to strive and match-attack as opposed to just attacking the next turn as a dominant strategy, health damage will be carried over to the next level. 	This will hopefully incentivise the player to avoid as much damage as possible and play tactically by looking to match-attack
+-matching 3 tiles perpendicularly between player and enemy will not make the player attack in the same turn, match has to be in the enemy's direction
+-OR NOT:
+-player can match-attack enemy if it's adjacent to the end of an attack match group, enemy no longer has to be inline with the player. This might solve the possible issue of there not being enough match-	attack oportinities in a given level
+-a tile type that is matched behind an enemy and pushes it back as well as damages it. could maybe be used to pull toward player as an example of a player mistake...
+-the actor can only short-match if it's placed at the dead end of a 2-match line, on the same axis
+-REMEMBER, WALK TILES DON"T NEED TO MATCH (but can, to signify sprints and move far in a single turn)
+-some consumables like health and mana can be gained remotely only on matching, the match group will provide a reduced effect, comparable to swaping directly over one. If you perform a match adjacent to the player there will be a large bonus. Eg: walking over: 1x;  unadjacent matches: matchCount - 2?; adjacent matches: matchCount?
+-maybe buff effects behave similarly?
+-everything that can move over tiles can also be swapped with tiles
+-once the player comes in close to an enemy it's just a match of fisty cups, so maybe enemies should have low health and go down easily, whereas the challenge comes from enduring level after level of attrition where you don't get healed autommatically
+-knock down mechanic
+-stun mechanic
+-damage reduction attack
+-maybe there's a system of exchanging benefits/stats for the ability to continue. like you get walk/etc tiles at the cost of life or something ... but that doesn't seem necessary yet
+-random enemies could pop in, with announcement, at any minute?
+-skill that turns replaceable tiles around you into something like an energy, or fire shield or slippery ice, or something...
+	-could throw traps etc...
+-doesn't have to take place in generic dungeons, can have water obstacle tiles, be placed on grassland etc
+-CHOKEPOINTS
+-there could be a time mechanic where the player is being chased or an alarm will trigger if he/she don't complete the level in time
+-if enemies can't match (because that's hard AI) then maybe if they swap through a an almost matched group I can swap the enemy "aside" in order to match, for example, a melee group and, since the enemy is adjacent to the match group, he'd be attacked by the charging player
+-a square (rombus-ish) aggro ragne for enemies is fine since the diagonal distance takes 2 tiles to cross just like the up/down/left/right rombus edges
+
+-HOW ABOUT if a level is one continuous downward cascade of tiles, including enemmies and you have limited space to move around, mostly toward the bottom of the board. And it just keeps going like that (could be a second game mode or something). A bit like starvaders but that doesn't actually have matching and tile collapsing
+-COULD BE A 2D SHOOT EM UP LOL 
+-some tiles don't don't do much other than they collapse and bring down better tiles from above.
+-maybe having new enemies drop down as one of the collapsing tiles deincentivizes the player from matching ... I should either change the mechanic or add incentives to do it. Like big xp gains or item rewards. Or have the enemies enter the board with no relation to the collapsing tiles...
+-a tile that when matched creates a more powerful tile, or spawns an item
+-can only match withing a certain radius of the player. 
+-Maybe you can walk through any swapable tiles, not just walk tiles? 
+-maybe different classes have bigger match ranges, or you can increase the range through buffs that you get from collecting stuff or charging whatever...
+-a blank tile that overlays background obstacles
+
+-an actor and an item would use the same object type to keep track of stats. they have the same interface so one does not need to be exposed to the other's distinct implementation. when I apply the stats of an item to the player, I just call the item's interface and pass the actor or something. the problem is that I'm adding yet another layer of abstraction here... accessing the actor's or item's encapsulated properties is more straight forward but worse practice...
+-maybe items could be serialized from json or something for easy modding...
+
+-higher agility will occasionally give the player extra turns? For eg. an extra turn every 5 turns
+-high agility/speed means you start with more placeable walk tiles 
+
+-an ability that rotates tiles arownd a center ... which I'm sure is useful for... something. 
+
+-MAYBE THERE ARE MISSIONS WHERE YOU PROTECT SOMEBODY OR SOME THING! enemies keep coming at you. Or you need to escort someone through several levels. Learn from into the breach
+
+-no matter how much I think aobut it playing as a warrior is kinda bland, not very puzzely. I should probably give him skills to extend his tactical options beyon just 'so something to make your hitting stick hurt more'.
+
+-attack that pushes enemy backwards. could push it back into a trap or something. treacherous ground like ice or a pit. (already thought of stunning)
+-strength must be high enough to use this ability otherwise there would be less point to increase stats and other characteds would have access to it despite not fitting their play style
+
+-maybe pushing enemy into wall causes extra damage?
+-maybe there's a game mode where the boss is so strong that you can't trade blows with and need to one shot --- so you keep matching buffs, making them stronger and stronger, raising their tiers until the buff you can collect is strong enough to dispatch the enemy in 1 hit --- this is more relevant to the warrior since the archer and sorceress already need to kite around. This would be some sort of endless mode where collapsed tiles are randomly replaced
+
+-some enemies have charge attacks that take 1 or more turns to perform
+-there are exploding enemies that also charge their self destruct
+
+-how about matching tiles into a totem that gives you bonuses within a range
+
+-maybe the overworld map is also a hex arena and you match tiles to get dungeons and other locations and points of interest. but there doesn't seem to be much challenge to this mode
+
+-some obsttacles can be passed through but cause various amounts of damage, sometimes you'll have no choice but to go through. they are equivalent to walk tiles but with negative effects and can spawn infinitely. or they could have debuffs.
+
+-there are turn based mechanical traps like retracting spikes or even rotating blades (harder to implement)
+-skills are refilled, you need to find extra uses, or even buy them
+-maybe it wouldn't be that hard for a ranged enemy to a-star into position to shoot at you linearly. get all the directions moving out from the player -> loop each one and rule out obstacles -> the closest cell to the ranged enemy is it's next end point 
+-some enemies can shoot at the player form any position, introducing urgency
+-maybe some classes, or with some weapons or skills, can attack diagonally (although diagonals are less relevant in a hexagonal grid)
+-large enemy numbers would make aoe attakcs very useful
+-spawning enemies could announce their arrival 1 or more turns ahead like in into the breach
+-charge attacks are available to the player where he/she can perform a attack over multiple turns. Usually this involves leading your target, anticipating it's next position.
+		-this seems problematic if I go the tile collapse route sice the path will be completely different after a turn...
+		
+-I'm ditching short-matching
+
+-simple jump skill. for warriors and rangers.
+-some debuff skills decrease initiative of target
+-some traps are set to go off with AOE from the start of the level, puts preassure on the player and adds another variable 
+-maybe some levels see the floor collapsing behind you so you have to move forward without taking a lot of time to collect things and position perfectly
+
+-a melee attack that, when matched, 'teleports' the player behind the target and attacks them (forgive me master). so the player would not stop 
+in front of the target, pass throu it and stop two tiles further away. This means that the target needs to be at the end of the match group though...
+
+-what if enemies count as matching tiles to buff/etc tiles? eg. if an enemy is adjacent to a melee tile and you swap another melee tile next to the enemy or
+the other melee tile, you get a match and can attack. but then maybe you can't dash past the enemy to the last matching tile and loose the last buff 
+(can't store it for a later use). And the above attack skill that 'telepports behind' would be useful here because you can actually reach the last tile 
+and get the max buff before the attack happens. This would provide more tactical options in the positional sense. Maybe this type of matching can only happen 
+for class-specific instances, like melee tiles for warriors, ranged tiles for archers, magic attack tiles for the sorceress
+
+-NOPE main attack tiles are general purpose and will work for any class appropriate skill. Melee tiles work for melee skills, ranged for ranged etc. NOPE!
+
+-enemies are conduits; even if they interrupt the match path, you can still match, but you still need at least 3 tiles and the enemies won't collapse.
+		Ranged attacks work too. You can pass through some enemies with some skills like flip-backstab. The player has a '''keepGoing''' state that stops him/her 
+		from going through enemy if the enemy is reached and the skill doesn't allow pass-through
+
+-pushing enemies back is a factor of ATK ATTRIBUTE and MOMENTUM (maybe I shouldn't call it momentum, doesn't work for ranged and int classes)
+-ATK ATTRIBUTE and MOMENTUM also helps break obstacles
+
+-maybe you collect resources that you spend in bulk to aquire skills etc, different resources for different skills. Maybe craft items after finding blueprints .
+maybe enemies are conduits and you can continue matching even if they interrupt the group
+
+-maybe I can match other shapes than a line of 3 or more. How about a square -> ginormous AOE attack (actually there are no squares in a hex grid... maybe something else)
+
+-maybe there are environment substrates that make tiles behave differently
+
+-maybe there are tiles that when matched will hurt you  if you're close by
+
+-maybe you collect some kind of energy to activate skills
+		when skillGroup tiles are matched and actor is not adjacent, they give you that energy? Or the, previously, buff item is now some kind of group specific energy
+		It would help if life and yuour specific kind of energy doesn't replentish on room entry
+		maybe you can get different things, not just energy replentishment. Like, with reduced frequency, skills, etc. Well, maybe a buff, too.
+-there should be multiple variations of skill tiles of the same group, each with stronger effects and perhaps interesting behavior
+-charge only attacks the first target on the path
+-whirlwind attacks all targets on the path
+
+-There won't be classes (ACTUALLY THERE WILL, SCRATCH THAT), I can create everything through stats and skill selection, maybe traits too. You can pick between premade classes for new player friendliness. 
+Initially there won't be visual cusommizations, even for itemms, but I will make composite sprites and vector animations for future proofing
+(HAVING CLASSES MAKES THE GAME MORE REPLAYABLE BECAUSE THE DIFFERENT CHOICES ARE MORE STRIKING TO THE PLAYER)
+
+General RPG mechanics
+-maybe classes get more xp from performing actions specific to their class eg. a thief would get max xp from opening chests and an xp bonus from not fighting, while a warrior, 
+		max xp from fighting and a lot less from opening chests, also low xp from simply clearing rooms without fighting. 
+
+-essential items:
+    
