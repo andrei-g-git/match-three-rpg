@@ -2,6 +2,13 @@ using Godot;
 using System;
 
 namespace Inventory{
+	public enum EquipmentTypes{
+		Head,
+		Torso,
+		Weapon,
+		OffHand
+	}
+
 	public enum Helmets{
 		RustyHelmet,
 		SteelHelmet,

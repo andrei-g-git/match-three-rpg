@@ -1,7 +1,8 @@
 using System;
+using Godot;
 
 namespace Inventory{
-    public class Gear//: Gearable
+    public partial class Gear: Gearable 
     {
         private string _head;
         public string Head {

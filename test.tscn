@@ -1,0 +1,76 @@
+[gd_scene load_steps=8 format=3 uid="uid://84pssy2qpav3"]
+
+[ext_resource type="Texture2D" uid="uid://b86e1kxnv2y6i" path="res://assets/images/z test delete/leg-l.png" id="1_g14j6"]
+[ext_resource type="Texture2D" uid="uid://c717t5uj6ff3g" path="res://assets/images/z test delete/leg-r.png" id="2_vbegm"]
+[ext_resource type="Texture2D" uid="uid://yc7xeo8ejn0s" path="res://assets/images/z test delete/arm-l.png" id="3_ehkex"]
+[ext_resource type="Texture2D" uid="uid://bdjbtqqh2bte7" path="res://assets/images/z test delete/body.png" id="4_xersf"]
+[ext_resource type="Texture2D" uid="uid://dvn0r7q83oxpe" path="res://assets/images/z test delete/arm-r.png" id="5_00tp4"]
+[ext_resource type="Texture2D" uid="uid://cp0eue35a8qgk" path="res://assets/images/z test delete/head.png" id="6_77dp3"]
+[ext_resource type="Texture2D" uid="uid://b6aharf5g54xy" path="res://assets/images/z test delete/cap.png" id="7_vbegm"]
+
+[node name="Test" type="Node2D"]
+
+[node name="Container" type="Node2D" parent="."]
+
+[node name="Parts" type="Node2D" parent="Container"]
+
+[node name="LegL" type="Sprite2D" parent="Container/Parts"]
+position = Vector2(599, 855)
+texture = ExtResource("1_g14j6")
+
+[node name="LegR" type="Sprite2D" parent="Container/Parts"]
+position = Vector2(409, 861)
+texture = ExtResource("2_vbegm")
+
+[node name="ArmL" type="Sprite2D" parent="Container/Parts"]
+position = Vector2(652.00006, 449)
+rotation = -0.18573983
+texture = ExtResource("3_ehkex")
+
+[node name="Body" type="Sprite2D" parent="Container/Parts"]
+position = Vector2(526, 501)
+texture = ExtResource("4_xersf")
+offset = Vector2(-13, -88)
+
+[node name="ArmR" type="Sprite2D" parent="Container/Parts"]
+position = Vector2(373, 456.99997)
+rotation = 0.19189498
+texture = ExtResource("5_00tp4")
+
+[node name="HeadSlot" type="Node2D" parent="Container/Parts"]
+
+[node name="Head" type="Sprite2D" parent="Container/Parts/HeadSlot"]
+position = Vector2(493, 172)
+rotation = 0.18346018
+texture = ExtResource("6_77dp3")
+offset = Vector2(33, -94)
+
+[node name="Cap" type="Sprite2D" parent="Container/Parts/HeadSlot"]
+position = Vector2(493, 172)
+rotation = 0.061287113
+scale = Vector2(0.9999999, 0.9999999)
+texture = ExtResource("7_vbegm")
+offset = Vector2(62, -172)
+
+[node name="Bones" type="Node2D" parent="Container"]
+
+[node name="Skeleton2D" type="Skeleton2D" parent="Container/Bones"]
+rotation = 0.369087
+
+[node name="Hip" type="Bone2D" parent="Container/Bones/Skeleton2D"]
+position = Vector2(674.4792, 277.34967)
+
+[node name="Head" type="Bone2D" parent="Container/Bones/Skeleton2D/Hip"]
+position = Vector2(-152.6278, -294.78934)
+rotation = 0.18089233
+auto_calculate_length_and_angle = false
+length = 156.78
+bone_angle = -112.29399
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Container/Bones/Skeleton2D/Hip/Head"]
+rotation = -0.36651915
+remote_path = NodePath("../../../../../Parts/HeadSlot/Head")
+
+[node name="RemoteTransform2D2" type="RemoteTransform2D" parent="Container/Bones/Skeleton2D/Hip/Head"]
+rotation = -0.4886922
+remote_path = NodePath("../../../../../Parts/HeadSlot/Cap")

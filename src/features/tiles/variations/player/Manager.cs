@@ -4,13 +4,14 @@ using System.Threading.Tasks;
 using Board;
 using Common;
 using Godot;
+using Inventory;
 using Skills;
 using Stats;
 using Tiles;
 using static Skills.SkillNames;
 
 namespace Player{
-	public partial class Manager : Control, Tile, AccessableBoard, Movable, Mapable, Swappable, Permeable, MatchableBounds, Playable, Attributive, DerivableStats, Classy, CollectableEnergy, RelayableUIEvents, ReactiveToMatches, Offensive, Skillful, TraversableMatching, Creatable, Agentive, TurnBased, Disposition, Defensible
+	public partial class Manager : Control, Tile, AccessableBoard, Movable, Mapable, Swappable, Permeable, MatchableBounds, Playable, Attributive, DerivableStats, Classy, CollectableEnergy, RelayableUIEvents, ReactiveToMatches, Offensive, Skillful, TraversableMatching, Creatable, Agentive, TurnBased, Disposition, Defensible, Gearable
 	{
         //[Export] Node _skillsModel; //DOES NOT HAVE INTERFACE 
 		[ExportGroup("behaviors")]
@@ -23,6 +24,9 @@ namespace Player{
         [Export] private Node _matchesTraversal;
         [Export] private Node _turn;
         [Export] private Node _hostility;
+
+        [ExportGroup("equipment model")]
+        [Export] private Node _equipmentModel;
 
         [ExportGroup("stats")]
         [Export] private Node _derivedStats;
@@ -77,6 +81,20 @@ namespace Player{
         public bool IsAggressive { get => (_hostility as Disposition).IsAggressive; set => (_hostility as Disposition).IsAggressive = value; }
         public bool IsEnemy { get => (_hostility as Disposition).IsEnemy; set => (_hostility as Disposition).IsEnemy = value; }
 
+        public string Head { get => (_equipmentModel as Gearable).Head; set => (_equipmentModel as Gearable).Head = value; }
+        public string Torso { get => (_equipmentModel as Gearable).Torso; set => (_equipmentModel as Gearable).Torso = value; }
+        public string Weapon { get => (_equipmentModel as Gearable).Weapon; set => (_equipmentModel as Gearable).Weapon = value; }
+        public string OffHand { get => (_equipmentModel as Gearable).OffHand; set => (_equipmentModel as Gearable).OffHand = value; }
+        public Gearable Gear {
+            private get => _equipmentModel as Gearable; 
+            set => (_equipmentModel as EquipmentModel).Gear = value; //EquipmentModel is not an interface
+            // set{
+            //     (_equipmentModel as Gearable).Head = value.Head; 
+            //     (_equipmentModel as Gearable).Torso = value.Torso; 
+            //     (_equipmentModel as Gearable).Weapon = value.Weapon; 
+            //     (_equipmentModel as Gearable).OffHand = value.OffHand;               
+            // }
+        }
 
         [Signal] public delegate void FinishedTransferingEventHandler(); //rn the skill calls these directly
         [Signal] public delegate void FinishedPathEventHandler();
