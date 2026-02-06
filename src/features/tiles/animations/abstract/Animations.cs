@@ -1,0 +1,10 @@
+using Godot;
+using System;
+
+namespace Animations
+{
+	public interface Animatable{
+		public void Play(StringName animationName);
+	}	
+}
+

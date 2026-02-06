@@ -1,15 +1,14 @@
-using Animations;
-using Common;
 using Godot;
+using Common;
 using Tiles;
 
-public partial class Idle : Node, Stateful
+public partial class Idle_old : Node, Stateful
 {
-	[Export] private Node _animatedActor;
+	[Export] private AnimatedSprite2D _animatedSprite;
     [Signal] public delegate void StateChangedEventHandler(Node emittingState, TileStates newState);
 	
     public void Enter(){
-        (_animatedActor as Animatable).Play(TileStates.Idle.ToString());
+        _animatedSprite.Play(TileStates.Idle.ToString());
     }
 
     public void Exit(){
@@ -20,4 +19,5 @@ public partial class Idle : Node, Stateful
     {
         throw new System.NotImplementedException();
     }
+
 }
