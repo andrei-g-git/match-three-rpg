@@ -1,0 +1,170 @@
+[gd_scene load_steps=12 format=3 uid="uid://q6s1dddyforh"]
+
+[ext_resource type="Texture2D" uid="uid://db1j1516kg64l" path="res://assets/images/tiles/actors/warrior/cutouts/body.png" id="1_m81f6"]
+[ext_resource type="Texture2D" uid="uid://cvv1nj0k8k6cs" path="res://assets/images/tiles/actors/warrior/cutouts/head.png" id="2_ofbe7"]
+[ext_resource type="Texture2D" uid="uid://cgl4bipddmlgf" path="res://assets/images/tiles/actors/warrior/cutouts/cap.png" id="3_cd4jo"]
+[ext_resource type="Texture2D" uid="uid://dc2eeqqqnu6h0" path="res://assets/images/tiles/actors/warrior/cutouts/arm-r-upper.png" id="4_66mfv"]
+[ext_resource type="Texture2D" uid="uid://ccqolbsn5gbf1" path="res://assets/images/tiles/actors/warrior/cutouts/arm-r-lower.png" id="5_34esw"]
+[ext_resource type="Texture2D" uid="uid://ba5fwp0c2pjct" path="res://assets/images/tiles/actors/warrior/cutouts/arm-l-upper.png" id="6_ge7au"]
+[ext_resource type="Texture2D" uid="uid://qencbet88upb" path="res://assets/images/tiles/actors/warrior/cutouts/arm-l-lower.png" id="7_mpd3u"]
+[ext_resource type="Texture2D" uid="uid://cjm1f02kypgu" path="res://assets/images/tiles/actors/warrior/cutouts/leg-r-upper.png" id="8_1gwni"]
+[ext_resource type="Texture2D" uid="uid://dwontrlf7d2su" path="res://assets/images/tiles/actors/warrior/cutouts/leg-l-lower.png" id="9_ja6ug"]
+[ext_resource type="Texture2D" uid="uid://cd6l7tqtnud6c" path="res://assets/images/tiles/actors/warrior/cutouts/leg-l-upper.png" id="10_f05oa"]
+[ext_resource type="Texture2D" uid="uid://56a3l7vyvwd6" path="res://assets/images/tiles/actors/warrior/cutouts/leg-r-lower.png" id="11_pj6h2"]
+
+[node name="Warrior" type="Node2D"]
+
+[node name="Container" type="Node2D" parent="."]
+
+[node name="Parts" type="Skeleton2D" parent="Container"]
+
+[node name="Hip" type="Bone2D" parent="Container/Parts"]
+position = Vector2(549, 499)
+
+[node name="Body" type="Node2D" parent="Container/Parts/Hip"]
+position = Vector2(-23, -353)
+
+[node name="Base" type="Sprite2D" parent="Container/Parts/Hip"]
+position = Vector2(2, 0)
+texture = ExtResource("1_m81f6")
+offset = Vector2(2, -117)
+
+[node name="BaseTransform2D" type="RemoteTransform2D" parent="Container/Parts/Hip"]
+position = Vector2(2, 0)
+remote_path = NodePath("../Base")
+
+[node name="Head" type="Bone2D" parent="Container/Parts/Hip"]
+position = Vector2(-23, -353)
+
+[node name="Base2" type="Sprite2D" parent="Container/Parts/Hip/Head"]
+position = Vector2(0, -7)
+texture = ExtResource("2_ofbe7")
+offset = Vector2(24, -96)
+
+[node name="BaseTransform2D2" type="RemoteTransform2D" parent="Container/Parts/Hip/Head"]
+position = Vector2(0, -7)
+remote_path = NodePath("../Base2")
+
+[node name="Gear" type="Sprite2D" parent="Container/Parts/Hip/Head"]
+position = Vector2(-1, -7)
+texture = ExtResource("3_cd4jo")
+offset = Vector2(56, -193)
+
+[node name="GearTransform2D" type="RemoteTransform2D" parent="Container/Parts/Hip/Head"]
+position = Vector2(-1, -7)
+remote_path = NodePath("../Gear")
+
+[node name="ShoulderRight" type="Bone2D" parent="Container/Parts/Hip"]
+position = Vector2(-113, -280)
+rotation = -0.004349593
+scale = Vector2(0.99999964, 0.99999964)
+
+[node name="ArmRUpper" type="Node2D" parent="Container/Parts/Hip/ShoulderRight"]
+position = Vector2(-89, 163)
+
+[node name="Base" type="Sprite2D" parent="Container/Parts/Hip/ShoulderRight/ArmRUpper"]
+position = Vector2(89.00003, -163.99998)
+rotation = 0.33357283
+texture = ExtResource("4_66mfv")
+offset = Vector2(1, 103)
+
+[node name="BaseTransform2D" type="RemoteTransform2D" parent="Container/Parts/Hip/ShoulderRight/ArmRUpper"]
+position = Vector2(89.00003, -163.99998)
+rotation = 0.33357283
+remote_path = NodePath("../Base")
+
+[node name="ArmRLower" type="Node2D" parent="Container/Parts/Hip/ShoulderRight/ArmRUpper"]
+
+[node name="Base" type="Sprite2D" parent="Container/Parts/Hip/ShoulderRight/ArmRUpper/ArmRLower"]
+position = Vector2(-2, -2)
+rotation = 0.16539434
+scale = Vector2(1.0000001, 1.0000001)
+texture = ExtResource("5_34esw")
+offset = Vector2(32, 119)
+
+[node name="BaseTransform2D" type="RemoteTransform2D" parent="Container/Parts/Hip/ShoulderRight/ArmRUpper/ArmRLower"]
+position = Vector2(-2, -2.0000305)
+rotation = 0.16539434
+remote_path = NodePath("../Base")
+
+[node name="ShoulderLeft" type="Bone2D" parent="Container/Parts/Hip"]
+position = Vector2(89, -259)
+
+[node name="ArmLUpper" type="Node2D" parent="Container/Parts/Hip/ShoulderLeft"]
+position = Vector2(60, 151)
+
+[node name="Base" type="Sprite2D" parent="Container/Parts/Hip/ShoulderLeft/ArmLUpper"]
+position = Vector2(-58, -133.00003)
+rotation = -0.4321084
+texture = ExtResource("6_ge7au")
+offset = Vector2(8, 66)
+
+[node name="BaseTransform2D" type="RemoteTransform2D" parent="Container/Parts/Hip/ShoulderLeft/ArmLUpper"]
+position = Vector2(-58, -133.00003)
+rotation = -0.4321084
+remote_path = NodePath("../Base")
+
+[node name="ArmLLower" type="Node2D" parent="Container/Parts/Hip/ShoulderLeft/ArmLUpper"]
+
+[node name="Base" type="Sprite2D" parent="Container/Parts/Hip/ShoulderLeft/ArmLUpper/ArmLLower"]
+position = Vector2(0, 5.0000305)
+rotation = -0.502985
+texture = ExtResource("7_mpd3u")
+offset = Vector2(30, 108)
+
+[node name="BaseTransform2D" type="RemoteTransform2D" parent="Container/Parts/Hip/ShoulderLeft/ArmLUpper/ArmLLower"]
+position = Vector2(0, 5.0000305)
+rotation = -0.502985
+remote_path = NodePath("../Base")
+
+[node name="HipR" type="Bone2D" parent="Container/Parts/Hip"]
+
+[node name="LegRUpper" type="Node2D" parent="Container/Parts/Hip/HipR"]
+position = Vector2(-64, 85)
+
+[node name="Base" type="Sprite2D" parent="Container/Parts/Hip/HipR/LegRUpper"]
+position = Vector2(8, -13)
+texture = ExtResource("8_1gwni")
+offset = Vector2(-18, 133)
+
+[node name="BaseTransform2D" type="RemoteTransform2D" parent="Container/Parts/Hip/HipR/LegRUpper"]
+position = Vector2(8, -13)
+remote_path = NodePath("../Base")
+
+[node name="LegRLower" type="Node2D" parent="Container/Parts/Hip/HipR/LegRUpper"]
+position = Vector2(-36, 185)
+
+[node name="Base" type="Sprite2D" parent="Container/Parts/Hip/HipR/LegRUpper/LegRLower"]
+position = Vector2(174, 19)
+texture = ExtResource("9_ja6ug")
+offset = Vector2(13, 132)
+
+[node name="BaseTransform2D" type="RemoteTransform2D" parent="Container/Parts/Hip/HipR/LegRUpper/LegRLower"]
+position = Vector2(174, 19)
+remote_path = NodePath("../Base")
+
+[node name="HipLeftttt" type="Node2D" parent="Container/Parts/Hip"]
+position = Vector2(67, 79)
+
+[node name="LegLUpperrrrr" type="Node2D" parent="Container/Parts/Hip/HipLeftttt"]
+
+[node name="Base" type="Sprite2D" parent="Container/Parts/Hip/HipLeftttt/LegLUpperrrrr"]
+position = Vector2(2, -7)
+texture = ExtResource("10_f05oa")
+offset = Vector2(7, 137)
+
+[node name="BaseTransform2D" type="RemoteTransform2D" parent="Container/Parts/Hip/HipLeftttt/LegLUpperrrrr"]
+position = Vector2(2, -7)
+remote_path = NodePath("../Base")
+
+[node name="LegLLowerrrrrrrr" type="Node2D" parent="Container/Parts/Hip/HipLeftttt/LegLUpperrrrr"]
+position = Vector2(7, 209)
+
+[node name="Base" type="Sprite2D" parent="Container/Parts/Hip/HipLeftttt/LegLUpperrrrr/LegLLowerrrrrrrr"]
+position = Vector2(-175, -10)
+texture = ExtResource("11_pj6h2")
+offset = Vector2(-19, 145)
+
+[node name="BaseTransform2D" type="RemoteTransform2D" parent="Container/Parts/Hip/HipLeftttt/LegLUpperrrrr/LegLLowerrrrrrrr"]
+position = Vector2(-175, -10)
+remote_path = NodePath("../Base")

@@ -25,7 +25,6 @@ public partial class BoardManager : PanelContainer
 	[Export] private Node _model;
 	[Export] private Node _tileFactory;
 	[Export] private Node _playerSkillsModel;
-	[Signal] public delegate void EquipmentChangedEventHandler(string item, string type); //convert the string to an enum
 
 	private Grid<TileTypes> _tileTypes;
 	private GameSave _loadedGame;
@@ -131,11 +130,6 @@ public partial class BoardManager : PanelContainer
 			// (player as Gearable).Torso = gear.Torso;
 			// (player as Gearable).Weapon = gear.Weapon;
 			// (player as Gearable).OffHand = gear.OffHand;
-			EmitSignal(SignalName.EquipmentChanged, gear.Head, EquipmentTypes.Head.ToString()); //this is better than peacemeal changing a single item by the model itself, thereby exposing the model structure to an imput handler or some shit  ... although controllers are supposed to notify the model ...
-			EmitSignal(SignalName.EquipmentChanged, gear.Torso, EquipmentTypes.Torso.ToString());
-			EmitSignal(SignalName.EquipmentChanged, gear.Weapon, EquipmentTypes.Weapon.ToString());
-			EmitSignal(SignalName.EquipmentChanged, gear.OffHand, EquipmentTypes.OffHand.ToString());
-
 
 			(_model as BoardModel).InitializeTurnQueue();
 			(_model as BoardModel).AdvanceTurn();
