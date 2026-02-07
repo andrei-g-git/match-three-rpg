@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b86e1kxnv2y6i"
-path="res://.godot/imported/leg-l.png-e7c994315ff0090f1744c01047fc1e39.ctex"
+uid="uid://qencbet88upb"
+path="res://.godot/imported/arm-l-lower.png-6fdd87386f143fd8fd8fb082e60c2188.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/z test delete/leg-l.png"
-dest_files=["res://.godot/imported/leg-l.png-e7c994315ff0090f1744c01047fc1e39.ctex"]
+source_file="res://assets/images/tiles/actors/warrior/cutouts/large/arm-l-lower.png"
+dest_files=["res://.godot/imported/arm-l-lower.png-6fdd87386f143fd8fd8fb082e60c2188.ctex"]
 
 [params]
 

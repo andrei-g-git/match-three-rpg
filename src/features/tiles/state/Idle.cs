@@ -10,6 +10,7 @@ public partial class Idle : Node, Stateful
 	
     public void Enter(){
         (_animatedActor as Animatable).Play(TileStates.Idle.ToString());
+        EmitSignal(SignalName.StateChanged, this, TileStates.Idle.ToString());
     }
 
     public void Exit(){

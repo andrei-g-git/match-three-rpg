@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cjupo4fvq8qnv"
-path="res://.godot/imported/arm-r-lower.png-7c7269c1377a6c418d12f04ea208e80e.ctex"
+uid="uid://dmqq4h3ruqbsj"
+path="res://.godot/imported/z_warrior_reference.png-9d847a47add35ab3c0c03189baf7c80c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/tiles/actors/warrior/cutouts/arm-r-lower.png"
-dest_files=["res://.godot/imported/arm-r-lower.png-7c7269c1377a6c418d12f04ea208e80e.ctex"]
+source_file="res://assets/images/tiles/actors/warrior/cutouts/z_warrior_reference.png"
+dest_files=["res://.godot/imported/z_warrior_reference.png-9d847a47add35ab3c0c03189baf7c80c.ctex"]
 
 [params]
 

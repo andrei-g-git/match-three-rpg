@@ -19,11 +19,11 @@ public partial class StateMachine : Node
 		currentState = _initialState as Stateful;
 	}
 
-	public void OnChildStateChanged(Node state, TileStates newStateName){ //make interface
-		if(state != currentState){
+	public void OnChildStateChanged(Node state, /* TileStates */ string newStateName){ //make interface
+		if(state != currentState){ //this makes no sense, it should be == ...
 			return;
 		}
-		var newState = states[newStateName.ToString()];
+		var newState = states[newStateName/* .ToString() */];
 		if(newState == null){
 			return;
 		}

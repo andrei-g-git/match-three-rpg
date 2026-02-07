@@ -1,21 +1,23 @@
-using Godot;
+using Animations;
 using Common;
+using Godot;
+using System;
 using Tiles;
 
 public partial class Dash : Node, Stateful
 {
-	[Export] private AnimatedSprite2D _animatedSprite;	
-	[Export] private TileStates _animation;
+	[Export] private Node _animatedActor;
 	[Export] private float _duration; //this is really bad, since the tweener has this too, but maybe better than coupling it with the tweener
     [Signal] public delegate void StateChangedEventHandler(Node emittingState, TileStates newState);
 	
     public void Enter(){
-        //_animatedSprite.Play(TileStates.Dash.ToString());
-		_PlaySpriteAnimation(_animatedSprite, _animation, _duration);
+		_PlaySpriteAnimation(_animatedActor as Animatable, TileStates.Dash, _duration);
+		EmitSignal(SignalName.StateChanged, this, TileStates.Dash.ToString());
     }
 
     public void Exit(){
-        _animatedSprite.Play(TileStates.Idle.ToString());
+        (_animatedActor as Animatable).Play(TileStates.Idle.ToString());
+		EmitSignal(SignalName.StateChanged, this, TileStates.Idle.ToString());
     }
 
     public void Dispose()
@@ -23,12 +25,13 @@ public partial class Dash : Node, Stateful
         throw new System.NotImplementedException();
     }
 
-	private void _PlaySpriteAnimation(AnimatedSprite2D sprite, TileStates animation, float duration){ //this kind of works in theory but the true length of the movement has extra time given by the matcher/organizer I THINK, so the animation ends too soon at only 0.5s...
-		var animationName = animation.ToString();
-		var frames = sprite.SpriteFrames.GetFrameCount(animationName);
-		var fps = frames / duration; 
-		//sprite.SpriteFrames.SetAnimationSpeed(animationName, fps);
-		sprite.Play(animationName, fps);
+	private void _PlaySpriteAnimation(Animatable animatedActor, TileStates animation, float duration){ //this kind of works in theory but the true length of the movement has extra time given by the matcher/organizer I THINK, so the animation ends too soon at only 0.5s...
+			animatedActor.Play(animation.ToString());
+		// var animationName = animation.ToString();
+		// var frames = sprite.SpriteFrames.GetFrameCount(animationName);
+		// var fps = frames / duration; 
+		// //sprite.SpriteFrames.SetAnimationSpeed(animationName, fps);
+		// sprite.Play(animationName, fps);
 	}
 
 }
