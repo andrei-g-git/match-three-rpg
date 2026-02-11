@@ -37,4 +37,35 @@ namespace Inventory{
 		TowerShield,
 		Empty
 	}
+
+	public enum Cutouts{
+		//should also have body parts
+
+
+		RustyHelmet,
+		SteelHelmet,
+		QuiltedArmor,
+		QuiltedArmorArmRightUpper,
+		QuiltedArmorArmRightLower,
+		QuiltedArmorArmLeftUpper,
+		QuiltedArmorArmLeftLower,
+		LeatherArmor,
+		LeatherArmorArmRightUpper,
+		LeatherArmorArmRightLower,
+		LeatherArmorArmLeftUpper,
+		LeatherArmorArmLeftLower,		
+		SteelPlateArmor,
+		SteelPlateArmorArmRightUpper,
+		SteelPlateArmorArmRightLower,
+		SteelPlateArmorArmLeftUpper,
+		SteelPlateArmorArmLeftLower,		
+		WoodenClub,
+		IronSword,
+		SteelLongSword,
+		SteelWarAxe,
+		IronSpear,
+		WoodenShield,
+		IronShield,
+		TowerShield,	
+	}
 }

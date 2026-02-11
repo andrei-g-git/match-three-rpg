@@ -87,24 +87,27 @@ namespace Player{
         public string OffHand { get => (_equipmentModel as Gearable).OffHand; set => (_equipmentModel as Gearable).OffHand = value; }
         public Gearable Gear {
             private get => _equipmentModel as Gearable; 
-            set { 
-                (_equipmentModel as EquipmentModel).Gear = value; //EquipmentModel is not an interface
-            // set{
-            //     (_equipmentModel as Gearable).Head = value.Head; 
-            //     (_equipmentModel as Gearable).Torso = value.Torso; 
-            //     (_equipmentModel as Gearable).Weapon = value.Weapon; 
-            //     (_equipmentModel as Gearable).OffHand = value.OffHand;               
-            // }
-                EmitSignal(SignalName.EquipmentChanged, Head, EquipmentTypes.Head.ToString()); //this is better than peacemeal changing a single item by the model itself, thereby exposing the model structure to an imput handler or some shit  ... although controllers are supposed to notify the model ...
-                EmitSignal(SignalName.EquipmentChanged, Torso, EquipmentTypes.Torso.ToString());
-                EmitSignal(SignalName.EquipmentChanged, Weapon, EquipmentTypes.Weapon.ToString());
-                EmitSignal(SignalName.EquipmentChanged, OffHand, EquipmentTypes.OffHand.ToString());  
-            }          
+            // set { 
+            //     (_equipmentModel as EquipmentModel).Gear = value; //EquipmentModel is not an interface
+            //     //EmitSignal(SignalName.EquipmentChanged);
+            // {
+            set{
+                (_equipmentModel as Gearable).Head = value.Head; 
+                (_equipmentModel as Gearable).Torso = value.Torso; 
+                (_equipmentModel as Gearable).Weapon = value.Weapon; 
+                (_equipmentModel as Gearable).OffHand = value.OffHand;     
+
+                // EmitSignal(SignalName.EquipmentChanged, Head, EquipmentTypes.Head.ToString()); //this is better than peacemeal changing a single item by the model itself, thereby exposing the model structure to an imput handler or some shit  ... although controllers are supposed to notify the model ...
+                // EmitSignal(SignalName.EquipmentChanged, Torso, EquipmentTypes.Torso.ToString());
+                // EmitSignal(SignalName.EquipmentChanged, Weapon, EquipmentTypes.Weapon.ToString());
+                // EmitSignal(SignalName.EquipmentChanged, OffHand, EquipmentTypes.OffHand.ToString());                        
+            }         
         }
 
         [Signal] public delegate void FinishedTransferingEventHandler(); //rn the skill calls these directly
         [Signal] public delegate void FinishedPathEventHandler();
-	    [Signal] public delegate void EquipmentChangedEventHandler(string item, string type); //convert the string to an enum
+	    //[Signal] public delegate void EquipmentChangedEventHandler(string item, string type); //convert the string to an enum
+        //[Signal] public delegate void EquipmentChangedEventHandler();
 
         public override void _Ready(){
             (_popTweener as Creatable).Pop();

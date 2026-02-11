@@ -5,4 +5,7 @@ public interface Gearable{
     public string Torso {get;set;}
     public string Weapon {get;set;}
     public string OffHand {get;set;}
+
+    //public void ChangeGear();
+
 }
