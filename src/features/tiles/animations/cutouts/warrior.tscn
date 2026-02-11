@@ -1,18 +1,32 @@
-[gd_scene load_steps=28 format=3 uid="uid://dwsjfo3ndaiha"]
+[gd_scene load_steps=33 format=3 uid="uid://dwsjfo3ndaiha"]
 
 [ext_resource type="Texture2D" uid="uid://y1ourf4ag7yy" path="res://assets/images/tiles/actors/warrior/cutouts/arm-l-lower.png" id="1_2wrfs"]
 [ext_resource type="Script" uid="uid://b6jayj84n35om" path="res://src/features/tiles/animations/AnimatedActor.cs" id="1_l8th2"]
 [ext_resource type="Script" uid="uid://jg7pnaa2a77p" path="res://src/features/tiles/animations/GearCustomizer.cs" id="2_kgmvq"]
 [ext_resource type="Texture2D" uid="uid://bhhm23hcjn43w" path="res://assets/images/tiles/actors/warrior/cutouts/arm-l-upper.png" id="2_l8th2"]
 [ext_resource type="Texture2D" uid="uid://cjupo4fvq8qnv" path="res://assets/images/tiles/actors/warrior/cutouts/arm-r-lower.png" id="3_8x8rt"]
+[ext_resource type="Texture2D" uid="uid://hhhk1bynjmve" path="res://assets/images/tiles/actors/warrior/cutouts/RustyHelmet.png" id="3_aavat"]
+[ext_resource type="Script" uid="uid://c0yjt25glvhdd" path="res://src/features/tiles/animations/cutouts/CutoutEntry.cs" id="3_kgmvq"]
 [ext_resource type="Texture2D" uid="uid://swtm35tmxcv" path="res://assets/images/tiles/actors/warrior/cutouts/arm-r-upper.png" id="4_kgmvq"]
 [ext_resource type="Texture2D" uid="uid://7p3cvi4quvab" path="res://assets/images/tiles/actors/warrior/cutouts/body.png" id="5_af0q4"]
+[ext_resource type="Texture2D" uid="uid://baxfw6v3hfftv" path="res://assets/images/tiles/whirlwind.png" id="5_rpheb"]
 [ext_resource type="Texture2D" uid="uid://bl8113u3gjbiw" path="res://assets/images/tiles/actors/warrior/cutouts/head.png" id="7_rpheb"]
 [ext_resource type="Texture2D" uid="uid://bf2t4b52pf5hy" path="res://assets/images/tiles/actors/warrior/cutouts/leg-l-lower.png" id="8_6ygyc"]
 [ext_resource type="Texture2D" uid="uid://b43xxsnp7467u" path="res://assets/images/tiles/actors/warrior/cutouts/leg-l-upper.png" id="9_y5mrr"]
 [ext_resource type="Texture2D" uid="uid://b7w2l4o8gltq8" path="res://assets/images/tiles/actors/warrior/cutouts/leg-r-lower.png" id="10_0yg1q"]
 [ext_resource type="Texture2D" uid="uid://dkn33u8gndi8d" path="res://assets/images/tiles/actors/warrior/cutouts/leg-r-upper.png" id="11_5ryii"]
 [ext_resource type="Texture2D" uid="uid://dmqq4h3ruqbsj" path="res://assets/images/tiles/actors/warrior/cutouts/z_warrior_reference.png" id="12_l8th2"]
+
+[sub_resource type="Resource" id="Resource_6ygyc"]
+script = ExtResource("3_kgmvq")
+Texture = ExtResource("3_aavat")
+metadata/_custom_type_script = "uid://c0yjt25glvhdd"
+
+[sub_resource type="Resource" id="Resource_y5mrr"]
+script = ExtResource("3_kgmvq")
+Cutout = 2
+Texture = ExtResource("5_rpheb")
+metadata/_custom_type_script = "uid://c0yjt25glvhdd"
 
 [sub_resource type="SkeletonModification2D" id="SkeletonModification2D_l8th2"]
 
@@ -220,7 +234,7 @@ _gearCustomizer = NodePath("GearCustomizer")
 [node name="GearCustomizer" type="Node" parent="." node_paths=PackedStringArray("_headGear")]
 script = ExtResource("2_kgmvq")
 _headGear = NodePath("../AssetContainer/Cutouts/Head/Gear")
-_allEquipment = Dictionary[int, Sprite2D]({})
+_cutoutEntries = Array[Resource]([SubResource("Resource_6ygyc"), SubResource("Resource_y5mrr")])
 
 [node name="AssetContainer" type="Node2D" parent="."]
 
@@ -257,58 +271,58 @@ texture = ExtResource("11_5ryii")
 offset = Vector2(2, 30)
 
 [node name="ArmLeftUpper" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(15.720535, -81.167465)
-rotation = -0.32193774
-scale = Vector2(0.9977723, 1.0019039)
-skew = -0.0055617094
+position = Vector2(15.568811, -81.442276)
+rotation = -0.32230774
+scale = Vector2(0.9966328, 1.0030369)
+skew = -0.00859952
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/ArmLeftUpper"]
 texture = ExtResource("2_l8th2")
 offset = Vector2(3, 17)
 
 [node name="ArmLeftLower" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(28.933372, -50.17354)
-rotation = -0.3165604
-scale = Vector2(0.9978023, 1.0018742)
-skew = -0.0056055784
+position = Vector2(28.899235, -50.4494)
+rotation = -0.31691837
+scale = Vector2(0.9966792, 1.0029908)
+skew = -0.008667588
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/ArmLeftLower"]
 texture = ExtResource("1_2wrfs")
 offset = Vector2(3.2398338, 19.257359)
 
 [node name="Body" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(0, -41.175304)
-scale = Vector2(0.9998524, 0.99982816)
-skew = -0.0069288015
+position = Vector2(0, -41.45147)
+scale = Vector2(0.9998524, 0.99982756)
+skew = -0.010722637
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/Body"]
 texture = ExtResource("5_af0q4")
 offset = Vector2(-1, -12)
 
 [node name="ArmRightUpper" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(-25.280338, -82.167274)
-rotation = 0.33201328
-scale = Vector2(1.0019863, 0.9976896)
-skew = -0.005435109
+position = Vector2(-25.435854, -82.44205)
+rotation = 0.3316002
+scale = Vector2(1.0031542, 0.9965148)
+skew = -0.008419037
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/ArmRightUpper"]
 texture = ExtResource("4_kgmvq")
 offset = Vector2(0.4376831, 18.807999)
 
 [node name="ArmRightLower" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(-37.091526, -55.17256)
-rotation = 0.16243273
-scale = Vector2(1.000958, 0.9987213)
-skew = -0.006557703
+position = Vector2(-37.144627, -55.448254)
+rotation = 0.16232812
+scale = Vector2(1.0015632, 0.9981139)
+skew = -0.010152578
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/ArmRightLower"]
 texture = ExtResource("3_8x8rt")
 offset = Vector2(3.235218, 25.152359)
 
 [node name="Head" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(-7.4215426, -102.16336)
-scale = Vector2(0.9998524, 0.99982816)
-skew = -0.0069288015
+position = Vector2(-7.6529226, -102.43745)
+scale = Vector2(0.9998524, 0.99982756)
+skew = -0.010722637
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/Head"]
 texture = ExtResource("7_rpheb")
@@ -327,7 +341,7 @@ rest = Transform2D(1, 0, 0, 1, 0, -25)
 
 [node name="Spine" type="Bone2D" parent="AssetContainer/Skeleton2D/Center"]
 position = Vector2(0, -16)
-scale = Vector2(0.9998524, 0.99982816)
+scale = Vector2(0.9998524, 0.99982756)
 rest = Transform2D(1, 0, 0, 1, 0, -16)
 auto_calculate_length_and_angle = false
 length = 60.0

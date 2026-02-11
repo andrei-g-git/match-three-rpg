@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CutoutEntry" load_steps=3 format=3 uid="uid://cehdb1c2o15po"]
+
+[ext_resource type="Texture2D" uid="uid://baxfw6v3hfftv" path="res://assets/images/tiles/whirlwind.png" id="1_f510b"]
+[ext_resource type="Script" uid="uid://c0yjt25glvhdd" path="res://src/features/tiles/animations/cutouts/CutoutEntry.cs" id="1_h2nd8"]
+
+[resource]
+script = ExtResource("1_h2nd8")
+Cutout = 2
+Texture = ExtResource("1_f510b")
+metadata/_custom_type_script = "uid://c0yjt25glvhdd"
