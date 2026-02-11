@@ -16,8 +16,10 @@ public partial class Dash : Node, Stateful
     }
 
     public void Exit(){
-        (_animatedActor as Animatable).Play(TileStates.Idle.ToString());
-		EmitSignal(SignalName.StateChanged, this, TileStates.Idle.ToString());
+        //(_animatedActor as Animatable).Play(TileStates.Idle.ToString());
+		(_animatedActor as Animatable).Stop(TileStates.Dash.ToString());
+
+		//EmitSignal(SignalName.StateChanged, this, TileStates.Idle.ToString());
     }
 
     public void Dispose()

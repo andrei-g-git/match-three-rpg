@@ -335,11 +335,11 @@ isEnemy = true
 
 [node name="Tweeners" type="Node" parent="."]
 
-[node name="Move" type="Node" parent="Tweeners" node_paths=PackedStringArray("_tileRoot", "_dashState")]
+[node name="Move" type="Node" parent="Tweeners" node_paths=PackedStringArray("_tileRoot", "_animatedActor")]
 script = ExtResource("6_xxn2p")
 _tileRoot = NodePath("../..")
 _duration = 0.5
-_dashState = NodePath("../../StateMachine/Dash")
+_animatedActor = NodePath("../../AspectRatioContainer/Warrior")
 
 [node name="ScaleUpFade" type="Node" parent="Tweeners" node_paths=PackedStringArray("_tileRoot")]
 script = ExtResource("7_47kl3")
