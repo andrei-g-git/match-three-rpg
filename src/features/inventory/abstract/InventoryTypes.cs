@@ -40,6 +40,15 @@ namespace Inventory{
                 _offHand =  isSkill? value : default; 
             }
         }
-    }    
+    }  
+
+
+    public record GearData{
+        public string Name{get; init;} //should check if it parses to the item enum
+        public string Purpose{get; init;} //same, should check enum GearPurpose{Armor, Weapon} or something
+        public string Slot{get; init;}
+        public int Damage{get; init;} //these are bad, there's no interface segregation, I should compose. If I need to later add stuff like special effects and more stats it will be unwieldy
+        public int Defense{get; init;}
+    }  
 }
 

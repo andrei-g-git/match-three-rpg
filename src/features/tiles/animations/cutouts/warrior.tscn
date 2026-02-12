@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://dwsjfo3ndaiha"]
+[gd_scene load_steps=34 format=3 uid="uid://dwsjfo3ndaiha"]
 
 [ext_resource type="Texture2D" uid="uid://y1ourf4ag7yy" path="res://assets/images/tiles/actors/warrior/cutouts/arm-l-lower.png" id="1_2wrfs"]
 [ext_resource type="Script" uid="uid://b6jayj84n35om" path="res://src/features/tiles/animations/AnimatedActor.cs" id="1_l8th2"]
@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://b7w2l4o8gltq8" path="res://assets/images/tiles/actors/warrior/cutouts/leg-r-lower.png" id="10_0yg1q"]
 [ext_resource type="Texture2D" uid="uid://dkn33u8gndi8d" path="res://assets/images/tiles/actors/warrior/cutouts/leg-r-upper.png" id="11_5ryii"]
 [ext_resource type="Texture2D" uid="uid://dmqq4h3ruqbsj" path="res://assets/images/tiles/actors/warrior/cutouts/z_warrior_reference.png" id="12_l8th2"]
+[ext_resource type="Texture2D" uid="uid://66k2cdxap74s" path="res://assets/images/items/gear/WoodenClub.png" id="17_rpheb"]
 
 [sub_resource type="Resource" id="Resource_6ygyc"]
 script = ExtResource("3_kgmvq")
@@ -225,7 +226,6 @@ transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition
 graph_offset = Vector2(-143.45343, 5.20104)
 
 [node name="Warrior" type="Node2D" node_paths=PackedStringArray("_animationPlayer", "_animationTree", "_gearCustomizer")]
-scale = Vector2(0.25, 0.25)
 script = ExtResource("1_l8th2")
 _animationPlayer = NodePath("AnimationPlayer")
 _animationTree = NodePath("AnimationTree")
@@ -255,8 +255,8 @@ texture = ExtResource("9_y5mrr")
 offset = Vector2(-3, 29)
 
 [node name="LegRightLower" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(-22.9992, 28.992653)
-scale = Vector2(0.99969435, 0.99969435)
+position = Vector2(-22.999199, 28.992638)
+scale = Vector2(0.9996939, 0.9996939)
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/LegRightLower"]
 texture = ExtResource("10_0yg1q")
@@ -264,65 +264,73 @@ offset = Vector2(-3, 27)
 
 [node name="LegRightUpper" type="Node2D" parent="AssetContainer/Cutouts"]
 position = Vector2(-18, -17)
-scale = Vector2(0.99984026, 0.99984026)
+scale = Vector2(0.99983996, 0.99983996)
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/LegRightUpper"]
 texture = ExtResource("11_5ryii")
 offset = Vector2(2, 30)
 
 [node name="ArmLeftUpper" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(15.568811, -81.442276)
-rotation = -0.32230774
-scale = Vector2(0.9966328, 1.0030369)
-skew = -0.00859952
+position = Vector2(15.997635, -80.99312)
+rotation = -0.32125264
+scale = Vector2(0.99985, 0.9998304)
+skew = -1.4662743e-05
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/ArmLeftUpper"]
 texture = ExtResource("2_l8th2")
 offset = Vector2(3, 17)
 
 [node name="ArmLeftLower" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(28.899235, -50.4494)
-rotation = -0.31691837
-scale = Vector2(0.9966792, 1.0029908)
-skew = -0.008667588
+position = Vector2(28.99572, -49.99845)
+rotation = -0.31589738
+scale = Vector2(0.9998501, 0.99983037)
+skew = -1.4424324e-05
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/ArmLeftLower"]
 texture = ExtResource("1_2wrfs")
 offset = Vector2(3.2398338, 19.257359)
 
 [node name="Body" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(0, -41.45147)
-scale = Vector2(0.9998524, 0.99982756)
-skew = -0.010722637
+position = Vector2(0, -41)
+scale = Vector2(0.9998524, 0.999828)
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/Body"]
 texture = ExtResource("5_af0q4")
 offset = Vector2(-1, -12)
 
 [node name="ArmRightUpper" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(-25.435854, -82.44205)
-rotation = 0.3316002
-scale = Vector2(1.0031542, 0.9965148)
-skew = -0.008419037
+position = Vector2(-24.996311, -81.99295)
+rotation = 0.33275834
+scale = Vector2(0.9998498, 0.99983054)
+skew = 1.50203705e-05
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/ArmRightUpper"]
 texture = ExtResource("4_kgmvq")
 offset = Vector2(0.4376831, 18.807999)
 
 [node name="ArmRightLower" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(-37.144627, -55.448254)
-rotation = 0.16232812
-scale = Vector2(1.0015632, 0.9981139)
-skew = -0.010152578
+position = Vector2(-36.99454, -54.997597)
+rotation = 0.16261795
+scale = Vector2(0.99985176, 0.9998286)
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/ArmRightLower"]
 texture = ExtResource("3_8x8rt")
 offset = Vector2(3.235218, 25.152359)
 
+[node name="Weapon" type="Node2D" parent="AssetContainer/Cutouts"]
+position = Vector2(-43.393017, -11.52573)
+scale = Vector2(0.9998524, 0.999828)
+
+[node name="Gear" type="Sprite2D" parent="AssetContainer/Cutouts/Weapon"]
+rotation = 0.19198622
+scale = Vector2(0.9998524, 0.9998284)
+skew = -0.013334513
+texture = ExtResource("17_rpheb")
+offset = Vector2(34.853645, -0.23484516)
+
 [node name="Head" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(-7.6529226, -102.43745)
-scale = Vector2(0.9998524, 0.99982756)
-skew = -0.010722637
+position = Vector2(-6.998967, -101.9895)
+scale = Vector2(0.9998524, 0.999828)
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/Head"]
 texture = ExtResource("7_rpheb")
@@ -341,8 +349,8 @@ rest = Transform2D(1, 0, 0, 1, 0, -25)
 
 [node name="Spine" type="Bone2D" parent="AssetContainer/Skeleton2D/Center"]
 position = Vector2(0, -16)
-scale = Vector2(0.9998524, 0.99982756)
-rest = Transform2D(1, 0, 0, 1, 0, -16)
+scale = Vector2(0.9998524, 0.999828)
+rest = Transform2D(0.9998524, 0, 0.013331832, 0.99973965, 0, -16.471685)
 auto_calculate_length_and_angle = false
 length = 60.0
 bone_angle = -96.0
@@ -379,6 +387,16 @@ bone_angle = 109.09097
 rotation = 0.16262186
 remote_path = NodePath("../../../../../../Cutouts/ArmRightLower")
 
+[node name="Weapon" type="Bone2D" parent="AssetContainer/Skeleton2D/Center/Spine/ShoulderRight/ElbowRight"]
+position = Vector2(-6.3994207, 43.479347)
+rest = Transform2D(1, 0, 0, 1, -6.3994207, 43.479347)
+auto_calculate_length_and_angle = false
+length = 68.27
+bone_angle = 10.51
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="AssetContainer/Skeleton2D/Center/Spine/ShoulderRight/ElbowRight/Weapon"]
+remote_path = NodePath("../../../../../../../Cutouts/Weapon")
+
 [node name="ShoulderLeft" type="Bone2D" parent="AssetContainer/Skeleton2D/Center/Spine"]
 position = Vector2(19, -40)
 rest = Transform2D(1, 0, 0, 1, 19, -40)
@@ -404,16 +422,16 @@ remote_path = NodePath("../../../../../../Cutouts/ArmLeftLower")
 
 [node name="HipRight" type="Bone2D" parent="AssetContainer/Skeleton2D/Center"]
 position = Vector2(-18, 8)
-scale = Vector2(0.99984026, 0.99984026)
-rest = Transform2D(1, 0, 0, 1, -18, 8)
+scale = Vector2(0.99983996, 0.99983996)
+rest = Transform2D(0.99984026, 0, 0, 0.99984026, -18, 8)
 
 [node name="LegRightUpper" type="RemoteTransform2D" parent="AssetContainer/Skeleton2D/Center/HipRight"]
 remote_path = NodePath("../../../../Cutouts/LegRightUpper")
 
 [node name="KneeRight" type="Bone2D" parent="AssetContainer/Skeleton2D/Center/HipRight"]
 position = Vector2(-5, 46)
-scale = Vector2(0.9998541, 0.9998541)
-rest = Transform2D(1, 0, 0, 1, -5, 46)
+scale = Vector2(0.9998539, 0.9998539)
+rest = Transform2D(0.9998541, 0, 0, 0.9998541, -5, 46)
 auto_calculate_length_and_angle = false
 length = 40.8
 bone_angle = 96.0

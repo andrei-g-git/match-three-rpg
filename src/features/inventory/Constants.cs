@@ -68,4 +68,71 @@ namespace Inventory{
 		IronShield,
 		TowerShield,	
 	}
+
+	public enum Purpose{
+		Armor,
+		Weapon
+	}
+
+
+    public class AllGearData{
+        public GearData[] Gear{get;} = {
+            new GearData{
+                Name = Cutouts.RustyHelmet.ToString(),
+                Purpose = Purpose.Armor.ToString().ToLower(),
+                Slot = EquipmentTypes.Head.ToString().ToLower(),
+                Damage = 0,
+                Defense = 1
+            },
+            new GearData{
+                Name = Cutouts.SteelHelmet.ToString(),
+                Purpose = Purpose.Armor.ToString().ToLower(),
+                Slot = EquipmentTypes.Head.ToString().ToLower(),
+                Damage = 0,
+                Defense = 2
+            },
+            new GearData{
+                Name = Cutouts.QuiltedArmor.ToString(),
+                Purpose = Purpose.Armor.ToString().ToLower(),
+                Slot = EquipmentTypes.Torso.ToString().ToLower(),
+                Damage = 0,
+                Defense = 2
+            },
+            new GearData{
+                Name = Cutouts.LeatherArmor.ToString(),
+                Purpose = Purpose.Armor.ToString().ToLower(),
+                Slot = EquipmentTypes.Torso.ToString().ToLower(),
+                Damage = 0,
+                Defense = 3
+            },
+            new GearData{
+                Name = Cutouts.SteelPlateArmor.ToString(),
+                Purpose = Purpose.Armor.ToString().ToLower(),
+                Slot = EquipmentTypes.Torso.ToString().ToLower(),
+                Damage = 0,
+                Defense = 4
+            },
+            // new GearData{
+            //     Name = "",
+            //     Purpose = "",
+            //     Slot = "",
+            //     Damage = ,
+            //     Defense = 
+            // },
+            // new GearData{
+            //     Name = "",
+            //     Purpose = "",
+            //     Slot = "",
+            //     Damage = ,
+            //     Defense = 
+            // },
+            new GearData{
+                Name = Cutouts.WoodenClub.ToString(),
+                Purpose = Purpose.Weapon.ToString().ToLower(),
+                Slot = EquipmentTypes.Weapon.ToString().ToLower(),
+                Damage = 5,
+                Defense = 0
+            },                                                                                   
+        };	
+    }
 }
