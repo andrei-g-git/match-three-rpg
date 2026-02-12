@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://dwsjfo3ndaiha"]
+[gd_scene load_steps=35 format=3 uid="uid://dwsjfo3ndaiha"]
 
 [ext_resource type="Texture2D" uid="uid://y1ourf4ag7yy" path="res://assets/images/tiles/actors/warrior/cutouts/arm-l-lower.png" id="1_2wrfs"]
 [ext_resource type="Script" uid="uid://b6jayj84n35om" path="res://src/features/tiles/animations/AnimatedActor.cs" id="1_l8th2"]
@@ -27,6 +27,12 @@ metadata/_custom_type_script = "uid://c0yjt25glvhdd"
 script = ExtResource("3_kgmvq")
 Cutout = 2
 Texture = ExtResource("5_rpheb")
+metadata/_custom_type_script = "uid://c0yjt25glvhdd"
+
+[sub_resource type="Resource" id="Resource_rpheb"]
+script = ExtResource("3_kgmvq")
+Cutout = 17
+Texture = ExtResource("17_rpheb")
 metadata/_custom_type_script = "uid://c0yjt25glvhdd"
 
 [sub_resource type="SkeletonModification2D" id="SkeletonModification2D_l8th2"]
@@ -226,15 +232,17 @@ transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition
 graph_offset = Vector2(-143.45343, 5.20104)
 
 [node name="Warrior" type="Node2D" node_paths=PackedStringArray("_animationPlayer", "_animationTree", "_gearCustomizer")]
+scale = Vector2(0.25, 0.25)
 script = ExtResource("1_l8th2")
 _animationPlayer = NodePath("AnimationPlayer")
 _animationTree = NodePath("AnimationTree")
 _gearCustomizer = NodePath("GearCustomizer")
 
-[node name="GearCustomizer" type="Node" parent="." node_paths=PackedStringArray("_headGear")]
+[node name="GearCustomizer" type="Node" parent="." node_paths=PackedStringArray("_headGear", "_weapon")]
 script = ExtResource("2_kgmvq")
 _headGear = NodePath("../AssetContainer/Cutouts/Head/Gear")
-_cutoutEntries = Array[Resource]([SubResource("Resource_6ygyc"), SubResource("Resource_y5mrr")])
+_weapon = NodePath("../AssetContainer/Cutouts/Weapon/Gear")
+_cutoutEntries = Array[Resource]([SubResource("Resource_6ygyc"), SubResource("Resource_y5mrr"), SubResource("Resource_rpheb")])
 
 [node name="AssetContainer" type="Node2D" parent="."]
 
@@ -325,7 +333,6 @@ scale = Vector2(0.9998524, 0.999828)
 rotation = 0.19198622
 scale = Vector2(0.9998524, 0.9998284)
 skew = -0.013334513
-texture = ExtResource("17_rpheb")
 offset = Vector2(34.853645, -0.23484516)
 
 [node name="Head" type="Node2D" parent="AssetContainer/Cutouts"]

@@ -42,13 +42,20 @@ public partial class GearCustomizer : Node, CustomizableGear
 		if(Enum.TryParse<EquipmentTypes>(type, true, out var enumGearType)){
 			Enum.TryParse<Cutouts>(item, true, out var enumItem);
 
+			var texture = _allEquipment[enumItem];
 			switch (enumGearType){
 				case EquipmentTypes.Head:
-					_headGear.Texture = _allEquipment[enumItem];
+					_headGear.Texture = texture;
 					break;
-				case EquipmentTypes.Torso:
-					_torsoGear.Texture = _allEquipment[enumItem];
-					break;					
+				// case EquipmentTypes.Torso:
+				// 	_torsoGear.Texture = texture;
+				// 	break;		
+				case EquipmentTypes.Weapon:
+					_weapon.Texture = texture;
+					break;	
+				case EquipmentTypes.OffHand:
+					_offHand.Texture = texture;
+					break;														
 			}			
 		}
 
