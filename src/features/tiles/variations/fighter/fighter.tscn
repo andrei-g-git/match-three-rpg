@@ -1,9 +1,10 @@
-[gd_scene load_steps=23 format=3 uid="uid://dbpwe34yxcfuf"]
+[gd_scene load_steps=24 format=3 uid="uid://dbpwe34yxcfuf"]
 
 [ext_resource type="Script" uid="uid://b00gbtd8quyh" path="res://src/features/tiles/variations/fighter/Manager.cs" id="1_81q7e"]
 [ext_resource type="Script" uid="uid://cy1k0w8awxnxt" path="res://src/features/tiles/DragAndDrop.cs" id="2_81q7e"]
 [ext_resource type="Texture2D" uid="uid://bksbxdav7jui4" path="res://assets/images/tiles/new/orc.png" id="2_xsd4e"]
 [ext_resource type="Script" uid="uid://dd71kn6t4pyhr" path="res://src/features/tiles/behaviors/Swapping.cs" id="4_23cat"]
+[ext_resource type="PackedScene" uid="uid://u571avx8ib84" path="res://src/features/tiles/animations/cutouts/orc.tscn" id="4_bnwsy"]
 [ext_resource type="Script" uid="uid://bo1vqtqcusngb" path="res://src/features/tiles/behaviors/Removing.cs" id="4_xmyc7"]
 [ext_resource type="Script" uid="uid://cwtutlrlcmfb4" path="res://src/features/tiles/stats/enemies/OrcStats.cs" id="6_81q7e"]
 [ext_resource type="Script" uid="uid://dmkt3wetl7b0l" path="res://src/features/tiles/animations/MoveTweener.cs" id="6_e3x4h"]
@@ -52,6 +53,7 @@ offset_bottom = 27.5
 pivot_offset = Vector2(32, 27.5)
 
 [node name="Sprite2D" type="Sprite2D" parent="AspectRatioContainer"]
+visible = false
 position = Vector2(32, 27.5)
 texture = ExtResource("2_xsd4e")
 
@@ -62,6 +64,10 @@ script = ExtResource("2_81q7e")
 _tileNode = NodePath("../..")
 _container = NodePath("..")
 _sprite = NodePath("../Sprite2D")
+
+[node name="Orc" parent="AspectRatioContainer" instance=ExtResource("4_bnwsy")]
+position = Vector2(32, 27.5)
+scale = Vector2(0.25, 0.25)
 
 [node name="Behaviors" type="Control" parent="."]
 anchors_preset = 0

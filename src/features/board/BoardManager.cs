@@ -131,6 +131,9 @@ public partial class BoardManager : PanelContainer
 			// (player as Gearable).Weapon = gear.Weapon;
 			// (player as Gearable).OffHand = gear.OffHand;
 
+			//delete
+			(player as Player.Manager).TestDelete();
+
 			(_model as BoardModel).InitializeTurnQueue();
 			(_model as BoardModel).AdvanceTurn();
 

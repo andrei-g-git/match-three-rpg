@@ -1,46 +1,23 @@
-[gd_scene load_steps=35 format=3 uid="uid://dwsjfo3ndaiha"]
+[gd_scene load_steps=26 format=3 uid="uid://u571avx8ib84"]
 
-[ext_resource type="Texture2D" uid="uid://y1ourf4ag7yy" path="res://assets/images/tiles/actors/warrior/cutouts/arm-l-lower.png" id="1_2wrfs"]
-[ext_resource type="Script" uid="uid://b6jayj84n35om" path="res://src/features/tiles/animations/AnimatedActor.cs" id="1_l8th2"]
-[ext_resource type="Script" uid="uid://jg7pnaa2a77p" path="res://src/features/tiles/animations/GearCustomizer.cs" id="2_kgmvq"]
-[ext_resource type="Texture2D" uid="uid://bhhm23hcjn43w" path="res://assets/images/tiles/actors/warrior/cutouts/arm-l-upper.png" id="2_l8th2"]
-[ext_resource type="Texture2D" uid="uid://cjupo4fvq8qnv" path="res://assets/images/tiles/actors/warrior/cutouts/arm-r-lower.png" id="3_8x8rt"]
-[ext_resource type="Texture2D" uid="uid://hhhk1bynjmve" path="res://assets/images/tiles/actors/warrior/cutouts/RustyHelmet.png" id="3_aavat"]
-[ext_resource type="Script" uid="uid://c0yjt25glvhdd" path="res://src/features/tiles/animations/cutouts/CutoutEntry.cs" id="3_kgmvq"]
-[ext_resource type="Texture2D" uid="uid://swtm35tmxcv" path="res://assets/images/tiles/actors/warrior/cutouts/arm-r-upper.png" id="4_kgmvq"]
-[ext_resource type="Texture2D" uid="uid://7p3cvi4quvab" path="res://assets/images/tiles/actors/warrior/cutouts/body.png" id="5_af0q4"]
-[ext_resource type="Texture2D" uid="uid://baxfw6v3hfftv" path="res://assets/images/tiles/whirlwind.png" id="5_rpheb"]
-[ext_resource type="Texture2D" uid="uid://bl8113u3gjbiw" path="res://assets/images/tiles/actors/warrior/cutouts/head.png" id="7_rpheb"]
-[ext_resource type="Texture2D" uid="uid://bf2t4b52pf5hy" path="res://assets/images/tiles/actors/warrior/cutouts/leg-l-lower.png" id="8_6ygyc"]
-[ext_resource type="Texture2D" uid="uid://b43xxsnp7467u" path="res://assets/images/tiles/actors/warrior/cutouts/leg-l-upper.png" id="9_y5mrr"]
-[ext_resource type="Texture2D" uid="uid://b7w2l4o8gltq8" path="res://assets/images/tiles/actors/warrior/cutouts/leg-r-lower.png" id="10_0yg1q"]
-[ext_resource type="Texture2D" uid="uid://dkn33u8gndi8d" path="res://assets/images/tiles/actors/warrior/cutouts/leg-r-upper.png" id="11_5ryii"]
-[ext_resource type="Texture2D" uid="uid://dmqq4h3ruqbsj" path="res://assets/images/tiles/actors/warrior/cutouts/z_warrior_reference.png" id="12_l8th2"]
-[ext_resource type="Texture2D" uid="uid://66k2cdxap74s" path="res://assets/images/items/gear/WoodenClub.png" id="17_rpheb"]
+[ext_resource type="Texture2D" uid="uid://cyr52fdfuj0yw" path="res://assets/images/tiles/actors/orc/cutouts/LegLeftLower.png" id="1_br8lt"]
+[ext_resource type="Texture2D" uid="uid://c3iab65i8mwxc" path="res://assets/images/tiles/actors/orc/cutouts/LegLeftUpper.png" id="2_4v745"]
+[ext_resource type="Texture2D" uid="uid://6u3k70dai4am" path="res://assets/images/tiles/actors/orc/cutouts/LegRightLower.png" id="3_x60jv"]
+[ext_resource type="Texture2D" uid="uid://o5q2uke6e6qw" path="res://assets/images/tiles/actors/orc/cutouts/LegRightUpper.png" id="4_4eygj"]
+[ext_resource type="Texture2D" uid="uid://cvw0mr10bpsch" path="res://assets/images/tiles/actors/orc/cutouts/ArmLeftUpper.png" id="5_q2s2v"]
+[ext_resource type="Texture2D" uid="uid://ccmqt41aptdle" path="res://assets/images/tiles/actors/orc/cutouts/ArmLeftLower.png" id="6_ruxdl"]
+[ext_resource type="Texture2D" uid="uid://dkpo6rgtkja8h" path="res://assets/images/tiles/actors/orc/cutouts/Torso.png" id="7_tl07e"]
+[ext_resource type="Texture2D" uid="uid://cj1aqu3dvfsam" path="res://assets/images/tiles/actors/orc/cutouts/ArmRightUpper.png" id="8_fmo6i"]
+[ext_resource type="Texture2D" uid="uid://8d74gjrvjklc" path="res://assets/images/tiles/actors/orc/cutouts/ArmRightLower.png" id="9_strlx"]
+[ext_resource type="Texture2D" uid="uid://66k2cdxap74s" path="res://assets/images/items/gear/WoodenClub.png" id="10_cs0x3"]
+[ext_resource type="Texture2D" uid="uid://cav32n7p1bgmd" path="res://assets/images/tiles/actors/orc/cutouts/Head.png" id="11_r5t3i"]
 
-[sub_resource type="Resource" id="Resource_6ygyc"]
-script = ExtResource("3_kgmvq")
-Texture = ExtResource("3_aavat")
-metadata/_custom_type_script = "uid://c0yjt25glvhdd"
+[sub_resource type="SkeletonModification2D" id="SkeletonModification2D_qs3wx"]
 
-[sub_resource type="Resource" id="Resource_y5mrr"]
-script = ExtResource("3_kgmvq")
-Cutout = 2
-Texture = ExtResource("5_rpheb")
-metadata/_custom_type_script = "uid://c0yjt25glvhdd"
-
-[sub_resource type="Resource" id="Resource_rpheb"]
-script = ExtResource("3_kgmvq")
-Cutout = 17
-Texture = ExtResource("17_rpheb")
-metadata/_custom_type_script = "uid://c0yjt25glvhdd"
-
-[sub_resource type="SkeletonModification2D" id="SkeletonModification2D_l8th2"]
-
-[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_8x8rt"]
+[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_sqxju"]
 enabled = true
 modification_count = 1
-modifications/0 = SubResource("SkeletonModification2D_l8th2")
+modifications/0 = SubResource("SkeletonModification2D_qs3wx")
 
 [sub_resource type="Animation" id="Animation_kgmvq"]
 resource_name = "Dash"
@@ -222,7 +199,7 @@ switch_mode = 2
 advance_mode = 2
 advance_condition = &"idle"
 
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_0yg1q"]
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_jwww7"]
 states/Dash/node = SubResource("AnimationNodeBlendTree_af0q4")
 states/Dash/position = Vector2(400, 182)
 states/End/position = Vector2(516, 106)
@@ -232,18 +209,7 @@ states/Start/position = Vector2(191, 106)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_rpheb"), "Idle", "Dash", SubResource("AnimationNodeStateMachineTransition_6ygyc"), "Dash", "Idle", SubResource("AnimationNodeStateMachineTransition_y5mrr")]
 graph_offset = Vector2(-143.45343, 5.20104)
 
-[node name="Warrior" type="Node2D" node_paths=PackedStringArray("_animationPlayer", "_animationTree", "_gearCustomizer")]
-scale = Vector2(0.25, 0.25)
-script = ExtResource("1_l8th2")
-_animationPlayer = NodePath("AnimationPlayer")
-_animationTree = NodePath("AnimationTree")
-_gearCustomizer = NodePath("GearCustomizer")
-
-[node name="GearCustomizer" type="Node" parent="." node_paths=PackedStringArray("_headGear", "_weapon")]
-script = ExtResource("2_kgmvq")
-_headGear = NodePath("../AssetContainer/Cutouts/Head/Gear")
-_weapon = NodePath("../AssetContainer/Cutouts/Weapon/Gear")
-_cutoutEntries = Array[Resource]([SubResource("Resource_6ygyc"), SubResource("Resource_y5mrr"), SubResource("Resource_rpheb")])
+[node name="Orc" type="Node2D"]
 
 [node name="AssetContainer" type="Node2D" parent="."]
 
@@ -253,14 +219,14 @@ _cutoutEntries = Array[Resource]([SubResource("Resource_6ygyc"), SubResource("Re
 position = Vector2(15, 30)
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/LegLeftLower"]
-texture = ExtResource("8_6ygyc")
+texture = ExtResource("1_br8lt")
 offset = Vector2(2, 26)
 
 [node name="LegLeftUpper" type="Node2D" parent="AssetContainer/Cutouts"]
 position = Vector2(18, -15)
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/LegLeftUpper"]
-texture = ExtResource("9_y5mrr")
+texture = ExtResource("2_4v745")
 offset = Vector2(-3, 29)
 
 [node name="LegRightLower" type="Node2D" parent="AssetContainer/Cutouts"]
@@ -268,7 +234,7 @@ position = Vector2(-22.999193, 28.992577)
 scale = Vector2(0.99969214, 0.99969214)
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/LegRightLower"]
-texture = ExtResource("10_0yg1q")
+texture = ExtResource("3_x60jv")
 offset = Vector2(-3, 27)
 
 [node name="LegRightUpper" type="Node2D" parent="AssetContainer/Cutouts"]
@@ -276,76 +242,77 @@ position = Vector2(-18, -17)
 scale = Vector2(0.99983865, 0.99983865)
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/LegRightUpper"]
-texture = ExtResource("11_5ryii")
+texture = ExtResource("4_4eygj")
 offset = Vector2(2, 30)
 
 [node name="ArmLeftUpper" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(16.544264, -80.25192)
-rotation = -0.3198682
-scale = Vector2(1.0039357, 0.9957288)
-skew = 0.010929704
+position = Vector2(15.943527, -81.05344)
+rotation = -0.32138765
+scale = Vector2(0.99944425, 1.0002359)
+skew = -0.0010970831
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/ArmLeftUpper"]
-texture = ExtResource("2_l8th2")
+texture = ExtResource("5_q2s2v")
 offset = Vector2(3, 17)
 
 [node name="ArmLeftLower" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(29.118698, -49.2601)
-rotation = -0.31455657
-scale = Vector2(1.0038772, 0.99578786)
-skew = 0.011017084
+position = Vector2(28.983532, -50.058784)
+rotation = -0.316028
+scale = Vector2(0.99945015, 1.0002301)
+skew = -0.0011054277
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/ArmLeftLower"]
-texture = ExtResource("1_2wrfs")
+texture = ExtResource("6_ruxdl")
 offset = Vector2(3.2398338, 19.257359)
 
 [node name="Body" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(0, -40.262474)
-scale = Vector2(0.9998519, 0.99982953)
-skew = 0.013668656
+position = Vector2(0, -41.060333)
+scale = Vector2(0.9998519, 0.99982846)
+skew = -0.001352787
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/Body"]
-texture = ExtResource("5_af0q4")
+texture = ExtResource("7_tl07e")
 offset = Vector2(-1, -12)
 
 [node name="ArmRightUpper" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(-24.435995, -81.251656)
-rotation = 0.33419466
-scale = Vector2(0.9956213, 1.0040423)
-skew = 0.010765672
+position = Vector2(-25.05175, -82.05327)
+rotation = 0.33261412
+scale = Vector2(1.0002668, 0.9994133)
+skew = -0.0010496378
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/ArmRightUpper"]
-texture = ExtResource("4_kgmvq")
+texture = ExtResource("8_fmo6i")
 offset = Vector2(0.4376831, 18.807999)
 
 [node name="ArmRightLower" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(-36.803196, -54.25878)
-rotation = 0.16296239
-scale = Vector2(0.99766546, 1.0020112)
-skew = 0.012959242
+position = Vector2(-37.013454, -55.057922)
+rotation = 0.1625825
+scale = Vector2(1.0000672, 0.9996129)
+skew = -0.0012743473
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/ArmRightLower"]
-texture = ExtResource("3_8x8rt")
+texture = ExtResource("9_strlx")
 offset = Vector2(3.235218, 25.152359)
 
 [node name="Weapon" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(-43.795853, -10.790909)
-scale = Vector2(0.9998519, 0.99982953)
-skew = 0.013668656
+position = Vector2(-43.353123, -11.586071)
+scale = Vector2(0.9998519, 0.99982846)
+skew = -0.001352787
 
 [node name="Gear" type="Sprite2D" parent="AssetContainer/Cutouts/Weapon"]
 rotation = 0.19198622
 scale = Vector2(0.9998524, 0.9998284)
 skew = -0.013334513
+texture = ExtResource("10_cs0x3")
 offset = Vector2(34.853645, -0.23484516)
 
 [node name="Head" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(-6.1653433, -101.24638)
-scale = Vector2(0.9998519, 0.99982953)
-skew = 0.013668656
+position = Vector2(-7.081465, -102.04982)
+scale = Vector2(0.9998519, 0.99982846)
+skew = -0.001352787
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/Head"]
-texture = ExtResource("7_rpheb")
+texture = ExtResource("11_r5t3i")
 offset = Vector2(8, -17)
 
 [node name="Gear" type="Sprite2D" parent="AssetContainer/Cutouts/Head"]
@@ -353,7 +320,7 @@ offset = Vector2(10, -38)
 
 [node name="Skeleton2D" type="Skeleton2D" parent="AssetContainer"]
 visible = false
-modification_stack = SubResource("SkeletonModificationStack2D_8x8rt")
+modification_stack = SubResource("SkeletonModificationStack2D_sqxju")
 
 [node name="Center" type="Bone2D" parent="AssetContainer/Skeleton2D"]
 position = Vector2(0, -25)
@@ -361,7 +328,7 @@ rest = Transform2D(1, 0, 0, 1, 0, -25)
 
 [node name="Spine" type="Bone2D" parent="AssetContainer/Skeleton2D/Center"]
 position = Vector2(0, -16)
-scale = Vector2(0.9998519, 0.99982953)
+scale = Vector2(0.9998519, 0.99982846)
 rest = Transform2D(0.9998524, 0, 0.013331832, 0.99973965, 0, -16.471685)
 auto_calculate_length_and_angle = false
 length = 60.0
@@ -474,17 +441,10 @@ libraries = {
 }
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource("AnimationNodeStateMachine_0yg1q")
+tree_root = SubResource("AnimationNodeStateMachine_jwww7")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/dash = false
 parameters/conditions/idle = false
 parameters/Dash/OneShot/active = false
 parameters/Dash/OneShot/internal_active = false
 parameters/Dash/OneShot/request = 0
-
-[node name="ZWarriorReference" type="Sprite2D" parent="."]
-visible = false
-modulate = Color(0.23137255, 1, 1, 0.2)
-position = Vector2(43.999996, -60)
-scale = Vector2(0.4, 0.4)
-texture = ExtResource("12_l8th2")

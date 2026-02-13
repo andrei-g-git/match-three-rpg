@@ -113,7 +113,17 @@ namespace Player{
             (_popTweener as Creatable).Pop();
 
 			(_turn as Turn).ConnectRequestedTurnEnd(TurnQueue.AdvanceTurn);
-			//(_turn as Turn).ConnectRequestedTurnStart(inputBlocker.AllowInput);             
+			//(_turn as Turn).ConnectRequestedTurnStart(inputBlocker.AllowInput);
+        }
+
+        public void TestDelete()
+        {
+            GD.Print("getting damage and defense...");
+            //delete
+            var testDefense = (_equipmentModel as StatBasedGear).GetTotalGearBaseDefense();
+            var testDamage = (_equipmentModel as StatBasedGear).GetTotalGearBaseDamage(); 
+
+            GD.Print($"total base damage is {testDamage} and defense is {testDefense}");             
         }
 
 

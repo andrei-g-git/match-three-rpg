@@ -338,7 +338,7 @@ isEnemy = true
 [node name="Move" type="Node" parent="Tweeners" node_paths=PackedStringArray("_tileRoot", "_animatedActor")]
 script = ExtResource("6_xxn2p")
 _tileRoot = NodePath("../..")
-_duration = 0.5
+_duration = 0.3
 _animatedActor = NodePath("../../AspectRatioContainer/Warrior")
 
 [node name="ScaleUpFade" type="Node" parent="Tweeners" node_paths=PackedStringArray("_tileRoot")]
@@ -369,25 +369,25 @@ script = ExtResource("21_plogw")
 _tileRoot = NodePath("../..")
 _duration = 0.1
 
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("_initialState")]
+[node name="StateMachine_not_using" type="Node" parent="." node_paths=PackedStringArray("_initialState")]
 script = ExtResource("22_piquv")
 _initialState = NodePath("Idle")
 
-[node name="Idle_old" type="Node" parent="StateMachine" node_paths=PackedStringArray("_animatedSprite")]
+[node name="Idle_old" type="Node" parent="StateMachine_not_using" node_paths=PackedStringArray("_animatedSprite")]
 script = ExtResource("23_qgr8d")
 _animatedSprite = NodePath("../../AspectRatioContainer/AnimatedSprite2D")
 
-[node name="Dash_old" type="Node" parent="StateMachine" node_paths=PackedStringArray("_animatedSprite")]
+[node name="Dash_old" type="Node" parent="StateMachine_not_using" node_paths=PackedStringArray("_animatedSprite")]
 script = ExtResource("25_rdwmy")
 _animatedSprite = NodePath("../../AspectRatioContainer/AnimatedSprite2D")
 _animation = 4
 _duration = 0.5
 
-[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("_animatedActor")]
+[node name="Idle" type="Node" parent="StateMachine_not_using" node_paths=PackedStringArray("_animatedActor")]
 script = ExtResource("27_6h4u4")
 _animatedActor = NodePath("../../AspectRatioContainer/Warrior")
 
-[node name="Dash" type="Node" parent="StateMachine" node_paths=PackedStringArray("_animatedActor")]
+[node name="Dash" type="Node" parent="StateMachine_not_using" node_paths=PackedStringArray("_animatedActor")]
 script = ExtResource("29_kw2j6")
 _animatedActor = NodePath("../../AspectRatioContainer/Warrior")
 _duration = 0.5
@@ -398,6 +398,6 @@ _duration = 0.5
 [connection signal="TookDamage" from="Behaviors/Defender" to="Tweeners/Recoil" method="Recoil"]
 [connection signal="TookDamage" from="Behaviors/Defender" to="Tweeners/FlashWhite" method="FlashOnce"]
 [connection signal="Attacked" from="Behaviors/Offense" to="Tweeners/SpringForthAndBack" method="Attack"]
-[connection signal="StateChanged" from="StateMachine/Idle_old" to="StateMachine" method="OnChildStateChanged"]
-[connection signal="StateChanged" from="StateMachine/Idle" to="StateMachine" method="OnChildStateChanged"]
-[connection signal="StateChanged" from="StateMachine/Dash" to="StateMachine" method="OnChildStateChanged"]
+[connection signal="StateChanged" from="StateMachine_not_using/Idle_old" to="StateMachine_not_using" method="OnChildStateChanged"]
+[connection signal="StateChanged" from="StateMachine_not_using/Idle" to="StateMachine_not_using" method="OnChildStateChanged"]
+[connection signal="StateChanged" from="StateMachine_not_using/Dash" to="StateMachine_not_using" method="OnChildStateChanged"]

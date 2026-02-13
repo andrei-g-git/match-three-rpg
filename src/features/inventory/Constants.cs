@@ -127,6 +127,13 @@ namespace Inventory{
             //     Defense = 
             // },
             new GearData{
+                Name = Cutouts.WoodenShield.ToString(),
+                Purpose = Purpose.Armor.ToString().ToLower(),
+                Slot = EquipmentTypes.OffHand.ToString().ToLower(),
+                Damage = 0,
+                Defense = 2
+            },			
+            new GearData{
                 Name = Cutouts.WoodenClub.ToString(),
                 Purpose = Purpose.Weapon.ToString().ToLower(),
                 Slot = EquipmentTypes.Weapon.ToString().ToLower(),
