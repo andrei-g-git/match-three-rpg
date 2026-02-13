@@ -28,12 +28,16 @@ public partial class MoveTweener : Node, Movable, Mapable
 
 		tween.TweenProperty(_tileRoot, "position", (Vector2) pixelTarget, _duration);
 
-		(_animatedActor as Animatable).Play(TileStates.Dash.ToString().ToLower());
+		if(_animatedActor !=null){ //because skill tiles currently have this tweener too...
+			(_animatedActor as Animatable).Play(TileStates.Dash.ToString().ToLower());
+		}
 		//(_dashState as Stateful).Enter(); //I'm ditcheing states, I'll just use AnimatedActor Play and Stop interfaces, they're already set up to default back to idle when actions complete 
 		
 		tween.Finished += () => {
 			EmitSignal(SignalName.FinishedMoving); //this finishes before it finishes completely, leaving the animation too short...
+		if(_animatedActor !=null){ //because skill tiles currently have this tweener too...
 			(_animatedActor as Animatable).Stop(TileStates.Dash.ToString().ToLower());
+		}
 			//(_dashState as Stateful).Exit();
 		};
 	}	

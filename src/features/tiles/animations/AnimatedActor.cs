@@ -7,7 +7,7 @@ public partial class AnimatedActor : Node2D, Animatable, CustomizableGear
 {
 	[Export] private AnimationPlayer _animationPlayer; //might not need
 	[Export] private AnimationTree _animationTree;
-	[Export] private Node _gearCustomizer;
+	[Export] private Node _gearCustomizer; //enemies might not need this...
 	private string conditionPath = "parameters/conditions/";
 
 

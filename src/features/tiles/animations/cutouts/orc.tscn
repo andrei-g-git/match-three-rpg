@@ -1,5 +1,6 @@
-[gd_scene load_steps=26 format=3 uid="uid://u571avx8ib84"]
+[gd_scene load_steps=27 format=3 uid="uid://u571avx8ib84"]
 
+[ext_resource type="Script" uid="uid://b6jayj84n35om" path="res://src/features/tiles/animations/AnimatedActor.cs" id="1_4v745"]
 [ext_resource type="Texture2D" uid="uid://cyr52fdfuj0yw" path="res://assets/images/tiles/actors/orc/cutouts/LegLeftLower.png" id="1_br8lt"]
 [ext_resource type="Texture2D" uid="uid://c3iab65i8mwxc" path="res://assets/images/tiles/actors/orc/cutouts/LegLeftUpper.png" id="2_4v745"]
 [ext_resource type="Texture2D" uid="uid://6u3k70dai4am" path="res://assets/images/tiles/actors/orc/cutouts/LegRightLower.png" id="3_x60jv"]
@@ -209,7 +210,10 @@ states/Start/position = Vector2(191, 106)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_rpheb"), "Idle", "Dash", SubResource("AnimationNodeStateMachineTransition_6ygyc"), "Dash", "Idle", SubResource("AnimationNodeStateMachineTransition_y5mrr")]
 graph_offset = Vector2(-143.45343, 5.20104)
 
-[node name="Orc" type="Node2D"]
+[node name="Orc" type="Node2D" node_paths=PackedStringArray("_animationPlayer", "_animationTree")]
+script = ExtResource("1_4v745")
+_animationPlayer = NodePath("AnimationPlayer")
+_animationTree = NodePath("AnimationTree")
 
 [node name="AssetContainer" type="Node2D" parent="."]
 
@@ -230,8 +234,8 @@ texture = ExtResource("2_4v745")
 offset = Vector2(-3, 29)
 
 [node name="LegRightLower" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(-22.999193, 28.992577)
-scale = Vector2(0.99969214, 0.99969214)
+position = Vector2(-22.999191, 28.992558)
+scale = Vector2(0.99969196, 0.99969196)
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/LegRightLower"]
 texture = ExtResource("3_x60jv")
@@ -239,65 +243,65 @@ offset = Vector2(-3, 27)
 
 [node name="LegRightUpper" type="Node2D" parent="AssetContainer/Cutouts"]
 position = Vector2(-18, -17)
-scale = Vector2(0.99983865, 0.99983865)
+scale = Vector2(0.9998382, 0.9998382)
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/LegRightUpper"]
 texture = ExtResource("4_4eygj")
 offset = Vector2(2, 30)
 
 [node name="ArmLeftUpper" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(15.943527, -81.05344)
-rotation = -0.32138765
-scale = Vector2(0.99944425, 1.0002359)
-skew = -0.0010970831
+position = Vector2(16.513313, -80.431915)
+rotation = -0.3199474
+scale = Vector2(1.0037043, 0.9959599)
+skew = 0.010309339
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/ArmLeftUpper"]
 texture = ExtResource("5_q2s2v")
 offset = Vector2(3, 17)
 
 [node name="ArmLeftLower" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(28.983532, -50.058784)
-rotation = -0.316028
-scale = Vector2(0.99945015, 1.0002301)
-skew = -0.0011054277
+position = Vector2(29.111729, -49.439835)
+rotation = -0.31463328
+scale = Vector2(1.0036492, 0.99601555)
+skew = 0.010391712
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/ArmLeftLower"]
 texture = ExtResource("6_ruxdl")
 offset = Vector2(3.2398338, 19.257359)
 
 [node name="Body" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(0, -41.060333)
-scale = Vector2(0.9998519, 0.99982846)
-skew = -0.001352787
+position = Vector2(0, -40.442135)
+scale = Vector2(0.9998516, 0.99982774)
+skew = 0.012894869
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/Body"]
 texture = ExtResource("7_tl07e")
 offset = Vector2(-1, -12)
 
 [node name="ArmRightUpper" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(-25.05175, -82.05327)
-rotation = 0.33261412
-scale = Vector2(1.0002668, 0.9994133)
-skew = -0.0010496378
+position = Vector2(-24.467707, -81.43166)
+rotation = 0.3341141
+scale = Vector2(0.99586076, 1.0038028)
+skew = 0.010157824
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/ArmRightUpper"]
 texture = ExtResource("8_fmo6i")
 offset = Vector2(0.4376831, 18.807999)
 
 [node name="ArmRightLower" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(-37.013454, -55.057922)
-rotation = 0.1625825
-scale = Vector2(1.0000672, 0.9996129)
-skew = -0.0012743473
+position = Vector2(-36.81402, -54.43856)
+rotation = 0.16294342
+scale = Vector2(0.99778897, 1.0018861)
+skew = 0.012226462
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/ArmRightLower"]
 texture = ExtResource("9_strlx")
 offset = Vector2(3.235218, 25.152359)
 
 [node name="Weapon" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(-43.353123, -11.586071)
-scale = Vector2(0.9998519, 0.99982846)
-skew = -0.001352787
+position = Vector2(-43.773037, -10.970318)
+scale = Vector2(0.9998516, 0.99982774)
+skew = 0.012894869
 
 [node name="Gear" type="Sprite2D" parent="AssetContainer/Cutouts/Weapon"]
 rotation = 0.19198622
@@ -307,9 +311,9 @@ texture = ExtResource("10_cs0x3")
 offset = Vector2(34.853645, -0.23484516)
 
 [node name="Head" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(-7.081465, -102.04982)
-scale = Vector2(0.9998519, 0.99982846)
-skew = -0.001352787
+position = Vector2(-6.212531, -101.42656)
+scale = Vector2(0.9998516, 0.99982774)
+skew = 0.012894869
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/Head"]
 texture = ExtResource("11_r5t3i")
@@ -328,7 +332,7 @@ rest = Transform2D(1, 0, 0, 1, 0, -25)
 
 [node name="Spine" type="Bone2D" parent="AssetContainer/Skeleton2D/Center"]
 position = Vector2(0, -16)
-scale = Vector2(0.9998519, 0.99982846)
+scale = Vector2(0.9998516, 0.99982774)
 rest = Transform2D(0.9998524, 0, 0.013331832, 0.99973965, 0, -16.471685)
 auto_calculate_length_and_angle = false
 length = 60.0
@@ -401,7 +405,7 @@ remote_path = NodePath("../../../../../../Cutouts/ArmLeftLower")
 
 [node name="HipRight" type="Bone2D" parent="AssetContainer/Skeleton2D/Center"]
 position = Vector2(-18, 8)
-scale = Vector2(0.99983865, 0.99983865)
+scale = Vector2(0.9998382, 0.9998382)
 rest = Transform2D(0.99984026, 0, 0, 0.99984026, -18, 8)
 
 [node name="LegRightUpper" type="RemoteTransform2D" parent="AssetContainer/Skeleton2D/Center/HipRight"]
@@ -409,7 +413,7 @@ remote_path = NodePath("../../../../Cutouts/LegRightUpper")
 
 [node name="KneeRight" type="Bone2D" parent="AssetContainer/Skeleton2D/Center/HipRight"]
 position = Vector2(-5, 46)
-scale = Vector2(0.9998535, 0.9998535)
+scale = Vector2(0.9998538, 0.9998538)
 rest = Transform2D(0.9998541, 0, 0, 0.9998541, -5, 46)
 auto_calculate_length_and_angle = false
 length = 40.8
