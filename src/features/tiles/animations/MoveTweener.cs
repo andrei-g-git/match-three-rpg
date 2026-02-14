@@ -35,9 +35,9 @@ public partial class MoveTweener : Node, Movable, Mapable
 		
 		tween.Finished += () => {
 			EmitSignal(SignalName.FinishedMoving); //this finishes before it finishes completely, leaving the animation too short...
-		if(_animatedActor !=null){ //because skill tiles currently have this tweener too...
-			(_animatedActor as Animatable).Stop(TileStates.Dash.ToString().ToLower());
-		}
+			if(_animatedActor !=null){ //because skill tiles currently have this tweener too...
+				(_animatedActor as Animatable).Stop(TileStates.Dash.ToString().ToLower());
+			}
 			//(_dashState as Stateful).Exit();
 		};
 	}	

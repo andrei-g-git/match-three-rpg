@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://dwsjfo3ndaiha"]
+[gd_scene load_steps=39 format=3 uid="uid://dwsjfo3ndaiha"]
 
 [ext_resource type="Texture2D" uid="uid://y1ourf4ag7yy" path="res://assets/images/tiles/actors/warrior/cutouts/arm-l-lower.png" id="1_2wrfs"]
 [ext_resource type="Script" uid="uid://b6jayj84n35om" path="res://src/features/tiles/animations/AnimatedActor.cs" id="1_l8th2"]
@@ -299,7 +299,6 @@ tracks/15/keys = {
 [sub_resource type="Animation" id="Animation_rpheb"]
 resource_name = "Swing"
 length = 0.7
-loop_mode = 2
 tracks/0/type = "bezier"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -491,16 +490,19 @@ animation = &"Dash"
 [sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_kgmvq"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_af0q4"]
-graph_offset = Vector2(-155.88257, 53.04785)
+graph_offset = Vector2(-117.8768, -21.138245)
 nodes/output/position = Vector2(500, 140)
 nodes/OneShot/node = SubResource("AnimationNodeOneShot_kgmvq")
-nodes/OneShot/position = Vector2(280, 100)
+nodes/OneShot/position = Vector2(160, 0)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_8x8rt")
 nodes/Animation/position = Vector2(20, 260)
 node_connections = [&"output", 0, &"Animation"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_aavat"]
 animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rpheb"]
+animation = &"Swing"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_rpheb"]
 advance_mode = 2
@@ -514,6 +516,15 @@ switch_mode = 2
 advance_mode = 2
 advance_condition = &"idle"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0yg1q"]
+advance_mode = 2
+advance_condition = &"swing"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5ryii"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"idle"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_0yg1q"]
 states/Dash/node = SubResource("AnimationNodeBlendTree_af0q4")
 states/Dash/position = Vector2(400, 182)
@@ -521,10 +532,13 @@ states/End/position = Vector2(516, 106)
 states/Idle/node = SubResource("AnimationNodeAnimation_aavat")
 states/Idle/position = Vector2(356, 65)
 states/Start/position = Vector2(191, 106)
-transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_rpheb"), "Idle", "Dash", SubResource("AnimationNodeStateMachineTransition_6ygyc"), "Dash", "Idle", SubResource("AnimationNodeStateMachineTransition_y5mrr")]
-graph_offset = Vector2(-143.45343, 5.20104)
+states/Swing/node = SubResource("AnimationNodeAnimation_rpheb")
+states/Swing/position = Vector2(356, -40.05449)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_rpheb"), "Idle", "Dash", SubResource("AnimationNodeStateMachineTransition_6ygyc"), "Dash", "Idle", SubResource("AnimationNodeStateMachineTransition_y5mrr"), "Idle", "Swing", SubResource("AnimationNodeStateMachineTransition_0yg1q"), "Swing", "Idle", SubResource("AnimationNodeStateMachineTransition_5ryii")]
+graph_offset = Vector2(-143.45343, -85.05449)
 
 [node name="Warrior" type="Node2D" node_paths=PackedStringArray("_animationPlayer", "_animationTree", "_gearCustomizer")]
+scale = Vector2(0.25, 0.25)
 script = ExtResource("1_l8th2")
 _animationPlayer = NodePath("AnimationPlayer")
 _animationTree = NodePath("AnimationTree")
@@ -541,8 +555,8 @@ _cutoutEntries = Array[Resource]([SubResource("Resource_6ygyc"), SubResource("Re
 [node name="Cutouts" type="Node2D" parent="AssetContainer"]
 
 [node name="LegLeftLower" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(15.000473, 29.992828)
-scale = Vector2(0.999718, 0.9997165)
+position = Vector2(15.000477, 29.992725)
+scale = Vector2(0.99971485, 0.99971247)
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/LegLeftLower"]
 texture = ExtResource("8_6ygyc")
@@ -550,15 +564,15 @@ offset = Vector2(2, 26)
 
 [node name="LegLeftUpper" type="Node2D" parent="AssetContainer/Cutouts"]
 position = Vector2(18, -15.000011)
-scale = Vector2(0.99984235, 0.99984086)
+scale = Vector2(0.999841, 0.9998386)
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/LegLeftUpper"]
 texture = ExtResource("9_y5mrr")
 offset = Vector2(-3, 29)
 
 [node name="LegRightLower" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(-22.999142, 28.99203)
-scale = Vector2(0.9996616, 0.99966043)
+position = Vector2(-22.999144, 28.992052)
+scale = Vector2(0.9996615, 0.9996603)
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/LegRightLower"]
 texture = ExtResource("10_0yg1q")
@@ -566,71 +580,70 @@ offset = Vector2(-3, 27)
 
 [node name="LegRightUpper" type="Node2D" parent="AssetContainer/Cutouts"]
 position = Vector2(-18, -17.00001)
-scale = Vector2(0.99982816, 0.99982697)
+scale = Vector2(0.99982864, 0.99982744)
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/LegRightUpper"]
 texture = ExtResource("11_5ryii")
 offset = Vector2(2, 30)
 
 [node name="ArmLeftUpper" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(15.997725, -81.46515)
-rotation = -0.32126
-scale = Vector2(0.99967563, 0.9996756)
+position = Vector2(15.997722, -81.46472)
+rotation = -0.32125935
+scale = Vector2(0.99967325, 0.9996715)
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/ArmLeftUpper"]
 texture = ExtResource("2_l8th2")
 offset = Vector2(3, 17)
 
 [node name="ArmLeftLower" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(28.993511, -50.475204)
-rotation = -0.31590456
-scale = Vector2(0.99954766, 0.99954766)
+position = Vector2(28.99348, -50.474915)
+rotation = -0.31590393
+scale = Vector2(0.99954295, 0.9995412)
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/ArmLeftLower"]
 texture = ExtResource("1_2wrfs")
 offset = Vector2(3.2398338, 19.257359)
 
 [node name="Body" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(0, -41.47198)
-scale = Vector2(0.99982923, 0.9998292)
+position = Vector2(0, -41.471664)
+scale = Vector2(0.99982876, 0.99982655)
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/Body"]
 texture = ExtResource("5_af0q4")
 offset = Vector2(-1, -12)
 
 [node name="ArmRightUpper" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(-24.995731, -82.46498)
-rotation = 0.33276585
-scale = Vector2(0.9996981, 0.99969804)
+position = Vector2(-24.995718, -82.464554)
+rotation = 0.33276522
+scale = Vector2(0.9996963, 0.9996946)
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/ArmRightUpper"]
 texture = ExtResource("4_kgmvq")
 offset = Vector2(0.4376831, 18.807999)
 
 [node name="ArmRightLower" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(-36.992107, -55.473133)
-rotation = 0.16262184
-scale = Vector2(0.9995549, 0.9995548)
+position = Vector2(-36.992077, -55.47281)
+rotation = 0.16262151
+scale = Vector2(0.9995505, 0.99954844)
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/ArmRightLower"]
 texture = ExtResource("3_8x8rt")
 offset = Vector2(3.235218, 25.152359)
 
 [node name="Weapon" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(-43.38868, -12.013142)
-scale = Vector2(0.9995549, 0.9995548)
-skew = -5.6147575e-05
+position = Vector2(-43.388622, -12.013096)
+scale = Vector2(0.99949175, 0.99948955)
+skew = -6.0796738e-05
 
 [node name="Gear" type="Sprite2D" parent="AssetContainer/Cutouts/Weapon"]
 rotation = 0.19198622
 scale = Vector2(0.9998524, 0.9998284)
 skew = -0.013334513
-texture = ExtResource("17_rpheb")
 offset = Vector2(34.853645, -0.23484516)
 
 [node name="Head" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(-6.9988046, -102.46156)
-scale = Vector2(0.99982923, 0.9998292)
+position = Vector2(-6.998801, -102.46108)
+scale = Vector2(0.99982876, 0.99982655)
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/Head"]
 texture = ExtResource("7_rpheb")
@@ -640,6 +653,7 @@ offset = Vector2(8, -17)
 offset = Vector2(10, -38)
 
 [node name="Skeleton2D" type="Skeleton2D" parent="AssetContainer"]
+visible = false
 modification_stack = SubResource("SkeletonModificationStack2D_8x8rt")
 
 [node name="Center" type="Bone2D" parent="AssetContainer/Skeleton2D"]
@@ -649,7 +663,7 @@ rest = Transform2D(1, 0, 0, 1, 0, -25)
 
 [node name="Spine" type="Bone2D" parent="AssetContainer/Skeleton2D/Center"]
 position = Vector2(0, -16)
-scale = Vector2(0.99982923, 0.99983037)
+scale = Vector2(0.99982876, 0.99982774)
 rest = Transform2D(0.9998524, 0, 0, 0.99982846, 0, -16.471685)
 auto_calculate_length_and_angle = false
 length = 60.0
@@ -670,7 +684,7 @@ remote_path = NodePath("../../../../../Cutouts/Head")
 
 [node name="ShoulderRight" type="Bone2D" parent="AssetContainer/Skeleton2D/Center/Spine"]
 position = Vector2(-25, -41)
-scale = Vector2(0.99986887, 0.99986887)
+scale = Vector2(0.9998678, 0.9998678)
 rest = Transform2D(1, 0, 0, 1, -25, -41)
 
 [node name="ArmRightUpper" type="RemoteTransform2D" parent="AssetContainer/Skeleton2D/Center/Spine/ShoulderRight"]
@@ -679,7 +693,7 @@ remote_path = NodePath("../../../../../Cutouts/ArmRightUpper")
 
 [node name="ElbowRight" type="Bone2D" parent="AssetContainer/Skeleton2D/Center/Spine/ShoulderRight"]
 position = Vector2(-12, 27)
-scale = Vector2(0.9998567, 0.9998567)
+scale = Vector2(0.999854, 0.999854)
 rest = Transform2D(1, 0, 0, 1, -12, 27)
 auto_calculate_length_and_angle = false
 length = 34.6
@@ -692,7 +706,7 @@ remote_path = NodePath("../../../../../../Cutouts/ArmRightLower")
 [node name="Weapon" type="Bone2D" parent="AssetContainer/Skeleton2D/Center/Spine/ShoulderRight/ElbowRight"]
 position = Vector2(-6.3994207, 43.479347)
 scale = Vector2(0.9999411, 0.9999411)
-skew = -5.6147575e-05
+skew = -6.0796738e-05
 rest = Transform2D(1, 0, 0, 1, -6.3994207, 43.479347)
 auto_calculate_length_and_angle = false
 length = 68.27
@@ -703,7 +717,7 @@ remote_path = NodePath("../../../../../../../Cutouts/Weapon")
 
 [node name="ShoulderLeft" type="Bone2D" parent="AssetContainer/Skeleton2D/Center/Spine"]
 position = Vector2(19, -40)
-scale = Vector2(0.9998464, 0.9998464)
+scale = Vector2(0.99984473, 0.99984473)
 rest = Transform2D(1, 0, 0, 1, 19, -40)
 auto_calculate_length_and_angle = false
 length = 16.0
@@ -716,7 +730,7 @@ remote_path = NodePath("../../../../../Cutouts/ArmLeftUpper")
 
 [node name="ElbowLeft" type="Bone2D" parent="AssetContainer/Skeleton2D/Center/Spine/ShoulderLeft"]
 position = Vector2(10, 31)
-scale = Vector2(0.99987197, 0.99987197)
+scale = Vector2(0.99986964, 0.99986964)
 rest = Transform2D(1, 0, 0, 1, 10, 31)
 auto_calculate_length_and_angle = false
 length = 28.4
@@ -728,7 +742,7 @@ remote_path = NodePath("../../../../../../Cutouts/ArmLeftLower")
 
 [node name="HipRight" type="Bone2D" parent="AssetContainer/Skeleton2D/Center"]
 position = Vector2(-18, 8)
-scale = Vector2(0.99982816, 0.99982816)
+scale = Vector2(0.99982864, 0.99982864)
 rest = Transform2D(0.99984026, 0, 0, 0.99984026, -18, 8)
 
 [node name="LegRightUpper" type="RemoteTransform2D" parent="AssetContainer/Skeleton2D/Center/HipRight"]
@@ -736,7 +750,7 @@ remote_path = NodePath("../../../../Cutouts/LegRightUpper")
 
 [node name="KneeRight" type="Bone2D" parent="AssetContainer/Skeleton2D/Center/HipRight"]
 position = Vector2(-5, 46)
-scale = Vector2(0.99983346, 0.99983346)
+scale = Vector2(0.99983287, 0.99983287)
 rest = Transform2D(0.9998541, 0, 0, 0.9998541, -5, 46)
 auto_calculate_length_and_angle = false
 length = 40.8
@@ -747,7 +761,7 @@ remote_path = NodePath("../../../../../Cutouts/LegRightLower")
 
 [node name="HipLeft" type="Bone2D" parent="AssetContainer/Skeleton2D/Center"]
 position = Vector2(18, 10)
-scale = Vector2(0.99984235, 0.99984205)
+scale = Vector2(0.999841, 0.9998398)
 rest = Transform2D(1, 0, 0, 1, 18, 10)
 
 [node name="LegLeftUpper" type="RemoteTransform2D" parent="AssetContainer/Skeleton2D/Center/HipLeft"]
@@ -755,7 +769,7 @@ remote_path = NodePath("../../../../Cutouts/LegLeftUpper")
 
 [node name="KneeLeft" type="Bone2D" parent="AssetContainer/Skeleton2D/Center/HipLeft"]
 position = Vector2(-3, 45)
-scale = Vector2(0.99987566, 0.99987566)
+scale = Vector2(0.9998739, 0.9998739)
 rest = Transform2D(1, 0, 0, 1, -3, 45)
 auto_calculate_length_and_angle = false
 length = 40.8
@@ -774,6 +788,7 @@ tree_root = SubResource("AnimationNodeStateMachine_0yg1q")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/dash = false
 parameters/conditions/idle = false
+parameters/conditions/swing = false
 parameters/Dash/OneShot/active = false
 parameters/Dash/OneShot/internal_active = false
 parameters/Dash/OneShot/request = 0

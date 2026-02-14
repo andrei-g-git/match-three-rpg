@@ -6,7 +6,7 @@ public partial class Delete : AnimationTree
 {
 	[Export] private AnimationTree _tree;
 
-	// public void _Ready(){
+	// public override void _Ready(){
 	// 	_tree.Set(AnimationTree.Cond)
 	// }
 

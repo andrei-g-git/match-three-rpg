@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3 uid="uid://neacnhoii1ja"]
+[gd_scene load_steps=59 format=3 uid="uid://neacnhoii1ja"]
 
 [ext_resource type="Script" uid="uid://bi3h2kor8um1g" path="res://src/features/tiles/variations/player/Manager.cs" id="1_4gdcj"]
 [ext_resource type="Texture2D" uid="uid://feagubw57qbq" path="res://assets/images/tiles/actors/warrior/warrior_dash.bmp" id="2_qgr8d"]
@@ -21,6 +21,7 @@
 [ext_resource type="Script" uid="uid://b7lfifx1qdl5x" path="res://src/features/tiles/behaviors/Turn.cs" id="13_ot1tn"]
 [ext_resource type="Script" uid="uid://m05lgru2ui7v" path="res://src/features/tiles/animations/SpringForthAndBack.cs" id="14_47kl3"]
 [ext_resource type="Script" uid="uid://bwnp3h3h358d0" path="res://src/features/tiles/behaviors/Hostility.cs" id="14_ot1tn"]
+[ext_resource type="Script" uid="uid://bdj60xnud45qq" path="res://src/features/tiles/behaviors/DamageCalculator.cs" id="16_di4h1"]
 [ext_resource type="Script" uid="uid://e2s0xy666sc2" path="res://src/features/tiles/animations/ShakeOnce.cs" id="20_ympln"]
 [ext_resource type="Script" uid="uid://v4rkcw3mfxm0" path="res://src/features/tiles/animations/FlashWhite.cs" id="21_plogw"]
 [ext_resource type="Script" uid="uid://bfyw6g3m1ab38" path="res://src/features/tiles/state/StateMachine.cs" id="22_piquv"]
@@ -318,8 +319,14 @@ _player = NodePath("../..")
 script = ExtResource("11_m7si5")
 _stats = NodePath("../../Stats-should not have scr/Derived")
 
-[node name="Offense" type="Node" parent="Behaviors"]
+[node name="Offense" type="Node" parent="Behaviors" node_paths=PackedStringArray("_damageCalculator")]
 script = ExtResource("10_xxn2p")
+_damageCalculator = NodePath("../DamageCalculator")
+
+[node name="DamageCalculator" type="Node" parent="Behaviors" node_paths=PackedStringArray("_equipmentModel", "_statsModel")]
+script = ExtResource("16_di4h1")
+_equipmentModel = NodePath("../../Equipment")
+_statsModel = NodePath("../../Stats-should not have scr")
 
 [node name="MatchesTraversal" type="Node" parent="Behaviors" node_paths=PackedStringArray("_tileRoot")]
 script = ExtResource("13_nd62f")
@@ -351,11 +358,12 @@ script = ExtResource("8_17kow")
 _tileRoot = NodePath("../..")
 _duration = 0.7
 
-[node name="SpringForthAndBack" type="Node" parent="Tweeners" node_paths=PackedStringArray("_tileRoot")]
+[node name="SpringForthAndBack" type="Node" parent="Tweeners" node_paths=PackedStringArray("_tileRoot", "_animatedActor")]
 script = ExtResource("14_47kl3")
 _duration = 0.4
 _lungeMagnitude = 0.5
 _tileRoot = NodePath("../..")
+_animatedActor = NodePath("../../AspectRatioContainer/Warrior")
 
 [node name="Recoil" type="Node" parent="Tweeners" node_paths=PackedStringArray("_tileRoot")]
 script = ExtResource("20_ympln")

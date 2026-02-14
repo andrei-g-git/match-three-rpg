@@ -42,7 +42,8 @@ namespace Tiles {
 		Water, //env
 	}
 	public enum TileStates{
-		Attack, 
+		Attack, //prob won't use this
+		Swing,
 		Hurt,
 		Idle,
 		Move,

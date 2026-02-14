@@ -25,4 +25,10 @@ public partial class OrcStats: Node, WithHealth, WithDefense, WithDamage, WithSp
             _speed = value;
     }}
 
+    public override void _Ready()
+    {
+        Health = _maxHealth; //obviously only for testing
+        var bp = 123;
+    }
+
 }

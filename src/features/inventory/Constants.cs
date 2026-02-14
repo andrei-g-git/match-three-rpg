@@ -137,7 +137,7 @@ namespace Inventory{
                 Name = Cutouts.WoodenClub.ToString(),
                 Purpose = Purpose.Weapon.ToString().ToLower(),
                 Slot = EquipmentTypes.Weapon.ToString().ToLower(),
-                Damage = 5,
+                Damage = 1,
                 Defense = 0
             },                                                                                   
         };	
