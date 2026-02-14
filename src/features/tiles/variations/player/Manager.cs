@@ -11,7 +11,7 @@ using Tiles;
 using static Skills.SkillNames;
 
 namespace Player{
-	public partial class Manager : Control, Tile, AccessableBoard, Movable, Mapable, Swappable, Permeable, MatchableBounds, Playable, Attributive, DerivableStats, Classy, CollectableEnergy, RelayableUIEvents, ReactiveToMatches, Offensive, Skillful, TraversableMatching, Creatable, Agentive, TurnBased, Disposition, Defensible, Gearable
+	public partial class Manager : Control, Tile, AccessableBoard, Movable, Mapable, Swappable, Permeable, MatchableBounds, Playable, Attributive, DerivableStats, Classy, CollectableEnergy, RelayableUIEvents, ReactiveToMatches, Offensive, Skillful, TraversableMatching, Creatable, Agentive, TurnBased, Disposition, Defensible, Gearable, StatBasedGear
 	{
         //[Export] Node _skillsModel; //DOES NOT HAVE INTERFACE 
 		[ExportGroup("behaviors")]
@@ -269,6 +269,13 @@ namespace Player{
             (_turn as TurnBased).BeginTurn();
         }
 
+        public int GetTotalGearBaseDefense(){
+            return (_equipmentModel as StatBasedGear).GetTotalGearBaseDefense();
+        }
+
+        public int GetTotalGearBaseDamage(){
+            return (_equipmentModel as StatBasedGear).GetTotalGearBaseDamage();
+        }
     }	
 }
 
