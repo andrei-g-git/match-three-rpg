@@ -7,6 +7,7 @@ public partial class DefenseForNpc : Node, Defensible
 {
 	[Export] private Node _stats;
 	[Signal] private delegate void TookDamageEventHandler(int amount);
+	[Signal] private delegate void DyingEventHandler(int amount);
 
 
 	public override void _Ready(){}
@@ -17,6 +18,9 @@ public partial class DefenseForNpc : Node, Defensible
 		var health = healthSystem.Health;
 		healthSystem.Health = Math.Max(0, health - finalDamage); 
 		EmitSignal(SignalName.TookDamage, finalDamage);
+		if(healthSystem.Health <= 0){
+			EmitSignal(SignalName.Dying);
+		}
 	}
 
 	public void ConnectTookDamage(Action<int> action){

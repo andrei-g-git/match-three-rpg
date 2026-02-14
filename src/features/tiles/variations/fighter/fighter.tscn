@@ -170,7 +170,9 @@ _tileRoot = NodePath("../..")
 
 [connection signal="EngagedBy" from="AspectRatioContainer/DragAndDrop" to="Behaviors/Engagement" method="ProcessEngagementBy"]
 [connection signal="EngagingDirectly" from="Behaviors/Swapping" to="Behaviors/Engagement" method="ProcessEngagementBy"]
+[connection signal="Destroying" from="Behaviors/Removing" to="." method="RemoveFromTurnQueue"]
 [connection signal="Destroying" from="Behaviors/Removing" to="Tweeners/ScaleUpFade" method="Disappear"]
+[connection signal="Dying" from="Behaviors/Defender" to="Behaviors/Removing" method="PrepDestroy"]
 [connection signal="TookDamage" from="Behaviors/Defender" to="Tweeners/Recoil" method="Recoil"]
 [connection signal="TookDamage" from="Behaviors/Defender" to="Tweeners/FlashWhite" method="FlashOnce"]
 [connection signal="Attacking" from="Behaviors/Engagement" to="Behaviors/Offense" method="Attack"]

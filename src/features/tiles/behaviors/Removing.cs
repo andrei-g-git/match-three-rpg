@@ -6,7 +6,7 @@ using Tiles;
 public partial class Removing : Node, Removable
 {
 	[Export] private Node _tileRoot;
-	[Signal] public delegate void DestroyingEventHandler();
+	[Signal] public delegate void DestroyingEventHandler(); 
     [Signal] public delegate void RemovedEventHandler();
     public void PrepDestroy(){
         EmitSignal(SignalName.Destroying);

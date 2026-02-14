@@ -44,7 +44,20 @@ public partial class Turns : Node, Sequential, Initializable, /* AccessableBoard
 	}
 
 	public void AddActor(Control actor){
-		_actors.Add(actor);
+		_actors.Add(actor); //might need to add to turnQueue too
+		UpdateActors();
+	}
+
+	public void RemoveActor(Control actor){
+		_actors.Remove(actor);
+		// //test
+		// bool foundSameReference = _turnQueue.Any(item => ReferenceEquals(item, actor));
+		// // or
+		// var matching = _turnQueue.Where(item => ReferenceEquals(item, actor)).ToList();
+		// GD.Print($"found same reference: {foundSameReference}  or  mathich size:  {matching.Count}");
+
+		//_turnQueue = new Queue<Control>(_turnQueue.Where(item => !ReferenceEquals(item, actor)));
+		_turnQueue = new Queue<Control>(_turnQueue.Where(item => !EqualityComparer<Control>.Default.Equals(item, actor)));		
 		UpdateActors();
 	}
 

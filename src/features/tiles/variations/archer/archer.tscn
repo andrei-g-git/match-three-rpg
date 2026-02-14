@@ -102,4 +102,5 @@ _maxShakes = 3
 _shakeMagnitude = 0.2
 
 [connection signal="EngagedBy" from="AspectRatioContainer/DragAndDrop" to="Behaviors/Engagement" method="ProcessEngagementBy"]
+[connection signal="Destroying" from="Behaviors/Removing" to="." method="RemoveFromTurnQueue"]
 [connection signal="Destroying" from="Behaviors/Removing" to="Tweeners/ScaleUpFade" method="Disappear"]

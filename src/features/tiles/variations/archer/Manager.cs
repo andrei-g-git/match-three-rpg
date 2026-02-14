@@ -90,6 +90,10 @@ namespace Archer{
         public void BeginTurn(){
             (_turn as TurnBased).BeginTurn();
         }
+        
+        public void RemoveFromTurnQueue(){ //not interface method, just for connecting with signal from remove behavior
+            TurnQueue.RemoveActor(this);
+        }
     }	
 }
 

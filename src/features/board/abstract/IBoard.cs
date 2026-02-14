@@ -57,7 +57,8 @@ namespace Board{
 		public Control CurrentActor{get;}
 		public void AdvanceTurn();
 		public bool IsPlayerTurn();
-		public void AddActor(Control actor);		
+		public void AddActor(Control actor);	
+		public void RemoveActor(Control actor);	
 	}
 
 }
