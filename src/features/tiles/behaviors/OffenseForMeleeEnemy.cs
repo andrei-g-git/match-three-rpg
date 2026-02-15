@@ -15,7 +15,7 @@ public partial class OffenseForMeleeEnemy: Node, Offensive
         _AttackWithMomentum(actor, momentum);
     }
 
-    private void _AttackWithMomentum(Control target, int momentum){
+    private void _AttackWithMomentum(Control target, int momentum){ //won't be needing this?
         if(target is Disposition potentialEnemy){
             if(potentialEnemy.IsEnemy){ 
                 var damage = (_stats as WithDamage).Damage;

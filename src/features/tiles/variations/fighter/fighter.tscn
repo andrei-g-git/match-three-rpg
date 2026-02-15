@@ -164,11 +164,12 @@ _tileRoot = NodePath("../..")
 _duration = 0.1
 _sprite = NodePath("../../AspectRatioContainer/Sprite2D")
 
-[node name="SpringForthAndBack" type="Node" parent="Tweeners" node_paths=PackedStringArray("_tileRoot")]
+[node name="SpringForthAndBack" type="Node" parent="Tweeners" node_paths=PackedStringArray("_tileRoot", "_animatedActor")]
 script = ExtResource("22_vn581")
 _duration = 0.4
 _lungeMagnitude = 0.5
 _tileRoot = NodePath("../..")
+_animatedActor = NodePath("../../AspectRatioContainer/Orc")
 
 [connection signal="EngagedBy" from="AspectRatioContainer/DragAndDrop" to="Behaviors/Engagement" method="ProcessEngagementBy"]
 [connection signal="EngagingDirectly" from="Behaviors/Swapping" to="Behaviors/Engagement" method="ProcessEngagementBy"]
@@ -177,6 +178,7 @@ _tileRoot = NodePath("../..")
 [connection signal="Dying" from="Behaviors/Defender" to="Behaviors/Removing" method="PrepDestroy"]
 [connection signal="TookDamage" from="Behaviors/Defender" to="Tweeners/Recoil" method="Recoil"]
 [connection signal="TookDamage" from="Behaviors/Defender" to="Tweeners/FlashWhite" method="FlashOnce"]
+[connection signal="Attacked" from="Behaviors/Offense" to="Tweeners/SpringForthAndBack" method="Attack"]
 [connection signal="StartedSearching" from="Behaviors/AI" to="Behaviors/AI/Sentinel" method="StandWatch"]
 [connection signal="FoundPlayer" from="Behaviors/AI/Sentinel" to="Behaviors/AI/Chase" method="ChaseActor"]
 [connection signal="CaughtTarget" from="Behaviors/AI/Chase" to="Behaviors/Offense" method="Attack"]
