@@ -43,14 +43,14 @@ public partial class DamageNumber : Node2D, DisplayableNumber
 		) + Position;
 		var duration = animationPlayer.GetAnimation("FadeScaleInOut").Length;
 
-		// var pixelStart = MathUtils.InvertVector(Position * 48);
-		// var pixelEnd = MathUtils.InvertVector(endPosition * 48);
+		var pixelStart = MathUtils.InvertVector(Position/*  * 48 */);
+		var pixelEnd = MathUtils.InvertVector(endPosition/*  * 48 */);
 		tween.TweenProperty(
 			this,
 			"position",
-			Position * 48,//pixelStart,
+			/* pixelEnd */endPosition,
 			duration
 		)
-			.From(endPosition * 48/* pixelEnd */);
+			.From(/* pixelStart */Position);
 	}	
 }
