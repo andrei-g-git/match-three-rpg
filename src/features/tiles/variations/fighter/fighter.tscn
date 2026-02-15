@@ -144,11 +144,6 @@ _tileRoot = NodePath("../..")
 _duration = 0.3
 _animatedActor = NodePath("../../AspectRatioContainer/Orc")
 
-[node name="ScaleUpFade" type="Node" parent="Tweeners" node_paths=PackedStringArray("_tileRoot")]
-script = ExtResource("7_sb5bf")
-_tileRoot = NodePath("../..")
-_duration = 1.0
-
 [node name="Pop" type="Node" parent="Tweeners" node_paths=PackedStringArray("_tileRoot")]
 script = ExtResource("8_abjmt")
 _tileRoot = NodePath("../..")
@@ -174,17 +169,24 @@ _lungeMagnitude = 0.5
 _tileRoot = NodePath("../..")
 _animatedActor = NodePath("../../AspectRatioContainer/Orc")
 
+[node name="ScaleUpFade" type="Node" parent="Tweeners" node_paths=PackedStringArray("_tileRoot")]
+script = ExtResource("7_sb5bf")
+_tileRoot = NodePath("../..")
+_duration = 1.0
+_delay = 1.0
+
 [connection signal="EngagedBy" from="AspectRatioContainer/DragAndDrop" to="Behaviors/Engagement" method="ProcessEngagementBy"]
 [connection signal="EngagingDirectly" from="Behaviors/Swapping" to="Behaviors/Engagement" method="ProcessEngagementBy"]
 [connection signal="Destroying" from="Behaviors/Removing" to="." method="RemoveFromTurnQueue"]
 [connection signal="Destroying" from="Behaviors/Removing" to="Tweeners/ScaleUpFade" method="Disappear"]
 [connection signal="Dying" from="Behaviors/Defender" to="Behaviors/Removing" method="PrepDestroy"]
+[connection signal="TookDamage" from="Behaviors/Defender" to="Tweeners/DamageNumber" method="DisplayNumber"]
 [connection signal="TookDamage" from="Behaviors/Defender" to="Tweeners/Recoil" method="Recoil"]
 [connection signal="TookDamage" from="Behaviors/Defender" to="Tweeners/FlashWhite" method="FlashOnce"]
-[connection signal="TookDamage" from="Behaviors/Defender" to="Tweeners/DamageNumber" method="DisplayNumber"]
 [connection signal="Attacked" from="Behaviors/Offense" to="Tweeners/SpringForthAndBack" method="Attack"]
 [connection signal="StartedSearching" from="Behaviors/AI" to="Behaviors/AI/Sentinel" method="StandWatch"]
 [connection signal="FoundPlayer" from="Behaviors/AI/Sentinel" to="Behaviors/AI/Chase" method="ChaseActor"]
 [connection signal="CaughtTarget" from="Behaviors/AI/Chase" to="Behaviors/Offense" method="Attack"]
 [connection signal="TrySwapping" from="Behaviors/AI/Chase" to="Behaviors/Swapping" method="SwapWith"]
 [connection signal="RequestedTurnStart" from="Behaviors/AI/Turn" to="Behaviors/AI" method="Resume"]
+[connection signal="FinishedFading" from="Tweeners/ScaleUpFade" to="Behaviors/Removing" method="Remove"]
