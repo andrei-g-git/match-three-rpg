@@ -2,6 +2,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Godot;
 using Tiles;
+using Util;
 
 namespace Board;
 
@@ -78,6 +79,17 @@ public partial class TileOrganizer: Node, Organizable, WithTiles
         }
     }
 
+    public async Task RemoveTile(Control tile){
+        var cell = Tiles.GetCellFor(tile);
+        Tiles.SetCell(
+            (_tileFactory as TileMaking).Create(TileTypes.Blank) as Control,
+            cell
+        );
+        Debugging.PrintStackedGridInitials(Tiles.GetGridAs2DList(), 2, 2, "\n Grid after removing a tile: ");
+        await (_tileMatcher as MatchableBoard).CollapseGridAndCheckNewMatches();
+        
+        EmitSignal(SignalName.DoneMatching);     
+    }
 
     public async Task TransferTileToTile(Control sourceTile, Control targetTile){
         var target = Tiles.GetCellFor(targetTile);

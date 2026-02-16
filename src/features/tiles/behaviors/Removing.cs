@@ -14,7 +14,7 @@ public partial class Removing : Node, Removable
 
     public void Remove(){
         EmitSignal(SignalName.Removed);        
-		_tileRoot.QueueFree();
+		_tileRoot.QueueFree(); //this might pose a problem if I need to do things in the board model with it ...
 
     }
 

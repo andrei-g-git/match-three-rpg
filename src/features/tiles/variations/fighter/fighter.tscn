@@ -85,7 +85,7 @@ _tileRoot = NodePath("../..")
 script = ExtResource("6_81q7e")
 _maxHealth = 10
 _defense = 1
-_damage = 2
+_damage = 5
 _speed = 5
 
 [node name="Defender" type="Node" parent="Behaviors" node_paths=PackedStringArray("_stats")]
@@ -179,6 +179,7 @@ _delay = 1.0
 [connection signal="EngagingDirectly" from="Behaviors/Swapping" to="Behaviors/Engagement" method="ProcessEngagementBy"]
 [connection signal="Destroying" from="Behaviors/Removing" to="." method="RemoveFromTurnQueue"]
 [connection signal="Destroying" from="Behaviors/Removing" to="Tweeners/ScaleUpFade" method="Disappear"]
+[connection signal="Removed" from="Behaviors/Removing" to="." method="RemoveFromBoard"]
 [connection signal="Dying" from="Behaviors/Defender" to="Behaviors/Removing" method="PrepDestroy"]
 [connection signal="TookDamage" from="Behaviors/Defender" to="Tweeners/DamageNumber" method="DisplayNumber"]
 [connection signal="TookDamage" from="Behaviors/Defender" to="Tweeners/Recoil" method="Recoil"]

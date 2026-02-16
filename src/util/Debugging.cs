@@ -66,7 +66,8 @@ public static class Debugging
 
     public static void PrintStackedGridInitials(List<List<Control>> grid, int howManyLetters, int spacing, string header){
         var extraSpace = new String(' ', spacing);
-        var computedNewLines = howManyLetters % 2;        
+        var computedNewLines = howManyLetters % 2;    
+        GD.Print(header);    
         for(int x=0;x<grid.Count;x++){
             var row = new List<string>();
             for(int y=0;y<grid[0].Count;y++){

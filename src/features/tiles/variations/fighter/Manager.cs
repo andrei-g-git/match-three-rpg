@@ -52,6 +52,7 @@ namespace Fighter{
         //     set{
         //         (_sentinel as WithTiles).Tiles = value;
         // }}
+        private Node _board;
 		public Node Board {
             set {
                 //(_sentinel as WithTiles).Tiles = (value as WithTiles).Tiles;
@@ -60,6 +61,7 @@ namespace Fighter{
                 (_pathfinding as AccessableBoard).Board = value;
                 (_swapping as AccessableBoard).Board = value;
                 (_engagement as AccessableBoard).Board = value;
+                _board = value;
         }}
 
 
@@ -123,6 +125,10 @@ namespace Fighter{
 
         public void RemoveFromTurnQueue(){ //not interface method, just for connecting with signal from remove behavior
             TurnQueue.RemoveActor(this);
+        }
+
+        public void RemoveFromBoard(){
+            (_board as Organizable).RemoveTile(this);
         }
     }	
 }

@@ -62,6 +62,10 @@ public partial class BoardModel : Node, Organizable, MatchableBoard, WithTiles, 
         await (_tileOrganizer as Organizable).TransferTileToTile(sourceTile, targetTile);
     }
 
+    public async Task RemoveTile(Control tile){
+        await (_tileOrganizer as Organizable).RemoveTile(tile);
+    }
+
     public /* async Task */ void TransferTileTo(Control tile, Vector2I target){
         /* await  */(_tileOrganizer as Organizable).TransferTileTo(tile, target);
     }    

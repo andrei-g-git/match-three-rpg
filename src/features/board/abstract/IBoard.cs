@@ -21,6 +21,7 @@ namespace Board{
 	public interface Organizable{
 		public void Initialize(Grid<TileTypes> tileTypes);
 		//public Grid<Control> Tiles{get;set;}	
+		public Task RemoveTile(Control tile);
 		public Task TransferTileToTile(Control sourceTile, Control targetTile);
 		public /* Task */ void TransferTileTo(Control tile, Vector2I target);
 		public void RelocateTile(Control tile, Vector2I target);
