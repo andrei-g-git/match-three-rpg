@@ -131,6 +131,9 @@ namespace Player{
             (_moveTweener as Movable).MoveTo(target);
         }
 
+        public Task MoveToAsync(Vector2I target){ //NOT INTERFACE METHOD
+            return (_moveTweener as MoveTweener).MoveToAsync(target);
+        }
 
 		public void MoveOnPath(Stack<Vector2I> path){
 			(_moveTweener as Movable).MoveOnPath(path);

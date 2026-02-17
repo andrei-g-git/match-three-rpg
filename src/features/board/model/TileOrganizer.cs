@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Threading.Tasks;
+using Archer;
 using Godot;
 using Tiles;
 using Util;
@@ -134,6 +135,11 @@ public partial class TileOrganizer: Node, Organizable, WithTiles
         //_FillEmptyCell(currentCell, _spawnWeights, _spawnTiles); 
         //(_tileMatcher as MatchableBoard).MatchWithoutSwapping();
 
+    }
+
+
+    public Task TransferTileToAsync(Control tile, Vector2I target){ //NOT INTERFACE METHOD
+        return (tile as Player.Manager).MoveToAsync(target);
     }
 
 

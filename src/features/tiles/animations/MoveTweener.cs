@@ -42,6 +42,28 @@ public partial class MoveTweener : Node, Movable, Mapable
 		};
 	}	
 
+
+	public Task MoveToAsync(Vector2I target){ //NOT INTERFACE METHOD
+		var ownPosTest = (_tileRoot as Control).Position;
+		var pixelTarget = Map.CellToPosition(target);
+		Tween tween = CreateTween()
+			.SetTrans(Tween.TransitionType.Sine)
+			.SetEase(Tween.EaseType.Out);
+
+		tween.TweenProperty(_tileRoot, "position", (Vector2) pixelTarget, _duration);
+
+		(_animatedActor as Animatable).Play(TileStates.Dash.ToString().ToLower());
+		
+		var task = new TaskCompletionSource<bool>();
+
+		tween.Finished += () => {
+			EmitSignal(SignalName.FinishedMoving); 
+			(_animatedActor as Animatable).Stop(TileStates.Dash.ToString().ToLower());
+			task.SetResult(true);
+		};
+		return task.Task;
+	}
+
 	public void MoveOnPath(Stack<Vector2I> path){
 		var bp = 123;
 		GD.Print("move on path:  ");

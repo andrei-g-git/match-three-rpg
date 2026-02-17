@@ -3,6 +3,7 @@ using Godot;
 using Skills;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Tiles;
 
@@ -29,22 +30,31 @@ public partial class StraightCharge : Node, Traversing, AccessableBoard, WithTil
 				var tileAhead = (Board as Queriable).GetItemAt(cellAhead);
 				if (tileAhead is Disposition actor && actor.IsEnemy) {
 					EmitSignal(SignalName.Attacking, actor as Control, cellAhead);   
-					(Board as Organizable).TransferTileTo(TileRoot, path[i]);  
-					//i need to await the animation player here since TransferTileTo is not async    
-					//EmitSignal(SignalName.FinishedTransfering); 
 
+					//(Board as Organizable).TransferTileTo(TileRoot, path[i]);  
 
-					// var animation = animPlayer.GetAnimation(animationName);
-					// var duration = animation.Length;
-					await _RunAnimationToCompletion(AnimationTree);
+					await (Board as BoardModel).TransferTileToAsync(TileRoot, path[i]);
 
+					
+
+					///AnimationTree.Set("parameters/conditions/swing", true);
+
+				
+					var animationPlayerPath = AnimationTree.AnimPlayer;
+					var animationPlayer = AnimationTree.GetNode(animationPlayerPath) as AnimationPlayer;
+
+					animationPlayer.AnimationFinished += (StringName animationName) =>{
+						//GD.Print("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");	
+						AnimationTree.Set("parameters/conditions/swing", false); 
+						EmitSignal(SignalName.FinishedPath); 
+						
+						//GD.Print("cccccccccccccccccccccccccccccccccccc");						
+					};
+
+					//await Task.Delay(100);
+					await ToSignal(GetTree(), "process_frame");
 					AnimationTree.Set("parameters/conditions/swing", true);
 
-					await _RunAnimationToCompletion(AnimationTree);
-
-					AnimationTree.Set("parameters/conditions/swing", false); //so this is ass...
-
-					EmitSignal(SignalName.FinishedPath); 
 					foundOneTarget = true; 
 					break;
 				}				
@@ -52,9 +62,7 @@ public partial class StraightCharge : Node, Traversing, AccessableBoard, WithTil
 		}
 
 		if (!foundOneTarget){
-			(Board as Organizable).TransferTileTo(TileRoot, path[^1]);	
-			await _RunAnimationToCompletion(AnimationTree);
-			//EmitSignal(SignalName.FinishedTransfering);
+			await (Board as BoardModel).TransferTileToAsync(TileRoot, path[^1]);	
 			EmitSignal(SignalName.FinishedPath);			
 		}
 

@@ -18,6 +18,7 @@ public partial class MatchesTraversal : Node, TraversableMatching, AccessableBoa
 		(_tileRoot as Skillful).Skill = skill as Node;
 		//(skill as Traversing).ProcessPath(path);
 		await (skill as Traversing).ProcessPathAsync(path); //this awaits the whole path traveling since the method is recursive, which is good I suppose
+		GD.Print("dddddddddddddddddddddddddddddddd");
 		(Board as Organizable).RelocateTile(_tileRoot as Control, path.Last()); //tileOrganizer.TransferTileTo places the player all over the path, I only need him at the end
     }
 }
