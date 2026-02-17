@@ -1,4 +1,6 @@
+using Animations;
 using Board;
+using Common;
 using Godot;
 using Skills;
 using System;
@@ -7,6 +9,7 @@ using Tiles;
 public partial class SkillSlot : Control, Skillful, AccessableBoard
 {
 	[Export] Control _tileRoot;
+	[Export] Node _animatedActor;
 	private Node _skill;
 	public Node Skill{
 		private get => _skill; 
@@ -27,5 +30,6 @@ public partial class SkillSlot : Control, Skillful, AccessableBoard
 	private void InitializeSkill(Node skill){
 		(skill as WithTileRoot).TileRoot = _tileRoot;
 		(skill as AccessableBoard).Board = Board;
+		(skill as WithAnimationTree).AnimationTree = (_animatedActor as AnimatedActor).AnimationTree; //animatedActor is not an interface
 	}
 }

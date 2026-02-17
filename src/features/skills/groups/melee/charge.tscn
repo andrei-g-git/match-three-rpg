@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://db0fae0xd88hm"]
+
+[ext_resource type="Script" uid="uid://544r54ylivpx" path="res://src/features/skills/groups/melee/Charge.cs" id="1_4hxaa"]
+[ext_resource type="Script" uid="uid://yp6y2agkfat2" path="res://src/features/skills/groups/melee/behaviors/StraightCharge.cs" id="1_bitm4"]
+
+[node name="Charge" type="Control" node_paths=PackedStringArray("_straightCharge")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4hxaa")
+_straightCharge = NodePath("StraightCharge")
+
+[node name="StraightCharge" type="Node" parent="."]
+script = ExtResource("1_bitm4")

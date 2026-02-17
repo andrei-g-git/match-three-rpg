@@ -36,7 +36,7 @@ public partial class OmniCharge : Node, /* Movable, */ Traversing, AccessableBoa
     }
 
 
-    public async Task ProcessPath(List<Vector2I> path, bool testOverload) {
+    public async Task ProcessPathAsync(List<Vector2I> path) {
         if (_pathIndex >= path.Count) {
             //EmitSignal(SignalName.FinishedTransfering);
             EmitSignal(SignalName.FinishedPath);
@@ -59,7 +59,7 @@ public partial class OmniCharge : Node, /* Movable, */ Traversing, AccessableBoa
         //await ToSignal(_sprite, /* _sprite.AnimationFinished */"animation_finished");
         
         var neighbors = (Board as Queriable).GetNeighboringTiles(path[_pathIndex]);
-        neighbors.Remove(TileRoot); //!!!
+        neighbors.Remove(TileRoot); //!!! i shouldn't have to do this, it's hacky bullshit
         foreach (var tile in neighbors) {
             if (tile is Disposition actor && actor.IsEnemy) {
                 if(!_alreadyHit.Contains(tile)){
@@ -72,6 +72,6 @@ public partial class OmniCharge : Node, /* Movable, */ Traversing, AccessableBoa
         EmitSignal(SignalName.FinishedTransfering);
 
         _pathIndex++;
-        await ProcessPath(path, true);
+        await ProcessPathAsync(path);
     }    
 }

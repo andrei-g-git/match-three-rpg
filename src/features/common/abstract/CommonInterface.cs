@@ -44,4 +44,8 @@ namespace Common{
         public void Enter();
         public void Exit();        
     }
+
+    public interface WithAnimationTree{
+        public AnimationTree AnimationTree{set;}
+    }
 }

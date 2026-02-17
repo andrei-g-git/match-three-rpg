@@ -6,5 +6,5 @@ namespace Skills;
 
 public interface Traversing{ 
     public void ProcessPath(List<Vector2I> path);
-    public Task ProcessPath(List<Vector2I> path, bool testOverload);
+    public Task ProcessPathAsync(List<Vector2I> path);
 }

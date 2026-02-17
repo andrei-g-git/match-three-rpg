@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://vv3xapj4lprc"]
+[gd_scene load_steps=43 format=3 uid="uid://vv3xapj4lprc"]
 
 [ext_resource type="Script" uid="uid://dy1o6fmi8i4pb" path="res://src/features/board/BoardManager.cs" id="1_k7s5h"]
 [ext_resource type="Script" uid="uid://cgm6rlm3gw3je" path="res://src/features/board/Environment.cs" id="3_da6o6"]
@@ -34,6 +34,7 @@
 [ext_resource type="Texture2D" uid="uid://baxfw6v3hfftv" path="res://assets/images/tiles/whirlwind.png" id="25_r27v6"]
 [ext_resource type="Texture2D" uid="uid://dfnetxbrtpqr6" path="res://assets/images/tiles/throwWeapon.png" id="26_10pv0"]
 [ext_resource type="Texture2D" uid="uid://bpyts1xl2yh0l" path="res://assets/images/tiles/shieldBash.png" id="27_crjdv"]
+[ext_resource type="PackedScene" uid="uid://db0fae0xd88hm" path="res://src/features/skills/groups/melee/charge.tscn" id="28_gv6rk"]
 [ext_resource type="Script" uid="uid://fshl3bovmk2h" path="res://src/features/skills/SkillSelection.cs" id="29_crjdv"]
 [ext_resource type="Script" uid="uid://cmg0gtq5dxumt" path="res://src/features/RestartLevel.cs" id="34_1dyqb"]
 [ext_resource type="Script" uid="uid://vx481amn178r" path="res://src/features/UI/EndTurn.cs" id="37_wou0k"]
@@ -200,6 +201,7 @@ _skillFactory = NodePath("SkillFactory")
 [node name="SkillFactory" type="Node" parent="MainContainer/PanelContainer/Model/PlayerSkills"]
 script = ExtResource("24_ewl7t")
 _skillsWithScenes = Dictionary[int, PackedScene]({
+0: ExtResource("28_gv6rk"),
 2: ExtResource("25_qx8qf")
 })
 

@@ -289,12 +289,13 @@ _derivedStats = NodePath("Derived")
 [node name="Derived" type="Node" parent="Stats-should not have scr"]
 script = ExtResource("5_xxn2p")
 
-[node name="SkillSlot" type="Control" parent="." node_paths=PackedStringArray("_tileRoot")]
+[node name="SkillSlot" type="Control" parent="." node_paths=PackedStringArray("_tileRoot", "_animatedActor")]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("6_ybiiv")
 _tileRoot = NodePath("..")
+_animatedActor = NodePath("../AspectRatioContainer/Warrior")
 
 [node name="Behaviors" type="Node" parent="."]
 

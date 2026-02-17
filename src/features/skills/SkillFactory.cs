@@ -22,12 +22,12 @@ public partial class SkillFactory : Node, SkillMaking//, Initializable
     }
 
     private void InitializeSkill(SkillNames.All type, /* Control */Node skill){
-        switch(type){
-            case SkillNames.All.LeapAttack:
-            case SkillNames.All.Charge:
-                //(skill as Mapable).Map = _environment as Tileable;
-                break;
-        }
+        // switch(type){
+        //     case SkillNames.All.LeapAttack:
+        //     case SkillNames.All.Charge:
+        //         //(skill as Mapable).Map = _environment as Tileable;
+        //         break;
+        // }
     }
 
     private Dictionary<SkillNames.All, PackedScene> _AssociateSkillScenesWithTheirNames(Array<PackedScene> packedScenes){ //don't need

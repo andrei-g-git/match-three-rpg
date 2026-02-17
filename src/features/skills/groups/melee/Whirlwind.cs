@@ -39,7 +39,7 @@ public partial class Whirlwind : Node, Skill, WithTileRoot, AccessableBoard, Tra
         (_omniCharge as Traversing).ProcessPath(path);
     }
 
-    public async Task ProcessPath(List<Vector2I> path, bool testOverload){
-        await (_omniCharge as Traversing).ProcessPath(path, true);
+    public async Task ProcessPathAsync(List<Vector2I> path){
+        await (_omniCharge as Traversing).ProcessPathAsync(path);
     }
 }

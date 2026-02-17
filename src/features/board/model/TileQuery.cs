@@ -27,7 +27,10 @@ public partial class TileQuery : Node, Queriable, Mapable, WithTiles
 	}
 
 	public Control GetItemAt(Vector2I cell){
-		return Tiles.GetItem(cell);
+		if(cell.X >= 0 && cell.Y >= 0 && cell.X < Tiles.Width && cell.Y < Tiles.Height){
+			return Tiles.GetItem(cell);
+		}		
+		return null;//default;
 	}
 
 	public List<Vector2I> GetCellsInRadiusAroundTileNode(int radius, Control tileAtCenter){
