@@ -21,110 +21,79 @@ public partial class StraightCharge : Node, Traversing, AccessableBoard, WithTil
 
 	public void ProcessPath(List<Vector2I> path){} 
 
-// 	public async Task ProcessPathAsync_old(List<Vector2I> path){ //should check that path is not empty	
-// 		var foundOneTarget = false;
+	public async Task ProcessPathAsync(List<Vector2I> path){
+		var nextCellAtEnd = Hex.FindNextInLine(path);
+		if(nextCellAtEnd.X >= 0 && nextCellAtEnd.Y >= 0){
+			var tileAhead = (Board as Queriable).GetItemAt(nextCellAtEnd);
+			if (tileAhead is Disposition actor && actor.IsEnemy) {
 
-// 		for(int i=0; i<path.Count; i++){
-// 			var cellAhead = i < path.Count-1 ? path[i+1] : Hex.FindNextInLine(path);
-// 			if(cellAhead.X >= 0){
-// 				var tileAhead = (Board as Queriable).GetItemAt(cellAhead);
-// 				if (tileAhead is Disposition actor && actor.IsEnemy) {
-// 					EmitSignal(SignalName.Attacking, actor as Control, cellAhead);   
+				await (Board as BoardModel).TransferTileToAsync(TileRoot, path[^1]);
 
-// 					//(Board as Organizable).TransferTileTo(TileRoot, path[i]);  
+				EmitSignal(SignalName.FinishedPath);
 
-// 					await (Board as BoardModel).TransferTileToAsync(TileRoot, path[i]);
+				var playback = (AnimationNodeStateMachinePlayback)AnimationTree.Get("parameters/playback");
+				playback.Travel("Swing");
 
-				
+				// wait until it actually enters Swing
+				while (playback.GetCurrentNode() != "Swing"){
+					await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+				}
 
-				
-// 					var animationPlayerPath = AnimationTree.AnimPlayer;
-// 					var animationPlayer = AnimationTree.GetNode(animationPlayerPath) as AnimationPlayer;
-// var sw = Stopwatch.StartNew();
-// 					// animationPlayer.Play("Swing");
-// 					// GD.Print($"current animation:    {animationPlayer.CurrentAnimation}");
-// 					animationPlayer.AnimationFinished += (StringName animationName) =>{
-// 						animationPlayer.Stop();
-// 					GD.Print($"current animation in finished handler ~~~~~~~~~~~~~:    {animationPlayer.CurrentAnimation}");
+				while (playback.GetCurrentNode() == "Swing") {
+					await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame); 
+				}
 
-
-// 						//AnimationTree.Set("parameters/conditions/swing", false); 
-// 						EmitSignal(SignalName.FinishedPath); 
-						
-// 						sw.Stop();
-// 						GD.Print($"ANIMATION TOOK {sw.Elapsed}");
-// 						AnimationTree.Active = true;
-// 					};
-// AnimationTree.Active = false;			
-// animationPlayer.Play("Swing");
-// 					GD.Print($"current animation :    {animationPlayer.CurrentAnimation}");
-
-
-// 					// //await Task.Delay(100);
-// 					// await ToSignal(GetTree(), "process_frame");
-// 					// AnimationTree.Set("parameters/conditions/swing", true);
-
-// 					foundOneTarget = true; 
-// 					break;
-// 				}				
-// 			}
-// 		}
-
-// 		if (!foundOneTarget){
-// 			await (Board as BoardModel).TransferTileToAsync(TileRoot, path[^1]);	
-// 			EmitSignal(SignalName.FinishedPath);			
-// 		}
-
-
-// 		//I'll need to wait for the animation to finish somehow
-// 	}
-
-
-
-
-
-	public async Task ProcessPathAsync(List<Vector2I> path){ //should check that path is not empty	
-		var foundOneTarget = false;
-
-		for(int i=0; i<path.Count; i++){
-			var cellAhead = i < path.Count-1 ? path[i+1] : Hex.FindNextInLine(path);
-			if(cellAhead.X >= 0){
-				var tileAhead = (Board as Queriable).GetItemAt(cellAhead);
-				if (tileAhead is Disposition actor && actor.IsEnemy) {
-					EmitSignal(SignalName.Attacking, actor as Control, cellAhead);   
-
-					await (Board as BoardModel).TransferTileToAsync(TileRoot, path[i]);
-
-					var playback = (AnimationNodeStateMachinePlayback)AnimationTree.Get("parameters/playback");
-					playback.Travel("Swing");
-
-					foundOneTarget = true; 
-					break;
-				}				
+				EmitSignal(SignalName.Attacking, actor as Control, nextCellAtEnd); 
 			}
-		}
-
-		if (!foundOneTarget){
-			await (Board as BoardModel).TransferTileToAsync(TileRoot, path[^1]);	
-			EmitSignal(SignalName.FinishedPath);			
+			else{
+				await (Board as BoardModel).TransferTileToAsync(TileRoot, path[^1]);	
+				EmitSignal(SignalName.FinishedPath);				
+			}			
 		}
 	}
 
+	// public async Task ProcessPathAsync_old(List<Vector2I> path){ //should check that path is not empty	
+	// 	var foundOneTarget = false;
+	
+	// 	for(int i=0; i<path.Count; i++){
+	// 		var cellAhead = i < path.Count-1 ? path[i+1] : Hex.FindNextInLine(path);
+	// 		if(cellAhead.X >= 0){
+	// 			var tileAhead = (Board as Queriable).GetItemAt(cellAhead);
+	// 			if (tileAhead is Disposition actor && actor.IsEnemy) {
 
+	// 				await (Board as BoardModel).TransferTileToAsync(TileRoot, path[i]);
 
+	// 				EmitSignal(SignalName.FinishedPath);
 
+	// 				var playback = (AnimationNodeStateMachinePlayback)AnimationTree.Get("parameters/playback");
+	// 				playback.Travel("Swing");
 
+	// 				// wait until it actually enters Swing
+	// 				while (playback.GetCurrentNode() != "Swing"){
+	// 					await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+	// 				}
 
-	private Task _RunAnimationToCompletion(AnimationTree animationTree){
-		var task = new TaskCompletionSource<bool>();
+	// 				// var sw = new Stopwatch();
+	// 				// sw.Start();
+	// 				while (playback.GetCurrentNode() == "Swing") {
+    // 					await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame); 
+	// 				}
 
-		var animationPlayerPath = animationTree.AnimPlayer;
-		var animationPlayer = animationTree.GetNode(animationPlayerPath) as AnimationPlayer;
-		//var animationName = animationPlayer.CurrentAnimation;
+	// 				// sw.Stop();
+	// 				// GD.Print($"TIME ELAPSED:   {sw.Elapsed}");
 
-		animationPlayer.AnimationFinished += (StringName animationName) =>{
-			task.SetResult(true);
-		};
-		return task.Task;
-	}
+	// 				EmitSignal(SignalName.Attacking, actor as Control, cellAhead); 
+
+	// 				foundOneTarget = true; 
+	// 				break;
+	// 			}				
+	// 		}
+	// 	}
+
+	// 	if (!foundOneTarget){
+	// 		await (Board as BoardModel).TransferTileToAsync(TileRoot, path[^1]);	
+	// 		EmitSignal(SignalName.FinishedPath);			
+	// 	}
+	// }
+
 }

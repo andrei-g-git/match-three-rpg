@@ -11,6 +11,7 @@ public partial class OmniCharge : Node, /* Movable, */ Traversing, AccessableBoa
     [Export] private AnimatedSprite2D _sprite;
     public Node Board { get; set; }
     public Control TileRoot {get; set;}
+    public AnimationTree AnimationTree{private get; set;} //don't need for now
     private int _pathIndex = 0; //I should reset this but normally the skill is removed after use so maybe it's fine
     private List<Control> _alreadyHit = new List<Control>();
     [Signal] public delegate void AttackingEventHandler(Control enemy, int coveredTileDistance);    

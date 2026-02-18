@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Board;
+using Common;
 using Godot;
 using Skills;
 using Tiles;
 
-public partial class Whirlwind : Node, Skill, WithTileRoot, AccessableBoard, Traversing
+public partial class Whirlwind : Node, Skill, WithTileRoot, AccessableBoard, Traversing, WithAnimationTree
 {
 	[Export] private Node _omniCharge;
 	[Export] private Node _damageCalculator;
@@ -24,6 +25,13 @@ public partial class Whirlwind : Node, Skill, WithTileRoot, AccessableBoard, Tra
 		set{
 			(_omniCharge as AccessableBoard).Board = value;
 	}}
+
+	private AnimationTree _animationTree;
+    public AnimationTree AnimationTree { 
+		private get => _animationTree; 
+		set{
+			(_omniCharge as OmniCharge).AnimationTree = value; //OmniCharge is not an interface!
+	}}	
 
 
 	public void OnFinishedTransfering(){
