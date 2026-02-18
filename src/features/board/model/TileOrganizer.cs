@@ -64,6 +64,8 @@ public partial class TileOrganizer: Node, Organizable, WithTiles
         Tiles.SetCell(tile, target);
         Tiles.SetCell((_tileFactory as TileMaking).Create(TileTypes.Blank) as Control, source);
         var bp = 123;
+
+        Debugging.PrintStackedGridInitials(Tiles.GetGridAs2DList(), 2, 2, "ACTOR MOVED");
     }
 
     public async Task MoveBySwapping(Control sourceTile, Control targetTile){
@@ -75,8 +77,14 @@ public partial class TileOrganizer: Node, Organizable, WithTiles
             (targetTile as Movable).MoveTo(source);
 
             await (targetTile as Movable).WaitUntilMoved();
+
+            //NEW, CAREFUL WITH THIS
+            Tiles.SetCell(sourceTile, target);
+            Tiles.SetCell(targetTile, source);
+
             bp = 2345;     
-            EmitSignal(SignalName.DoneSwapping);       
+            EmitSignal(SignalName.DoneSwapping);   
+            Debugging.PrintStackedGridInitials(Tiles.GetGridAs2DList(), 2, 2, $"{sourceTile.Name} MOVED");    
         }
     }
 
@@ -113,6 +121,7 @@ public partial class TileOrganizer: Node, Organizable, WithTiles
         
         EmitSignal(SignalName.DoneMatching); //shouldn't be "donematching" but whatever...
     } 
+
 
     public /* async Task */ void TransferTileTo(Control tile, Vector2I target){
         ///
