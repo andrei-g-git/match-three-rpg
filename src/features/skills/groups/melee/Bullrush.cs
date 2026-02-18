@@ -10,12 +10,14 @@ using Tiles;
 public partial class Bullrush : Control, Skill, WithTileRoot, AccessableBoard, Traversing, WithAnimationTree
 {
 	[Export] private Node _straightCharge;
+	[Export] private Node _damageCalculator;
 	private Control _tileRoot;
 	public Control TileRoot{
 		get => _tileRoot; 
 		set{
 			_tileRoot = value;
 			(_straightCharge as WithTileRoot).TileRoot = value;
+			(_damageCalculator as WithTileRoot).TileRoot = value;
 	}}	
 	private Node _board;
     public Node Board { 

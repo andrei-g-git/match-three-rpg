@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://4fchj3w3uooj"]
+[gd_scene load_steps=5 format=3 uid="uid://4fchj3w3uooj"]
 
 [ext_resource type="Script" uid="uid://544r54ylivpx" path="res://src/features/skills/groups/melee/Bullrush.cs" id="1_x0b0g"]
 [ext_resource type="Script" uid="uid://yp6y2agkfat2" path="res://src/features/skills/groups/melee/behaviors/StraightCharge.cs" id="2_ih47w"]
+[ext_resource type="Script" uid="uid://bh601heiqlu68" path="res://src/features/tiles/behaviors/Offense.cs" id="3_ih47w"]
+[ext_resource type="Script" uid="uid://bjq4scdw22ard" path="res://src/features/skills/groups/melee/behaviors/MeleSkillDamageCalculator.cs" id="4_vkam0"]
 
-[node name="Bullrush" type="Control" node_paths=PackedStringArray("_straightCharge")]
+[node name="Bullrush" type="Control" node_paths=PackedStringArray("_straightCharge", "_damageCalculator")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,6 +14,19 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_x0b0g")
 _straightCharge = NodePath("StraightCharge")
+_damageCalculator = NodePath("DamageCalculator")
 
 [node name="StraightCharge" type="Node" parent="."]
 script = ExtResource("2_ih47w")
+
+[node name="Offense" type="Node" parent="." node_paths=PackedStringArray("_damageCalculator")]
+script = ExtResource("3_ih47w")
+_damageCalculator = NodePath("../DamageCalculator")
+
+[node name="DamageCalculator" type="Node" parent="."]
+script = ExtResource("4_vkam0")
+_skillMultiplier = 1.5
+_momentumSubdivider = 20.0
+_strengthSubdivider = 10.0
+
+[connection signal="Attacking" from="StraightCharge" to="Offense" method="AttackWithMomentum"]
