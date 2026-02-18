@@ -90,7 +90,7 @@ public partial class MainMenu : Control, WithSceneManager
 						Group = SkillNames.SkillGroups.Melee.ToString(),
 						Skills = [
 							new SkillWithCount{
-								Name=SkillNames.Melee.Charge.ToString(),
+								Name=SkillNames.Melee.Bullrush.ToString(),
 								Uses=99
 							},
 							new SkillWithCount{

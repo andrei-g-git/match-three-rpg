@@ -34,7 +34,7 @@
 [ext_resource type="Texture2D" uid="uid://baxfw6v3hfftv" path="res://assets/images/tiles/whirlwind.png" id="25_r27v6"]
 [ext_resource type="Texture2D" uid="uid://dfnetxbrtpqr6" path="res://assets/images/tiles/throwWeapon.png" id="26_10pv0"]
 [ext_resource type="Texture2D" uid="uid://bpyts1xl2yh0l" path="res://assets/images/tiles/shieldBash.png" id="27_crjdv"]
-[ext_resource type="PackedScene" uid="uid://db0fae0xd88hm" path="res://src/features/skills/groups/melee/charge.tscn" id="28_gv6rk"]
+[ext_resource type="PackedScene" uid="uid://4fchj3w3uooj" path="res://src/features/skills/groups/melee/bullrush.tscn" id="27_gv6rk"]
 [ext_resource type="Script" uid="uid://fshl3bovmk2h" path="res://src/features/skills/SkillSelection.cs" id="29_crjdv"]
 [ext_resource type="Script" uid="uid://cmg0gtq5dxumt" path="res://src/features/RestartLevel.cs" id="34_1dyqb"]
 [ext_resource type="Script" uid="uid://vx481amn178r" path="res://src/features/UI/EndTurn.cs" id="37_wou0k"]
@@ -201,8 +201,8 @@ _skillFactory = NodePath("SkillFactory")
 [node name="SkillFactory" type="Node" parent="MainContainer/PanelContainer/Model/PlayerSkills"]
 script = ExtResource("24_ewl7t")
 _skillsWithScenes = Dictionary[int, PackedScene]({
-0: ExtResource("28_gv6rk"),
-2: ExtResource("25_qx8qf")
+0: ExtResource("27_gv6rk"),
+3: ExtResource("25_qx8qf")
 })
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MainContainer"]
@@ -231,8 +231,8 @@ icon_mode = 0
 script = ExtResource("29_crjdv")
 _skillMap = Dictionary[int, Texture2D]({
 0: ExtResource("22_gtevj"),
-1: ExtResource("23_oqk24"),
-2: ExtResource("25_r27v6")
+2: ExtResource("23_oqk24"),
+3: ExtResource("25_r27v6")
 })
 
 [node name="RangedSkills" type="ItemList" parent="MainContainer/VBoxContainer/MarginContainer/SkillGroups"]
@@ -244,7 +244,7 @@ icon_mode = 0
 script = ExtResource("29_crjdv")
 _skillGroup = 1
 _skillMap = Dictionary[int, Texture2D]({
-4: ExtResource("26_10pv0")
+5: ExtResource("26_10pv0")
 })
 
 [node name="DefensiveSkills" type="ItemList" parent="MainContainer/VBoxContainer/MarginContainer/SkillGroups"]
@@ -256,7 +256,7 @@ icon_mode = 0
 script = ExtResource("29_crjdv")
 _skillGroup = 2
 _skillMap = Dictionary[int, Texture2D]({
-5: ExtResource("27_crjdv")
+6: ExtResource("27_crjdv")
 })
 
 [node name="TechSkills" type="ItemList" parent="MainContainer/VBoxContainer/MarginContainer/SkillGroups"]
@@ -268,7 +268,7 @@ icon_mode = 0
 script = ExtResource("29_crjdv")
 _skillGroup = 3
 _skillMap = Dictionary[int, Texture2D]({
-6: ExtResource("24_w8nfc")
+7: ExtResource("24_w8nfc")
 })
 
 [node name="RestartLevel" type="Button" parent="." node_paths=PackedStringArray("_boardManager")]

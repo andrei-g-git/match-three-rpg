@@ -4,6 +4,7 @@ using System;
 namespace Skills;
 public class SkillNames{
 	public enum All{
+		Bullrush,
 		Charge,	
 		LeapAttack,
 		Whirlwind,
@@ -14,6 +15,7 @@ public class SkillNames{
 	}
 
 	public enum Melee{
+		Bullrush = All.Bullrush,
 		Charge = All.Charge,	
 		LeapAttack =  All.LeapAttack,
 		Whirlwind = All.Whirlwind

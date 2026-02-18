@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Tiles;
 
-public partial class Charge : Control, Skill, WithTileRoot, AccessableBoard, Traversing, WithAnimationTree
+public partial class Bullrush : Control, Skill, WithTileRoot, AccessableBoard, Traversing, WithAnimationTree
 {
 	[Export] private Node _straightCharge;
 	private Control _tileRoot;
