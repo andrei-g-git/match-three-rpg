@@ -52,6 +52,8 @@ namespace Board{
 		public bool IsCellAdjacentToLine(Vector2I cell, List<Vector2I> line);
 		public List<Vector2I> GetCellsInRadiusAroundTileNode(int radius, Control tileAtCenter);
 		public Control GetItemAt(Vector2I cell);
+		public List<Vector2I> FindAllTilesOfType(TileTypes type);
+		public Vector2I GetCellFor(Control tile);
 	}
 
 	public interface Sequential{

@@ -4,7 +4,7 @@ using Godot;
 using Godot.Collections;
 using Common;
 
-public partial class EventBus: Node, RemoteSignaling{
+public partial class EventBus: Node, RemoteSignaling{ ///I have no idea why I'm doing this, it hides the signal connection and I can't debug or figure where everything is suspposed to go if I come back to it in a month...
 
     public override void _Ready(){
         //AddUserSignal(Events.Attacking.ToString());        

@@ -118,6 +118,20 @@ public static class Hex{
 		return new Vector2I(-69, -420);
 	}
 
+	public static float FindDistanceBetweenCells(Vector2I source, Vector2I destination){
+		var width = 64;
+		var height = 55;
+		float x1 = source.Y * width;
+		float y1 = (source.X + source.Y/2) * height;
+		float x2 = destination.Y * width;
+		float y2 = (destination.X + destination.Y/2) * height;
+
+		return (float) Math.Sqrt(
+			Math.Pow(x2 - x1, 2) + 
+			Math.Pow(y2 - y1, 2)
+		);
+	}
+
 	public static bool CheckIfNeighbor(Vector2I center, Vector2I celllToCheck){
 		var neighbors = new List<Vector2I>(){
 			FindTop(center),

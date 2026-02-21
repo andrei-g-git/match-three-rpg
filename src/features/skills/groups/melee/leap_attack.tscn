@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://c12ujhxw7j1ol"]
+
+[ext_resource type="Script" uid="uid://bu32msaklpgpo" path="res://src/features/skills/groups/melee/LeapAttack.cs" id="1_3pcgm"]
+[ext_resource type="Script" uid="uid://bh601heiqlu68" path="res://src/features/tiles/behaviors/Offense.cs" id="2_j5wbe"]
+
+[node name="LeapAttack" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3pcgm")
+
+[node name="Offense" type="Node" parent="."]
+script = ExtResource("2_j5wbe")

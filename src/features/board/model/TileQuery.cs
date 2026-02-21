@@ -26,6 +26,10 @@ public partial class TileQuery : Node, Queriable, Mapable, WithTiles
 		return neighboringTiles;
 	}
 
+	public Vector2I GetCellFor(Control tile){
+		return Tiles.GetCellFor(tile);
+	}
+
 	public Control GetItemAt(Vector2I cell){
 		if(cell.X >= 0 && cell.Y >= 0 && cell.X < Tiles.Width && cell.Y < Tiles.Height){
 			return Tiles.GetItem(cell);
@@ -75,5 +79,18 @@ public partial class TileQuery : Node, Queriable, Mapable, WithTiles
 			}	
 		}	
 		return false;		
+	}	
+
+	public List<Vector2I> FindAllTilesOfType(TileTypes type){
+		var listGrid = Tiles.GetGridAs2DList();
+		var matchingTileCells = new List<Vector2I>();
+		for(int x=0; x<listGrid.Count; x++){
+			for(int y=0; y<listGrid[0].Count; y++){
+				if(listGrid[x][y] is Tile tile && tile.Type == type){
+					matchingTileCells.Add(new Vector2I(x, y));
+				}
+			}
+		}
+		return matchingTileCells;
 	}		
 }
