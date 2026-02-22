@@ -45,36 +45,39 @@ public partial class LeapAttack : Control, Skill, WithTileRoot, AccessableBoard,
 		
 		float previousShortestDistance = 99999f; //this might cause problems
 		var closestSameTypeCellWithAdjacentEnemy = allMatchingTileCellsWithAdjacentEnemies[0];
-		foreach(var cell in allMatchingTileCellsWithAdjacentEnemies){
-			var distance = Hex.FindDistanceBetweenCells(path[^1], cell);
-			if(distance < previousShortestDistance){
-				previousShortestDistance = distance;
-				closestSameTypeCellWithAdjacentEnemy = cell;
+		
+		if(allMatchingTileCellsWithAdjacentEnemies.Count > 0){ 
+			foreach(var cell in allMatchingTileCellsWithAdjacentEnemies){
+				var distance = Hex.FindDistanceBetweenCells(path[^1], cell);
+				if(distance < previousShortestDistance){
+					previousShortestDistance = distance;
+					closestSameTypeCellWithAdjacentEnemy = cell;
+				}
 			}
-		}
 
 
-		var timeMultipleier = previousShortestDistance >= 99999f ? (int)path.Count/64 : (int)previousShortestDistance/64;
+			var timeMultipleier = previousShortestDistance >= 99999f ? (int)path.Count/64 : (int)previousShortestDistance/64;
 
-AnimationTree.Set("parameters/JumpMiddleeeeeeeee/TimeScale/scale", (float) 1 / timeMultipleier);
+			AnimationTree.Set("parameters/JumpMiddleeeeeeeee/TimeScale/scale", (float) 1 / timeMultipleier);
 
 			var playback = (AnimationNodeStateMachinePlayback)AnimationTree.Get("parameters/playback");
 			playback.Travel("Jump2");	
 
-		await (Board as BoardModel).TransferTileToAsync(TileRoot, closestSameTypeCellWithAdjacentEnemy, timeMultipleier);
+			await (Board as BoardModel).TransferTileToAsync(TileRoot, closestSameTypeCellWithAdjacentEnemy, timeMultipleier);
 
 
 
+			// var ap = GetNode<AnimationPlayer>("AnimationPlayer");
+			// var anim = ap.GetAnimation("jump_middle");
+			// float baseLen = anim.Length;
+			// float desired = Mathf.Max(0.001f, desiredSeconds);
+			// ap.Play("jump_middle");
+			// ap.PlaybackSpeed = baseLen / desired; // speeds up if <1, slows if >1
 
 
+			(Board as Organizable).RelocateTile(_tileRoot, closestSameTypeCellWithAdjacentEnemy);			
+		}
 
-
-// var ap = GetNode<AnimationPlayer>("AnimationPlayer");
-// var anim = ap.GetAnimation("jump_middle");
-// float baseLen = anim.Length;
-// float desired = Mathf.Max(0.001f, desiredSeconds);
-// ap.Play("jump_middle");
-// ap.PlaybackSpeed = baseLen / desired; // speeds up if <1, slows if >1
 	}
 
 

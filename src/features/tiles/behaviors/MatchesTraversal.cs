@@ -19,7 +19,7 @@ public partial class MatchesTraversal : Node, TraversableMatching, AccessableBoa
 		//(skill as Traversing).ProcessPath(path);
 		await (skill as Traversing).ProcessPathAsync(path); //this awaits the whole path traveling since the method is recursive, which is good I suppose
 		GD.Print("dddddddddddddddddddddddddddddddd");
-		(Board as Organizable).RelocateTile(_tileRoot as Control, path.Last()); //tileOrganizer.TransferTileTo places the player all over the path, I only need him at the end
+		//(Board as Organizable).RelocateTile(_tileRoot as Control, path.Last()); //tileOrganizer.TransferTileTo places the player all over the path, I only need him at the end
 		//THIS WON:T WORK FOR A SKILL THAT"S NOT SUPPOSED TO STOP AT THE END OF THE PATH. maybe ProcessPath should return the length traveled. Then again skills have access to the Board and they could handle the relocation themselves...		
     }
 }

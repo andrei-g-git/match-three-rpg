@@ -4,6 +4,7 @@ using Skills;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using Tiles;
 
@@ -52,7 +53,9 @@ public partial class StraightCharge : Node, Traversing, AccessableBoard, WithTil
 			else{
 				await (Board as BoardModel).TransferTileToAsync(TileRoot, path[^1]);	
 				EmitSignal(SignalName.FinishedPath);				
-			}			
+			}
+
+			(Board as Organizable).RelocateTile(TileRoot, path.Last());			
 		}
 	}
 

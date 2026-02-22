@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Board;
 using Godot;
@@ -40,6 +41,7 @@ public partial class OmniCharge : Node, /* Movable, */ Traversing, AccessableBoa
     public async Task ProcessPathAsync(List<Vector2I> path) {
         if (_pathIndex >= path.Count) {
             //EmitSignal(SignalName.FinishedTransfering);
+            (Board as Organizable).RelocateTile(TileRoot, path.Last());
             EmitSignal(SignalName.FinishedPath);
             return;
         }
