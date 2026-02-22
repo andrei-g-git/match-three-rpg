@@ -4,9 +4,11 @@ using Godot;
 using Skills;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Tiles;
+using static Godot.AnimationMixer;
 
 public partial class LeapAttack : Control, Skill, WithTileRoot, AccessableBoard, Traversing, WithAnimationTree
 {
@@ -17,14 +19,15 @@ public partial class LeapAttack : Control, Skill, WithTileRoot, AccessableBoard,
 		get => _tileRoot; 
 		set{
 			_tileRoot = value;
-			//(_damageCalculator as WithTileRoot).TileRoot = value;
+			(_damageCalculator as WithTileRoot).TileRoot = value;
 	}}
 	private Node _board;
     public Node Board {get; set;}
 
 	private AnimationTree _animationTree;
     public AnimationTree AnimationTree {get; set;}	
-
+	[Signal] public delegate void AttackingEventHandler(Control enemy, int coveredTileDistance);
+	//[Signal] public delegate void FinishedPathEventHandler();
 
 
 	public async Task ProcessPathAsync(List<Vector2I> path){
@@ -34,7 +37,7 @@ public partial class LeapAttack : Control, Skill, WithTileRoot, AccessableBoard,
 		var allMatchingTileCellsWithAdjacentEnemies = new List<Vector2I>();
 		foreach(var cell in allMatchingTileCells){
 			var neighbours = (Board as Queriable).GetNeighboringTiles(cell);
-			var enemies = neighbours.Where(neighbour => (neighbour is Disposition actor && actor.IsEnemy)).ToList();
+			var enemies = neighbours.Where(neighbour => neighbour is Disposition actor && actor.IsEnemy).ToList();
 			// allMatchingTileCellsWithAdjacentEnemies.AddRange(enemies.Select(enemy => (Board as Queriable).GetCellFor(enemy)).ToList()); //wtf
 			// allMatchingTileCellsWithAdjacentEnemies = allMatchingTileCellsWithAdjacentEnemies.Distinct().ToList(); //this whole thing looks wasteful...
 			if(enemies.Count > 0){
@@ -56,45 +59,102 @@ public partial class LeapAttack : Control, Skill, WithTileRoot, AccessableBoard,
 			}
 
 
-			var timeMultipleier = previousShortestDistance >= 99999f ? (int)path.Count/64 : (int)previousShortestDistance/64;
+			var timeMultiplier = previousShortestDistance >= 99999f ? (int)path.Count/64 : (int)previousShortestDistance/64;
 
-			AnimationTree.Set("parameters/JumpMiddleeeeeeeee/TimeScale/scale", (float) 1 / timeMultipleier);
+			AnimationTree.Set("parameters/JumpMiddleeeeeeeee/TimeScale/scale", (float) 1 / timeMultiplier);
 
 			var playback = (AnimationNodeStateMachinePlayback)AnimationTree.Get("parameters/playback");
 			playback.Travel("Jump2");	
 
-			await (Board as BoardModel).TransferTileToAsync(TileRoot, closestSameTypeCellWithAdjacentEnemy, timeMultipleier);
-
-
-
-			// var ap = GetNode<AnimationPlayer>("AnimationPlayer");
-			// var anim = ap.GetAnimation("jump_middle");
-			// float baseLen = anim.Length;
-			// float desired = Mathf.Max(0.001f, desiredSeconds);
-			// ap.Play("jump_middle");
-			// ap.PlaybackSpeed = baseLen / desired; // speeds up if <1, slows if >1
-
+			await (Board as BoardModel).TransferTileToAsync(TileRoot, closestSameTypeCellWithAdjacentEnemy, timeMultiplier);
 
 			var destinationTile = (Board as Queriable).GetItemAt(closestSameTypeCellWithAdjacentEnemy);	
 			(destinationTile as Removable).PrepDestroy(); //marvelous				
 			(Board as Organizable).RelocateTile(_tileRoot, closestSameTypeCellWithAdjacentEnemy);
+
+			//EmitSignal(SignalName.FinishedPath);
+
+
+			//AnimationFinishedEventHandler handler = null;
+
+			await _WaitForAnimationToFinish(playback, "Jump2");
+
+			//handler = (StringName animName) => {
+				(TileRoot as Player.Manager).EmitTransferFinished();
+
+
+				playback.Travel("Swing");
+									Stopwatch stopWatch = new Stopwatch();
+									stopWatch.Start();
+			await _WaitForAnimationToFinish(playback, "Swing");
+
+				var neighbours = (Board as Queriable).GetNeighboringTiles(closestSameTypeCellWithAdjacentEnemy);
+				var enemies = neighbours.Where(neighbour => neighbour is Disposition actor && actor.IsEnemy).ToList();
+				EmitSignal(SignalName.Attacking, enemies[0], timeMultiplier);		
+
+				//AnimationTree.AnimationFinished -= handler;
+
+
+									stopWatch.Stop();
+									GD.Print($"time elapsed on anim >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>   {stopWatch.Elapsed}");				
+			//};
+
+
+			//AnimationTree.AnimationFinished += handler;
+
+
+
+
 		}
 
 	}
-
-
-	// public void OnFinishedTransfering(){
-	// 	//TileRoot.EmitSignal("FinishedTransfering"); //Not great ... not great
-	// 	(TileRoot as Player.Manager).EmitTransferFinished();
-	// }
-
-	// public void OnFinishedPath(){
-	// 	(TileRoot as Player.Manager).EmitPathFinished();
-	// }
 
     public void ProcessPath(List<Vector2I> path){
         
     }
 
+	private void _OnAnimationFinished(StringName anim, AnimationNodeStateMachinePlayback playback, Vector2I closestSameTypeCellWithAdjacentEnemy, int timeMultiplier){
+		(TileRoot as Player.Manager).EmitTransferFinished();
 
+
+		playback.Travel("Swing");
+
+
+		var neighbours = (Board as Queriable).GetNeighboringTiles(closestSameTypeCellWithAdjacentEnemy);
+		var enemies = neighbours.Where(neighbour => neighbour is Disposition actor && actor.IsEnemy).ToList();
+		EmitSignal(SignalName.Attacking, enemies[0], timeMultiplier);	
+
+		//AnimationTree.AnimationFinished -= _OnAnimationFinished;		
+	}
+
+	private async Task _WaitForAnimationToFinish(AnimationNodeStateMachinePlayback playback, string animation){
+		// wait until it actually enters Swing
+		// var frames = 0;
+		// while (playback.GetCurrentNode() != animation){
+			await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+		// 	frames++;
+		// 	if(frames > 300) break;
+		// }
+var test = playback.GetCurrentNode();
+var bp = 12334;
+		while (playback.GetCurrentNode() == animation) {
+			await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame); 
+		}
+	} 
+
+
+
+	// private async Task _WaitForAnimationToFinish(AnimationNodeStateMachinePlayback playback, string animation){
+	// 	var animationIsPlaying = true;
+		
+	// 	await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame); // Wait one frame for animation to start
+
+	// 	while (animationIsPlaying){
+	// 		if (playback.IsPlaying() == false){ // Check if playback stopped
+	// 			animationIsPlaying = false;
+	// 		}
+	// 		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+	// 	}
+	// 	var bp = 134;
+	// }
 }
