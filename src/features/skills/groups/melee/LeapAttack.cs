@@ -75,7 +75,9 @@ public partial class LeapAttack : Control, Skill, WithTileRoot, AccessableBoard,
 			// ap.PlaybackSpeed = baseLen / desired; // speeds up if <1, slows if >1
 
 
-			(Board as Organizable).RelocateTile(_tileRoot, closestSameTypeCellWithAdjacentEnemy);			
+			var destinationTile = (Board as Queriable).GetItemAt(closestSameTypeCellWithAdjacentEnemy);	
+			(destinationTile as Removable).PrepDestroy(); //marvelous				
+			(Board as Organizable).RelocateTile(_tileRoot, closestSameTypeCellWithAdjacentEnemy);
 		}
 
 	}

@@ -65,9 +65,8 @@ namespace Melee{
             var pb = 123;
         }
 
-        public void PrepDestroy() //great...
-        {
-            throw new System.NotImplementedException();
+        public void PrepDestroy(){
+            (_removing as Removable).PrepDestroy();
         }
 
         public void Remove()
