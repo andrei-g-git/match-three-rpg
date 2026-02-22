@@ -402,7 +402,7 @@ _animatedActor = NodePath("../../AspectRatioContainer/Warrior")
 [node name="Dash" type="Node" parent="StateMachine_not_using" node_paths=PackedStringArray("_animatedActor")]
 script = ExtResource("29_kw2j6")
 _animatedActor = NodePath("../../AspectRatioContainer/Warrior")
-_duration = 0.5
+_duration = 0.4
 
 [connection signal="EquipmentChanged" from="Equipment" to="AspectRatioContainer/Warrior" method="ChangeGear"]
 [connection signal="Destroying" from="Behaviors/Removing" to="Tweeners/ScaleUpFade" method="Disappear"]

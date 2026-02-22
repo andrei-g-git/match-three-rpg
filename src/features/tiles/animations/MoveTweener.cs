@@ -66,6 +66,24 @@ public partial class MoveTweener : Node, Movable, Mapable
 		return task.Task;
 	}
 
+	public Task MoveToAsync(Vector2I target, int durationMultiplier){
+		var ownPosTest = (_tileRoot as Control).Position;
+		var pixelTarget = Map.CellToPosition(target);
+		Tween tween = CreateTween()
+			.SetTrans(Tween.TransitionType.Sine)
+			.SetEase(Tween.EaseType.Out);
+
+		tween.TweenProperty(_tileRoot, "position", (Vector2) pixelTarget, _duration * durationMultiplier);
+		
+		var task = new TaskCompletionSource<bool>();
+
+		tween.Finished += () => {
+			EmitSignal(SignalName.FinishedMoving); 
+			task.SetResult(true);
+		};
+		return task.Task;		
+	}
+
 	public void MoveOnPath(Stack<Vector2I> path){
 		var bp = 123;
 		GD.Print("move on path:  ");

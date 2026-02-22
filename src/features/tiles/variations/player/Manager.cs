@@ -135,6 +135,10 @@ namespace Player{
             return (_moveTweener as MoveTweener).MoveToAsync(target);
         }
 
+        public Task MoveToAsync(Vector2I target, int durationMultiplier){//NOT INTERFACE METHOD
+            return (_moveTweener as MoveTweener).MoveToAsync(target, durationMultiplier);
+        }
+
 		public void MoveOnPath(Stack<Vector2I> path){
 			(_moveTweener as Movable).MoveOnPath(path);
 		}

@@ -48,17 +48,20 @@ public partial class LeapAttack : Control, Skill, WithTileRoot, AccessableBoard,
 		foreach(var cell in allMatchingTileCellsWithAdjacentEnemies){
 			var distance = Hex.FindDistanceBetweenCells(path[^1], cell);
 			if(distance < previousShortestDistance){
+				previousShortestDistance = distance;
 				closestSameTypeCellWithAdjacentEnemy = cell;
 			}
 		}
 
 
-AnimationTree.Set("parameters/JumpMiddleeeeeeeee/TimeScale/scale", (float) 1/path.Count);
+		var timeMultipleier = previousShortestDistance >= 99999f ? (int)path.Count/64 : (int)previousShortestDistance/64;
+
+AnimationTree.Set("parameters/JumpMiddleeeeeeeee/TimeScale/scale", (float) 1 / timeMultipleier);
 
 			var playback = (AnimationNodeStateMachinePlayback)AnimationTree.Get("parameters/playback");
 			playback.Travel("Jump2");	
 
-		await (Board as BoardModel).TransferTileToAsync(TileRoot, closestSameTypeCellWithAdjacentEnemy);
+		await (Board as BoardModel).TransferTileToAsync(TileRoot, closestSameTypeCellWithAdjacentEnemy, timeMultipleier);
 
 
 

@@ -74,6 +74,9 @@ public partial class BoardModel : Node, Organizable, MatchableBoard, WithTiles, 
         return (_tileOrganizer as TileOrganizer).TransferTileToAsync(tile, target);
     } 
 
+    public Task TransferTileToAsync(Control tile, Vector2I target, int tilesTraveled){ //NOT INTERFACE METHOD
+        return (_tileOrganizer as TileOrganizer).TransferTileToAsync(tile, target, tilesTraveled);
+    } 
 
     public void RelocateTile(Control tile, Vector2I target){
         (_tileOrganizer as Organizable).RelocateTile(tile, target);

@@ -151,6 +151,9 @@ public partial class TileOrganizer: Node, Organizable, WithTiles
         return (tile as Player.Manager).MoveToAsync(target);
     }
 
+    public Task TransferTileToAsync(Control tile, Vector2I target, int tilesTraveled){ //NOT INTERFACE METHOD
+        return (tile as Player.Manager).MoveToAsync(target, tilesTraveled);
+    }
 
     private void _FillEmptyCell(Vector2I cell, float[] spawnWeights, TileTypes[] spawnTiles){
         var random = new RandomNumberGenerator();

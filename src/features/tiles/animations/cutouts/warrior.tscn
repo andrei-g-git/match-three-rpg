@@ -341,7 +341,7 @@ tracks/7/keys = {
 
 [sub_resource type="Animation" id="Animation_kgmvq"]
 resource_name = "Dash"
-length = 0.3
+length = 0.4
 tracks/0/type = "bezier"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -351,7 +351,7 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "handle_modes": PackedInt32Array(0, 0, 0, 0),
 "points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0.144, -0.033333335, -0.040724352, 0, 0, 0.55850536, -0.10000001, -0.052359883, 0, 0, 0, -0.03333333, 0.09308422, 0, 0),
-"times": PackedFloat32Array(0, 0.033333335, 0.26666668, 0.3)
+"times": PackedFloat32Array(0, 0.045, 0.355, 0.4)
 }
 tracks/1/type = "bezier"
 tracks/1/imported = false
@@ -362,7 +362,7 @@ tracks/1/loop_wrap = true
 tracks/1/keys = {
 "handle_modes": PackedInt32Array(0, 0, 0, 0),
 "points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, -0.20943952, -0.033333335, 0.03490659, 0, 0, -0.5235988, -0.10000001, 0.052359883, 0, 0, 0, -0.03333333, -0.08726647, 0, 0),
-"times": PackedFloat32Array(0, 0.033333335, 0.26666668, 0.3)
+"times": PackedFloat32Array(0, 0.045, 0.355, 0.4)
 }
 tracks/2/type = "bezier"
 tracks/2/imported = false
@@ -373,7 +373,7 @@ tracks/2/loop_wrap = true
 tracks/2/keys = {
 "handle_modes": PackedInt32Array(0, 0, 0, 0),
 "points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0.3839724, -0.033333335, -0.063995406, 0, 0, 1.6318829, -0.10000001, -0.20798509, 0, 0, 0, -0.03333333, 0.2719805, 0, 0),
-"times": PackedFloat32Array(0, 0.033333335, 0.26666668, 0.3)
+"times": PackedFloat32Array(0, 0.045, 0.355, 0.4)
 }
 
 [sub_resource type="Animation" id="Animation_l8th2"]
@@ -1325,8 +1325,8 @@ texture = ExtResource("9_y5mrr")
 offset = Vector2(-3, 29)
 
 [node name="LegRightLower" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(-22.99921, 28.992744)
-scale = Vector2(0.9996949, 0.9996949)
+position = Vector2(-22.99921, 28.99274)
+scale = Vector2(0.9996948, 0.9996948)
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/LegRightLower"]
 texture = ExtResource("10_0yg1q")
@@ -1334,45 +1334,44 @@ offset = Vector2(-3, 27)
 
 [node name="LegRightUpper" type="Node2D" parent="AssetContainer/Cutouts"]
 position = Vector2(-18, -17)
-scale = Vector2(0.9998423, 0.9998423)
+scale = Vector2(0.9998422, 0.9998422)
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/LegRightUpper"]
 texture = ExtResource("11_5ryii")
 offset = Vector2(2, 30)
 
 [node name="ArmLeftUpper" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(15.862998, -81.14034)
-rotation = -0.3215879
-scale = Vector2(0.9988377, 1.0008371)
-skew = -0.0027064085
+position = Vector2(16.061377, -80.37149)
+rotation = -0.53070176
+scale = Vector2(0.9998237, 0.9998521)
+skew = -3.9815903e-05
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/ArmLeftUpper"]
 texture = ExtResource("2_l8th2")
 offset = Vector2(3, 17)
 
 [node name="ArmLeftLower" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(28.965322, -50.145866)
-rotation = -0.31622186
-scale = Vector2(0.99885225, 1.0008225)
-skew = -0.0027276278
+position = Vector2(35.22088, -52.75653)
+rotation = -0.96169645
+scale = Vector2(0.99981356, 0.99986225)
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/ArmLeftLower"]
 texture = ExtResource("1_2wrfs")
 offset = Vector2(3.2398338, 19.257359)
 
 [node name="Body" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(0, -41.14747)
+position = Vector2(0, -41.002018)
 scale = Vector2(0.9998483, 0.9998275)
-skew = -0.0033649206
+skew = -4.4226646e-05
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/Body"]
 texture = ExtResource("5_af0q4")
 offset = Vector2(-1, -12)
 
 [node name="Head" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(-7.2041597, -102.1366)
+position = Vector2(-7.0016356, -101.9915)
 scale = Vector2(0.9998483, 0.9998275)
-skew = -0.0033649206
+skew = -4.4226646e-05
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/Head"]
 texture = ExtResource("7_rpheb")
@@ -1382,29 +1381,30 @@ offset = Vector2(8, -17)
 offset = Vector2(10, -38)
 
 [node name="ArmRightUpper" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(-25.134144, -82.14017)
-rotation = 0.33239904
-scale = Vector2(1.0008843, 0.99879044)
-skew = -0.0026339293
+position = Vector2(-24.998022, -81.99495)
+rotation = -2.4373815
+scale = Vector2(0.9998614, 0.9998144)
+skew = 1.335144e-05
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/ArmRightUpper"]
 texture = ExtResource("4_kgmvq")
 offset = Vector2(0.4376831, 18.807999)
 
 [node name="ArmRightLower" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(-37.04149, -55.144978)
-rotation = 0.16252945
-scale = Vector2(1.0003852, 0.99929035)
-skew = -0.0031818151
+position = Vector2(-4.0198917, -102.79391)
+rotation = 2.7228758
+scale = Vector2(0.9998284, 0.99984735)
+skew = -4.506111e-05
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/ArmRightLower"]
 texture = ExtResource("3_8x8rt")
 offset = Vector2(3.235218, 25.152359)
 
 [node name="Weapon" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(-43.293663, -11.673378)
-scale = Vector2(0.9997894, 0.9997686)
-skew = -0.0033649206
+position = Vector2(-22.547071, -142.63815)
+rotation = 2.5602498
+scale = Vector2(0.99976283, 0.9997952)
+skew = -3.671646e-05
 
 [node name="Gear" type="Sprite2D" parent="AssetContainer/Cutouts/Weapon"]
 rotation = 0.19198622
@@ -1497,7 +1497,7 @@ remote_path = NodePath("../../../../../../Cutouts/ArmLeftLower")
 
 [node name="HipRight" type="Bone2D" parent="AssetContainer/Skeleton2D/Center"]
 position = Vector2(-18, 8)
-scale = Vector2(0.9998423, 0.9998423)
+scale = Vector2(0.9998422, 0.9998422)
 rest = Transform2D(0.99984026, 0, 0, 0.99984026, -18, 8)
 
 [node name="LegRightUpper" type="RemoteTransform2D" parent="AssetContainer/Skeleton2D/Center/HipRight"]
