@@ -52,12 +52,16 @@ public partial class LeapAttack : Control, Skill, WithTileRoot, AccessableBoard,
 			}
 		}
 
-		await (Board as BoardModel).TransferTileToAsync(TileRoot, closestSameTypeCellWithAdjacentEnemy);
 
-AnimationTree.Set("parameters/JumpMiddleeeeeeeee/TimeScale/scale", 0.1f);
+AnimationTree.Set("parameters/JumpMiddleeeeeeeee/TimeScale/scale", (float) 1/path.Count);
 
 			var playback = (AnimationNodeStateMachinePlayback)AnimationTree.Get("parameters/playback");
 			playback.Travel("Jump2");	
+
+		await (Board as BoardModel).TransferTileToAsync(TileRoot, closestSameTypeCellWithAdjacentEnemy);
+
+
+
 
 
 

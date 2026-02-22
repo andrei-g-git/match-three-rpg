@@ -56,6 +56,10 @@ public partial class OmniCharge : Node, /* Movable, */ Traversing, AccessableBoa
             In the mean time if there are scenarios where I need to hit something directly on the matching line, this may pose problems...
 
          */
+
+        var playback = (AnimationNodeStateMachinePlayback) AnimationTree.Get("parameters/playback");
+        playback.Travel("Dash");
+
         await (_sprite as WhirlwindSprite).WaitForAnimationFinished();
         //await ToSignal(_sprite, /* _sprite.AnimationFinished */"animation_finished");
         

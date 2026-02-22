@@ -27,11 +27,15 @@ public partial class StraightCharge : Node, Traversing, AccessableBoard, WithTil
 			var tileAhead = (Board as Queriable).GetItemAt(nextCellAtEnd);
 			if (tileAhead is Disposition actor && actor.IsEnemy) {
 
+				var playback = (AnimationNodeStateMachinePlayback)AnimationTree.Get("parameters/playback");
+
+				playback.Travel("Dash");
+
 				await (Board as BoardModel).TransferTileToAsync(TileRoot, path[^1]);
 
 				EmitSignal(SignalName.FinishedPath);
 
-				var playback = (AnimationNodeStateMachinePlayback)AnimationTree.Get("parameters/playback");
+				
 				playback.Travel("Swing");
 
 				// wait until it actually enters Swing
