@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bksbxdav7jui4"
-path="res://.godot/imported/orc.png-4f92b1537fdd41b39cec9a4067952e4b.ctex"
+uid="uid://dff2fj1nbi2vb"
+path="res://.godot/imported/chest.png-179c550807bfa6f29caae5eab0097415.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/tiles/new/orc.png"
-dest_files=["res://.godot/imported/orc.png-4f92b1537fdd41b39cec9a4067952e4b.ctex"]
+source_file="res://assets/images/tiles/new old/chest.png"
+dest_files=["res://.godot/imported/chest.png-179c550807bfa6f29caae5eab0097415.ctex"]
 
 [params]
 

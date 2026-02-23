@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=3 uid="uid://cmvpga1j811ia"]
 
 [ext_resource type="Script" uid="uid://2htym24smeh2" path="res://src/features/tiles/variations/archer/Manager.cs" id="1_j42bo"]
-[ext_resource type="Texture2D" uid="uid://c45ptn2o1rcmg" path="res://assets/images/tiles/new/goblin.png" id="2_tv040"]
+[ext_resource type="Texture2D" uid="uid://c45ptn2o1rcmg" path="res://assets/images/tiles/new old/goblin.png" id="2_tv040"]
 [ext_resource type="Script" uid="uid://cy1k0w8awxnxt" path="res://src/features/tiles/DragAndDrop.cs" id="3_dx3t4"]
 [ext_resource type="Script" uid="uid://bo1vqtqcusngb" path="res://src/features/tiles/behaviors/Removing.cs" id="4_lr25n"]
 [ext_resource type="Script" uid="uid://cwtutlrlcmfb4" path="res://src/features/tiles/stats/enemies/OrcStats.cs" id="5_rt408"]

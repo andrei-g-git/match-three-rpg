@@ -1,9 +1,10 @@
-[gd_scene load_steps=44 format=3 uid="uid://vv3xapj4lprc"]
+[gd_scene load_steps=45 format=3 uid="uid://vv3xapj4lprc"]
 
 [ext_resource type="Script" uid="uid://dy1o6fmi8i4pb" path="res://src/features/board/BoardManager.cs" id="1_k7s5h"]
 [ext_resource type="Script" uid="uid://cgm6rlm3gw3je" path="res://src/features/board/Environment.cs" id="3_da6o6"]
 [ext_resource type="Script" uid="uid://ci3qi6w5dumc2" path="res://src/features/board/TileContainer.cs" id="4_dw1vl"]
 [ext_resource type="Texture2D" uid="uid://bhrgljbqv1p6a" path="res://assets/images/tiles/new/tile_sheet_128px_by_128px.png" id="5_1dyqb"]
+[ext_resource type="Script" uid="uid://dnwr07sluq5la" path="res://src/NoticeDelete.cs" id="5_ai8ke"]
 [ext_resource type="Script" uid="uid://dqkgqnxmg0ulc" path="res://src/features/board/model/BoardModel.cs" id="5_qxmgw"]
 [ext_resource type="Script" uid="uid://dmgfp5d31ssv" path="res://src/features/board/model/TileOrganizer.cs" id="6_ygp36"]
 [ext_resource type="Script" uid="uid://7sg44immrx2m" path="res://src/features/board/model/TileFactory.cs" id="7_ygp36"]
@@ -147,6 +148,10 @@ script = ExtResource("1_k7s5h")
 _tileMap = NodePath("../Environment")
 _model = NodePath("../Model")
 _playerSkillsModel = NodePath("../Model/PlayerSkills")
+
+[node name="EffectsLayer" type="PanelContainer" parent="MainContainer/PanelContainer"]
+layout_mode = 2
+script = ExtResource("5_ai8ke")
 
 [node name="Environment" type="TileMapLayer" parent="MainContainer/PanelContainer"]
 tile_set = SubResource("TileSet_bs6l1")

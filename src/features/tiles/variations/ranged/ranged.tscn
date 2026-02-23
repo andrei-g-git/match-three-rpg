@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://donsygddio07a"]
 
 [ext_resource type="Script" uid="uid://dlbv8lpt2bi54" path="res://src/features/tiles/variations/ranged/Manager.cs" id="1_kqcq3"]
-[ext_resource type="Texture2D" uid="uid://cdpc3wgf4lwot" path="res://assets/images/tiles/new/ranged-green.png" id="2_ws851"]
+[ext_resource type="Texture2D" uid="uid://bnh5flvneqo2e" path="res://assets/images/tiles/new/ranged.png" id="2_ws851"]
 [ext_resource type="Script" uid="uid://cy1k0w8awxnxt" path="res://src/features/tiles/DragAndDrop.cs" id="3_8667k"]
 [ext_resource type="Script" uid="uid://dd71kn6t4pyhr" path="res://src/features/tiles/behaviors/Swapping.cs" id="4_gb7wv"]
 [ext_resource type="Script" uid="uid://bo1vqtqcusngb" path="res://src/features/tiles/behaviors/Removing.cs" id="5_3h75h"]

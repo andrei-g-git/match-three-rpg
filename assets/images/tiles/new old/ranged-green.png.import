@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cdpc3wgf4lwot"
-path="res://.godot/imported/ranged-green.png-c5d07496c5de4e589962977458ec628c.ctex"
+path="res://.godot/imported/ranged-green.png-a8f622c3e8cda7db9ad15872a3877c62.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/tiles/new/ranged-green.png"
-dest_files=["res://.godot/imported/ranged-green.png-c5d07496c5de4e589962977458ec628c.ctex"]
+source_file="res://assets/images/tiles/new old/ranged-green.png"
+dest_files=["res://.godot/imported/ranged-green.png-a8f622c3e8cda7db9ad15872a3877c62.ctex"]
 
 [params]
 

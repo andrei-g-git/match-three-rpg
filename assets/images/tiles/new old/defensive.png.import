@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c1n1onpxi0vne"
-path="res://.godot/imported/trunk2.png-cc8bfbe3c832d5e734e4b498c8aa08ce.ctex"
+uid="uid://dbk8c852qh6fa"
+path="res://.godot/imported/defensive.png-0aad7019383bf09230b55d874accc590.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/tiles/new/trunk2.png"
-dest_files=["res://.godot/imported/trunk2.png-cc8bfbe3c832d5e734e4b498c8aa08ce.ctex"]
+source_file="res://assets/images/tiles/new old/defensive.png"
+dest_files=["res://.godot/imported/defensive.png-0aad7019383bf09230b55d874accc590.ctex"]
 
 [params]
 

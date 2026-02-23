@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b00gbtd8quyh" path="res://src/features/tiles/variations/fighter/Manager.cs" id="1_81q7e"]
 [ext_resource type="Script" uid="uid://cy1k0w8awxnxt" path="res://src/features/tiles/DragAndDrop.cs" id="2_81q7e"]
-[ext_resource type="Texture2D" uid="uid://bksbxdav7jui4" path="res://assets/images/tiles/new/orc.png" id="2_xsd4e"]
+[ext_resource type="Texture2D" uid="uid://bksbxdav7jui4" path="res://assets/images/tiles/new old/orc.png" id="2_xsd4e"]
 [ext_resource type="Script" uid="uid://dd71kn6t4pyhr" path="res://src/features/tiles/behaviors/Swapping.cs" id="4_23cat"]
 [ext_resource type="PackedScene" uid="uid://u571avx8ib84" path="res://src/features/tiles/animations/cutouts/orc.tscn" id="4_bnwsy"]
 [ext_resource type="Script" uid="uid://bo1vqtqcusngb" path="res://src/features/tiles/behaviors/Removing.cs" id="4_xmyc7"]

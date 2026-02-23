@@ -69,7 +69,9 @@ public partial class LeapAttack : Control, Skill, WithTileRoot, AccessableBoard,
 			await (Board as BoardModel).TransferTileToAsync(TileRoot, closestSameTypeCellWithAdjacentEnemy, timeMultiplier);
 
 			var destinationTile = (Board as Queriable).GetItemAt(closestSameTypeCellWithAdjacentEnemy);	
-			(destinationTile as Removable).PrepDestroy(); //marvelous				
+
+			(destinationTile as Removable).PrepDestroy(); //marvelous	
+						
 			(Board as Organizable).RelocateTile(_tileRoot, closestSameTypeCellWithAdjacentEnemy);
 
 			//EmitSignal(SignalName.FinishedPath);
@@ -113,19 +115,19 @@ public partial class LeapAttack : Control, Skill, WithTileRoot, AccessableBoard,
         
     }
 
-	private void _OnAnimationFinished(StringName anim, AnimationNodeStateMachinePlayback playback, Vector2I closestSameTypeCellWithAdjacentEnemy, int timeMultiplier){
-		(TileRoot as Player.Manager).EmitTransferFinished();
+	// private void _OnAnimationFinished(StringName anim, AnimationNodeStateMachinePlayback playback, Vector2I closestSameTypeCellWithAdjacentEnemy, int timeMultiplier){
+	// 	(TileRoot as Player.Manager).EmitTransferFinished();
 
 
-		playback.Travel("Swing");
+	// 	playback.Travel("Swing");
 
 
-		var neighbours = (Board as Queriable).GetNeighboringTiles(closestSameTypeCellWithAdjacentEnemy);
-		var enemies = neighbours.Where(neighbour => neighbour is Disposition actor && actor.IsEnemy).ToList();
-		EmitSignal(SignalName.Attacking, enemies[0], timeMultiplier);	
+	// 	var neighbours = (Board as Queriable).GetNeighboringTiles(closestSameTypeCellWithAdjacentEnemy);
+	// 	var enemies = neighbours.Where(neighbour => neighbour is Disposition actor && actor.IsEnemy).ToList();
+	// 	EmitSignal(SignalName.Attacking, enemies[0], timeMultiplier);	
 
-		//AnimationTree.AnimationFinished -= _OnAnimationFinished;		
-	}
+	// 	//AnimationTree.AnimationFinished -= _OnAnimationFinished;		
+	// }
 
 	private async Task _WaitForAnimationToFinish(AnimationNodeStateMachinePlayback playback, string animation){
 		// wait until it actually enters Swing
@@ -135,8 +137,7 @@ public partial class LeapAttack : Control, Skill, WithTileRoot, AccessableBoard,
 		// 	frames++;
 		// 	if(frames > 300) break;
 		// }
-var test = playback.GetCurrentNode();
-var bp = 12334;
+
 		while (playback.GetCurrentNode() == animation) {
 			await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame); 
 		}
