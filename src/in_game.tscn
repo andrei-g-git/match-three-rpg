@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://vv3xapj4lprc"]
+[gd_scene load_steps=47 format=3 uid="uid://vv3xapj4lprc"]
 
 [ext_resource type="Script" uid="uid://dy1o6fmi8i4pb" path="res://src/features/board/BoardManager.cs" id="1_k7s5h"]
 [ext_resource type="Script" uid="uid://cgm6rlm3gw3je" path="res://src/features/board/Environment.cs" id="3_da6o6"]
@@ -38,6 +38,7 @@
 [ext_resource type="PackedScene" uid="uid://4fchj3w3uooj" path="res://src/features/skills/groups/melee/bullrush.tscn" id="27_gv6rk"]
 [ext_resource type="Script" uid="uid://fshl3bovmk2h" path="res://src/features/skills/SkillSelection.cs" id="29_crjdv"]
 [ext_resource type="PackedScene" uid="uid://c12ujhxw7j1ol" path="res://src/features/skills/groups/melee/leap_attack.tscn" id="29_do0gj"]
+[ext_resource type="PackedScene" uid="uid://bb8fffcx3elwl" path="res://src/features/skills/groups/melee/throw_pilum.tscn" id="31_6tdc7"]
 [ext_resource type="Script" uid="uid://cmg0gtq5dxumt" path="res://src/features/RestartLevel.cs" id="34_1dyqb"]
 [ext_resource type="Script" uid="uid://vx481amn178r" path="res://src/features/UI/EndTurn.cs" id="37_wou0k"]
 
@@ -98,6 +99,11 @@ custom_data_layer_0/type = 21
 custom_data_layer_1/name = "navigable"
 custom_data_layer_1/type = 1
 sources/0 = SubResource("TileSetAtlasSource_mmsvb")
+
+[sub_resource type="TileSet" id="TileSet_ai8ke"]
+tile_shape = 3
+tile_offset_axis = 1
+tile_size = Vector2i(128, 96)
 
 [node name="Level" type="Control"]
 layout_mode = 3
@@ -209,7 +215,8 @@ script = ExtResource("24_ewl7t")
 _skillsWithScenes = Dictionary[int, PackedScene]({
 0: ExtResource("27_gv6rk"),
 2: ExtResource("29_do0gj"),
-3: ExtResource("25_qx8qf")
+3: ExtResource("25_qx8qf"),
+5: ExtResource("31_6tdc7")
 })
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MainContainer"]
@@ -299,6 +306,9 @@ text = "End
 Turn"
 script = ExtResource("37_wou0k")
 _turnQueue = NodePath("../MainContainer/PanelContainer/Model/Turns")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="EndTurn"]
+tile_set = SubResource("TileSet_ai8ke")
 
 [connection signal="DoneMatching" from="MainContainer/PanelContainer/Model/TileOrganizer" to="MainContainer/PanelContainer/Model/Turns" method="AdvanceTurn"]
 [connection signal="DoneSwapping" from="MainContainer/PanelContainer/Model/TileOrganizer" to="MainContainer/PanelContainer/Model/Turns" method="AdvanceTurn"]

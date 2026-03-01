@@ -28,6 +28,7 @@ namespace Inventory{
 		SteelLongSword,
 		SteelWarAxe,
 		IronSpear,
+        Pilum,
 		Empty
 	}
 
@@ -64,6 +65,7 @@ namespace Inventory{
 		SteelLongSword,
 		SteelWarAxe,
 		IronSpear,
+        Pilum,
 		WoodenShield,
 		IronShield,
 		TowerShield,	

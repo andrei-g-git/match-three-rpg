@@ -60,4 +60,8 @@ namespace Tiles{
     public interface WhiteFlashable{
         public void FlashOnce(int magnitude);
     }
+
+    public interface WithAnimatedActor{
+        public Node2D AnimatedActor{set;}
+    }
 }

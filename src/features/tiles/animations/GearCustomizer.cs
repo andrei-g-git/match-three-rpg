@@ -39,6 +39,19 @@ public partial class GearCustomizer : Node, CustomizableGear
 
 
 	public void ChangeGear(string type, string item){
+		_FillGearSlotWithItem(type, item);
+	}
+
+	public string GetEquipedGearOfType(string type){
+		return "nah...";
+	}
+
+	// public void ChangeGearTemporarily(string type, string item, float duration){
+	// 	var textureForCurrentItem = new Texture2D(); //PLACEHOLDER, DELETE
+	// 	_FillGearSlotWithItem(type, item);
+	// }
+
+	private void _FillGearSlotWithItem(string type, string item){
 		if(Enum.TryParse<EquipmentTypes>(type, true, out var enumGearType)){
 			Enum.TryParse<Cutouts>(item, true, out var enumItem);
 
@@ -57,7 +70,6 @@ public partial class GearCustomizer : Node, CustomizableGear
 					_offHand.Texture = texture;
 					break;														
 			}			
-		}
-
+		}		
 	}
 }

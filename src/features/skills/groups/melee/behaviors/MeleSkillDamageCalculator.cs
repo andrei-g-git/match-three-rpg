@@ -20,7 +20,7 @@ public partial class MeleSkillDamageCalculator : Node, CalculatableDamage, WithT
 		int weaponDamage = (TileRoot as StatBasedGear).GetTotalGearBaseDamage();
 		int strength = (TileRoot as Attributive).Strength;
 		var momentumMultiplier = 1 + (float) tilesCovered/_momentumSubdivider;
-		var strengthMultiplier = 1 + (float) strength/_strengthSubdivider;
+		var strengthMultiplier = 1 + (float) strength/_strengthSubdivider; //this should be a weapon stat (and they should have an agility bonus as well)
 		float rawDamage = weaponDamage * _skillMultiplier * momentumMultiplier * strengthMultiplier;
 		GD.Print($"rawDamage : {rawDamage}");
 		return (int) Math.Floor(rawDamage);

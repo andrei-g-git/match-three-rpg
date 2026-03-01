@@ -31,5 +31,8 @@ public partial class SkillSlot : Control, Skillful, AccessableBoard
 		(skill as WithTileRoot).TileRoot = _tileRoot;
 		(skill as AccessableBoard).Board = Board;
 		(skill as WithAnimationTree).AnimationTree = (_animatedActor as AnimatedActor).AnimationTree; //animatedActor is not an interface
+		if(skill is WithAnimatedActor){ //they should all just have this and use it's interfaces to leverage the animatiotree
+			(skill as WithAnimatedActor).AnimatedActor = _animatedActor as Node2D;
+		}
 	}
 }

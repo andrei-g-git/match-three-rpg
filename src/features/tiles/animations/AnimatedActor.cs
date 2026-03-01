@@ -28,4 +28,10 @@ public partial class AnimatedActor : Node2D, Animatable, CustomizableGear
     public void ChangeGear(string type, string item){
         (_gearCustomizer as CustomizableGear).ChangeGear(type, item);
     }	
+
+    public string GetEquipedGearOfType(string type)
+    {
+        throw new NotImplementedException();
+    }
+
 }

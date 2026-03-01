@@ -15,6 +15,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 using Tiles;
 
@@ -35,8 +36,31 @@ public partial class BoardManager : PanelContainer
 	public override void _Ready(){
 		InitializeLevel();
 
+		//test
+
+		//_SaveUsedTiles();
 	}
 
+
+	//test
+	private void _SaveUsedTiles()
+	{
+		//await Task.Delay(4000);
+		GetTree().CreateTimer(4).Timeout += () =>
+		{
+			var usedCells = _tileMap.GetUsedCells();
+			//_ = Files.SaveJson(usedCells, Files.ManualSavesPath, "testUsedCells.json");		
+			//GD.Print("4 seconds passed");		
+			foreach(var cell in usedCells)
+			{
+				var cellData = _tileMap.GetCellTileData(cell);
+				var cellPosition = _tileMap.MapToLocal(cell);
+				GD.Print($"cell position:   {cellPosition}");
+				GD.Print($"cell INDEX (?):   {cell}");
+			}	
+		};
+
+	}
 
 	public void InitializeLevel(){
 
@@ -72,7 +96,11 @@ public partial class BoardManager : PanelContainer
 						);		
 
 						//(_model as Organizable).Initialize(tileTypes);
-						var bp = 123;							
+						var bp = 123;	
+
+						//Test
+						//DELETE
+						//_SaveUsedTiles();						
 					});
 			
 			});
@@ -187,6 +215,9 @@ public partial class BoardManager : PanelContainer
 				}
 			}
 		}
+
+		//TEST DELETE
+		//_SaveUsedTiles();
 	}
 
 	private void _TestSaveFile(string path, string fileName, string data){
