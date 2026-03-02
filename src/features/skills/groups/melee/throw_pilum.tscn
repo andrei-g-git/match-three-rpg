@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://bb8fffcx3elwl"]
+[gd_scene load_steps=7 format=3 uid="uid://bb8fffcx3elwl"]
 
 [ext_resource type="Script" uid="uid://1amd2lcbxkau" path="res://src/features/skills/groups/melee/ThrowPilum.cs" id="1_dl8gc"]
 [ext_resource type="Script" uid="uid://bh601heiqlu68" path="res://src/features/tiles/behaviors/Offense.cs" id="2_ixuqx"]
 [ext_resource type="Script" uid="uid://bjq4scdw22ard" path="res://src/features/skills/groups/melee/behaviors/MeleSkillDamageCalculator.cs" id="3_jekc2"]
 [ext_resource type="Script" uid="uid://blejtrn85rsfb" path="res://src/features/skills/groups/ranged/ProjectileTween.cs" id="4_ys00c"]
 [ext_resource type="Texture2D" uid="uid://b6nexmhsfkx5n" path="res://assets/images/items/gear/Pilum.png" id="5_00bli"]
+[ext_resource type="PackedScene" uid="uid://dd3vmk48xr8ni" path="res://src/features/skills/groups/ranged/projectile.tscn" id="6_csnnr"]
 
 [node name="ThrowPilum" type="Control" node_paths=PackedStringArray("_damageCalculator", "_projectileTweener")]
 layout_mode = 3
@@ -31,3 +32,6 @@ _strengthSubdivider = 10.0
 script = ExtResource("4_ys00c")
 _spriteTexture = ExtResource("5_00bli")
 _durationPerTile = 0.5
+_projectileScene = ExtResource("6_csnnr")
+
+[connection signal="Attacking" from="." to="Offense" method="AttackWithMomentum"]

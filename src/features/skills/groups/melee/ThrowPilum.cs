@@ -10,7 +10,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Tiles;
 
-public partial class ThrowPilum : Control, Skill, WithTileRoot, AccessableBoard, Traversing, WithAnimationTree, WithAnimatedActor
+public partial class ThrowPilum : Control, Skill, WithTileRoot, AccessableBoard, Traversing, WithAnimationTree, WithAnimatedActor//, Mapable
 {
 	[Export] private Node _damageCalculator;
 	[Export] private Node2D _projectileTweener;
@@ -28,6 +28,7 @@ public partial class ThrowPilum : Control, Skill, WithTileRoot, AccessableBoard,
 	private AnimationTree _animationTree; //?
     public AnimationTree AnimationTree {get; set;}	
 	public Node2D AnimatedActor{private get;set;}
+	//public Tileable Map{private get; set;}
 	[Signal] public delegate void AttackingEventHandler(Control enemy, int coveredTileDistance);
 
 
@@ -46,16 +47,20 @@ public partial class ThrowPilum : Control, Skill, WithTileRoot, AccessableBoard,
 
 				// var direction = (tileAhead.Position - TileRoot.Position).Normalized();
 				// var angle = direction.Angle(); //don't need this, I can just motion tween
-				(_projectileTweener as ProjectileTween).FlyTo(tileAhead.Position, path.Count);
-
-
 
 // var sw = new Stopwatch();
 // sw.Start();
 				await _WaitForStateToExitAsync("Throw", playback);	
 // sw.Stop();
 // GD.Print($"Throw animation took     {sw.Elapsed} seconds");
-				(AnimatedActor as CustomizableGear).ChangeGear(EquipmentTypes.Weapon.ToString(), currentWeapon);
+
+				(_projectileTweener as Mapable).Map = (Board as BoardModel).GetMap(); //not interface method
+
+				(AnimatedActor as CustomizableGear).ChangeGear(EquipmentTypes.Weapon.ToString(), currentWeapon);	
+							
+				await (_projectileTweener as ProjectileTween).FlyTo(nextCellAtEnd, path.Count); //not innterface method
+
+				EmitSignal(SignalName.Attacking, tileAhead, path.Count);
 
 
 			}		

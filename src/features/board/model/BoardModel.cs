@@ -17,6 +17,11 @@ public partial class BoardModel : Node, Organizable, MatchableBoard, WithTiles, 
 	[Export] private Node _selectedSkillsModel;     
     [Export] private Node _turns;
 
+    public Tileable GetMap()
+    {
+        return (_environment as Tileable); //delete this monstruosity asp
+    }
+
     public Grid<Control> Tiles { //there's something wrong with this, when I passed it to the sentinel behavior, it works the first time, but it gets changed when it's time to StandWatch, it has weird Variation.Manager instances
         get => (_tileOrganizer as WithTiles).Tiles; 
         set {

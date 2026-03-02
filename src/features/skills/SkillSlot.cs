@@ -34,5 +34,6 @@ public partial class SkillSlot : Control, Skillful, AccessableBoard
 		if(skill is WithAnimatedActor){ //they should all just have this and use it's interfaces to leverage the animatiotree
 			(skill as WithAnimatedActor).AnimatedActor = _animatedActor as Node2D;
 		}
+		
 	}
 }
