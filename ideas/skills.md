@@ -18,14 +18,25 @@
   - `I` taunt: challenge enemy to march at you 1 tile and forego a bit of defense
   - `S` joust/charge: like whirlwind but only attack the first enemy adjacent to your path, stop at end. higher damage than whirlwind
   - `A` pilum throw: stand in place and throw an expendable pilum for damage proportional to your agility and str and significantly debuf target's defense
+  - `A` lasso: pull an enemy to you from the end of the match line and stun it for one turn. may require strength check. **Adv. implementation:** if the check fails the enemy will not move but will be debuffed   **Adv. implementation:** may also require agility check and if that fails first the enemy is completely unaffected 
+  - `S` kick: *stationary* debuff defense, if it passes strength check, pushes enemy back
+  - `S` sweep: *stationary* attacks all targets on the opposite side of the match line, player needs to be roughly adjacent to he middle of the opposite side of the effect. does not benefit from momentum
+
+  idea: agility based melee weapons and skills have far more stationary skills (because dex weapons are more for duelling) and fewer tile matching skills
+
+  - `A` throw equipped weapon: **Adv. implementation:** desperate attack that temporarily removes your melee weapon from you. once the enemy dies, preferably in that attack, it appears as an item on the ground 
+  - `S` [r] push object: **Adv. implementation:** if stationary with no matches, pushes a piece one tile ahead, if it has momentum, pushes the piece 2 tiles (or maybe more). if an enemy is in the way, takes damage and debuff -- maybe I should have these replentish
 
 #### stealth
-  - runthrough?: attacks in straighht line but the thief stops way past the match group, 1 tile away from and behind the target
+  - `A` runthrough?: attacks in straighht line but the thief stops way past the match group, 1 tile away from and behind the target
+  - `I` remote grab: grab an item at a distance
 
 #### sorceress
   - rearrange pieces clockwise around you
   - freeze ground: **Adv. implementation:** passing enemies trip and loose 1 turn (*requires a third grid of effects, superimposes those effects over the bg*)
   - firewall: same
+  - `C` force shield: reduce damage against the next attack the next turn 
+  - `C` force barrier: reduce damage against all attacks the next turn 
 
 #### placeable pieces
   -walk piece: uses depend on agility
