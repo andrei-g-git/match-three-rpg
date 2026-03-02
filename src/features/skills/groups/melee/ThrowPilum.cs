@@ -13,6 +13,7 @@ using Tiles;
 public partial class ThrowPilum : Control, Skill, WithTileRoot, AccessableBoard, Traversing, WithAnimationTree, WithAnimatedActor
 {
 	[Export] private Node _damageCalculator;
+	[Export] private Node2D _projectileTweener;
 	
 	private Control _tileRoot;
 	public Control TileRoot{
@@ -43,6 +44,10 @@ public partial class ThrowPilum : Control, Skill, WithTileRoot, AccessableBoard,
 
 				playback.Travel("Throw");
 
+				// var direction = (tileAhead.Position - TileRoot.Position).Normalized();
+				// var angle = direction.Angle(); //don't need this, I can just motion tween
+				(_projectileTweener as ProjectileTween).FlyTo(tileAhead.Position, path.Count);
+
 
 
 // var sw = new Stopwatch();
@@ -50,7 +55,9 @@ public partial class ThrowPilum : Control, Skill, WithTileRoot, AccessableBoard,
 				await _WaitForStateToExitAsync("Throw", playback);	
 // sw.Stop();
 // GD.Print($"Throw animation took     {sw.Elapsed} seconds");
-				(AnimatedActor as CustomizableGear).ChangeGear(EquipmentTypes.Weapon.ToString(), currentWeapon);			
+				(AnimatedActor as CustomizableGear).ChangeGear(EquipmentTypes.Weapon.ToString(), currentWeapon);
+
+
 			}		
 		}
 	}
