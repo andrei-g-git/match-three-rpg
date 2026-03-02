@@ -6,6 +6,7 @@ using Inventory;
 using Skills;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Tiles;
 
@@ -38,31 +39,39 @@ public partial class ThrowPilum : Control, Skill, WithTileRoot, AccessableBoard,
 
 				var currentWeapon = (TileRoot as Gearable).Weapon;
 
-				(AnimatedActor as CustomizableGear).ChangeGear(EquipmentTypes.Weapon.ToString(), "some pilum thing, gotta make first");
+				(AnimatedActor as CustomizableGear).ChangeGear(EquipmentTypes.Weapon.ToString(), Weapons.Pilum.ToString());
 
 				playback.Travel("Throw");
 
-				await _WaitForStateToExitAsync("Throw");	
 
+
+// var sw = new Stopwatch();
+// sw.Start();
+				await _WaitForStateToExitAsync("Throw", playback);	
+// sw.Stop();
+// GD.Print($"Throw animation took     {sw.Elapsed} seconds");
 				(AnimatedActor as CustomizableGear).ChangeGear(EquipmentTypes.Weapon.ToString(), currentWeapon);			
 			}		
 		}
 	}
 
 
-    private async Task _WaitForStateToExitAsync(string stateName){
+    private async Task _WaitForStateToExitAsync(string stateName, AnimationNodeStateMachinePlayback playback){
+			await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+			await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame); //2x smells like bad practice...
         // Polling loop - yields a frame each iteration to avoid blocking
         while (true){
             // The playback.CurrentNodeName getter is not exposed in some bindings,
             // so read the current state through the AnimationTree parameter path.
             // This reads the active state name from the state machine.
-            var current = (string) AnimationTree.Get("parameters/playback/current_node");
+
+			var current = playback.GetCurrentNode();
 
             if (current != stateName)
                 break;
 
             // yield for one frame
-            await ToSignal(GetTree(), "idle_frame");
+            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);		
         }
     }
 
