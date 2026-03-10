@@ -100,7 +100,11 @@ public partial class MainMenu : Control, WithSceneManager
 							new SkillWithCount{
 								Name=SkillNames.Melee.Whirlwind.ToString(),
 								Uses=99
-							}						
+							},
+							new SkillWithCount{
+								Name=SkillNames.Melee.Kick.ToString(),
+								Uses=99
+							}					
 						]
 					},					
 				//},

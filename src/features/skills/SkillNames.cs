@@ -11,14 +11,16 @@ public class SkillNames{
 		None,
 		ThrowWeapon, 
 		ShieldBash,
-		Ensnare				
+		Ensnare,
+		Kick				
 	}
 
 	public enum Melee{
 		Bullrush = All.Bullrush,
 		Charge = All.Charge,	
 		LeapAttack =  All.LeapAttack,
-		Whirlwind = All.Whirlwind
+		Whirlwind = All.Whirlwind,
+		Kick = All.Kick
 	}
 	public enum Ranged{
 		ThrowWeapon = All.ThrowWeapon

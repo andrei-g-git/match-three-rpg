@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=3 uid="uid://dwsjfo3ndaiha"]
+[gd_scene load_steps=74 format=3 uid="uid://dwsjfo3ndaiha"]
 
 [ext_resource type="Texture2D" uid="uid://y1ourf4ag7yy" path="res://assets/images/tiles/actors/warrior/cutouts/arm-l-lower.png" id="1_2wrfs"]
 [ext_resource type="Script" uid="uid://b6jayj84n35om" path="res://src/features/tiles/animations/AnimatedActor.cs" id="1_l8th2"]
@@ -773,6 +773,153 @@ tracks/6/keys = {
 "values": [Vector2(0, -50)]
 }
 
+[sub_resource type="Animation" id="Animation_0s1l8"]
+resource_name = "Kick"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AssetContainer/Skeleton2D/Center/Spine:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.7, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -0.20943952, -0.55850536, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AssetContainer/Skeleton2D/Center/HipLeft:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.7, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -1.717404, -1.8989183, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AssetContainer/Skeleton2D/Center/Spine:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.7, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -16.471685), Vector2(-6.05, -11.727), Vector2(-23.845, -16.472), Vector2(0, -16.472)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AssetContainer/Skeleton2D/Center/HipLeft/KneeLeft:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.7, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 1.5079645, 0.16755162, 0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AssetContainer/Skeleton2D/Center/HipRight:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.7, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -0.2617994, 0.08726646, 0.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AssetContainer/Skeleton2D/Center/HipRight/KneeRight:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.7, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.40142572, 0.0, 0.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("AssetContainer/Skeleton2D/Center/HipLeft:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.7, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(18, 10), Vector2(8.31, 10), Vector2(0, 10), Vector2(18, 10)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("AssetContainer/Skeleton2D/Center/Spine/Head/Head:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0.5, 0.7, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.43633232, 0.0]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("AssetContainer/Skeleton2D/Center/Spine/ShoulderRight:rotation")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.7, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.3351032, 0.6702064, 0.0]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("AssetContainer/Skeleton2D/Center/Spine/ShoulderRight/ElbowRight:rotation")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, -0.6702064, 0.0]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("AssetContainer/Skeleton2D/Center/Spine/ShoulderLeft:rotation")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.7, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.33510318, 0.33510315, 0.0]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("AssetContainer/Skeleton2D/Center/Spine/ShoulderLeft/ElbowLeft:rotation")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.7, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -0.6702064, 0.0, 0.0]
+}
+
 [sub_resource type="Animation" id="Animation_8x8rt"]
 length = 0.001
 tracks/0/type = "bezier"
@@ -1361,153 +1508,6 @@ tracks/15/keys = {
 "times": PackedFloat32Array(0.4, 0.6666667, 0.9)
 }
 
-[sub_resource type="Animation" id="Animation_0s1l8"]
-resource_name = "Kick"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AssetContainer/Skeleton2D/Center/Spine:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 0.7, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [0.0, -0.20943952, -0.55850536, 0.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AssetContainer/Skeleton2D/Center/HipLeft:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5, 0.7, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [0.0, -1.717404, -1.8989183, 0.0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("AssetContainer/Skeleton2D/Center/Spine:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.5, 0.7, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(0, -16.471685), Vector2(-6.05, -11.727), Vector2(-23.845, -16.472), Vector2(0, -16.472)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("AssetContainer/Skeleton2D/Center/HipLeft/KneeLeft:rotation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.5, 0.7, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [0.0, 1.5079645, 0.16755162, 0.0]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("AssetContainer/Skeleton2D/Center/HipRight:rotation")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.5, 0.7, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [0.0, -0.2617994, 0.08726646, 0.0]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("AssetContainer/Skeleton2D/Center/HipRight/KneeRight:rotation")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.5, 0.7, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [0.0, 0.40142572, 0.0, 0.0]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("AssetContainer/Skeleton2D/Center/HipLeft:position")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0, 0.5, 0.7, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(18, 10), Vector2(8.31, 10), Vector2(0, 10), Vector2(18, 10)]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("AssetContainer/Skeleton2D/Center/Spine/Head/Head:rotation")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(0.5, 0.7, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [0.0, 0.43633232, 0.0]
-}
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("AssetContainer/Skeleton2D/Center/Spine/ShoulderRight:rotation")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
-"times": PackedFloat32Array(0, 0.5, 0.7, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [0.0, 0.3351032, 0.6702064, 0.0]
-}
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("AssetContainer/Skeleton2D/Center/Spine/ShoulderRight/ElbowRight:rotation")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
-"times": PackedFloat32Array(0, 0.5, 0.7),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [0.0, -0.6702064, 0.0]
-}
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("AssetContainer/Skeleton2D/Center/Spine/ShoulderLeft:rotation")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
-"times": PackedFloat32Array(0, 0.5, 0.7, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [0.0, 0.33510318, 0.33510315, 0.0]
-}
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("AssetContainer/Skeleton2D/Center/Spine/ShoulderLeft/ElbowLeft:rotation")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
-"times": PackedFloat32Array(0, 0.5, 0.7, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [0.0, -0.6702064, 0.0, 0.0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8x8rt"]
 _data = {
 &"ChargeEnd": SubResource("Animation_6ygyc"),
@@ -1582,6 +1582,9 @@ nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_tnr4h")
 nodes/TimeScale/position = Vector2(302, 114)
 node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"Animation"]
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tnr4h"]
+animation = &"Kick"
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rpheb"]
 animation = &"Swing"
 
@@ -1652,6 +1655,15 @@ switch_mode = 2
 advance_mode = 2
 advance_condition = &"idle"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_q3wgp"]
+advance_mode = 2
+advance_condition = &"kick"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_27bk5"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"idle"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_0yg1q"]
 states/ChargeEnd/node = SubResource("AnimationNodeAnimation_5ryii")
 states/ChargeEnd/position = Vector2(111.54657, -232.05449)
@@ -1670,13 +1682,15 @@ states/JumpEnd/node = SubResource("AnimationNodeAnimation_y5mrr")
 states/JumpEnd/position = Vector2(763.5466, -32.14914)
 states/JumpMiddleeeeeeeee/node = SubResource("AnimationNodeBlendTree_0s1l8")
 states/JumpMiddleeeeeeeee/position = Vector2(595.5466, -124.20593)
+states/Kick/node = SubResource("AnimationNodeAnimation_tnr4h")
+states/Kick/position = Vector2(327.54657, 332.79407)
 states/Start/position = Vector2(166, 144)
 states/Swing/node = SubResource("AnimationNodeAnimation_rpheb")
 states/Swing/position = Vector2(521, 165.94551)
 states/Throw/node = SubResource("AnimationNodeAnimation_0jd8g")
 states/Throw/position = Vector2(226.54657, 230.79407)
-transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_ruxdl"), "Idle", "Dash", SubResource("AnimationNodeStateMachineTransition_tl07e"), "Dash", "Idle", SubResource("AnimationNodeStateMachineTransition_fmo6i"), "Idle", "Swing", SubResource("AnimationNodeStateMachineTransition_0yg1q"), "Swing", "Idle", SubResource("AnimationNodeStateMachineTransition_5ryii"), "Idle", "ChargeStart", SubResource("AnimationNodeStateMachineTransition_62m6g"), "ChargeStart", "ChargeMiddle", SubResource("AnimationNodeStateMachineTransition_tnr4h"), "ChargeMiddle", "ChargeEnd", SubResource("AnimationNodeStateMachineTransition_0s1l8"), "ChargeEnd", "Idle", SubResource("AnimationNodeStateMachineTransition_xfxcv"), "Idle", "Jump2", SubResource("AnimationNodeStateMachineTransition_nomgc"), "JumpEnd", "Idle", SubResource("AnimationNodeStateMachineTransition_y5mrr"), "Jump2", "JumpMiddleeeeeeeee", SubResource("AnimationNodeStateMachineTransition_rpheb"), "JumpMiddleeeeeeeee", "JumpEnd", SubResource("AnimationNodeStateMachineTransition_6ygyc"), "Idle", "Throw", SubResource("AnimationNodeStateMachineTransition_sujis"), "Throw", "Idle", SubResource("AnimationNodeStateMachineTransition_7gwgg")]
-graph_offset = Vector2(-85.45343, 42.794067)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_ruxdl"), "Idle", "Dash", SubResource("AnimationNodeStateMachineTransition_tl07e"), "Dash", "Idle", SubResource("AnimationNodeStateMachineTransition_fmo6i"), "Idle", "Swing", SubResource("AnimationNodeStateMachineTransition_0yg1q"), "Swing", "Idle", SubResource("AnimationNodeStateMachineTransition_5ryii"), "Idle", "ChargeStart", SubResource("AnimationNodeStateMachineTransition_62m6g"), "ChargeStart", "ChargeMiddle", SubResource("AnimationNodeStateMachineTransition_tnr4h"), "ChargeMiddle", "ChargeEnd", SubResource("AnimationNodeStateMachineTransition_0s1l8"), "ChargeEnd", "Idle", SubResource("AnimationNodeStateMachineTransition_xfxcv"), "Idle", "Jump2", SubResource("AnimationNodeStateMachineTransition_nomgc"), "JumpEnd", "Idle", SubResource("AnimationNodeStateMachineTransition_y5mrr"), "Jump2", "JumpMiddleeeeeeeee", SubResource("AnimationNodeStateMachineTransition_rpheb"), "JumpMiddleeeeeeeee", "JumpEnd", SubResource("AnimationNodeStateMachineTransition_6ygyc"), "Idle", "Throw", SubResource("AnimationNodeStateMachineTransition_sujis"), "Throw", "Idle", SubResource("AnimationNodeStateMachineTransition_7gwgg"), "Idle", "Kick", SubResource("AnimationNodeStateMachineTransition_q3wgp"), "Kick", "Idle", SubResource("AnimationNodeStateMachineTransition_27bk5")]
+graph_offset = Vector2(-93.45343, -95.20593)
 
 [node name="Warrior" type="Node2D" node_paths=PackedStringArray("_animationPlayer", "_animationTree", "_gearCustomizer")]
 scale = Vector2(0.25, 0.25)
@@ -1728,20 +1742,18 @@ texture = ExtResource("11_5ryii")
 offset = Vector2(2, 30)
 
 [node name="ArmLeftUpper" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(15.992777, -81.46504)
-rotation = -0.32126808
-scale = Vector2(0.9998048, 0.9998662)
-skew = -0.00010347366
+position = Vector2(15.997559, -81.46495)
+rotation = -0.32125545
+scale = Vector2(0.9998404, 0.9998282)
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/ArmLeftUpper"]
 texture = ExtResource("2_l8th2")
 offset = Vector2(3, 17)
 
 [node name="ArmLeftLower" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(28.99443, -50.47034)
-rotation = -0.31591234
-scale = Vector2(0.99980354, 0.99986374)
-skew = -0.00010406971
+position = Vector2(28.995506, -50.47032)
+rotation = -0.3159001
+scale = Vector2(0.9998386, 0.9998263)
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/ArmLeftLower"]
 texture = ExtResource("1_2wrfs")
@@ -1749,17 +1761,15 @@ offset = Vector2(3.2398338, 19.257359)
 
 [node name="Body" type="Node2D" parent="AssetContainer/Cutouts"]
 position = Vector2(0, -41.471687)
-scale = Vector2(0.99984676, 0.99983394)
-skew = -0.00011956692
+scale = Vector2(0.99984676, 0.9998316)
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/Body"]
 texture = ExtResource("5_af0q4")
 offset = Vector2(-1, -12)
 
 [node name="Head" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(-7.0062194, -102.46156)
-scale = Vector2(0.99984676, 0.99983394)
-skew = -0.00011956692
+position = Vector2(-6.998927, -102.46141)
+scale = Vector2(0.99984676, 0.9998316)
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/Head"]
 texture = ExtResource("7_rpheb")
@@ -1769,29 +1779,26 @@ offset = Vector2(8, -17)
 offset = Vector2(10, -38)
 
 [node name="ArmRightUpper" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(-25.00107, -82.464874)
-rotation = 0.3327492
-scale = Vector2(0.99986476, 0.9997809)
-skew = -8.6188316e-05
+position = Vector2(-24.996168, -82.46478)
+rotation = 0.3327612
+scale = Vector2(0.99982756, 0.9998157)
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/ArmRightUpper"]
 texture = ExtResource("4_kgmvq")
 offset = Vector2(0.4376831, 18.807999)
 
 [node name="ArmRightLower" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(-36.995792, -55.469833)
-rotation = 0.16261667
-scale = Vector2(0.9998376, 0.9997872)
-skew = -0.00010919571
+position = Vector2(-36.994118, -55.469803)
+rotation = 0.16261944
+scale = Vector2(0.9998184, 0.999804)
 
 [node name="Base" type="Sprite2D" parent="AssetContainer/Cutouts/ArmRightLower"]
 texture = ExtResource("3_8x8rt")
 offset = Vector2(3.235218, 25.152359)
 
 [node name="Weapon" type="Node2D" parent="AssetContainer/Cutouts"]
-position = Vector2(-43.388855, -11.99892)
-scale = Vector2(0.9998188, 0.999806)
-skew = -0.00011956692
+position = Vector2(-43.39238, -11.998993)
+scale = Vector2(0.9997599, 0.9997448)
 
 [node name="Gear" type="Sprite2D" parent="AssetContainer/Cutouts/Weapon"]
 rotation = 0.19198622
@@ -1809,7 +1816,7 @@ rest = Transform2D(1, 0, 0, 1, 0, -25)
 
 [node name="Spine" type="Bone2D" parent="AssetContainer/Skeleton2D/Center"]
 position = Vector2(0, -16.471685)
-scale = Vector2(0.99984676, 0.99983394)
+scale = Vector2(0.99984676, 0.9998316)
 rest = Transform2D(0.9998524, 0, 0, 0.99982846, 0, -16.471685)
 auto_calculate_length_and_angle = false
 length = 60.0
@@ -1935,6 +1942,7 @@ parameters/conditions/charge = false
 parameters/conditions/dash = false
 parameters/conditions/idle = false
 parameters/conditions/jump = false
+parameters/conditions/kick = false
 parameters/conditions/swing = false
 parameters/conditions/throw = false
 parameters/ChargeMiddle/TimeScale/scale = 1.0

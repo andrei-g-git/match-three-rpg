@@ -50,6 +50,7 @@ namespace Tiles{
 
     public interface Engageable{
         public void ProcessEngagementBy(Control engagingActor);
+        //public void EngageTarget(Control target); //don't need this yet
     }
 
     public interface Disposition{
