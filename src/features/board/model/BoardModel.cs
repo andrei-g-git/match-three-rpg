@@ -58,6 +58,10 @@ public partial class BoardModel : Node, Organizable, MatchableBoard, WithTiles, 
         return gotMatches;
     }
 
+    public async Task<(bool, bool)> TryMatching(Vector2I source, Vector2I target){
+        return await (_tileMatcher as MatchableBoard).TryMatching(source, target);
+    }
+
     public void AdvanceTurn(){ //probably don't need. Also it's not an interface method
         (_turns as Sequential).AdvanceTurn();
     }

@@ -68,7 +68,7 @@ public partial class TileOrganizer: Node, Organizable, WithTiles
         Debugging.PrintStackedGridInitials(Tiles.GetGridAs2DList(), 2, 2, "ACTOR MOVED");
     }
 
-    public async Task MoveBySwapping(Control sourceTile, Control targetTile){
+    public async Task MoveBySwapping(Control sourceTile, Control targetTile){ //this sould check if there are matches
         if(targetTile is Swappable swappable){
             var source = Tiles.GetCellFor(sourceTile);
             var target = Tiles.GetCellFor(targetTile);

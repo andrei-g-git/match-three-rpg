@@ -8,7 +8,7 @@ using Tiles;
 using static Skills.SkillNames;
 
 namespace Fighter{
-	public partial class Manager : Control, Tile, AccessableBoard, /* WithTiles, */  Movable, Mapable, Permeable, RelayableUIEvents, Defensible, WithHealth, WithDefense, WithDamage, WithSpeed, Disposition, Creatable, Agentive, TurnBased
+	public partial class Manager : Control, Tile, AccessableBoard, /* WithTiles, */  Movable, Mapable, Permeable, RelayableUIEvents, Defensible, WithHealth, WithDefense, WithDamage, WithSpeed, Disposition, Creatable, Agentive, TurnBased, Pushable
 	{
 		[ExportGroup("behaviors")]
         [Export] private Node _defender;
@@ -20,6 +20,7 @@ namespace Fighter{
         [Export] private Node _pathfinding;
         [Export] private Node _swapping;
         [Export] private Node _engagement;
+        [Export] private Node _pushed;
 
         [ExportGroup("stats")]
         [Export] private Node _stats;
@@ -130,6 +131,11 @@ namespace Fighter{
         public void RemoveFromBoard(){
             (_board as Organizable).RemoveTile(this);
         }
+
+        public void GetPushed(Vector2I toCell, int enemyStrength){
+            (_pushed as Pushable).GetPushed(toCell, enemyStrength);
+        }
+
     }	
 }
 

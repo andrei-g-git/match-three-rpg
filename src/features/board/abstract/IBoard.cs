@@ -39,6 +39,8 @@ namespace Board{
 		// public void CollapseGridAndCheckNewMatches();
 		public Task MatchWithoutSwapping();
 		public Task CollapseGridAndCheckNewMatches();
+
+		public Task<(bool, bool)> TryMatching(Vector2I source, Vector2I target);
 	}
 
 	public interface WithTiles{

@@ -2,6 +2,7 @@ using Board;
 using Common;
 using Godot;
 using Skills;
+using Stats;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -31,23 +32,31 @@ public partial class Kick : Control, Skill, WithTileRoot, AccessableBoard, Trave
 				var playback = (AnimationNodeStateMachinePlayback)AnimationTree.Get("parameters/playback");
 
 				playback.Travel("Kick");
+GD.Print("kickinggggggggggggggggggggggggggg");
 
-				//should make this like an utility or something, stupid as it might be
-				while (playback.GetCurrentNode() != "Swing"){
-					await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-				}
+// 				//should make this like an utility or something, stupid as it might be
+// 				while (playback.GetCurrentNode() != "Kick"){
+// 					await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+// 				}
 
-				while (playback.GetCurrentNode() == "Swing") {
-					await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame); 
-				}
-				//this is stupid but it might just be the best option -- it waits for the next animation, which should be Idle
-				while (playback.GetCurrentNode() != "Swing"){
-					await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-				}	
-				
+// 				while (playback.GetCurrentNode() == "Kick") {
+// 					await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame); 
+// 				}
+// GD.Print("still kicking");	
+// 				//this is stupid but it might just be the best option -- it waits for the next animation, which should be Idle
+// 				while (playback.GetCurrentNode() != "Idle"){
+// 					await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+// 				}	
+// 				while (playback.GetCurrentNode() == "Idle"){
+// 					await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+// 				}				
+GD.Print("kicked");				
 				path.Add(nextCellAtEnd);
 				nextCellAtEnd = Hex.FindNextInLine(path);
-							
+
+				var strength = (TileRoot as Attributive).Strength;	
+
+				(actor as Pushable).GetPushed(nextCellAtEnd, strength);	
 			}
 		}
 

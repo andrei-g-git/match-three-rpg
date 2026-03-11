@@ -34,6 +34,39 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
         _spawnTiles = [.._spawnOddsByTileType.Select(item => item.Key)];   
     }
 
+
+    public async Task<(bool, bool)> TryMatching(Vector2I source, Vector2I target){
+        var gotMatches = false;
+        var canSwap = false;
+        var sourcePiece = Tiles.GetItem(source);
+        var targetPiece = Tiles.GetItem(target);
+        if(sourcePiece is Swappable && targetPiece is Swappable){
+            canSwap = true;
+            Debugging.PrintStackedGridInitials(Tiles.GetGridAs2DList(), 2, 2, "STACKED Grid before current match attempt:");
+            _SwapCells(sourcePiece, targetPiece);
+            gotMatches = _CheckNewMatchesAndProcess(Tiles);
+            if(gotMatches){
+                var player = Tiles.FindItemByType(typeof(Playable));
+
+                if(player is not null && player is MatchableBounds matchingRange){
+                    var matchGroupsAreInRange = matchingRange.IsMatchGroupInRange(_matchGroupQueue, Tiles);
+                    if(matchGroupsAreInRange){
+                        await _SwapTileNodesUsingInitialBoard(sourcePiece, targetPiece, source, target);
+                        if(_matchGroupQueue.Peek() != null){
+                            await _ActivateMatchedTilesAndCollapseGrid(_matchGroupQueue);
+                        }                         
+                    }else{
+                        GD.Print("Player is not in rage!");
+                        _SwapCells(targetPiece, sourcePiece); 
+                    }
+                }
+                EmitSignal(SignalName.DoneMatching);
+            }            
+        }
+        return (canSwap, gotMatches);
+    }
+
+
     public /* bool */async Task<bool> TryMatching(Control sourceTile, Control targetTile){
         if(sourceTile is Swappable && targetTile is Swappable){
             var initialSource = Tiles.GetCellFor(sourceTile);
