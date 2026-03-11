@@ -32,6 +32,7 @@ public partial class Kick : Control, Skill, WithTileRoot, AccessableBoard, Trave
 
 				playback.Travel("Kick");
 
+				//should make this like an utility or something, stupid as it might be
 				while (playback.GetCurrentNode() != "Swing"){
 					await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
 				}
@@ -44,6 +45,8 @@ public partial class Kick : Control, Skill, WithTileRoot, AccessableBoard, Trave
 					await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
 				}	
 				
+				path.Add(nextCellAtEnd);
+				nextCellAtEnd = Hex.FindNextInLine(path);
 							
 			}
 		}

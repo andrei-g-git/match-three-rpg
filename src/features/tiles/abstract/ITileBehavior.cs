@@ -90,5 +90,9 @@ namespace Tiles{
         //public Tileable Map{set;}
         //public Grid<Control> Tiles{set;}
         public List<Vector2I> FindPath(Vector2I target);
-    }      
+    }  
+
+    public interface Pushable{
+        public void GetPushed(Vector2I toCell, int enemyStrength);
+    }    
 }

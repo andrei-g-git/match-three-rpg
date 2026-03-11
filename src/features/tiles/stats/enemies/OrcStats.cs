@@ -1,12 +1,13 @@
 using Godot;
 using Stats;
 
-public partial class OrcStats: Node, WithHealth, WithDefense, WithDamage, WithSpeed
+public partial class OrcStats: Node, WithHealth, WithDefense, WithDamage, WithSpeed, WithStrength
 {
     [Export] int _maxHealth;
     [Export] int _defense;
     [Export] int _damage;
     [Export] int _speed;
+    [Export] int _strength;
     public int Health{get;set;} //needs to pick off from save 
     public int MaxHealth => _maxHealth; //might need setter if it can suffer health debuffs, but that's neither here or there
     public int Defense     {
@@ -24,6 +25,9 @@ public partial class OrcStats: Node, WithHealth, WithDefense, WithDamage, WithSp
         set{
             _speed = value;
     }}
+
+    public int Strength { get; set; }
+
 
     public override void _Ready()
     {

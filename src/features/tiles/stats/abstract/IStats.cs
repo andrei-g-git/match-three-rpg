@@ -56,3 +56,7 @@ public interface WithDamage{
 public interface WithSpeed{
 	public int Speed{get;set;}
 }
+
+public interface WithStrength{
+	public int Strength{get;set;}
+}
