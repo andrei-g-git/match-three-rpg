@@ -89,6 +89,7 @@ _maxHealth = 14
 _defense = 1
 _damage = 5
 _speed = 5
+_strength = 10
 
 [node name="Defender" type="Node" parent="Behaviors" node_paths=PackedStringArray("_stats")]
 script = ExtResource("7_vn581")
@@ -115,10 +116,11 @@ _astar = NodePath("../Astar")
 script = ExtResource("11_vn581")
 _stats = NodePath("../Stats")
 
-[node name="Pushed" type="Node" parent="Behaviors" node_paths=PackedStringArray("_tileRoot", "_stats")]
+[node name="Pushed" type="Node" parent="Behaviors" node_paths=PackedStringArray("_tileRoot", "_stats", "_defend")]
 script = ExtResource("13_h2d5x")
 _tileRoot = NodePath("../..")
 _stats = NodePath("../Stats")
+_defend = NodePath("../Defender")
 
 [node name="Astar" type="Node" parent="Behaviors"]
 script = ExtResource("10_kfo3p")
@@ -184,6 +186,7 @@ _delay = 1.0
 
 [connection signal="EngagedBy" from="AspectRatioContainer/DragAndDrop" to="Behaviors/Engagement" method="ProcessEngagementBy"]
 [connection signal="EngagingDirectly" from="Behaviors/Swapping" to="Behaviors/Engagement" method="ProcessEngagementBy"]
+[connection signal="MetObstacle" from="Behaviors/Swapping" to="Behaviors/Pushed" method="InteractWithObstacle"]
 [connection signal="Destroying" from="Behaviors/Removing" to="." method="RemoveFromTurnQueue"]
 [connection signal="Destroying" from="Behaviors/Removing" to="Tweeners/ScaleUpFade" method="Disappear"]
 [connection signal="Removed" from="Behaviors/Removing" to="." method="RemoveFromBoard"]

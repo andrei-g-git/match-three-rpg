@@ -63,6 +63,12 @@ namespace Walk{
         public async Task WaitUntilCreated(){
             await (_popTweener as Creatable).WaitUntilCreated();
         }
+
+        public void SwapInvoluntarilyTo(Vector2I toCell, float movementForce)
+        {
+            throw new System.NotImplementedException();
+        }
+
     }		
 }
 

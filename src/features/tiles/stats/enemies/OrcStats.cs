@@ -26,7 +26,11 @@ public partial class OrcStats: Node, WithHealth, WithDefense, WithDamage, WithSp
             _speed = value;
     }}
 
-    public int Strength { get; set; }
+    public int Strength { 
+        get => _strength;
+        set{
+            _strength = value;    
+    }}
 
 
     public override void _Ready()

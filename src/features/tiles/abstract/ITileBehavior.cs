@@ -8,7 +8,7 @@ using static Skills.SkillNames;
 namespace Tiles{
     public interface Swappable{
         public void SwapWith(Control tile);
-        //public Task SwapWith(Control tile);
+        public void SwapInvoluntarilyTo(Vector2I toCell, float movementForce);
     }    
 
     public interface Removable{
@@ -94,5 +94,6 @@ namespace Tiles{
 
     public interface Pushable{
         public void GetPushed(Vector2I toCell, int enemyStrength);
+        public void InteractWithObstacle(Vector2I atCell, float movementForce);
     }    
 }

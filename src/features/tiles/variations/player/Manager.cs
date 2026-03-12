@@ -283,6 +283,12 @@ namespace Player{
         public int GetTotalGearBaseDamage(){
             return (_equipmentModel as StatBasedGear).GetTotalGearBaseDamage();
         }
+
+        public void SwapInvoluntarilyTo(Vector2I toCell, float movementForce)
+        {
+            throw new NotImplementedException();
+        }
+
     }	
 }
 

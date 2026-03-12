@@ -136,6 +136,10 @@ namespace Fighter{
             (_pushed as Pushable).GetPushed(toCell, enemyStrength);
         }
 
+        public void InteractWithObstacle(Vector2I atCell, float movementForce)
+        {
+            throw new System.NotImplementedException();
+        }
     }	
 }
 
