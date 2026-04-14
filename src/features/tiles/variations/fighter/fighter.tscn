@@ -130,7 +130,7 @@ script = ExtResource("10_qo0sn")
 
 [node name="Sentinel" type="Node" parent="Behaviors/AI" node_paths=PackedStringArray("_tileRoot")]
 script = ExtResource("11_qjawe")
-_watchRadius = 4
+_watchRadius = 8
 _tileRoot = NodePath("../../..")
 
 [node name="Chase" type="Node" parent="Behaviors/AI" node_paths=PackedStringArray("_pathfinding", "_tileRoot")]

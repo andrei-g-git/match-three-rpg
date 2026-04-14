@@ -175,5 +175,65 @@ General RPG mechanics
 -enemies that keep regenerating and are almost invulnerable unelss they get debuffed somehow. sorceress probably has a spell for that, warrior needs to push or draw it into a pool or something
 -some elements of the environment have a ranged effect, positive or negative. less tactically demanding than tile overlays where you or the enemy need to be on the exact spot
 
+-kick gun powder barrels so they explode when they hit something? or kick and ignite remotely for massive damage? or ignite timed fuse fuse with item and kick it into enemy
+-kick brazier (large room coal burning torch) to set enemy on fire or set fire to the tile/tiles ahead 
 
-    
+-some skills leave you vulnerable after you use them or even stunned (you forego your next turn), but have a powerful attack or effect 
+
+-different skills have different areas of effect (different shapes and ranges. You need to use the ones that return the optimal outcome and conserve the ones that do not fit the tactical situation quite as well and might be overkill
+
+ -SYNNERGY
+
+-maybe the SKILLS can have CARD BATTLE mechanics 
+
+-elevated tiles (high ground) that require more walk skill uses
+
+-maybe the character can sometimes start in the middle of the room, surrounded by enemies
+
+-sorceress can summon
+
+-different color matches should yield different energy amounts depending on the class
+
+-many tech skills could be used to rearrange the board
+
+-in fact i could have piece-placing skill uses that are placed by mathing tech pieces.
+
+-maybe i have different colored walk tiles for each piece type. or maybe just ranged pieces, since I'm predicating walk uses on agility
+
+-i coud have a skill selection screen every time I match so unintended matches don't go to waste or result in unwanted skill uses. this weould give me more screen realestate too
+		-i can also choose to just collect energy
+-game should be about combining things
+
+-high ground
+
+-more obstacles to push  enemies into
+
+-traps to push or lure them into
+
+-powerups to incentivise moving -- are special pieces that a melee char must be adjacent to to match
+	-maybe the piece type is universal and only needs 2 other pieces to match
+
+-if the level is continuous (not set 'puzzle'/tactics based) then having set walk uses at the start of every level won't be enough, so I need to get walk pieces by matching
+	-maybe your agility affects how frequently walk pieces spawn, and each spawn gives you 2 uses, but then you would be able to accumulate them for the next level which makes the governing attribute useless
+	-maybe you get shards of pieces, including walk pices, but then you don't get enough pieces to replace your uses ... then maybe you get enough sards to form at least 1 piece every time	
+	-maybe move shards are obtained in different quantities also depending on match type
+			agi < 8 : shards : 8 ran, 6 mel, 4 con/int
+			agi < 12 : shards : 10 ran, 7 mel, 5 con/int
+			agi < 16 : shards : 12 ran, 9 mel, 6 con/int
+
+-maybe I should replace melee, ranged, defensive and tech with ||| fire, wind, rock and water?
+
+-you either can't pick up skill uses that you don't have attributes for, or you can't use them (if i go the route where attributes are hard to increase, it should be the former)
+				OR --- I could have a skill tree and getting skill uses just allows me to use those skills (in that case maybe I don't need energy)
+
+-X NO maybe all skill uses should be picked up as shards rather than complete uses. and shards could be useful for multiple skills eg. straight shot and guided arrow require bow shards, walk and dash require move shards
+	-X NO maybe all skills are a combination of pieces and each piece type has different odds an quantities of spawning the same kind of shard eg. both melee and ranged can spawn bow shards, since shooting a bow requires strenght and dexterity in real life, but a lot more dexterity than strength
+
+-OR maybe you just have 4 types of energy and your stats influence how much energy you get per matching and your max energy per 'element' ... but now it's getting a bit generic
+		-walk and dash skills would require ranged/wind energy
+		-but then you have little incentive to match pieces that are not your class's main element
+		-MAYBE EACH SKILL NEEDS MULTIPLE TYPES OF ENERGY!!!
+
+-if only ranged pieces can activate walk/dash skills, then rangers will have to manage these pieces carefully when kiting
+
+-maybe enemies should get buffst if they match accidentally
