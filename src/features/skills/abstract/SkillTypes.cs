@@ -3,8 +3,7 @@ using System.Collections.Generic;
 
 //skill types as in the data type of the skill, not what kind of skill it is. I can't use interfaces in the serialization process so I have to make classes as TS-style types
 namespace Skills{
-    public class SkillWithCount: CountableSkill
-    {
+    public class SkillWithCount: CountableSkill{
         private string _name;
         public /* SkillNames.All */string Name{
             get => _name;
@@ -50,4 +49,20 @@ namespace Skills{
             return isSkill ? valueToEnum : default; 
         }       
     }  
+
+    public class SkillWithLevel: LevelableSkill{
+        private string _name;
+        public string Name{
+            get => _name;
+            set{
+                var isSkill = Enum.TryParse(value, out SkillNames.All valueToEnum);
+                _name =  isSkill? value : default;
+            }
+        }
+        public int Level{get;set;}
+        public SkillNames.All GetSkillEnum(){
+            var isSkill = Enum.TryParse(_name, out SkillNames.All valueToEnum);
+            return isSkill ? valueToEnum : default;  //maybe default is not such a hot idea...      
+        }
+    }    
 }

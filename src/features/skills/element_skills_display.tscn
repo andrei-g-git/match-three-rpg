@@ -1,0 +1,30 @@
+[gd_scene load_steps=9 format=3 uid="uid://dj8xcikdtyeu0"]
+
+[ext_resource type="Script" uid="uid://bavy17ol7lhm" path="res://src/features/skills/ElementSkillsDisplay.cs" id="1_yvbky"]
+[ext_resource type="Texture2D" uid="uid://c3twceykx1fxf" path="res://assets/images/tiles/charge.png" id="2_hqtr4"]
+[ext_resource type="Texture2D" uid="uid://o7ate3k72l8g" path="res://assets/images/tiles/leapAttack.png" id="3_a8q85"]
+[ext_resource type="Texture2D" uid="uid://baxfw6v3hfftv" path="res://assets/images/tiles/whirlwind.png" id="4_ah7m3"]
+[ext_resource type="Texture2D" uid="uid://dfnetxbrtpqr6" path="res://assets/images/tiles/throwWeapon.png" id="5_j2fn7"]
+[ext_resource type="Texture2D" uid="uid://bpyts1xl2yh0l" path="res://assets/images/tiles/shieldBash.png" id="6_ldh2a"]
+[ext_resource type="Texture2D" uid="uid://d0qn323g46s7n" path="res://assets/images/tiles/old/ensnare.png" id="7_lq8bo"]
+[ext_resource type="Texture2D" uid="uid://dvhenkqd7nu65" path="res://assets/images/tiles/kick.png" id="8_5wsus"]
+
+[node name="ElementSkillsDisplay" type="ItemList"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yvbky")
+_skillMap = Dictionary[int, Texture2D]({
+0: ExtResource("2_hqtr4"),
+2: ExtResource("3_a8q85"),
+3: ExtResource("4_ah7m3"),
+5: ExtResource("5_j2fn7"),
+6: ExtResource("6_ldh2a"),
+7: ExtResource("7_lq8bo"),
+8: ExtResource("8_5wsus")
+})
+
+[node name="Line2D" type="Line2D" parent="."]
+width = 300.0

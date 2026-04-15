@@ -64,6 +64,30 @@ public interface SkillMaking{
     public Node Create(SkillNames.All type);
 }
 
+public interface LevelableSkill{
+    public string Name{get;set;}
+    public int Level{get;set;}
+
+    public SkillNames.All GetSkillEnum();
+}
+
+public interface WithFireEnergy{
+    public int FireEnergy{get;set;}
+    public int MaxFireEnergy{get;set;}
+}
+public interface WithWindEnergy{
+    public int WindEnergy{get;set;}
+    public int MaxWindEnergy{get;set;}
+}
+public interface WithEarthEnergy{
+    public int EarthEnergy{get;set;}
+    public int MaxEarthEnergy{get;set;}
+}
+public interface WithWaterEnergy{
+    public int WaterEnergy{get;set;}
+    public int MaxWaterEnergy{get;set;}
+}
+
 
 
 
