@@ -5,15 +5,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
 
 public partial class SkillModel : Node, WithFireEnergy, WithWindEnergy, WithEarthEnergy, WithWaterEnergy
 {
 	[Export] 
 	private PackedScene _elementSkillsDisplay;
 	[Export]
-	private Node _skillGroupsDisplay;
+	private Control _skillGroupsDisplay;
 
 	public SkillGroup[] SkillGroups = [];
+
 	public int MaxFireEnergy{get;set;}
 	private int _FireEnergy;
 	public int FireEnergy{
@@ -67,23 +70,29 @@ public partial class SkillModel : Node, WithFireEnergy, WithWindEnergy, WithEart
 
 						SkillGroups = _loadedGame.Player.SkillGroups; //converting the Uses skill property to Level, will change properly later
 
-						//Uses actually = Level now...
 
-						foreach(var element in SkillGroups){
-							if(element.Skills.Length > 0){
-								var elementSkillsNode = _elementSkillsDisplay.Instantiate();
-								(elementSkillsNode as SelectableSkills).UpdateSkills(element.Skills);
-
-								//assume it's empty ... although it does have, uh, this model node so if I clear it later on there's gonna be issues...
-
-								//_skillGroupsDisplay.AddChild(elementSkillsNode);	
-
-								//mmmmhhhhhh....
-								CallDeferred("add_child", elementSkillsNode);							
-							}
-
-						}
 				});
-			});		
+			});	
+
+
+		//MMMMHHHHHHHHHHHHHHHHH
+		//await Task.Delay(1000);	
+		Thread.Sleep(1000);
+
+		//Uses actually = Level now...
+
+		foreach(var element in SkillGroups){
+			if(element.Skills.Length > 0){
+				var elementSkillsNode = _elementSkillsDisplay.Instantiate();
+				(elementSkillsNode as SelectableSkills).UpdateSkills(element.Skills);
+
+				//assume it's empty ... although it does have, uh, this model node so if I clear it later on there's gonna be issues...
+
+				_skillGroupsDisplay.AddChild(elementSkillsNode);	
+				GD.Print("awefawef", element.Skills.Length);
+				//mmmmhhhhhh....
+				//_skillGroupsDisplay.CallDeferred("add_child", elementSkillsNode);							
+			}
+		}
 	}
 }
