@@ -15,7 +15,7 @@ public interface CountableSkill{
     public string Name{get;set;}
     public int Uses{get;set;}
     public int Level{get;set;}
-    public WithEnergyRequirements EnergyRequirement{get;set;}
+    public /* WithEnergyRequirements */ EnergyRequirement EnergyRequirement{get;set;} //serializable, can't have interface here
     public SkillNames.All GetSkillEnum();  
     public int GetFireRequirement();  
     public int GetWindRequirement();

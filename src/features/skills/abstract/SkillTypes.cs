@@ -22,7 +22,7 @@ namespace Skills{
         }
         public int Uses{get;set;}
         public int Level {get; set;}
-        public WithEnergyRequirements EnergyRequirement {get;set;}
+        public /* WithEnergyRequirements */ EnergyRequirement EnergyRequirement {get;set;} //can't have interface for serialization/deserialization
 
         public int GetEarthRequirement() => EnergyRequirement.Earth;
         public int GetFireRequirement() => EnergyRequirement.Fire;
