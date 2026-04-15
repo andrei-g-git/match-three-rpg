@@ -88,6 +88,8 @@ public partial class SkillModel : Node, WithFireEnergy, WithWindEnergy, WithEart
 
 				//assume it's empty ... although it does have, uh, this model node so if I clear it later on there's gonna be issues...
 
+				(elementSkillsNode as ElementSkillsDisplay).TestParent = _skillGroupsDisplay;
+
 				_skillGroupsDisplay.AddChild(elementSkillsNode);	
 				GD.Print("awefawef", element.Skills.Length);
 				//mmmmhhhhhh....

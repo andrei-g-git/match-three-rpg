@@ -237,3 +237,13 @@ General RPG mechanics
 -if only ranged pieces can activate walk/dash skills, then rangers will have to manage these pieces carefully when kiting
 
 -maybe enemies should get buffst if they match accidentally
+
+
+////////// code shit ///////////
+
+maybe letting the pieces do so much work themselves isn't such a great idea, I should probably do more work in the tile matcher 
+-get the color or the match
+-get the length and all the match positions
+-sent all that info to the skill
+
+/////////////////////////////

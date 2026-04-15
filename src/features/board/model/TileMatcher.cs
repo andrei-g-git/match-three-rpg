@@ -15,6 +15,10 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
     [Export] private Node _tileContainer;
     [Export] private Node _environment;
     [Export] private Node _tileQuery;
+
+    //pfffff
+    [Export] private Node _skillGroupsDisplay;
+
     //[Export] private Node _turns;
     public Grid<Control> Tiles{get;set;}	
     private Queue<List<Vector2I>> _matchGroupQueue = [];
@@ -186,6 +190,23 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
 
             var bpp = 123;
             var path = _MakeMatchPath(group, playerCell);
+
+
+
+
+
+
+            //////////////////////////////////////////    NEW
+            /// ////////////////////////////////
+            /// ////////////////////////////////
+            /// ////////////////////////////
+            
+            var pickedSkill = await (_skillGroupsDisplay as SkillGroupsDisplay).EnableSkillPicking();
+
+            GD.Print("/////// picked SKILL ///////   ", pickedSkill);
+
+
+
             await player.ReactToMatchesBySkillType(path, tile1.SkillGroup, isAdjacent);     
 
             bpp = 132;                 

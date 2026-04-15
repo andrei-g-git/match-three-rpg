@@ -10,6 +10,7 @@ public partial class ElementSkillsDisplay : /* ItemList */GridContainer, Selecta
 	[Export] private PackedScene _skillButton;
 	public CountableSkill[] Skills{get;set;} = [];
 
+	public Node TestParent{get;set;}
 
 	public override void _Ready(){
 		GD.Print("group ready");
@@ -37,12 +38,18 @@ public partial class ElementSkillsDisplay : /* ItemList */GridContainer, Selecta
 			var texture = _skillMap[skill.GetSkillEnum()];
 			(button as TextureButton).TextureNormal = texture;
 			(button as UseSkillButton).SetSkillLabel(skill.Name); //not interface
+			(button as UseSkillButton).ConnectClickedSkill(OnSkillClicked);
+			
+
+
 			AddChild(button);
 		}
 	}
 
-	public void OnItemSelected(int index){
+	public void OnSkillClicked(string skillName){
 		//var selectedSkill = (string) GetItemMetadata(index);
 		//EmitSignal(SignalName.SelectedSkillFromGroup, selectedSkill, _skillGroup.ToString());
+
+		(TestParent as SkillGroupsDisplay).TestEmitSkillPicked(skillName);
 	}	
 }

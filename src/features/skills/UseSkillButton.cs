@@ -8,6 +8,8 @@ public partial class UseSkillButton : TextureButton
 {
 	[Export] private Label _label;
 
+	[Signal] public delegate void ClickedSkillEventHandler(string name);
+
 	public override void _Ready()
 	{
 	}
@@ -31,5 +33,13 @@ public partial class UseSkillButton : TextureButton
 	
 		RemoveChild(border);
 		border.QueueFree();
+
+		EmitSignal(SignalName.ClickedSkill, _label.Text);
 	}
+
+	public void ConnectClickedSkill(Action<string> action){
+		Connect(SignalName.ClickedSkill, Callable.From(action));
+	}
+
+
 }
