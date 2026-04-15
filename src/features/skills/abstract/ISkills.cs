@@ -4,10 +4,23 @@ using static Skills.SkillNames;
 
 namespace Skills;
 
+public interface WithEnergyRequirements{
+    public int Fire{get;set;}
+    public int Wind{get;set;}
+    public int Earth{get;set;}
+    public int Water{get;set;}
+}
+
 public interface CountableSkill{
     public string Name{get;set;}
     public int Uses{get;set;}
-    public SkillNames.All GetSkillEnum();    
+    public int Level{get;set;}
+    public WithEnergyRequirements EnergyRequirement{get;set;}
+    public SkillNames.All GetSkillEnum();  
+    public int GetFireRequirement();  
+    public int GetWindRequirement();
+    public int GetEarthRequirement();
+    public int GetWaterRequirement();
 }
 
 public interface GroupableSkills{

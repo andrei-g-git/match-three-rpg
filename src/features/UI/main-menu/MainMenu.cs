@@ -91,19 +91,47 @@ public partial class MainMenu : Control, WithSceneManager
 						Skills = [
 							new SkillWithCount{
 								Name=SkillNames.Melee.Bullrush.ToString(),
-								Uses=99
+								Uses=99,
+								Level=1,
+								EnergyRequirement = new EnergyRequirement{
+									Fire=5,
+									Wind=1,
+									Earth=1,
+									Water=0
+								}
 							},
 							new SkillWithCount{
 								Name=SkillNames.Melee.LeapAttack.ToString(),
-								Uses=99
+								Uses=99,
+								Level=2,
+								EnergyRequirement = new EnergyRequirement{
+									Fire=5,
+									Wind=3,
+									Earth=0,
+									Water=0
+								}
 							},
 							new SkillWithCount{
 								Name=SkillNames.Melee.Whirlwind.ToString(),
-								Uses=99
+								Uses=99,
+								Level=1,
+								EnergyRequirement = new EnergyRequirement{
+									Fire=5,
+									Wind=4,
+									Earth=0,
+									Water=0
+								}
 							},
 							new SkillWithCount{
 								Name=SkillNames.Melee.Kick.ToString(),
-								Uses=99
+								Uses=99,
+								Level=1,
+								EnergyRequirement = new EnergyRequirement{
+									Fire=3,
+									Wind=0,
+									Earth=3,
+									Water=0
+								}
 							}					
 						]
 					},					
@@ -115,7 +143,14 @@ public partial class MainMenu : Control, WithSceneManager
 						Skills = [
 							new SkillWithCount{
 								Name=SkillNames.Ranged.ThrowWeapon.ToString(),
-								Uses=99
+								Uses=99,
+								Level=3,
+								EnergyRequirement = new EnergyRequirement{
+									Fire=2,
+									Wind=4,
+									Earth=0,
+									Water=0
+								}
 							}						
 						]
 					},					
@@ -127,7 +162,14 @@ public partial class MainMenu : Control, WithSceneManager
 						Skills = [
 							new SkillWithCount{
 								Name=SkillNames.Defensive.ShieldBash.ToString(),
-								Uses=99
+								Uses=99,
+								Level=1,
+								EnergyRequirement = new EnergyRequirement{
+									Fire=2,
+									Wind=0,
+									Earth=4,
+									Water=0
+								}
 							}						
 						]
 					},
@@ -139,7 +181,14 @@ public partial class MainMenu : Control, WithSceneManager
 						Skills = [
 							new SkillWithCount{
 								Name=SkillNames.Tech.Ensnare.ToString(),
-								Uses=99
+								Uses=99,
+								Level=2,
+								EnergyRequirement = new EnergyRequirement{
+									Fire=1,
+									Wind=2,
+									Earth=0,
+									Water=4
+								}
 							}						
 						]
 					}
