@@ -4,6 +4,13 @@ using Godot;
 using Godot.Collections;
 
 namespace Common{
+
+    public interface DeactivatableButton{
+        public bool Active{get;set;}
+        public void Activate();
+        public void Deactivate();    
+    }
+
     public interface Mapable{
         Tileable Map{set;}
     }

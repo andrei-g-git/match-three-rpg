@@ -18,6 +18,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
 
     //pfffff
     [Export] private Node _skillGroupsDisplay;
+    [Export] private Node _skillsModel;
 
     //[Export] private Node _turns;
     public Grid<Control> Tiles{get;set;}	
@@ -201,7 +202,8 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
             /// ////////////////////////////////
             /// ////////////////////////////
             
-            var pickedSkill = await (_skillGroupsDisplay as SkillGroupsDisplay).EnableSkillPicking();
+            //var pickedSkill = await (_skillGroupsDisplay as SkillGroupsDisplay).EnableSkillPicking();
+            var pickedSkill = await (_skillsModel as SkillModel).EnableSkillPickingByGroup(tile1.SkillGroup); //not interface
 
             GD.Print("/////// picked SKILL ///////   ", pickedSkill);
 

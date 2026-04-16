@@ -198,13 +198,14 @@ _uiEventBus = NodePath("../../../../Events/UIEventBus")
 _turnQueue = NodePath("../Turns")
 _packedTileScenes = Array[PackedScene]([ExtResource("8_2r3xs"), ExtResource("9_4s2tm"), ExtResource("10_fusuk"), ExtResource("11_25lnr"), ExtResource("12_fusuk"), ExtResource("13_25lnr"), ExtResource("14_6bwww"), ExtResource("15_x10rj"), ExtResource("19_s5hp3"), ExtResource("20_fjexy"), ExtResource("21_mmsvb")])
 
-[node name="TileMatcher" type="Node" parent="MainContainer/PanelContainer/Model" node_paths=PackedStringArray("_tileFactory", "_tileContainer", "_environment", "_tileQuery", "_skillGroupsDisplay")]
+[node name="TileMatcher" type="Node" parent="MainContainer/PanelContainer/Model" node_paths=PackedStringArray("_tileFactory", "_tileContainer", "_environment", "_tileQuery", "_skillGroupsDisplay", "_skillsModel")]
 script = ExtResource("12_4s2tm")
 _tileFactory = NodePath("../TileFactory")
 _tileContainer = NodePath("../../Tiles")
 _environment = NodePath("../../Environment")
 _tileQuery = NodePath("../TileQuery")
-_skillGroupsDisplay = NodePath("../../../ScrollContainer/GridContainer")
+_skillGroupsDisplay = NodePath("../../../ScrollContainer/SkillGroupContainer")
+_skillsModel = NodePath("../../../ScrollContainer/Model")
 
 [node name="TileQuery" type="Node" parent="MainContainer/PanelContainer/Model"]
 script = ExtResource("22_7t1so")
@@ -302,13 +303,14 @@ size_flags_horizontal = 3
 [node name="Model" type="Node" parent="MainContainer/ScrollContainer" node_paths=PackedStringArray("_skillGroupsDisplay")]
 script = ExtResource("42_0k7ag")
 _elementSkillsDisplay = ExtResource("43_ej7e5")
-_skillGroupsDisplay = NodePath("../GridContainer")
+_skillGroupsDisplay = NodePath("../SkillGroupContainer")
 
-[node name="GridContainer" type="VBoxContainer" parent="MainContainer/ScrollContainer"]
+[node name="SkillGroupContainer" type="VBoxContainer" parent="MainContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("43_vl5to")
+_elementSkillsDisplay = ExtResource("43_ej7e5")
 
 [node name="RestartLevel" type="Button" parent="." node_paths=PackedStringArray("_boardManager")]
 layout_mode = 0

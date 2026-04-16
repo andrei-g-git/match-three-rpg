@@ -10,15 +10,17 @@
 [ext_resource type="Texture2D" uid="uid://dvhenkqd7nu65" path="res://assets/images/tiles/kick.png" id="8_5wsus"]
 [ext_resource type="PackedScene" uid="uid://ch0l0lp4tmuay" path="res://src/features/skills/use_skill_button.tscn" id="9_a8q85"]
 
-[node name="ElementSkillsDisplay" type="GridContainer"]
+[node name="ElementSkillsDisplay" type="Control" node_paths=PackedStringArray("_groupName", "_skillContainer")]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = -3.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-columns = 3
 script = ExtResource("1_yvbky")
 _skillMap = Dictionary[int, Texture2D]({
 0: ExtResource("2_hqtr4"),
@@ -30,6 +32,28 @@ _skillMap = Dictionary[int, Texture2D]({
 8: ExtResource("8_5wsus")
 })
 _skillButton = ExtResource("9_a8q85")
+_groupName = NodePath("Header/Label")
+_skillContainer = NodePath("Skills")
 
-[node name="Line2D" type="Line2D" parent="."]
-width = 300.0
+[node name="Header" type="HFlowContainer" parent="."]
+layout_mode = 0
+offset_right = 1.0
+offset_bottom = 23.0
+
+[node name="Line2D" type="Line2D" parent="Header"]
+points = PackedVector2Array(21, 18, 422, 16)
+width = 2.0
+
+[node name="Label" type="Label" parent="Header"]
+layout_mode = 2
+
+[node name="Line2D2" type="Line2D" parent="Header"]
+position = Vector2(680, 6)
+points = PackedVector2Array(21, 18, 422, 16)
+width = 2.0
+
+[node name="Skills" type="GridContainer" parent="."]
+layout_mode = 0
+offset_left = 5.0
+offset_right = 5.0
+offset_bottom = 23.0

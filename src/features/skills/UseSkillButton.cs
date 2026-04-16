@@ -1,17 +1,33 @@
+using Common;
 using Godot;
 using Skills;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-public partial class UseSkillButton : TextureButton
+public partial class UseSkillButton : TextureButton, DeactivatableButton
 {
 	[Export] private Label _label;
 
+	public bool Active{get;set;} = false;
+
 	[Signal] public delegate void ClickedSkillEventHandler(string name);
 
-	public override void _Ready()
-	{
+	public override void _Ready(){
+		SetProcessInput(false);
+		Modulate = new Color(0.6f, 0.6f, 0.6f, 1);		
+	}
+
+	public void Activate(){
+		SetProcessInput(true);
+		Modulate = new Color(1, 1, 1, 1);	
+		Active = true;		
+	}
+
+	public void Deactivate(){
+		SetProcessInput(false);
+		Modulate = new Color(0.6f, 0.6f, 0.6f, 1);	
+		Active = false;		
 	}
 
 	public void SetSkillLabel(/* SkillNames.All skillName */string skillName){

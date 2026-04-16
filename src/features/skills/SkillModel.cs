@@ -81,20 +81,46 @@ public partial class SkillModel : Node, WithFireEnergy, WithWindEnergy, WithEart
 
 		//Uses actually = Level now...
 
-		foreach(var element in SkillGroups){
-			if(element.Skills.Length > 0){
-				var elementSkillsNode = _elementSkillsDisplay.Instantiate();
-				(elementSkillsNode as SelectableSkills).UpdateSkills(element.Skills);
+		// foreach(var element in SkillGroups){
+		// 	if(element.Skills.Length > 0){
+		// 		var elementSkillsNode = _elementSkillsDisplay.Instantiate();
+		// 		(elementSkillsNode as SelectableSkills).UpdateSkills(element.Skills);
 
-				//assume it's empty ... although it does have, uh, this model node so if I clear it later on there's gonna be issues...
+		// 		//assume it's empty ... although it does have, uh, this model node so if I clear it later on there's gonna be issues...
 
-				(elementSkillsNode as ElementSkillsDisplay).TestParent = _skillGroupsDisplay;
+		// 		(elementSkillsNode as ElementSkillsDisplay).TestParent = _skillGroupsDisplay;
 
-				_skillGroupsDisplay.AddChild(elementSkillsNode);	
-				GD.Print("awefawef", element.Skills.Length);
-				//mmmmhhhhhh....
-				//_skillGroupsDisplay.CallDeferred("add_child", elementSkillsNode);							
-			}
-		}
+		// 		_skillGroupsDisplay.AddChild(elementSkillsNode);	
+		// 		GD.Print("awefawef", element.Skills.Length);
+		// 		//mmmmhhhhhh....
+		// 		//_skillGroupsDisplay.CallDeferred("add_child", elementSkillsNode);							
+		// 	}
+		// }
 	}
+
+	public async Task<string> EnableSkillPickingByGroup(SkillNames.SkillGroups skillGroup){
+
+		// I should petition the actuall skill, giving it the path etc, to check if it's usable on the match group
+		var skills = SkillGroups
+			.Where(group => group.Group == skillGroup.ToString())
+			.ElementAt(0)
+			.Skills
+			.Select(skill => {
+				Enum.TryParse(skill.Name, out SkillNames.All skillEnum);
+				return skillEnum;
+			})
+			.ToArray();		
+
+
+		(_skillGroupsDisplay as SkillGroupsDisplay).Update(skills, skillGroup);
+
+		var parameters = await ToSignal(_skillGroupsDisplay, "SkillPicked");
+		var pickedSkill = (string) parameters[0];
+
+
+
+
+
+		return pickedSkill;
+	}	
 }
