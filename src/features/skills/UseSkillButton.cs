@@ -5,10 +5,26 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-public partial class UseSkillButton : TextureButton, DeactivatableButton
+public partial class UseSkillButton : VBoxContainer, DeactivatableButton
 {
 	[Export] private Label _label;
+    [Export] private TextureButton _button;
 
+	[ExportGroup("Energy Requirements")]
+	[Export] private Sprite2D _fireIcon;
+	[Export] private Label _fireEnergyRequirement;
+	[Export] private Sprite2D _windIcon;
+	[Export] private Label _windEnergyRequirement;
+	[Export] private Sprite2D _earthIcon;
+	[Export] private Label _earthEnergyRequirement;
+	[Export] private Sprite2D _waterIcon;
+	[Export] private Label _waterEnergyRequirement;
+
+	public TextureButton Button => _button;
+	public Texture2D Texture{
+		private get => _button.TextureNormal;
+		set {_button.TextureNormal = value;}
+	}
 	public bool Active{get;set;} = false;
 
 	[Signal] public delegate void ClickedSkillEventHandler(string name);
@@ -33,6 +49,34 @@ public partial class UseSkillButton : TextureButton, DeactivatableButton
 	public void SetSkillLabel(/* SkillNames.All skillName */string skillName){
 		_label.Text = skillName;
 	}
+
+	public void SetEnergyRequirements(int fire, int wind, int earth, int water){
+		_fireEnergyRequirement.Text = fire.ToString();
+		_windEnergyRequirement.Text = wind.ToString();
+		_earthEnergyRequirement.Text = earth.ToString();
+		_waterEnergyRequirement.Text = water.ToString();
+	}
+
+
+	public void DecideActivationByEnergyNeed(bool enoughFire, bool enoughWind, bool enoughEarth, bool enoughWater){
+		//I don't like branching
+		// _fireIcon.Modulate = new Color(1, Convert.ToSingle(enoughFire), Convert.ToSingle(enoughFire), 1);
+		// _windIcon.Modulate = new Color(1, Convert.ToSingle(enoughWind), Convert.ToSingle(enoughWind), 1);
+		// _earthIcon.Modulate = new Color(1, Convert.ToSingle(enoughEarth), Convert.ToSingle(enoughEarth), 1);
+		// _waterIcon.Modulate = new Color(1, Convert.ToSingle(enoughWater), Convert.ToSingle(enoughWater), 1);
+		_fireEnergyRequirement.Modulate = new Color(1, Convert.ToSingle(enoughFire), Convert.ToSingle(enoughFire), 1);
+		_windEnergyRequirement.Modulate = new Color(1, Convert.ToSingle(enoughWind), Convert.ToSingle(enoughWind), 1);
+		_earthEnergyRequirement.Modulate = new Color(1, Convert.ToSingle(enoughEarth), Convert.ToSingle(enoughEarth), 1);
+		_waterEnergyRequirement.Modulate = new Color(1, Convert.ToSingle(enoughWater), Convert.ToSingle(enoughWater), 1);		
+
+		if(enoughFire && enoughWind && enoughEarth && enoughWater){
+			Activate();
+		}
+		else{
+			Deactivate();
+		}
+	}
+
 
 	private async void Foo()
 	{

@@ -1,22 +1,97 @@
-[gd_scene load_steps=2 format=3 uid="uid://ch0l0lp4tmuay"]
+[gd_scene load_steps=6 format=3 uid="uid://ch0l0lp4tmuay"]
 
 [ext_resource type="Script" uid="uid://c7hull3e6tqq6" path="res://src/features/skills/UseSkillButton.cs" id="1_7nogi"]
+[ext_resource type="Texture2D" uid="uid://bu6shmemeiij1" path="res://assets/images/ui/fire.png" id="2_jdfnc"]
+[ext_resource type="Texture2D" uid="uid://cfxid4e00y2sp" path="res://assets/images/ui/wind.png" id="3_oc7r2"]
+[ext_resource type="Texture2D" uid="uid://bhidtkcd3bpy6" path="res://assets/images/ui/earth.png" id="4_1w8nm"]
+[ext_resource type="Texture2D" uid="uid://s8bsmj5n7cvk" path="res://assets/images/ui/water.png" id="5_r8wjv"]
 
-[node name="UseSkillButton" type="TextureButton" node_paths=PackedStringArray("_label")]
+[node name="UseSkillButton" type="VBoxContainer" node_paths=PackedStringArray("_label", "_button", "_fireIcon", "_fireEnergyRequirement", "_windIcon", "_windEnergyRequirement", "_earthIcon", "_earthEnergyRequirement", "_waterIcon", "_waterEnergyRequirement")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = -20.5
+offset_right = -1491.0
+offset_bottom = -812.5
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_7nogi")
 _label = NodePath("Label")
+_button = NodePath("TextureButton")
+_fireIcon = NodePath("HFlowContainer/Fire/FireIcon")
+_fireEnergyRequirement = NodePath("HFlowContainer/Fire/FireRequirement")
+_windIcon = NodePath("HFlowContainer/Wind/WindIcon")
+_windEnergyRequirement = NodePath("HFlowContainer/Wind/WindRequirement")
+_earthIcon = NodePath("HFlowContainer/Earth/EarthIcon")
+_earthEnergyRequirement = NodePath("HFlowContainer/Earth/EarthRequirement")
+_waterIcon = NodePath("HFlowContainer/Water/WaterIcon")
+_waterEnergyRequirement = NodePath("HFlowContainer/Water/WaterRequirement")
 
 [node name="Label" type="Label" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+layout_mode = 2
 theme_override_font_sizes/font_size = 9
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[connection signal="button_down" from="." to="." method="Foo"]
+[node name="TextureButton" type="TextureButton" parent="."]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="HFlowContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Fire" type="HBoxContainer" parent="HFlowContainer"]
+custom_minimum_size = Vector2(24, 16)
+layout_mode = 2
+
+[node name="FireIcon" type="Sprite2D" parent="HFlowContainer/Fire"]
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("2_jdfnc")
+
+[node name="FireRequirement" type="Label" parent="HFlowContainer/Fire"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+
+[node name="Wind" type="HBoxContainer" parent="HFlowContainer"]
+custom_minimum_size = Vector2(24, 16)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="WindIcon" type="Sprite2D" parent="HFlowContainer/Wind"]
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("3_oc7r2")
+
+[node name="WindRequirement" type="Label" parent="HFlowContainer/Wind"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+
+[node name="Earth" type="HBoxContainer" parent="HFlowContainer"]
+custom_minimum_size = Vector2(24, 16)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="EarthIcon" type="Sprite2D" parent="HFlowContainer/Earth"]
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("4_1w8nm")
+
+[node name="EarthRequirement" type="Label" parent="HFlowContainer/Earth"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+
+[node name="Water" type="HBoxContainer" parent="HFlowContainer"]
+custom_minimum_size = Vector2(24, 16)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="WaterIcon" type="Sprite2D" parent="HFlowContainer/Water"]
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("5_r8wjv")
+
+[node name="WaterRequirement" type="Label" parent="HFlowContainer/Water"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+
+[connection signal="pressed" from="TextureButton" to="." method="Foo"]

@@ -57,6 +57,18 @@ public partial class SkillModel : Node, WithFireEnergy, WithWindEnergy, WithEart
 	// }
 
 	private void _InitializeSkills(){
+		//test
+		MaxFireEnergy = 10;		
+		FireEnergy = 5;
+		MaxWindEnergy = 10;
+		WindEnergy = 3;
+		MaxEarthEnergy = 10;
+		EarthEnergy = 1;
+		MaxWaterEnergy = 10;
+		WaterEnergy = 0;
+
+
+
 		Files.LoadJson<CurrentSaveGame>(Files.SavesPath, "current.json")
 			.ContinueWith(task => {
 				var currentGame = task.Result;
@@ -107,7 +119,22 @@ public partial class SkillModel : Node, WithFireEnergy, WithWindEnergy, WithEart
 			.Skills
 			.Select(skill => {
 				Enum.TryParse(skill.Name, out SkillNames.All skillEnum);
-				return skillEnum;
+				var fire = skill.EnergyRequirement.Fire;
+				var wind = skill.EnergyRequirement.Wind;
+				var earth = skill.EnergyRequirement.Earth;
+				var water = skill.EnergyRequirement.Water;
+
+				return new{
+					name=skillEnum,
+					fire=fire,
+					wind=wind,
+					earth=earth,
+					water=water,
+					enoughFire = FireEnergy >= fire,
+					enoughWind = WindEnergy >= wind,
+					enoughEarth = EarthEnergy >= earth,
+					enoughWater = WaterEnergy >= water
+				};
 			})
 			.ToArray();		
 

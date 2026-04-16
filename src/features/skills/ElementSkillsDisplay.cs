@@ -19,7 +19,7 @@ public partial class ElementSkillsDisplay : /* ItemList */Control, SelectableSki
 		GD.Print("group ready");
 	}
 
-	public void Update(SkillNames.All[] skills, SkillNames.SkillGroups skillGroup){
+	public void Update(/* SkillNames.All[] skills, */dynamic[] skills,  SkillNames.SkillGroups skillGroup){ //this is dangerous, obviously I need to strong type the 1st parameter
 		_groupName.Text = skillGroup.ToString();
 		foreach(var skillButton in _skillContainer.GetChildren()){
 			_skillContainer.RemoveChild(skillButton);
@@ -27,14 +27,18 @@ public partial class ElementSkillsDisplay : /* ItemList */Control, SelectableSki
 		}
 
 		foreach(var skill in skills){
-			var button = _skillButton.Instantiate() as TextureButton;
-			button.TextureNormal = _skillMap[skill];
-			(button as UseSkillButton).SetSkillLabel(skill.ToString());
-
+			var button = _skillButton.Instantiate() as UseSkillButton;
 			_skillContainer.AddChild(button);
 
-			(button as DeactivatableButton).Activate();
-			(button as UseSkillButton).ConnectClickedSkill(OnSkillClicked);
+			button.Texture = _skillMap[skill.name];
+			button.SetSkillLabel(skill.name.ToString());
+			button.SetEnergyRequirements(skill.fire, skill.wind, skill.earth, skill.water);
+			button.DecideActivationByEnergyNeed(skill.enoughFire, skill.enoughWind, skill.enoughEarth, skill.enoughWater);
+
+
+
+			//(button as DeactivatableButton).Activate();
+			button.ConnectClickedSkill(OnSkillClicked);
 		}	
 	}
 
