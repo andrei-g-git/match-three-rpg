@@ -466,7 +466,8 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
 
                                 if(contiguousSolidCells.Count>0){
                                     var lastSolidCell = contiguousSolidCells.Last(); 
-                                    var newBottom = Hex.FindBottom(lastSolidCell);
+                                    //var newBottom = Hex.FindBottom(lastSolidCell);
+                                    var newBottom = Hex.FindBottomClamped(lastSolidCell, Tiles.Width, Tiles.Height);
                                     if(newBottom.X>=0 && newBottom.Y>=0){
                                         collapsing = _FallToLowerCellAndStorePath(x, y, newBottom, list3D, collapsing, originalGrid);  
                                         var bp = 345;                                     
