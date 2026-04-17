@@ -3,7 +3,7 @@ using Skills;
 using Stats;
 using System;
 
-public partial class PlayerEnergy : Node, RefillableEnergy, WithEnergy, WithFireEnergy, WithWindEnergy, WithEarthEnergy, WithWaterEnergy
+public partial class PlayerEnergy : Node, RefillableEnergy, WithEnergy, /* DerivableMaxEnergy, */ WithFireEnergy, WithWindEnergy, WithEarthEnergy, WithWaterEnergy
 {
 	[Export] private Node _derivedStats;
 	
@@ -35,15 +35,16 @@ public partial class PlayerEnergy : Node, RefillableEnergy, WithEnergy, WithFire
 
 	public override void _Ready(){
 				//test
-		MaxFireEnergy = 10;		
-		FireEnergy = 5;
-		MaxWindEnergy = 10;
-		WindEnergy = 3;
-		MaxEarthEnergy = 10;
-		EarthEnergy = 1;
-		MaxWaterEnergy = 10;
-		WaterEnergy = 0;
+		// MaxFireEnergy = 10;		
+		// FireEnergy = 5;
+		// MaxWindEnergy = 10;
+		// WindEnergy = 3;
+		// MaxEarthEnergy = 10;
+		// EarthEnergy = 1;
+		// MaxWaterEnergy = 10;
+		// WaterEnergy = 0;
 	}
+
 
     public void GainEnergyFromElement(SkillNames.SkillGroups element, int howManyTimes = 1){
 
@@ -102,4 +103,23 @@ public partial class PlayerEnergy : Node, RefillableEnergy, WithEnergy, WithFire
 		if(attributeValue >= 5) return (int) Math.Ceiling(cellsTraveledMultiplier * 3);
 		return (int) Math.Floor(cellsTraveledMultiplier * 2);
 	}
+
+
+
+	//these are initia
+	public static int CalculateInitialMaxEnergy(int attributeValue){
+		return (int) Math.Ceiling(3 + Math.Pow(attributeValue, 1.2));
+	}
+    public static int CalculateInitialMaxFireEnergy(int strength){
+		return (int) Math.Ceiling(3 + Math.Pow(strength, 1.2));
+	}
+    public static int CalculateInitialMaxWindEnergy(int agility){
+		return (int) Math.Ceiling(3 + Math.Pow(agility, 1.2));
+	}
+    public static int CalculateInitialMaxEarthEnergy(int constitution){
+		return (int) Math.Ceiling(3 + Math.Pow(constitution, 1.2));
+	}
+    public static int CalculateInitialMaxWaterEnergy(int intelligence){
+		return (int) Math.Ceiling(3 + Math.Pow(intelligence, 1.2));
+	}	
 }

@@ -80,6 +80,16 @@ public partial class MainMenu : Control, WithSceneManager
 				},
 				Health = PlayerDerivedStats.GetMaxHealth(10),
 				Energy = PlayerDerivedStats.GetMaxEnergy(5) - 3, //test
+				Energies = new Energies{
+					MaxFireEnergy = PlayerEnergy.CalculateInitialMaxEnergy(10),	
+					FireEnergy = 5,
+					MaxWindEnergy = PlayerEnergy.CalculateInitialMaxEnergy(7),	
+					WindEnergy = 3,
+					MaxEarthEnergy = PlayerEnergy.CalculateInitialMaxEnergy(10),	
+					EarthEnergy = 1,
+					MaxWaterEnergy = PlayerEnergy.CalculateInitialMaxEnergy(5),	
+					WaterEnergy = 0,
+				},
 				Speed = PlayerDerivedStats.GetSpeed(7),
 				Defense = 2
 			},

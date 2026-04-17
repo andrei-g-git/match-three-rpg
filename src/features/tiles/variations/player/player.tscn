@@ -235,7 +235,7 @@ animations = [{
 "speed": 7.0
 }]
 
-[node name="Player" type="Control" node_paths=PackedStringArray("_swapping", "_matchingRange", "_energyCollector", "_offense", "_defender", "_skillSlot", "_matchesTraversal", "_turn", "_hostility", "_equipmentModel", "_derivedStats", "_moveTweener", "_popTweener", "_attackTweener")]
+[node name="Player" type="Control" node_paths=PackedStringArray("_swapping", "_matchingRange", "_energyCollector", "_offense", "_defender", "_skillSlot", "_matchesTraversal", "_turn", "_hostility", "_equipmentModel", "_derivedStats", "_energy", "_moveTweener", "_popTweener", "_attackTweener")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_4gdcj")
@@ -250,6 +250,7 @@ _turn = NodePath("Behaviors/Turn")
 _hostility = NodePath("Behaviors/Hostility")
 _equipmentModel = NodePath("Equipment")
 _derivedStats = NodePath("Stats-should not have scr/Derived")
+_energy = NodePath("Stats-should not have scr/Energy")
 _moveTweener = NodePath("Tweeners/Move")
 _popTweener = NodePath("Tweeners/Pop")
 _attackTweener = NodePath("Tweeners/SpringForthAndBack")
@@ -290,8 +291,9 @@ _derivedStats = NodePath("Derived")
 [node name="Derived" type="Node" parent="Stats-should not have scr"]
 script = ExtResource("5_xxn2p")
 
-[node name="Energy" type="Node" parent="Stats-should not have scr"]
+[node name="Energy" type="Node" parent="Stats-should not have scr" node_paths=PackedStringArray("_derivedStats")]
 script = ExtResource("9_dl46s")
+_derivedStats = NodePath("../Derived")
 
 [node name="SkillSlot" type="Control" parent="." node_paths=PackedStringArray("_tileRoot", "_animatedActor")]
 anchors_preset = 0

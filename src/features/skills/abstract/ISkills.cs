@@ -95,6 +95,15 @@ public interface WithEnergy{
     public int MaxWaterEnergy{get;set;}    
 }
 
+// public interface DerivableMaxEnergy{
+//     public int CalculateInitialMaxFireEnergy(int strength);
+//     public int CalculateInitialMaxWindEnergy(int agility);
+//     public int CalculateInitialMaxEarthEnergy(int constitution);
+//     public int CalculateInitialMaxWaterEnergy(int intelligencee);
+// }
+
+
+
 public interface WithFireEnergy{
     public int FireEnergy{get;set;}
     public int MaxFireEnergy{get;set;}

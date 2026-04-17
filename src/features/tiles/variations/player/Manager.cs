@@ -11,7 +11,7 @@ using Tiles;
 using static Skills.SkillNames;
 
 namespace Player{
-	public partial class Manager : Control, Tile, AccessableBoard, Movable, Mapable, Swappable, Permeable, MatchableBounds, Playable, Attributive, DerivableStats, Classy, CollectableEnergy, RelayableUIEvents, ReactiveToMatches, Offensive, Skillful, TraversableMatching, Creatable, Agentive, TurnBased, Disposition, Defensible, Gearable, StatBasedGear
+	public partial class Manager : Control, Tile, AccessableBoard, Movable, Mapable, Swappable, Permeable, MatchableBounds, Playable, Attributive, DerivableStats, Classy, CollectableEnergy, RelayableUIEvents, ReactiveToMatches, Offensive, Skillful, TraversableMatching, Creatable, Agentive, TurnBased, Disposition, Defensible, Gearable, StatBasedGear, WithEnergy
 	{
         //[Export] Node _skillsModel; //DOES NOT HAVE INTERFACE 
 		[ExportGroup("behaviors")]
@@ -30,6 +30,7 @@ namespace Player{
 
         [ExportGroup("stats")]
         [Export] private Node _derivedStats;
+        [Export] private Node _energy;
 
 		[ExportGroup("tweeners")]
 		[Export] private Node _moveTweener;
@@ -103,6 +104,17 @@ namespace Player{
                 // EmitSignal(SignalName.EquipmentChanged, OffHand, EquipmentTypes.OffHand.ToString());                        
             }         
         }
+
+        public int MaxFireEnergy { get => (_energy as WithEnergy).MaxFireEnergy; set => (_energy as WithEnergy).MaxFireEnergy = value; }
+        public int FireEnergy { get => (_energy as WithEnergy).FireEnergy; set => (_energy as WithEnergy).FireEnergy = value; }
+        public int MaxWindEnergy { get => (_energy as WithEnergy).MaxWindEnergy; set => (_energy as WithEnergy).MaxWindEnergy = value; }
+        public int WindEnergy { get => (_energy as WithEnergy).WindEnergy; set => (_energy as WithEnergy).WindEnergy = value; }
+        public int MaxEarthEnergy { get => (_energy as WithEnergy).MaxEarthEnergy; set => (_energy as WithEnergy).MaxEarthEnergy = value; }
+        public int EarthEnergy { get => (_energy as WithEnergy).EarthEnergy; set => (_energy as WithEnergy).EarthEnergy = value; }
+        public int MaxWaterEnergy { get => (_energy as WithEnergy).MaxWaterEnergy; set => (_energy as WithEnergy).MaxWaterEnergy = value; }
+        public int WaterEnergy { get => (_energy as WithEnergy).WaterEnergy; set => (_energy as WithEnergy).WaterEnergy = value; }
+
+
 
         [Signal] public delegate void FinishedTransferingEventHandler(); //rn the skill calls these directly
         [Signal] public delegate void FinishedPathEventHandler();

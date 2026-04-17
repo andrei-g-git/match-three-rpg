@@ -127,6 +127,16 @@ public partial class BoardManager : PanelContainer
 			derivableStats.Speed = stats.Speed;
 			derivableStats.Defense = stats.Defense;
 
+			var energy = player as WithEnergy;
+			energy.MaxFireEnergy = stats.Energies.MaxFireEnergy;
+			energy.FireEnergy = stats.Energies.FireEnergy;
+			energy.MaxWindEnergy = stats.Energies.MaxWindEnergy;
+			energy.WindEnergy = stats.Energies.WindEnergy;
+			energy.MaxEarthEnergy = stats.Energies.MaxEarthEnergy;
+			energy.EarthEnergy = stats.Energies.EarthEnergy;
+			energy.MaxWaterEnergy = stats.Energies.MaxWaterEnergy;
+			energy.WaterEnergy = stats.Energies.WaterEnergy;
+
 			Classes playerClass;
 			Enum.TryParse(_loadedGame.Player.Class, out playerClass);
 			(player as Classy).Class = playerClass;
