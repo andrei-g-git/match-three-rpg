@@ -84,6 +84,17 @@ public interface LevelableSkill{
     public SkillNames.All GetSkillEnum();
 }
 
+public interface WithEnergy{
+    public int FireEnergy{get;set;}
+    public int MaxFireEnergy{get;set;} 
+    public int WindEnergy{get;set;}
+    public int MaxWindEnergy{get;set;}  
+    public int EarthEnergy{get;set;}
+    public int MaxEarthEnergy{get;set;}    
+    public int WaterEnergy{get;set;}
+    public int MaxWaterEnergy{get;set;}    
+}
+
 public interface WithFireEnergy{
     public int FireEnergy{get;set;}
     public int MaxFireEnergy{get;set;}
@@ -99,6 +110,14 @@ public interface WithEarthEnergy{
 public interface WithWaterEnergy{
     public int WaterEnergy{get;set;}
     public int MaxWaterEnergy{get;set;}
+}
+
+public interface RefillableEnergy{
+    public void GainEnergyFromElement(SkillGroups element, int howManyTimes);
+    public void GainFireEnergy(int howManyTimes);
+    public void GainWindEnergy(int howManyTimes);
+    public void GainEarthEnergy(int howManyTimes);
+    public void GainWaterEnergy(int howManyTimes);
 }
 
 

@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-public partial class SkillModel : Node, WithFireEnergy, WithWindEnergy, WithEarthEnergy, WithWaterEnergy
+public partial class SkillModel : Node/* , WithEnergy, WithFireEnergy, WithWindEnergy, WithEarthEnergy, WithWaterEnergy */
 {
 	[Export] 
 	private PackedScene _elementSkillsDisplay;
@@ -17,30 +17,32 @@ public partial class SkillModel : Node, WithFireEnergy, WithWindEnergy, WithEart
 
 	public SkillGroup[] SkillGroups = [];
 
-	public int MaxFireEnergy{get;set;}
-	private int _FireEnergy;
-	public int FireEnergy{
-		get => _FireEnergy;
-		set { _FireEnergy = Math.Clamp(value, 0, MaxFireEnergy); }
-	}
-	public int MaxWindEnergy{get;set;}
-	private int _WindEnergy;
-	public int WindEnergy{
-		get => _WindEnergy;
-		set { _WindEnergy = Math.Clamp(value, 0, MaxWindEnergy); }
-	}
-	public int MaxEarthEnergy{get;set;}
-	private int _EarthEnergy;
-	public int EarthEnergy{
-		get => _EarthEnergy;
-		set { _EarthEnergy = Math.Clamp(value, 0, MaxEarthEnergy); }
-	}
-	public int MaxWaterEnergy{get;set;}
-	private int _WaterEnergy;
-	public int WaterEnergy{
-		get => _WaterEnergy;
-		set { _WaterEnergy = Math.Clamp(value, 0, MaxWaterEnergy); }
-	}
+	public WithEnergy PlayerEnergy{private get; set;}
+
+	// public int MaxFireEnergy{get;set;} //these should be in the player node
+	// private int _FireEnergy;
+	// public int FireEnergy{
+	// 	get => _FireEnergy;
+	// 	set { _FireEnergy = Math.Clamp(value, 0, MaxFireEnergy); }
+	// }
+	// public int MaxWindEnergy{get;set;}
+	// private int _WindEnergy;
+	// public int WindEnergy{
+	// 	get => _WindEnergy;
+	// 	set { _WindEnergy = Math.Clamp(value, 0, MaxWindEnergy); }
+	// }
+	// public int MaxEarthEnergy{get;set;}
+	// private int _EarthEnergy;
+	// public int EarthEnergy{
+	// 	get => _EarthEnergy;
+	// 	set { _EarthEnergy = Math.Clamp(value, 0, MaxEarthEnergy); }
+	// }
+	// public int MaxWaterEnergy{get;set;}
+	// private int _WaterEnergy;
+	// public int WaterEnergy{
+	// 	get => _WaterEnergy;
+	// 	set { _WaterEnergy = Math.Clamp(value, 0, MaxWaterEnergy); }
+	// }
 
 	private List<ElementSkillsDisplay> _ElementSkillsViews = []; //not interface but it just needs this to update the views
 
@@ -58,14 +60,14 @@ public partial class SkillModel : Node, WithFireEnergy, WithWindEnergy, WithEart
 
 	private void _InitializeSkills(){
 		//test
-		MaxFireEnergy = 10;		
-		FireEnergy = 5;
-		MaxWindEnergy = 10;
-		WindEnergy = 3;
-		MaxEarthEnergy = 10;
-		EarthEnergy = 1;
-		MaxWaterEnergy = 10;
-		WaterEnergy = 0;
+		// MaxFireEnergy = 10;		
+		// FireEnergy = 5;
+		// MaxWindEnergy = 10;
+		// WindEnergy = 3;
+		// MaxEarthEnergy = 10;
+		// EarthEnergy = 1;
+		// MaxWaterEnergy = 10;
+		// WaterEnergy = 0;
 
 
 
@@ -130,10 +132,10 @@ public partial class SkillModel : Node, WithFireEnergy, WithWindEnergy, WithEart
 					wind=wind,
 					earth=earth,
 					water=water,
-					enoughFire = FireEnergy >= fire,
-					enoughWind = WindEnergy >= wind,
-					enoughEarth = EarthEnergy >= earth,
-					enoughWater = WaterEnergy >= water
+					enoughFire = PlayerEnergy.FireEnergy >= fire,
+					enoughWind = PlayerEnergy.WindEnergy >= wind,
+					enoughEarth = PlayerEnergy.EarthEnergy >= earth,
+					enoughWater = PlayerEnergy.WaterEnergy >= water
 				};
 			})
 			.ToArray();		

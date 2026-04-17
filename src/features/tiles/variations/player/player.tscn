@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://neacnhoii1ja"]
+[gd_scene load_steps=61 format=3 uid="uid://neacnhoii1ja"]
 
 [ext_resource type="Script" uid="uid://bi3h2kor8um1g" path="res://src/features/tiles/variations/player/Manager.cs" id="1_4gdcj"]
 [ext_resource type="Texture2D" uid="uid://feagubw57qbq" path="res://assets/images/tiles/actors/warrior/warrior_dash.bmp" id="2_qgr8d"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://whroff6nwt7n" path="res://src/features/tiles/animations/ScaleUpFade.cs" id="7_47kl3"]
 [ext_resource type="Script" uid="uid://dp5fwk7pxd2pe" path="res://src/features/tiles/behaviors/EnergyCollector.cs" id="7_dohfl"]
 [ext_resource type="Script" uid="uid://dkxyfo8ok7v3x" path="res://src/features/tiles/animations/Pop.cs" id="8_17kow"]
+[ext_resource type="Script" uid="uid://bewvwd3m5762w" path="res://src/features/tiles/stats/PlayerEnergy.cs" id="9_dl46s"]
 [ext_resource type="Script" uid="uid://bh601heiqlu68" path="res://src/features/tiles/behaviors/Offense.cs" id="10_xxn2p"]
 [ext_resource type="Script" uid="uid://p0ymm4ytnxjy" path="res://src/features/tiles/behaviors/Defender.cs" id="11_m7si5"]
 [ext_resource type="Script" uid="uid://cby7yncus5qqu" path="res://src/features/tiles/behaviors/MatchesTraversal.cs" id="13_nd62f"]
@@ -288,6 +289,9 @@ _derivedStats = NodePath("Derived")
 
 [node name="Derived" type="Node" parent="Stats-should not have scr"]
 script = ExtResource("5_xxn2p")
+
+[node name="Energy" type="Node" parent="Stats-should not have scr"]
+script = ExtResource("9_dl46s")
 
 [node name="SkillSlot" type="Control" parent="." node_paths=PackedStringArray("_tileRoot", "_animatedActor")]
 anchors_preset = 0
