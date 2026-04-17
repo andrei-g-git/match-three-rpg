@@ -26,6 +26,7 @@ public partial class BoardManager : PanelContainer
 	[Export] private Node _model;
 	[Export] private Node _tileFactory;
 	[Export] private Node _playerSkillsModel;
+	[Export] private Node _skillPickerModel;
 
 	private Grid<TileTypes> _tileTypes;
 	private GameSave _loadedGame;
@@ -136,6 +137,8 @@ public partial class BoardManager : PanelContainer
 			energy.EarthEnergy = stats.Energies.EarthEnergy;
 			energy.MaxWaterEnergy = stats.Energies.MaxWaterEnergy;
 			energy.WaterEnergy = stats.Energies.WaterEnergy;
+
+			(_skillPickerModel as SkillModel).PlayerEnergy = energy;
 
 			Classes playerClass;
 			Enum.TryParse(_loadedGame.Player.Class, out playerClass);

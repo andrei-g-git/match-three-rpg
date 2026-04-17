@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Board;
 using Common;
@@ -106,13 +107,29 @@ namespace Player{
         }
 
         public int MaxFireEnergy { get => (_energy as WithEnergy).MaxFireEnergy; set => (_energy as WithEnergy).MaxFireEnergy = value; }
-        public int FireEnergy { get => (_energy as WithEnergy).FireEnergy; set => (_energy as WithEnergy).FireEnergy = value; }
+        public int FireEnergy { get => (_energy as WithEnergy).FireEnergy; set { 
+            (_energy as WithEnergy).FireEnergy = value; 
+            var _en = _energy as WithEnergy;
+            UIEventBus.Publish(Events.FireChanged, [_en.FireEnergy, _en.MaxFireEnergy]);            
+        }}
         public int MaxWindEnergy { get => (_energy as WithEnergy).MaxWindEnergy; set => (_energy as WithEnergy).MaxWindEnergy = value; }
-        public int WindEnergy { get => (_energy as WithEnergy).WindEnergy; set => (_energy as WithEnergy).WindEnergy = value; }
+        public int WindEnergy { get => (_energy as WithEnergy).WindEnergy; set { 
+            (_energy as WithEnergy).WindEnergy = value; 
+            var _en = _energy as WithEnergy;     
+            UIEventBus.Publish(Events.WindChanged, [_en.WindEnergy, _en.MaxWindEnergy]);             
+        }}
         public int MaxEarthEnergy { get => (_energy as WithEnergy).MaxEarthEnergy; set => (_energy as WithEnergy).MaxEarthEnergy = value; }
-        public int EarthEnergy { get => (_energy as WithEnergy).EarthEnergy; set => (_energy as WithEnergy).EarthEnergy = value; }
+        public int EarthEnergy { get => (_energy as WithEnergy).EarthEnergy; set { 
+            (_energy as WithEnergy).EarthEnergy = value; 
+            var _en = _energy as WithEnergy;  
+            UIEventBus.Publish(Events.EarthChanged, [_en.EarthEnergy, _en.MaxEarthEnergy]);             
+        }}
         public int MaxWaterEnergy { get => (_energy as WithEnergy).MaxWaterEnergy; set => (_energy as WithEnergy).MaxWaterEnergy = value; }
-        public int WaterEnergy { get => (_energy as WithEnergy).WaterEnergy; set => (_energy as WithEnergy).WaterEnergy = value; }
+        public int WaterEnergy { get => (_energy as WithEnergy).WaterEnergy; set { 
+            (_energy as WithEnergy).WaterEnergy = value; 
+            var _en = _energy as WithEnergy;
+            UIEventBus.Publish(Events.WaterChanged, [_en.WaterEnergy, _en.MaxWaterEnergy]);  
+        }}
 
 
 
@@ -126,6 +143,16 @@ namespace Player{
 
 			(_turn as Turn).ConnectRequestedTurnEnd(TurnQueue.AdvanceTurn);
 			//(_turn as Turn).ConnectRequestedTurnStart(inputBlocker.AllowInput);
+
+
+
+
+            //TEST
+            // var _en = _energy as WithEnergy;
+            // UIEventBus.Publish(Events.FireChanged, [_en.FireEnergy, _en.MaxFireEnergy]);       
+            // UIEventBus.Publish(Events.WindChanged, [_en.WindEnergy, _en.MaxWindEnergy]);  
+            // UIEventBus.Publish(Events.EarthChanged, [_en.EarthEnergy, _en.MaxEarthEnergy]);  
+            // UIEventBus.Publish(Events.WaterChanged, [_en.WaterEnergy, _en.MaxWaterEnergy]);                                           
         }
 
         public void TestDelete()

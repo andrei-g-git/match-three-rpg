@@ -1,5 +1,9 @@
 namespace Common;
 
 public enum Events{
-    EnergyChanged
+    EnergyChanged,
+    FireChanged,
+    WindChanged,
+    EarthChanged,
+    WaterChanged
 }
