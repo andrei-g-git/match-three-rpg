@@ -3,7 +3,7 @@ using System;
 using System.Threading.Tasks;
 using UI;
 
-public partial class SpriteStatusBar : HBoxContainer, ProgressableBar
+public partial class SpriteStatusBar : VBoxContainer, ProgressableBar
 {
 
 	[Export] Label _label;
@@ -12,7 +12,7 @@ public partial class SpriteStatusBar : HBoxContainer, ProgressableBar
 	[Export] Color _depletedColor;
 
 	private ShaderMaterial _instanceMaterial;
-    public override void _Ready(){
+	public override void _Ready(){
 		var material = _sprite.Material as ShaderMaterial;
 		if(material != null){
 			var instance = material.Duplicate(true) as ShaderMaterial;
@@ -21,7 +21,7 @@ public partial class SpriteStatusBar : HBoxContainer, ProgressableBar
 		}
 	}
 
-    public void Update(int value, int maxValue){
+	public void Update(int value, int maxValue){
 		_label.Text = $"{value}/{maxValue}";
 
 		var shaderMaterial = _sprite.Material as ShaderMaterial;
@@ -33,9 +33,9 @@ public partial class SpriteStatusBar : HBoxContainer, ProgressableBar
 		_instanceMaterial.SetShaderParameter("filled_g", _filledColor.G);
 		_instanceMaterial.SetShaderParameter("filled_b", _filledColor.B);
 
-    }
+	}
 
-    private async void RunDelayedAction(int value, int maxValue)    {        
+	private async void RunDelayedAction(int value, int maxValue)    {        
 		await Task.Delay(5000); 
 		GD.Print("UPDATE------------");
 		_instanceMaterial.SetShaderParameter("energy", (float) value/maxValue );
