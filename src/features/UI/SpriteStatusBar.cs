@@ -1,33 +1,49 @@
 using Godot;
 using System;
+using System.Threading.Tasks;
 using UI;
 
 public partial class SpriteStatusBar : HBoxContainer, ProgressableBar
 {
 
+	[Export] Label _label;
 	[Export] Sprite2D _sprite;
 	[Export] Color _filledColor;
 	[Export] Color _depletedColor;
 
+	private ShaderMaterial _instanceMaterial;
     public override void _Ready(){
-		// _sprite.Material.Set("shader_parameter/", 0f);
-		// _sprite.Material.Set("shader_parameter/", );
-		// _sprite.Material.Set("shader_parameter/", );
-		// _sprite.Material.Set("shader_parameter/", );
-		// _sprite.Material.Set("shader_parameter/", );
-		// _sprite.Material.Set("shader_parameter/", );
-		// _sprite.Material.Set("shader_parameter/", );
+		var material = _sprite.Material as ShaderMaterial;
+		if(material != null){
+			var instance = material.Duplicate(true) as ShaderMaterial;
+			_sprite.Material = instance;
+			_instanceMaterial = instance;
+		}
 	}
 
     public void Update(int value, int maxValue){
-		_sprite.Material.Set("shader_parameter/energy", (float) value/maxValue);
-		_sprite.Material.Set("shader_parameter/depleted_r", _depletedColor.R/255);
-		_sprite.Material.Set("shader_parameter/depleted_g", _depletedColor.G/255);
-		_sprite.Material.Set("shader_parameter/depleted_b", _depletedColor.B/255);
-		_sprite.Material.Set("shader_parameter/filled_r", _filledColor.R/255);
-		_sprite.Material.Set("shader_parameter/filled_g", _filledColor.G/255);
-		_sprite.Material.Set("shader_parameter/filled_b", _filledColor.B/255);
+		_label.Text = $"{value}/{maxValue}";
+
+		var shaderMaterial = _sprite.Material as ShaderMaterial;
+		_instanceMaterial.SetShaderParameter("energy", (float) value/maxValue );	
+		_instanceMaterial.SetShaderParameter("depleted_r", _depletedColor.R);	
+		_instanceMaterial.SetShaderParameter("depleted_g", _depletedColor.G);
+		_instanceMaterial.SetShaderParameter("depleted_b", _depletedColor.B);
+		_instanceMaterial.SetShaderParameter("filled_r", _filledColor.R);
+		_instanceMaterial.SetShaderParameter("filled_g", _filledColor.G);
+		_instanceMaterial.SetShaderParameter("filled_b", _filledColor.B);
+
     }
 
-
+    private async void RunDelayedAction(int value, int maxValue)    {        
+		await Task.Delay(5000); 
+		GD.Print("UPDATE------------");
+		_instanceMaterial.SetShaderParameter("energy", (float) value/maxValue );
+		_instanceMaterial.SetShaderParameter("depleted_r", _depletedColor.R/255f);
+		_instanceMaterial.SetShaderParameter("depleted_g", _depletedColor.G/255f);
+		_instanceMaterial.SetShaderParameter("depleted_b", _depletedColor.B/255f);
+		_instanceMaterial.SetShaderParameter("filled_r", _filledColor.R/255f);
+		_instanceMaterial.SetShaderParameter("filled_g", _filledColor.G/255f);
+		_instanceMaterial.SetShaderParameter("filled_b", _filledColor.B/255f);	
+	}
 }

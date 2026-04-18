@@ -82,7 +82,7 @@ public partial class MainMenu : Control, WithSceneManager
 				Energy = PlayerDerivedStats.GetMaxEnergy(5) - 3, //test
 				Energies = new Energies{
 					MaxFireEnergy = PlayerEnergy.CalculateInitialMaxEnergy(10),	
-					FireEnergy = 5,
+					FireEnergy = 8,
 					MaxWindEnergy = PlayerEnergy.CalculateInitialMaxEnergy(7),	
 					WindEnergy = 3,
 					MaxEarthEnergy = PlayerEnergy.CalculateInitialMaxEnergy(10),	

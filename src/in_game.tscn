@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://vv3xapj4lprc"]
+[gd_scene load_steps=62 format=3 uid="uid://vv3xapj4lprc"]
 
 [ext_resource type="Script" uid="uid://dy1o6fmi8i4pb" path="res://src/features/board/BoardManager.cs" id="1_k7s5h"]
 [ext_resource type="Script" uid="uid://cgm6rlm3gw3je" path="res://src/features/board/Environment.cs" id="3_da6o6"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://ci3qi6w5dumc2" path="res://src/features/board/TileContainer.cs" id="4_dw1vl"]
 [ext_resource type="Texture2D" uid="uid://bu6shmemeiij1" path="res://assets/images/ui/fire.png" id="4_r4pbt"]
 [ext_resource type="Texture2D" uid="uid://bhrgljbqv1p6a" path="res://assets/images/tiles/new/tile_sheet_128px_by_128px.png" id="5_1dyqb"]
+[ext_resource type="Shader" uid="uid://dill2bvqn4r14" path="res://src/shaders/energy_progress_bar.gdshader" id="5_4syyy"]
 [ext_resource type="Script" uid="uid://dnwr07sluq5la" path="res://src/NoticeDelete.cs" id="5_ai8ke"]
 [ext_resource type="Script" uid="uid://dqkgqnxmg0ulc" path="res://src/features/board/model/BoardModel.cs" id="5_qxmgw"]
 [ext_resource type="Texture2D" uid="uid://cfxid4e00y2sp" path="res://assets/images/ui/wind.png" id="6_lxb6n"]
@@ -57,54 +58,29 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_057js"]
 bg_color = Color(0, 0.463429, 0.739759, 1)
 
-[sub_resource type="Shader" id="Shader_r4pbt"]
-code = "shader_type canvas_item;
-
-uniform float energy: hint_range(0.0, 1.0, 0.05);
-uniform float depleted_r: hint_range(0.0, 1.0, 0.05);
-uniform float depleted_g: hint_range(0.0, 1.0, 0.05);
-uniform float depleted_b: hint_range(0.0, 1.0, 0.05);
-uniform float filled_r: hint_range(0.0, 1.0, 0.05);
-uniform float filled_g: hint_range(0.0, 1.0, 0.05);
-uniform float filled_b: hint_range(0.0, 1.0, 0.05);
-
-void vertex() {
-	// Called for every vertex the material is visible on.
-}
-
-void fragment() {
-	vec4 tex = texture(TEXTURE, UV);
-	if(tex.a < 0.01){
-		COLOR.a = 0.0;
-		//return;
-	}
-	vec4 filled = vec4(filled_r, filled_g, filled_b, 1.0);
-	vec4 depleted = vec4(depleted_r, depleted_g, depleted_b, 1.0);
-
-	//top-left 0,0
-	vec4 col = depleted;
-	if(UV.y > energy){
-		col= filled;
-	}
-
-	COLOR = col * tex;
-}
-
-//void light() {
-//	// Called for every pixel for every light affecting the CanvasItem.
-//	// Uncomment to replace the default light processing function with this one.
-//}
-"
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4syyy"]
+shader = ExtResource("5_4syyy")
+shader_parameter/energy = 0.55000000819566
+shader_parameter/depleted_r = 0.40000000596048
+shader_parameter/depleted_g = 0.70000001043084
+shader_parameter/depleted_b = 0.0
+shader_parameter/filled_r = 0.0
+shader_parameter/filled_g = 0.0
+shader_parameter/filled_b = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_64ngi"]
-shader = SubResource("Shader_r4pbt")
+shader = ExtResource("5_4syyy")
 shader_parameter/energy = 0.0
-shader_parameter/depleted_r = 0.539823
-shader_parameter/depleted_g = 0.56637174
-shader_parameter/depleted_b = 0.5575221
+shader_parameter/depleted_r = 0.0
+shader_parameter/depleted_g = 0.0
+shader_parameter/depleted_b = 0.0
 shader_parameter/filled_r = 1.0
 shader_parameter/filled_g = 1.0
 shader_parameter/filled_b = 1.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4syyy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8ggik"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mmsvb"]
 texture = ExtResource("5_1dyqb")
@@ -211,70 +187,80 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_057js")
 script = ExtResource("17_057js")
 
 [node name="Elemental Energies" type="HBoxContainer" parent="MainContainer/PanelContainer/Hud"]
-custom_minimum_size = Vector2(256, 48)
+custom_minimum_size = Vector2(192, 32)
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 204.0
+offset_bottom = 32.0
 
-[node name="Fire" type="HBoxContainer" parent="MainContainer/PanelContainer/Hud/Elemental Energies" node_paths=PackedStringArray("_sprite")]
-custom_minimum_size = Vector2(48, 48)
+[node name="Fire" type="HBoxContainer" parent="MainContainer/PanelContainer/Hud/Elemental Energies" node_paths=PackedStringArray("_label", "_sprite")]
+custom_minimum_size = Vector2(48, 32)
 layout_mode = 2
 script = ExtResource("4_64ngi")
-_sprite = NodePath("Sprite2D")
+_label = NodePath("Label")
+_sprite = NodePath("AspectRatioContainer/FireGauge")
 _filledColor = Color(1, 1, 1, 1)
-_depletedColor = Color(0.47058824, 0.47058824, 0.47058824, 1)
+_depletedColor = Color(0.47058824, 0.47058824, 0.5058824, 1)
 
-[node name="Sprite2D" type="Sprite2D" parent="MainContainer/PanelContainer/Hud/Elemental Energies/Fire"]
-material = SubResource("ShaderMaterial_64ngi")
-scale = Vector2(0.75, 0.75)
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="MainContainer/PanelContainer/Hud/Elemental Energies/Fire"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="FireGauge" type="Sprite2D" parent="MainContainer/PanelContainer/Hud/Elemental Energies/Fire/AspectRatioContainer"]
+material = SubResource("ShaderMaterial_4syyy")
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_r4pbt")
 offset = Vector2(32, 32)
 
+[node name="Label" type="Label" parent="MainContainer/PanelContainer/Hud/Elemental Energies/Fire"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+
 [node name="Wind" type="HBoxContainer" parent="MainContainer/PanelContainer/Hud/Elemental Energies" node_paths=PackedStringArray("_sprite")]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(48, 32)
 layout_mode = 2
 script = ExtResource("4_64ngi")
-_sprite = NodePath("Sprite2D")
+_sprite = NodePath("WindGauge")
 _filledColor = Color(1, 1, 1, 1)
 _depletedColor = Color(0.47058824, 0.47058824, 0.47058824, 1)
 
-[node name="Sprite2D" type="Sprite2D" parent="MainContainer/PanelContainer/Hud/Elemental Energies/Wind"]
+[node name="WindGauge" type="Sprite2D" parent="MainContainer/PanelContainer/Hud/Elemental Energies/Wind"]
 material = SubResource("ShaderMaterial_64ngi")
-scale = Vector2(0.75, 0.75)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_lxb6n")
 offset = Vector2(32, 32)
 
 [node name="Earth" type="HBoxContainer" parent="MainContainer/PanelContainer/Hud/Elemental Energies" node_paths=PackedStringArray("_sprite")]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(48, 32)
 layout_mode = 2
 script = ExtResource("4_64ngi")
-_sprite = NodePath("Sprite2D")
+_sprite = NodePath("EarthGauge")
 _filledColor = Color(1, 1, 1, 1)
 _depletedColor = Color(0.47058824, 0.47058824, 0.47058824, 1)
 
-[node name="Sprite2D" type="Sprite2D" parent="MainContainer/PanelContainer/Hud/Elemental Energies/Earth"]
+[node name="EarthGauge" type="Sprite2D" parent="MainContainer/PanelContainer/Hud/Elemental Energies/Earth"]
 material = SubResource("ShaderMaterial_64ngi")
-scale = Vector2(0.75, 0.75)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("7_hhowy")
 offset = Vector2(32, 32)
 
 [node name="Water" type="HBoxContainer" parent="MainContainer/PanelContainer/Hud/Elemental Energies" node_paths=PackedStringArray("_sprite")]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(48, 32)
 layout_mode = 2
 script = ExtResource("4_64ngi")
-_sprite = NodePath("Sprite2D")
+_sprite = NodePath("WaterGauge")
 _filledColor = Color(1, 1, 1, 1)
 _depletedColor = Color(0.47058824, 0.47058824, 0.47058824, 1)
 
-[node name="Sprite2D" type="Sprite2D" parent="MainContainer/PanelContainer/Hud/Elemental Energies/Water"]
+[node name="WaterGauge" type="Sprite2D" parent="MainContainer/PanelContainer/Hud/Elemental Energies/Water"]
 material = SubResource("ShaderMaterial_64ngi")
-scale = Vector2(0.75, 0.75)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("8_4syyy")
 offset = Vector2(32, 32)
 
 [node name="TilesPanel" type="PanelContainer" parent="MainContainer/PanelContainer" node_paths=PackedStringArray("_tileMap", "_model", "_playerSkillsModel", "_skillPickerModel")]
 custom_minimum_size = Vector2(0, 450)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_4syyy")
 script = ExtResource("1_k7s5h")
 _tileMap = NodePath("../Environment")
 _model = NodePath("../Model")
@@ -283,6 +269,7 @@ _skillPickerModel = NodePath("../../ScrollContainer/SkillPickerModel")
 
 [node name="EffectsLayer" type="PanelContainer" parent="MainContainer/PanelContainer"]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_8ggik")
 script = ExtResource("5_ai8ke")
 
 [node name="Environment" type="TileMapLayer" parent="MainContainer/PanelContainer"]
