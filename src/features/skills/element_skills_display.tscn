@@ -57,3 +57,4 @@ layout_mode = 0
 offset_left = 5.0
 offset_right = 5.0
 offset_bottom = 23.0
+columns = 3

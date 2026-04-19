@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://vv3xapj4lprc"]
+[gd_scene load_steps=63 format=3 uid="uid://vv3xapj4lprc"]
 
 [ext_resource type="Script" uid="uid://dy1o6fmi8i4pb" path="res://src/features/board/BoardManager.cs" id="1_k7s5h"]
 [ext_resource type="Script" uid="uid://cgm6rlm3gw3je" path="res://src/features/board/Environment.cs" id="3_da6o6"]
@@ -134,6 +134,9 @@ custom_data_layer_0/type = 21
 custom_data_layer_1/name = "navigable"
 custom_data_layer_1/type = 1
 sources/0 = SubResource("TileSetAtlasSource_mmsvb")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4syyy"]
+bg_color = Color(0, 0.7019608, 0.6666667, 1)
 
 [sub_resource type="TileSet" id="TileSet_ai8ke"]
 tile_shape = 3
@@ -338,13 +341,12 @@ _uiEventBus = NodePath("../../../../Events/UIEventBus")
 _turnQueue = NodePath("../Turns")
 _packedTileScenes = Array[PackedScene]([ExtResource("8_2r3xs"), ExtResource("9_4s2tm"), ExtResource("10_fusuk"), ExtResource("11_25lnr"), ExtResource("12_fusuk"), ExtResource("13_25lnr"), ExtResource("14_6bwww"), ExtResource("15_x10rj"), ExtResource("19_s5hp3"), ExtResource("20_fjexy"), ExtResource("21_mmsvb")])
 
-[node name="TileMatcher" type="Node" parent="MainContainer/PanelContainer/Model" node_paths=PackedStringArray("_tileFactory", "_tileContainer", "_environment", "_tileQuery", "_skillGroupsDisplay", "_skillsModel")]
+[node name="TileMatcher" type="Node" parent="MainContainer/PanelContainer/Model" node_paths=PackedStringArray("_tileFactory", "_tileContainer", "_environment", "_tileQuery", "_skillsModel")]
 script = ExtResource("12_4s2tm")
 _tileFactory = NodePath("../TileFactory")
 _tileContainer = NodePath("../../Tiles")
 _environment = NodePath("../../Environment")
 _tileQuery = NodePath("../TileQuery")
-_skillGroupsDisplay = NodePath("../../../ScrollContainer/SkillGroupContainer")
 _skillsModel = NodePath("../../../ScrollContainer/SkillPickerModel")
 
 [node name="TileQuery" type="Node" parent="MainContainer/PanelContainer/Model"]
@@ -443,14 +445,46 @@ size_flags_horizontal = 3
 [node name="SkillPickerModel" type="Node" parent="MainContainer/ScrollContainer" node_paths=PackedStringArray("_skillGroupsDisplay")]
 script = ExtResource("42_0k7ag")
 _elementSkillsDisplay = ExtResource("43_ej7e5")
-_skillGroupsDisplay = NodePath("../SkillGroupContainer")
+_skillGroupsDisplay = NodePath("../Panel")
 
-[node name="SkillGroupContainer" type="VBoxContainer" parent="MainContainer/ScrollContainer"]
+[node name="Panel" type="Panel" parent="MainContainer/ScrollContainer"]
+modulate = Color(1.0000322, 1.0039686, 1.0039686, 1)
+custom_minimum_size = Vector2(300, 300)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_4syyy")
 script = ExtResource("43_vl5to")
 _elementSkillsDisplay = ExtResource("43_ej7e5")
+
+[node name="ElementSkillsDisplay" parent="MainContainer/ScrollContainer/Panel" node_paths=PackedStringArray("_groupName", "_skillContainer") instance=ExtResource("43_ej7e5")]
+visible = false
+layout_mode = 1
+_groupName = NodePath("Header2/Label")
+_skillContainer = NodePath("Skills2")
+
+[node name="Header2" type="HFlowContainer" parent="MainContainer/ScrollContainer/Panel/ElementSkillsDisplay"]
+layout_mode = 0
+offset_right = 1.0
+offset_bottom = 23.0
+
+[node name="Line2D" type="Line2D" parent="MainContainer/ScrollContainer/Panel/ElementSkillsDisplay/Header2"]
+points = PackedVector2Array(21, 18, 422, 16)
+width = 2.0
+
+[node name="Label" type="Label" parent="MainContainer/ScrollContainer/Panel/ElementSkillsDisplay/Header2"]
+layout_mode = 2
+
+[node name="Line2D2" type="Line2D" parent="MainContainer/ScrollContainer/Panel/ElementSkillsDisplay/Header2"]
+position = Vector2(680, 6)
+points = PackedVector2Array(21, 18, 422, 16)
+width = 2.0
+
+[node name="Skills2" type="GridContainer" parent="MainContainer/ScrollContainer/Panel/ElementSkillsDisplay"]
+layout_mode = 0
+offset_left = 5.0
+offset_right = 5.0
+offset_bottom = 23.0
 
 [node name="RestartLevel" type="Button" parent="." node_paths=PackedStringArray("_boardManager")]
 layout_mode = 0
