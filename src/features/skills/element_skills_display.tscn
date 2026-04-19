@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dj8xcikdtyeu0"]
+[gd_scene load_steps=12 format=3 uid="uid://dj8xcikdtyeu0"]
 
 [ext_resource type="Script" uid="uid://bavy17ol7lhm" path="res://src/features/skills/ElementSkillsDisplay.cs" id="1_yvbky"]
 [ext_resource type="Texture2D" uid="uid://c3twceykx1fxf" path="res://assets/images/tiles/charge.png" id="2_hqtr4"]
@@ -9,9 +9,10 @@
 [ext_resource type="Texture2D" uid="uid://d0qn323g46s7n" path="res://assets/images/tiles/old/ensnare.png" id="7_lq8bo"]
 [ext_resource type="Texture2D" uid="uid://dvhenkqd7nu65" path="res://assets/images/tiles/kick.png" id="8_5wsus"]
 [ext_resource type="PackedScene" uid="uid://ch0l0lp4tmuay" path="res://src/features/skills/use_skill_button.tscn" id="9_a8q85"]
+[ext_resource type="Texture2D" uid="uid://mr26ryv7bouq" path="res://assets/images/tiles/none.png" id="9_ah7m3"]
+[ext_resource type="Texture2D" uid="uid://cbj6218xdiu5o" path="res://assets/images/tiles/none-yellow.png" id="11_j2fn7"]
 
-[node name="ElementSkillsDisplay" type="Control" node_paths=PackedStringArray("_groupName", "_skillContainer")]
-layout_mode = 3
+[node name="ElementSkillsDisplay" type="VBoxContainer" node_paths=PackedStringArray("_groupName", "_skillContainer")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -26,6 +27,7 @@ _skillMap = Dictionary[int, Texture2D]({
 0: ExtResource("2_hqtr4"),
 2: ExtResource("3_a8q85"),
 3: ExtResource("4_ah7m3"),
+4: ExtResource("9_ah7m3"),
 5: ExtResource("5_j2fn7"),
 6: ExtResource("6_ldh2a"),
 7: ExtResource("7_lq8bo"),
@@ -36,9 +38,7 @@ _groupName = NodePath("Header/Label")
 _skillContainer = NodePath("Skills")
 
 [node name="Header" type="HFlowContainer" parent="."]
-layout_mode = 0
-offset_right = 1.0
-offset_bottom = 23.0
+layout_mode = 2
 
 [node name="Line2D" type="Line2D" parent="Header"]
 points = PackedVector2Array(21, 18, 422, 16)
@@ -53,8 +53,12 @@ points = PackedVector2Array(21, 18, 422, 16)
 width = 2.0
 
 [node name="Skills" type="GridContainer" parent="."]
-layout_mode = 0
-offset_left = 5.0
-offset_right = 5.0
-offset_bottom = 23.0
+layout_mode = 2
 columns = 3
+
+[node name="CollectEnergy" type="TextureButton" parent="."]
+layout_mode = 2
+texture_normal = ExtResource("9_ah7m3")
+texture_pressed = ExtResource("11_j2fn7")
+
+[connection signal="pressed" from="CollectEnergy" to="." method="OnSkillClicked" binds= ["none"]]
