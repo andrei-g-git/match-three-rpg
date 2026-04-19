@@ -204,6 +204,9 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
             
             //var pickedSkill = await (_skillGroupsDisplay as SkillGroupsDisplay).EnableSkillPicking();
             var pickedSkill = await (_skillsModel as SkillModel).EnableSkillPickingByGroup(tile1.SkillGroup); //not interface
+            if(pickedSkill.Length <= 0){
+                (_skillsModel as SkillModel).CollectEnergyFromMatches(tile1.SkillGroup, group.Count);
+            }
 
             GD.Print("/////// picked SKILL ///////   ", pickedSkill);
 

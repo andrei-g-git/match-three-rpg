@@ -291,9 +291,9 @@ _derivedStats = NodePath("Derived")
 [node name="Derived" type="Node" parent="Stats-should not have scr"]
 script = ExtResource("5_xxn2p")
 
-[node name="Energy" type="Node" parent="Stats-should not have scr" node_paths=PackedStringArray("_derivedStats")]
+[node name="Energy" type="Node" parent="Stats-should not have scr" node_paths=PackedStringArray("_player")]
 script = ExtResource("9_dl46s")
-_derivedStats = NodePath("../Derived")
+_player = NodePath("../..")
 
 [node name="SkillSlot" type="Control" parent="." node_paths=PackedStringArray("_tileRoot", "_animatedActor")]
 anchors_preset = 0

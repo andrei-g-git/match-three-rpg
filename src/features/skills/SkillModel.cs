@@ -140,16 +140,31 @@ public partial class SkillModel : Node/* , WithEnergy, WithFireEnergy, WithWindE
 			})
 			.ToArray();		
 
+		var enoughEnergyForeOneSkill = _CheckIfEnoughEnergyForAtLeastOneSkill(skills);
 
-		(_skillGroupsDisplay as SkillGroupsDisplay).Update(skills, skillGroup);
+		if (enoughEnergyForeOneSkill){
+			(_skillGroupsDisplay as SkillGroupsDisplay).Update(skills, skillGroup);
 
-		var parameters = await ToSignal(_skillGroupsDisplay, "SkillPicked");
-		var pickedSkill = (string) parameters[0];
+			var parameters = await ToSignal(_skillGroupsDisplay, "SkillPicked");
+			var pickedSkill = (string) parameters[0];	
+			return pickedSkill;					
+		}
 
-
-
-
-
-		return pickedSkill;
+		return "";
 	}	
+
+	public void CollectEnergyFromMatches(SkillNames.SkillGroups skillGroup, int matches){
+		(PlayerEnergy as RefillableEnergy).GainEnergyFromElement(skillGroup, matches);
+	}
+
+
+	private bool _CheckIfEnoughEnergyForAtLeastOneSkill(dynamic[] skills){
+		foreach(var skill in skills){
+			if(skill.enoughFire && skill.enoughWind && skill.enoughEarth && skill.enoughWater){
+				return true;
+			}
+		}
+		return false;
+	}
+
 }

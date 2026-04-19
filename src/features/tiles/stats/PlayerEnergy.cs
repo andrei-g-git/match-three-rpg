@@ -1,11 +1,14 @@
+using Common;
 using Godot;
 using Skills;
 using Stats;
 using System;
 
-public partial class PlayerEnergy : Node, RefillableEnergy, WithEnergy, /* DerivableMaxEnergy, */ WithFireEnergy, WithWindEnergy, WithEarthEnergy, WithWaterEnergy
+public partial class PlayerEnergy : Node, RefillableEnergy, WithEnergy, /* DerivableMaxEnergy, */ WithFireEnergy, WithWindEnergy, WithEarthEnergy, WithWaterEnergy, RelayableUIEvents
 {
-	[Export] private Node _derivedStats;
+	[Export] private Node _player;
+	//[Export] private Node _uiEventBus;
+    public RemoteSignaling UIEventBus { private get; set; } //_player already has this, but i should pass only what I need case by case
 	
 	public int MaxFireEnergy{get;set;} 
 	private int _FireEnergy;
@@ -32,17 +35,8 @@ public partial class PlayerEnergy : Node, RefillableEnergy, WithEnergy, /* Deriv
 		set { _WaterEnergy = Math.Clamp(value, 0, MaxWaterEnergy); }
 	}
 
+    public override void _Ready(){
 
-	public override void _Ready(){
-				//test
-		// MaxFireEnergy = 10;		
-		// FireEnergy = 5;
-		// MaxWindEnergy = 10;
-		// WindEnergy = 3;
-		// MaxEarthEnergy = 10;
-		// EarthEnergy = 1;
-		// MaxWaterEnergy = 10;
-		// WaterEnergy = 0;
 	}
 
 
@@ -50,43 +44,47 @@ public partial class PlayerEnergy : Node, RefillableEnergy, WithEnergy, /* Deriv
 
 		switch (element){
 			case SkillNames.SkillGroups.Melee: 
-				GainFireEnergy(howManyTimes);
+				_GainFireEnergy(howManyTimes);
 				break;
 			case SkillNames.SkillGroups.Ranged: 
-				GainWindEnergy(howManyTimes);
+				_GainWindEnergy(howManyTimes);
 				break;
 			case SkillNames.SkillGroups.Defensive: 
-				GainEarthEnergy(howManyTimes);
+				_GainEarthEnergy(howManyTimes);
 				break;
 			case SkillNames.SkillGroups.Tech: 
-				GainWaterEnergy(howManyTimes)		;
+				_GainWaterEnergy(howManyTimes);
 				break;
 		}
     }
 
 	//i don't think i need methods for every energy type
-    public void GainFireEnergy(int howManyTimes = 1){
-		var strength = (_derivedStats as Attributive).Strength;
+    /* public */private void _GainFireEnergy(int howManyTimes = 1){
+		var strength = (_player as Attributive).Strength;
         FireEnergy = _GetEnergyGainMultiplierByAttributeAndCellsMatched(strength, howManyTimes);
 		if(FireEnergy > MaxFireEnergy) FireEnergy = MaxFireEnergy;
+		(UIEventBus as UIEventBus).Publish(Events.FireChanged, [FireEnergy, MaxFireEnergy]);
     }
 
-    public void GainWindEnergy(int howManyTimes = 1){
-		var agility = (_derivedStats as Attributive).Agility;
+    /* public */private void _GainWindEnergy(int howManyTimes = 1){
+		var agility = (_player as Attributive).Agility;
         WindEnergy = _GetEnergyGainMultiplierByAttributeAndCellsMatched(agility, howManyTimes);
 		if(WindEnergy > MaxWindEnergy) WindEnergy = MaxWindEnergy;
+		(UIEventBus as UIEventBus).Publish(Events.WindChanged, [WindEnergy, MaxWindEnergy]);
     }
 
-    public void GainEarthEnergy(int howManyTimes = 1){
-		var constitution = (_derivedStats as Attributive).Constitution;
+    /* public */private void _GainEarthEnergy(int howManyTimes = 1){
+		var constitution = (_player as Attributive).Constitution;
         EarthEnergy = _GetEnergyGainMultiplierByAttributeAndCellsMatched(constitution, howManyTimes);
 		if(EarthEnergy > MaxEarthEnergy) EarthEnergy = MaxEarthEnergy;
+		(UIEventBus as UIEventBus).Publish(Events.EarthChanged, [EarthEnergy, MaxEarthEnergy]);
     }
 
-    public void GainWaterEnergy(int howManyTimes = 1){
-		var intelligence = (_derivedStats as Attributive).Intelligence;
+    /* public */private void _GainWaterEnergy(int howManyTimes = 1){
+		var intelligence = (_player as Attributive).Intelligence;
         WaterEnergy = _GetEnergyGainMultiplierByAttributeAndCellsMatched(intelligence, howManyTimes);
 		if(WaterEnergy > MaxWaterEnergy) WaterEnergy = MaxWaterEnergy;
+		(UIEventBus as UIEventBus).Publish(Events.WaterChanged, [WaterEnergy, MaxWaterEnergy]);
     }
 
 	private int _GetEnergyGainMultiplierByAttributeAndCellsMatched(int attributeValue, int howManyCells){

@@ -12,7 +12,7 @@ using Tiles;
 using static Skills.SkillNames;
 
 namespace Player{
-	public partial class Manager : Control, Tile, AccessableBoard, Movable, Mapable, Swappable, Permeable, MatchableBounds, Playable, Attributive, DerivableStats, Classy, CollectableEnergy, RelayableUIEvents, ReactiveToMatches, Offensive, Skillful, TraversableMatching, Creatable, Agentive, TurnBased, Disposition, Defensible, Gearable, StatBasedGear, WithEnergy
+	public partial class Manager : Control, Tile, AccessableBoard, Movable, Mapable, Swappable, Permeable, MatchableBounds, Playable, Attributive, DerivableStats, Classy, CollectableEnergy, RelayableUIEvents, ReactiveToMatches, Offensive, Skillful, TraversableMatching, Creatable, Agentive, TurnBased, Disposition, Defensible, Gearable, StatBasedGear, WithEnergy, RefillableEnergy
 	{
         //[Export] Node _skillsModel; //DOES NOT HAVE INTERFACE 
 		[ExportGroup("behaviors")]
@@ -75,8 +75,14 @@ namespace Player{
         public int Defense {get => DerivedStats.Defense; set => DerivedStats.Defense = value;}
         public Classes Class{get;set;}
 
-
-        public RemoteSignaling UIEventBus{private get; set;} //NO INTERFACE FOR THIS YET
+        private RemoteSignaling _uiEventBus;
+        public RemoteSignaling UIEventBus{
+            private get => _uiEventBus;
+            set{
+               _uiEventBus = value;
+               (_energy as RelayableUIEvents).UIEventBus = value; 
+            }
+        } //NO INTERFACE FOR THIS YET
         public Node Skill { set => (_skillSlot as Skillful).Skill = value; }
         public ManageableSkills SkillsModel {get;set;}//=> _skillsModel as ManageableSkills; //DOES NOT HAVE INTERFACE 
         public Sequential TurnQueue{private get; set;}
@@ -328,6 +334,9 @@ namespace Player{
             throw new NotImplementedException();
         }
 
+        public void GainEnergyFromElement(SkillGroups element, int howManyTimes){
+            (_energy as RefillableEnergy).GainEnergyFromElement(element, howManyTimes);
+        }
     }	
 }
 

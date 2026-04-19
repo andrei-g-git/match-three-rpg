@@ -123,10 +123,10 @@ public interface WithWaterEnergy{
 
 public interface RefillableEnergy{
     public void GainEnergyFromElement(SkillGroups element, int howManyTimes);
-    public void GainFireEnergy(int howManyTimes);
-    public void GainWindEnergy(int howManyTimes);
-    public void GainEarthEnergy(int howManyTimes);
-    public void GainWaterEnergy(int howManyTimes);
+    // public void GainFireEnergy(int howManyTimes);
+    // public void GainWindEnergy(int howManyTimes);
+    // public void GainEarthEnergy(int howManyTimes);
+    // public void GainWaterEnergy(int howManyTimes);
 }
 
 
