@@ -208,14 +208,14 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
             if(pickedSkill.Length <= 1 || pickedSkill == SkillNames.All.None.ToString() || pickedSkill == SkillNames.All.None.ToString().ToLower()){
                 (_skillsModel as SkillModel).CollectEnergyFromMatches(tile1.SkillGroup, group.Count);
             }else{
-                
+                await player.ReactToMatchesBySkillType(path, tile1.SkillGroup, isAdjacent);
             }
 
 
 
 
 
-            await player.ReactToMatchesBySkillType(path, tile1.SkillGroup, isAdjacent);     
+            //await player.ReactToMatchesBySkillType(path, tile1.SkillGroup, isAdjacent);     
 
             Debugging.PrintStackedGridInitials(Tiles.GetGridAs2DList(), 2, 2, "------AFTER PLAYER REACTION-----");
             bpp = 132;                 
