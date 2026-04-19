@@ -25,8 +25,8 @@ public partial class StraightCharge : Node, Traversing, AccessableBoard, WithTil
 	public async Task ProcessPathAsync(List<Vector2I> path){
 		var nextCellAtEnd = Hex.FindNextInLine(path);
 		if(nextCellAtEnd.X >= 0 && nextCellAtEnd.Y >= 0){
-			var tileAhead = (Board as Queriable).GetItemAt(nextCellAtEnd);
-			if (tileAhead is Disposition actor && actor.IsEnemy) {
+			//var tileAhead = (Board as Queriable).GetItemAt(nextCellAtEnd);
+			//if (tileAhead is Disposition actor && actor.IsEnemy) {
 
 				var playback = (AnimationNodeStateMachinePlayback)AnimationTree.Get("parameters/playback");
 
@@ -48,12 +48,15 @@ public partial class StraightCharge : Node, Traversing, AccessableBoard, WithTil
 					await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame); 
 				}
 
-				EmitSignal(SignalName.Attacking, actor as Control, nextCellAtEnd); 
-			}
-			else{
-				await (Board as BoardModel).TransferTileToAsync(TileRoot, path[^1]);	
-				EmitSignal(SignalName.FinishedPath);				
-			}
+				var tileAhead = (Board as Queriable).GetItemAt(nextCellAtEnd);
+				if (tileAhead is Disposition actor && actor.IsEnemy) {
+					EmitSignal(SignalName.Attacking, actor as Control, nextCellAtEnd); 
+				}
+			// }
+			// else{
+			// 	await (Board as BoardModel).TransferTileToAsync(TileRoot, path[^1]);	
+			// 	EmitSignal(SignalName.FinishedPath);				
+			// }
 
 			(Board as Organizable).RelocateTile(TileRoot, path.Last());			
 		}
