@@ -35,15 +35,15 @@ public partial class SpriteStatusBar : VBoxContainer, ProgressableBar
 
 	}
 
-	private async void RunDelayedAction(int value, int maxValue)    {        
-		await Task.Delay(5000); 
-		GD.Print("UPDATE------------");
-		_instanceMaterial.SetShaderParameter("energy", (float) value/maxValue );
-		_instanceMaterial.SetShaderParameter("depleted_r", _depletedColor.R/255f);
-		_instanceMaterial.SetShaderParameter("depleted_g", _depletedColor.G/255f);
-		_instanceMaterial.SetShaderParameter("depleted_b", _depletedColor.B/255f);
-		_instanceMaterial.SetShaderParameter("filled_r", _filledColor.R/255f);
-		_instanceMaterial.SetShaderParameter("filled_g", _filledColor.G/255f);
-		_instanceMaterial.SetShaderParameter("filled_b", _filledColor.B/255f);	
-	}
+	// private async void RunDelayedAction(int value, int maxValue)    {        
+	// 	await Task.Delay(5000); 
+	// 	GD.Print("UPDATE------------");
+	// 	_instanceMaterial.SetShaderParameter("energy", (float) value/maxValue );
+	// 	_instanceMaterial.SetShaderParameter("depleted_r", _depletedColor.R/255f);
+	// 	_instanceMaterial.SetShaderParameter("depleted_g", _depletedColor.G/255f);
+	// 	_instanceMaterial.SetShaderParameter("depleted_b", _depletedColor.B/255f);
+	// 	_instanceMaterial.SetShaderParameter("filled_r", _filledColor.R/255f);
+	// 	_instanceMaterial.SetShaderParameter("filled_g", _filledColor.G/255f);
+	// 	_instanceMaterial.SetShaderParameter("filled_b", _filledColor.B/255f);	
+	// }
 }

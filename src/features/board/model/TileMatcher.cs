@@ -211,6 +211,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
 
             await player.ReactToMatchesBySkillType(path, tile1.SkillGroup, isAdjacent);     
 
+            Debugging.PrintStackedGridInitials(Tiles.GetGridAs2DList(), 2, 2, "------AFTER PLAYER REACTION-----");
             bpp = 132;                 
         } 
 
@@ -220,9 +221,10 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
         //GetTree().CreateTimer(1.5).Timeout += () => { //booooo! Also I can't have these running in parallel
             _ = _FillUpEmptyCells(_spawnWeights, _spawnTiles);   
 
-            Debugging.PrintStackedGridInitials(Tiles.GetGridAs2DList(), 2, 2, "STACKED Grid:");
+            Debugging.PrintStackedGridInitials(Tiles.GetGridAs2DList(), 2, 2, "-----AFTER COLLAPSE ---------:");
             bp = 123;
             if(matchGroupQueue.Count > 0){ //I dequeue on every match that's found
+                GD.Print("__more groups in queue");
                 //GetTree().CreateTimer(1).Timeout += () => { //I really need to stop doing this
                     (_tileContainer as Viewable).UpdatePositions(Tiles); //<<<<
                     await _ActivateMatchedTilesAndCollapseGrid(matchGroupQueue);  
@@ -230,6 +232,9 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
             }else{
                 _CheckNewMatchesAndProcess(Tiles); //New <<<<<<<<<<<<<<<<<<<
                 if(matchGroupQueue.Count > 0){ //this doesn't make much sense but it kind of does...
+                    GD.Print("__new queue from new matches. 1st in queue:");
+                    GD.Print((Tiles.GetItem(matchGroupQueue.Peek().ElementAt(0)) as Tile).Type.ToString());
+                    GD.Print(matchGroupQueue.Peek().Select(cell => $"<{cell.X} , {cell.Y}>").ToArray());
                     //GetTree().CreateTimer(1).Timeout += () => { 
                         (_tileContainer as Viewable).UpdatePositions(Tiles); //<<<<
                         await _ActivateMatchedTilesAndCollapseGrid(matchGroupQueue);  
@@ -286,16 +291,21 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
     }
 
 
-    private /* void */async Task _RunMatchedTileBehaviors(Queue<Vector2I>matchQueue){
+    private /* void */async Task _RunMatchedTileBehaviors(Queue<Vector2I>matchQueue){ 
+        GD.Print("Running matched tile behavior and removal, match queue size: ", matchQueue.Count);
         if(matchQueue.Count>0){
             await _ActivateMatchedTileAndRemove(matchQueue); 
 
-            await _RunMatchedTileBehaviors(matchQueue); 
-        }     
+            GD.Print("done activating");
+
+            await _RunMatchedTileBehaviors(matchQueue); //i have no idea why i need this...
+        }  
+        Debugging.PrintStackedGridInitials(Tiles.GetGridAs2DList(), 2, 2, "------AFTER REMOVAL AND BEHAVIOR-----");
     }    
 
 
     private /* void */async Task _ActivateMatchedTileAndRemove(Queue<Vector2I> matches){ //need to make sure this is awaited
+        GD.Print("activating matched tiles and removing, match queue size: ", matches.Count);
         if(matches.Count > 0){ 
             var cell = matches.Dequeue();
 

@@ -74,3 +74,4 @@ _duration = 0.7
 [connection signal="Destroying" from="Behaviors/Removing" to="Tweeners/ScaleUpFade" method="Disappear"]
 [connection signal="Removed" from="Behaviors/Removing" to="." method="OnRemoved"]
 [connection signal="MatchedRemotely" from="Behaviors/Matching" to="Behaviors/Removing" method="PrepDestroy"]
+[connection signal="FinishedFading" from="Tweeners/ScaleUpFade" to="Behaviors/Removing" method="Remove"]

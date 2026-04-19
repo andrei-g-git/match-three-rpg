@@ -86,8 +86,8 @@ public partial class MoveTweener : Node, Movable, Mapable
 
 	public void MoveOnPath(Stack<Vector2I> path){
 		var bp = 123;
-		GD.Print("move on path:  ");
-		GD.Print( path.Select(item => item.ToString()).ToArray()); 
+		//GD.Print("move on path:  ");
+		//GD.Print( path.Select(item => item.ToString()).ToArray()); 
 		if(path.Count>0){
 			var target = path.Pop();
 			var pixelTarget = Map.CellToPosition(target);
