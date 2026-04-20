@@ -61,33 +61,33 @@ public partial class PlayerEnergy : Node, RefillableEnergy, WithEnergy, /* Deriv
 	//i don't think i need methods for every energy type
     /* public */private void _GainFireEnergy(int howManyTimes = 1){
 		var strength = (_player as Attributive).Strength;
-        FireEnergy = _GetEnergyGainMultiplierByAttributeAndCellsMatched(strength, howManyTimes);
+        FireEnergy += _GetEnergyGainByAttributeAndCellsMatched(strength, howManyTimes);
 		if(FireEnergy > MaxFireEnergy) FireEnergy = MaxFireEnergy;
 		(UIEventBus as UIEventBus).Publish(Events.FireChanged, [FireEnergy, MaxFireEnergy]);
     }
 
     /* public */private void _GainWindEnergy(int howManyTimes = 1){
 		var agility = (_player as Attributive).Agility;
-        WindEnergy = _GetEnergyGainMultiplierByAttributeAndCellsMatched(agility, howManyTimes);
+        WindEnergy += _GetEnergyGainByAttributeAndCellsMatched(agility, howManyTimes);
 		if(WindEnergy > MaxWindEnergy) WindEnergy = MaxWindEnergy;
 		(UIEventBus as UIEventBus).Publish(Events.WindChanged, [WindEnergy, MaxWindEnergy]);
     }
 
     /* public */private void _GainEarthEnergy(int howManyTimes = 1){
 		var constitution = (_player as Attributive).Constitution;
-        EarthEnergy = _GetEnergyGainMultiplierByAttributeAndCellsMatched(constitution, howManyTimes);
+        EarthEnergy += _GetEnergyGainByAttributeAndCellsMatched(constitution, howManyTimes);
 		if(EarthEnergy > MaxEarthEnergy) EarthEnergy = MaxEarthEnergy;
 		(UIEventBus as UIEventBus).Publish(Events.EarthChanged, [EarthEnergy, MaxEarthEnergy]);
     }
 
     /* public */private void _GainWaterEnergy(int howManyTimes = 1){
 		var intelligence = (_player as Attributive).Intelligence;
-        WaterEnergy = _GetEnergyGainMultiplierByAttributeAndCellsMatched(intelligence, howManyTimes);
+        WaterEnergy += _GetEnergyGainByAttributeAndCellsMatched(intelligence, howManyTimes);
 		if(WaterEnergy > MaxWaterEnergy) WaterEnergy = MaxWaterEnergy;
 		(UIEventBus as UIEventBus).Publish(Events.WaterChanged, [WaterEnergy, MaxWaterEnergy]);
     }
 
-	private int _GetEnergyGainMultiplierByAttributeAndCellsMatched(int attributeValue, int howManyCells){
+	private int _GetEnergyGainByAttributeAndCellsMatched(int attributeValue, int howManyCells){
         var cellsTraveledMultiplier = howManyCells switch{
             3 => 1,
             4 => 1.35f,

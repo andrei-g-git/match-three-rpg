@@ -19,3 +19,5 @@
     * It looks like there's a high chance that, with multiple enemies, the player is soon cornered and is forced to slug it out with basic attacks. maybe enemy HP should be a lot smaller...
     * ensnare should be a ranged skill. the most similar skills that should be tech would be traps. for most classes besides the sorceress, tech pieces should rearrange the board
     * the warrior is not mobile enough. he stands in place for almost the entirety of the level. I need more movement skills and abilities
+
+    * as of 20 april energy refill is far too high or energy costs are too low. You get too many unitended matches
