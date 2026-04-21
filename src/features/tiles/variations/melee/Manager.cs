@@ -29,7 +29,16 @@ namespace Melee{
 
         public override void _Ready(){
             (_popTweener as Creatable).Pop();
+
+            GD.Print($"position: {Position}, global: {GlobalPosition}, parent's global: {(GetParent() as Control).GlobalPosition}");
         }
+
+        public override void _Draw()
+        {
+            DrawCircle(Position, 4f, Colors.Black);
+        }
+
+
 
 
         public void MoveTo(Vector2I target){
