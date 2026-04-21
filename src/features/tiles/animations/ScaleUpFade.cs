@@ -17,10 +17,10 @@ public partial class ScaleUpFade : Node, DisappearingTile
 			.SetEase(Tween.EaseType.Out);
 		tween
 			.TweenProperty(_tileRoot, "scale", new Vector2(1.5f, 1.5f), _duration)		
-			.SetDelay(_delay);	
+			.SetDelay(/* _delay */0.3f);	
 		tween
 			.TweenProperty(_tileRoot, "modulate:a", 0f, _duration)
-			.SetDelay(_delay);	
+			.SetDelay(/* _delay */0.3f);	
 
 
 

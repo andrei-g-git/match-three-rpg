@@ -208,7 +208,8 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
             if(pickedSkill.Length <= 1 || pickedSkill == SkillNames.All.None.ToString() || pickedSkill == SkillNames.All.None.ToString().ToLower()){
                 (_skillsModel as SkillModel).CollectEnergyFromMatches(tile1.SkillGroup, group.Count);
             }else{
-                await player.ReactToMatchesBySkillType(path, tile1.SkillGroup, isAdjacent);
+                _ = Enum.TryParse(pickedSkill, out SkillNames.All skillNameEnum);
+                await player.ReactToMatchesBySkillType(path, tile1.SkillGroup, skillNameEnum, isAdjacent);
             }
 
 

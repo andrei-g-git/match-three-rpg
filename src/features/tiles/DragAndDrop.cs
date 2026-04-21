@@ -27,6 +27,23 @@ public partial class DragAndDrop : Control
         ];
     }
 
+    public override void _Draw(){
+        var x = Position.X;
+        var y = Position.Y;
+
+        for(int i=0; i<_hexPoints.Length; i++){
+            if (i < _hexPoints.Length - 1){
+                var src = _hexPoints[i];
+                var dst = _hexPoints[i+1];
+                DrawLine(src, dst, new Color(1, 0, 0, 1), 2f);                
+            }
+
+        }
+
+    }
+
+    //TODO: sometimes some pieces's drag surface becomes mostly un-dragable. Check if this is still the case when there are no enemies in the level.
+    //FIX the sizing transforms of pieces, there is almost certainly something wrong with them.
     public override Variant _GetDragData(Vector2 atPosition){
         var texture = _sprite.Texture;
         var dragPreview = new TextureRect();

@@ -32,7 +32,7 @@ namespace Tiles{
     }
 
     public interface ReactiveToMatches{
-        public /* void */Task ReactToMatchesBySkillType(List<Vector2I> matches, SkillGroups skillGroup, /* SkillNames.All skillType, */ bool isAdjacent);
+        public /* void */Task ReactToMatchesBySkillType(List<Vector2I> matches, SkillGroups skillGroup, SkillNames.All skillName, bool isAdjacent);
     }
 
     public interface Walkable{

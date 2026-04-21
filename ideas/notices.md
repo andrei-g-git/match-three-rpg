@@ -21,3 +21,5 @@
     * the warrior is not mobile enough. he stands in place for almost the entirety of the level. I need more movement skills and abilities
 
     * as of 20 april energy refill is far too high or energy costs are too low. You get too many unitended matches
+    * unintentional matches should maybe trigger from longest lines or most numerous contiguous match, because right now it's not intuitive
+    * i should change matching to work for 'contiguous groups, not just lines'. At the very least if I match, say, a V line, it's not clear to the player which line in the 'V' will be used as a path. 

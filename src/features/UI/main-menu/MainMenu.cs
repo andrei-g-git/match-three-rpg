@@ -84,7 +84,7 @@ public partial class MainMenu : Control, WithSceneManager
 					MaxFireEnergy = PlayerEnergy.CalculateInitialMaxEnergy(10),	
 					FireEnergy = 8,
 					MaxWindEnergy = PlayerEnergy.CalculateInitialMaxEnergy(7),	
-					WindEnergy = 3,
+					WindEnergy = 4,
 					MaxEarthEnergy = PlayerEnergy.CalculateInitialMaxEnergy(10),	
 					EarthEnergy = 1,
 					MaxWaterEnergy = PlayerEnergy.CalculateInitialMaxEnergy(5),	
