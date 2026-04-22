@@ -14,7 +14,8 @@ public class SkillNames{
 		ShieldBash,
 		Ensnare,
 		Kick,
-		Walk				
+		Walk,
+		Sprint				
 	}
 
 	public enum Melee{
@@ -25,7 +26,8 @@ public class SkillNames{
 		Kick = All.Kick
 	}
 	public enum Ranged{
-		ThrowWeapon = All.ThrowWeapon
+		ThrowWeapon = All.ThrowWeapon,
+		Sprint = All.Sprint
 	}
 	public enum Defensive{
 		ShieldBash = All.ShieldBash,
