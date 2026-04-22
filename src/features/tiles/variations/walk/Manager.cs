@@ -7,7 +7,7 @@ using Skills;
 using Tiles;
 using static Skills.SkillNames;
 
-namespace Walk{
+namespace Walkkkkkkkkkkkkkkkkkkkkk{
 	public partial class Manager : Control, Tile, AccessableBoard, Movable, Mapable, Collapsable, Swappable, Creatable
 	{
 		[ExportGroup("behaviors")]

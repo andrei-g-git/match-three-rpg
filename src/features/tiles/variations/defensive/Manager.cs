@@ -10,6 +10,7 @@ using static Skills.SkillNames;
 namespace Defensive{
 	public partial class Manager : Control, Tile, AccessableBoard, Movable, Mapable, Collapsable, Matchable, Swappable, SkillBased, Removable, Creatable
 	{
+        [Export] private Node _dragAndDrop;
 		[ExportGroup("behaviors")]
 		[Export] private Node _swapping;
 		[Export] private Node _matching;
@@ -32,9 +33,24 @@ namespace Defensive{
             GD.Print($"position: {Position}, global: {GlobalPosition}, parent's global: {(GetParent() as Control).GlobalPosition}");
         }
 
+        // public Variant GetDragData(Vector2 atPosition){
+        //     GD.Print("dragging");
+        //     return (_dragAndDrop as DragAndDrop2).GetDragData(atPosition);
+        // }
+
+        // public bool CanDropData(Vector2 atPosition, Variant data){ 
+        //     return (_dragAndDrop as DragAndDrop2).CanDropData(atPosition, data);
+        // }
+
+        // public void DropData(Vector2 atPosition, Variant data){
+        //     (_dragAndDrop as DragAndDrop2).DropData(atPosition, data);
+        // }
+
         public override void _Draw()
         {
             DrawCircle(Position, 4f, Colors.Black);
+
+            //(_dragAndDrop as DragAndDrop2).DrawDebugGizmo();
         }
 
 

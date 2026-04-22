@@ -1,6 +1,7 @@
 using Godot;
 using System;
 
+//THESE SHOULD BASICALLY HAVE ALL THE FIXED/BASED TRAITS OF THE SKILL, NOT JUST THE ENUM. FOR EXAMPLE, ENERGY REQUIREMENTS (so I don't have to update the code in multiple spots)
 namespace Skills;
 public class SkillNames{
 	public enum All{
@@ -12,7 +13,8 @@ public class SkillNames{
 		ThrowWeapon, 
 		ShieldBash,
 		Ensnare,
-		Kick				
+		Kick,
+		Walk				
 	}
 
 	public enum Melee{
@@ -26,7 +28,8 @@ public class SkillNames{
 		ThrowWeapon = All.ThrowWeapon
 	}
 	public enum Defensive{
-		ShieldBash = All.ShieldBash	
+		ShieldBash = All.ShieldBash,
+		Walk = All.Walk	
 	}
 	public enum Tech{
 		Ensnare	= All.Ensnare

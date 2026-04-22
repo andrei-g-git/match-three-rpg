@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://mfpccmm44gsh"]
+[gd_scene load_steps=12 format=3 uid="uid://mfpccmm44gsh"]
 
 [ext_resource type="Script" uid="uid://b6vxfficnggsp" path="res://src/features/tiles/variations/defensive/Manager.cs" id="1_5nojl"]
 [ext_resource type="Texture2D" uid="uid://d2cexad502xp1" path="res://assets/images/tiles/new/defensive.png" id="2_1sfff"]
 [ext_resource type="Script" uid="uid://e8nkv5ttl1ts" path="res://src/features/TestAspectRatioContainerGizmo.cs" id="2_aldut"]
+[ext_resource type="Script" uid="uid://6j1ex0uum88f" path="res://src/features/tiles/DragAndDrop2.cs" id="2_nxmem"]
 [ext_resource type="Script" uid="uid://cy1k0w8awxnxt" path="res://src/features/tiles/DragAndDrop.cs" id="3_f4gku"]
 [ext_resource type="Script" uid="uid://dd71kn6t4pyhr" path="res://src/features/tiles/behaviors/Swapping.cs" id="4_g6iaq"]
 [ext_resource type="Script" uid="uid://bo1vqtqcusngb" path="res://src/features/tiles/behaviors/Removing.cs" id="5_u5sm5"]
@@ -11,18 +12,26 @@
 [ext_resource type="Script" uid="uid://whroff6nwt7n" path="res://src/features/tiles/animations/ScaleUpFade.cs" id="9_1sfff"]
 [ext_resource type="Script" uid="uid://dkxyfo8ok7v3x" path="res://src/features/tiles/animations/Pop.cs" id="9_aldut"]
 
-[node name="Defensive" type="Control" node_paths=PackedStringArray("_swapping", "_matching", "_removing", "_moveTweener", "_popTweener")]
+[node name="Defensive" type="Control" node_paths=PackedStringArray("_dragAndDrop", "_swapping", "_matching", "_removing", "_moveTweener", "_popTweener")]
 custom_minimum_size = Vector2(55, 55)
 layout_mode = 3
 anchors_preset = 0
 offset_right = 55.0
 offset_bottom = 55.0
+pivot_offset = Vector2(27, 27)
 script = ExtResource("1_5nojl")
+_dragAndDrop = NodePath("DragAndDrop")
 _swapping = NodePath("Behaviors/Swapping")
 _matching = NodePath("Behaviors/Matching")
 _removing = NodePath("Behaviors/Removing")
 _moveTweener = NodePath("Tweeners/Move")
 _popTweener = NodePath("Tweeners/Pop")
+
+[node name="DragAndDrop" type="Node" parent="." node_paths=PackedStringArray("_pieceRoot", "_container", "_sprite")]
+script = ExtResource("2_nxmem")
+_pieceRoot = NodePath("..")
+_container = NodePath("../AspectRatioContainer")
+_sprite = NodePath("../AspectRatioContainer/Sprite2D")
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
 layout_mode = 0
@@ -75,6 +84,7 @@ script = ExtResource("9_aldut")
 _tileRoot = NodePath("../..")
 _duration = 0.7
 
+[connection signal="EngagedBy" from="DragAndDrop" to="Behaviors/Swapping" method="SwapWith"]
 [connection signal="EngagedBy" from="AspectRatioContainer/DragAndDrop" to="Behaviors/Swapping" method="SwapWith"]
 [connection signal="Destroying" from="Behaviors/Removing" to="Tweeners/ScaleUpFade" method="Disappear"]
 [connection signal="Removed" from="Behaviors/Removing" to="." method="OnRemoved"]

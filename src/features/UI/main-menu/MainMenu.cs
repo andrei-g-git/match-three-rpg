@@ -86,7 +86,7 @@ public partial class MainMenu : Control, WithSceneManager
 					MaxWindEnergy = PlayerEnergy.CalculateInitialMaxEnergy(7),	
 					WindEnergy = 4,
 					MaxEarthEnergy = PlayerEnergy.CalculateInitialMaxEnergy(10),	
-					EarthEnergy = 1,
+					EarthEnergy = 3,
 					MaxWaterEnergy = PlayerEnergy.CalculateInitialMaxEnergy(5),	
 					WaterEnergy = 0,
 				},
@@ -178,6 +178,17 @@ public partial class MainMenu : Control, WithSceneManager
 									Fire=2,
 									Wind=0,
 									Earth=4,
+									Water=0
+								}
+							},
+							new SkillWithCount{
+								Name=SkillNames.Defensive.Walk.ToString(),
+								Uses=99,
+								Level=1,
+								EnergyRequirement = new EnergyRequirement{
+									Fire=0,
+									Wind=2,
+									Earth=3,
 									Water=0
 								}
 							}						
