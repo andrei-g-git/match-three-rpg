@@ -68,6 +68,9 @@ public interface Skillful{
     public Node Skill{set;}
 }
 
+public interface DelayableSkill{
+    public void ActivateDelayedSkill();
+}
 
 public interface Skill{
 

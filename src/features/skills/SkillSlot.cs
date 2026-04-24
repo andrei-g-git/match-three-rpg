@@ -6,7 +6,7 @@ using Skills;
 using System;
 using Tiles;
 
-public partial class SkillSlot : Control, Skillful, AccessableBoard
+public partial class SkillSlot : Control, Skillful, AccessableBoard, DelayableSkill
 {
 	[Export] Control _tileRoot;
 	[Export] Node _animatedActor;
@@ -25,6 +25,13 @@ public partial class SkillSlot : Control, Skillful, AccessableBoard
 		}
 	}
 	public Node Board{get; set;}
+
+
+	public void ActivateDelayedSkill(){
+		if(_skill is DelayableSkill delayableSkill){
+			delayableSkill.ActivateDelayedSkill();
+		}
+	}
 
 
 	private void InitializeSkill(Node skill){

@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://neacnhoii1ja"]
+[gd_scene load_steps=62 format=3 uid="uid://neacnhoii1ja"]
 
 [ext_resource type="Script" uid="uid://bi3h2kor8um1g" path="res://src/features/tiles/variations/player/Manager.cs" id="1_4gdcj"]
 [ext_resource type="Texture2D" uid="uid://feagubw57qbq" path="res://assets/images/tiles/actors/warrior/warrior_dash.bmp" id="2_qgr8d"]
@@ -235,6 +235,25 @@ animations = [{
 "speed": 7.0
 }]
 
+[sub_resource type="CSharpScript" id="CSharpScript_dl46s"]
+script/source = "using Godot;
+using Skills;
+using System;
+using Tiles;
+
+public partial class DelayedSkill : Node, DelayableSkill
+{
+	private SkillNames.All  _delayedSkill;
+    private int _magnitude;
+
+    public void ActivateSkill()
+    {
+        throw new NotImplementedException();
+    }
+
+}
+"
+
 [node name="Player" type="Control" node_paths=PackedStringArray("_swapping", "_matchingRange", "_energyCollector", "_offense", "_defender", "_skillSlot", "_matchesTraversal", "_turn", "_hostility", "_equipmentModel", "_derivedStats", "_energy", "_moveTweener", "_popTweener", "_attackTweener")]
 layout_mode = 3
 anchors_preset = 0
@@ -348,6 +367,9 @@ script = ExtResource("14_ot1tn")
 isAggressive = true
 isEnemy = true
 
+[node name="DelayedSkill" type="Node" parent="Behaviors"]
+script = SubResource("CSharpScript_dl46s")
+
 [node name="Tweeners" type="Node2D" parent="."]
 
 [node name="DamageNumber" parent="Tweeners" instance=ExtResource("20_0dnlx")]
@@ -417,6 +439,7 @@ _duration = 0.4
 [connection signal="TookDamage" from="Behaviors/Defender" to="Tweeners/Recoil" method="Recoil"]
 [connection signal="TookDamage" from="Behaviors/Defender" to="Tweeners/FlashWhite" method="FlashOnce"]
 [connection signal="Attacked" from="Behaviors/Offense" to="Tweeners/SpringForthAndBack" method="Attack"]
+[connection signal="RequestedTurnStart" from="Behaviors/Turn" to="SkillSlot" method="ActivateDelayedSkill"]
 [connection signal="StateChanged" from="StateMachine_not_using/Idle_old" to="StateMachine_not_using" method="OnChildStateChanged"]
 [connection signal="StateChanged" from="StateMachine_not_using/Idle" to="StateMachine_not_using" method="OnChildStateChanged"]
 [connection signal="StateChanged" from="StateMachine_not_using/Dash" to="StateMachine_not_using" method="OnChildStateChanged"]

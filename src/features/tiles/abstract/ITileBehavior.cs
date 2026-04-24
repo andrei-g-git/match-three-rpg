@@ -95,5 +95,10 @@ namespace Tiles{
     public interface Pushable{
         public void GetPushed(Vector2I toCell, int enemyStrength);
         public void InteractWithObstacle(Vector2I atCell, float movementForce);
-    }    
+    }   
+
+    // public interface DelayableSkill{
+    //     public void StoreSkill(SkillNames.All skill, int magnitude);
+    //     public void ActivateSkill();
+    // } 
 }

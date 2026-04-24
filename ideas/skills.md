@@ -10,7 +10,7 @@
   - `S` bullrush (HIGH DAMAGE, has pushback, **Adv. implementation:** needs strength threshold)
   - `S` whirlwind
   - `S` leap attack: like jump but ... also attacks
-  - `S` delayed blow: powerful AOE attack that holds the player in place 1 turn and strikes the next turn. **Adv. implementation:** momentum increases range
+  - `S` delayed blow: **Adv. implementation:** powerful AOE attack that holds the player in place 1 turn and strikes the next turn. **Adv. implementation:** momentum increases range
       VVV THESE SHOUDLN"T BE INT
   - `I` enrage: buff, increase strength (or w/e) for limited turns
   - `I` startle: greatly debuff enemy agility, reducing their initiative and possibly giving the player an extra turn
