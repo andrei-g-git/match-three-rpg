@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dj8xcikdtyeu0"]
+[gd_scene load_steps=15 format=3 uid="uid://dj8xcikdtyeu0"]
 
 [ext_resource type="Script" uid="uid://bavy17ol7lhm" path="res://src/features/skills/ElementSkillsDisplay.cs" id="1_yvbky"]
 [ext_resource type="Texture2D" uid="uid://c3twceykx1fxf" path="res://assets/images/tiles/charge.png" id="2_hqtr4"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://y0wgfw4ueafm" path="res://assets/images/tiles/walk.png" id="10_ldh2a"]
 [ext_resource type="Texture2D" uid="uid://cbj6218xdiu5o" path="res://assets/images/tiles/none-yellow.png" id="11_j2fn7"]
 [ext_resource type="Texture2D" uid="uid://cl7an5ats0b87" path="res://assets/images/tiles/sprint.png" id="11_lq8bo"]
+[ext_resource type="Texture2D" uid="uid://bav5u1v5ysjot" path="res://assets/images/tiles/delayed-smash.png" id="12_5wsus"]
 
 [node name="ElementSkillsDisplay" type="VBoxContainer" node_paths=PackedStringArray("_groupName", "_skillContainer")]
 anchors_preset = 15
@@ -35,7 +36,8 @@ _skillMap = Dictionary[int, Texture2D]({
 7: ExtResource("7_lq8bo"),
 8: ExtResource("8_5wsus"),
 9: ExtResource("10_ldh2a"),
-10: ExtResource("11_lq8bo")
+10: ExtResource("11_lq8bo"),
+11: ExtResource("12_5wsus")
 })
 _skillButton = ExtResource("9_a8q85")
 _groupName = NodePath("Header/Label")

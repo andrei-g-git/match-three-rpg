@@ -15,7 +15,8 @@ public class SkillNames{
 		Ensnare,
 		Kick,
 		Walk,
-		Sprint				
+		Sprint,
+		DelayedSmash				
 	}
 
 	public enum Melee{
@@ -23,7 +24,8 @@ public class SkillNames{
 		Charge = All.Charge,	
 		LeapAttack =  All.LeapAttack,
 		Whirlwind = All.Whirlwind,
-		Kick = All.Kick
+		Kick = All.Kick,
+		DelayedSmash = All.DelayedSmash
 	}
 	public enum Ranged{
 		ThrowWeapon = All.ThrowWeapon,

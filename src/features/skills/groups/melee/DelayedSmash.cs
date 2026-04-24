@@ -15,13 +15,16 @@ public partial class DelayedSmash : Control, Skill, DelayableSkill, WithTileRoot
 
 	private int _builtUpMagnitude;
 
-	[Export] Node _delete;
+	//[Export] Node _delete;
 
-	[Signal] public delegate void AttackingEventHandler(Control enemy, int coveredTileDistance);
+	//[Signal] public delegate void AttackingEventHandler(Control enemy, int coveredTileDistance);
 
 	public async Task ProcessPathAsync(List<Vector2I> path){
-		//run wind up animation
-		//store covereddistance
+		var playback = (AnimationNodeStateMachinePlayback)AnimationTree.Get("parameters/playback");
+
+		playback.Travel("SwingStart");
+
+		_builtUpMagnitude = path.Count;
 	}
 
     public void ProcessPath(List<Vector2I> path)
@@ -33,7 +36,20 @@ public partial class DelayedSmash : Control, Skill, DelayableSkill, WithTileRoot
         //skill conclusion will be handled here
 		//await conclusion
 
-		await ToSignal(_delete, "timeout"); //delete
+		//await ToSignal(_delete, "timeout"); //delete
+		var playback = (AnimationNodeStateMachinePlayback)AnimationTree.Get("parameters/playback");
+
+		playback.Travel("SwingEnd");	
+		var playerCell = (Board as Queriable).GetCellFor(TileRoot);
+        var neighbors = (Board as Queriable).GetNeighboringTiles(playerCell);
+        neighbors.Remove(TileRoot); 
+        foreach (var tile in neighbors) {
+            if (tile is Disposition actor && actor.IsEnemy) {
+                //EmitSignal(SignalName.Attacking, actor as Control, _pathIndex + 1);       
+
+				(actor as Defensible).TakeDamage(69420);             
+            }
+        }			
     }
 
 

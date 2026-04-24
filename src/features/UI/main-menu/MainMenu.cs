@@ -86,7 +86,7 @@ public partial class MainMenu : Control, WithSceneManager
 					MaxWindEnergy = PlayerEnergy.CalculateInitialMaxEnergy(7),	
 					WindEnergy = 5,
 					MaxEarthEnergy = PlayerEnergy.CalculateInitialMaxEnergy(10),	
-					EarthEnergy = 3,
+					EarthEnergy = 8,
 					MaxWaterEnergy = PlayerEnergy.CalculateInitialMaxEnergy(5),	
 					WaterEnergy = 0,
 				},
@@ -140,6 +140,17 @@ public partial class MainMenu : Control, WithSceneManager
 									Fire=3,
 									Wind=0,
 									Earth=3,
+									Water=0
+								}
+							},
+							new SkillWithCount{
+								Name=SkillNames.Melee.DelayedSmash.ToString(),
+								Uses=99,
+								Level=1,
+								EnergyRequirement = new EnergyRequirement{
+									Fire=8,
+									Wind=0,
+									Earth=5,
 									Water=0
 								}
 							}					
