@@ -20,9 +20,8 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
     [Export] private Node _skillGroupsDisplay;
     [Export] private Node _skillsModel;
 
-    //[Export] private Node _turns;
     public Grid<Control> Tiles{get;set;}	
-    private Queue<List<Vector2I>> _matchGroupQueue = [];
+    private Queue<List<Vector2I>> _matchGroupQueue = [];  //I am no longer using this as a queue, just to store one group until I can replace it with a local v2i list
     private System.Collections.Generic.Dictionary<TileTypes, int> _spawnOddsByTileType;
     private float[] _spawnWeights;
     private TileTypes[] _spawnTiles;
@@ -172,6 +171,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
 
 
     private async /* void */Task _ActivateMatchedTilesAndCollapseGrid(Queue<List<Vector2I>> matchGroupQueue){ //all this dependency injection is kind of useless if I hard code helper funcions... this is not a pure function
+        //every time there's more than one match group, the groups after the first might end up with cell markers that are no longer accurate because the grid collapsed    
         var group = new List<Vector2I>();  
         if(matchGroupQueue.Count > 0){
             group = matchGroupQueue.Dequeue();  
@@ -197,12 +197,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
 
 
 
-            //////////////////////////////////////////    NEW
-            /// ////////////////////////////////
-            /// ////////////////////////////////
-            /// ////////////////////////////
-            
-            //var pickedSkill = await (_skillGroupsDisplay as SkillGroupsDisplay).EnableSkillPicking();
+            //////////////////////////////////////////    NEW april '26
             var pickedSkill = await (_skillsModel as SkillModel).EnableSkillPickingByGroup(tile1.SkillGroup); //not interface
             GD.Print("/////// picked SKILL ///////   ", pickedSkill);            
             if(pickedSkill.Length <= 1 || pickedSkill == SkillNames.All.None.ToString() || pickedSkill == SkillNames.All.None.ToString().ToLower()){
@@ -225,12 +220,25 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
         await _CollapseTiles();
         var bp = 123;
 
+
+
+        //////////////////////////////////////////
+        //////////////////////////////////////////
+        /// new april '26////////////////////////
+        /// ////////////////////////////////////
+        _matchGroupQueue = []; //until i can replace it with a local list ... don't need multiple groups, they can become outdated after collapse
+        matchGroupQueue = [];
+        /////////////////////////////////////////
+        /// ///////////////////////////////////////
+
+
+
         //GetTree().CreateTimer(1.5).Timeout += () => { //booooo! Also I can't have these running in parallel
             _ = _FillUpEmptyCells(_spawnWeights, _spawnTiles);   
 
             Debugging.PrintStackedGridInitials(Tiles.GetGridAs2DList(), 2, 2, "-----AFTER COLLAPSE ---------:");
             bp = 123;
-            if(matchGroupQueue.Count > 0){ //I dequeue on every match that's found
+            if(matchGroupQueue.Count > 0){ //I dequeue on every match that's found ---- april '26, won't be storing multiple match groups, they can become outdated after the grid collapses 
                 GD.Print("__more groups in queue");
                 //GetTree().CreateTimer(1).Timeout += () => { //I really need to stop doing this
                     (_tileContainer as Viewable).UpdatePositions(Tiles); //<<<<
@@ -238,13 +246,13 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
                 //};
             }else{
                 _CheckNewMatchesAndProcess(Tiles); //New <<<<<<<<<<<<<<<<<<<
-                if(matchGroupQueue.Count > 0){ //this doesn't make much sense but it kind of does...
+                if(_matchGroupQueue.Count > 0){ //this doesn't make much sense but it kind of does...
                     GD.Print("__new queue from new matches. 1st in queue:");
-                    GD.Print((Tiles.GetItem(matchGroupQueue.Peek().ElementAt(0)) as Tile).Type.ToString());
-                    GD.Print(matchGroupQueue.Peek().Select(cell => $"<{cell.X} , {cell.Y}>").ToArray());
+                    GD.Print((Tiles.GetItem(_matchGroupQueue.Peek().ElementAt(0)) as Tile).Type.ToString());
+                    GD.Print(_matchGroupQueue.Peek().Select(cell => $"<{cell.X} , {cell.Y}>").ToArray());
                     //GetTree().CreateTimer(1).Timeout += () => { 
                         (_tileContainer as Viewable).UpdatePositions(Tiles); //<<<<
-                        await _ActivateMatchedTilesAndCollapseGrid(matchGroupQueue);  
+                        await _ActivateMatchedTilesAndCollapseGrid(_matchGroupQueue);  
                     //};
                 }            
             }                      
@@ -461,6 +469,11 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
         } 
         return matchGroups;    
     }  
+
+
+    // private List<Vector2I> _FindSingleMatchingGroupNorthWest(Grid<Control> grid){
+        
+    // }
 
 
     private /* void */ async Task _CollapseTiles(){ //will only fall downward. Can pass through solids.
