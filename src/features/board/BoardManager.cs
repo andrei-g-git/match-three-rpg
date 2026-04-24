@@ -147,16 +147,16 @@ public partial class BoardManager : PanelContainer
 			(player as Player.Manager).InitializeHud();
 
 
-			var skillGroups = _loadedGame.Player.SkillGroups; 
+			// var skillGroups = _loadedGame.Player.SkillGroups; 
 			var skillsModel =  _playerSkillsModel as ManageableSkills;
 			(player as Player.Manager).SkillsModel = skillsModel;
 
-			skillsModel.Melee = skillGroups.Where(group => (group as GroupableSkills).Group == SkillNames.SkillGroups.Melee.ToString()).ElementAt(0);
-			skillsModel.Ranged = skillGroups.Where(group => (group as GroupableSkills).Group == SkillNames.SkillGroups.Ranged.ToString()).ElementAt(0);
-			skillsModel.Defensive = skillGroups.Where(group => (group as GroupableSkills).Group == SkillNames.SkillGroups.Defensive.ToString()).ElementAt(0);
-			skillsModel.Tech = skillGroups.Where(group => (group as GroupableSkills).Group == SkillNames.SkillGroups.Tech.ToString()).ElementAt(0);
+			// skillsModel.Melee = skillGroups.Where(group => (group as GroupableSkills).Group == SkillNames.SkillGroups.Melee.ToString()).ElementAt(0);
+			// skillsModel.Ranged = skillGroups.Where(group => (group as GroupableSkills).Group == SkillNames.SkillGroups.Ranged.ToString()).ElementAt(0);
+			// skillsModel.Defensive = skillGroups.Where(group => (group as GroupableSkills).Group == SkillNames.SkillGroups.Defensive.ToString()).ElementAt(0);
+			// skillsModel.Tech = skillGroups.Where(group => (group as GroupableSkills).Group == SkillNames.SkillGroups.Tech.ToString()).ElementAt(0);
 
-			(skillsModel as Modelable).Notify();
+			// (skillsModel as Modelable).Notify();
 
 			//EQUIPMENT
 			var loadedGear = _loadedGame.Player.Equipment;

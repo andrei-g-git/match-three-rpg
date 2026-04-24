@@ -3,7 +3,7 @@ using Godot;
 using Skills;
 using System;
 
-public partial class PlayerSkillsModel : Node, ManageableSkills, Modelable, SkillMaking
+public partial class PlayerSkillsModel : Node, ManageableSkills, Modelable, SkillMaking /// not using anymore
 {
 	[Export] Node _skillFactory;
 	public GroupableSkills Melee{get;set;}
