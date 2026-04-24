@@ -4,6 +4,7 @@ using Common;
 using Godot;
 using Skills;
 using System;
+using System.Threading.Tasks;
 using Tiles;
 
 public partial class SkillSlot : Control, Skillful, AccessableBoard, DelayableSkill
@@ -27,9 +28,11 @@ public partial class SkillSlot : Control, Skillful, AccessableBoard, DelayableSk
 	public Node Board{get; set;}
 
 
-	public void ActivateDelayedSkill(){
+	public async Task ActivateDelayedSkill(){
 		if(_skill is DelayableSkill delayableSkill){
-			delayableSkill.ActivateDelayedSkill();
+			await delayableSkill.ActivateDelayedSkill();
+
+			Skill = null; /////////////////////
 		}
 	}
 

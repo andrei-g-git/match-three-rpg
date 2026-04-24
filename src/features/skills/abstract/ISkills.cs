@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Godot;
 using static Skills.SkillNames;
 
@@ -69,7 +70,7 @@ public interface Skillful{
 }
 
 public interface DelayableSkill{
-    public void ActivateDelayedSkill();
+    public Task ActivateDelayedSkill();
 }
 
 public interface Skill{
