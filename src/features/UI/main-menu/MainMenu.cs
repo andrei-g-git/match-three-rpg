@@ -78,7 +78,7 @@ public partial class MainMenu : Control, WithSceneManager
 					Constitution = 10, 
 					Intelligence = 5
 				},
-				Health = PlayerDerivedStats.GetMaxHealth(10),
+				Health = PlayerDerivedStats.GetMaxHealth(10) + 999,
 				Energy = PlayerDerivedStats.GetMaxEnergy(5) - 3, //test
 				Energies = new Energies{
 					MaxFireEnergy = PlayerEnergy.CalculateInitialMaxEnergy(10),	

@@ -62,6 +62,14 @@ public partial class Turns : Node, Sequential, Initializable, /* AccessableBoard
 	}
 
 	private void UpdateActors(){ //DRY
+		var possibleNewActors = Tiles.FindAllItemsOfType(typeof(Agentive));
+		foreach(var newActor in possibleNewActors){
+			if(!_actors.Contains(newActor)){
+				_actors.Add(newActor);
+				_turnQueue.Enqueue(newActor); /// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+			}
+		}
+
 		foreach(var actor in _actors){
 			var cell = Tiles.GetCellFor(actor);
 			if(cell.X < 0 || cell.Y < 0){
@@ -94,6 +102,9 @@ public partial class Turns : Node, Sequential, Initializable, /* AccessableBoard
 
 		_actors.RemoveAll(actor => 
 			(actor as DerivableStats)?.Speed == 0 || 
-			(actor as WithSpeed)?.Speed == 0);			
+			(actor as WithSpeed)?.Speed == 0);	
+
+		//check if any actor is new this turn i.e. if it wasn't yet placed in the turn queue yet -- although this method would then always have to run before enqueueing
+		//not yet -- I SHOULD DO THIS EVERY ROUND -- don't have rounds yet though
 	}
 }

@@ -33,7 +33,11 @@ public partial class Pathfinding : Control, Pathfindable /* they can't all be go
 
 	private bool _CheckIfNavigable(Vector2I cell){
 		var tileData = ((TileMapLayer) Map).GetCellTileData(cell);
-		return (bool) tileData.GetCustomData("navigable");
+		//new as of april '26
+		var isNavigable = (bool) tileData.GetCustomData("navigable");
+		var isSwapable = _CheckIfSwapable(cell);
+		//  /
+		return isNavigable/*  && isSwapable */; //won't be enough once I add more kinds of tiles
 	}
 
 	private bool _CheckIfSwapable(Vector2I cell){
