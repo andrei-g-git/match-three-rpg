@@ -89,7 +89,7 @@ namespace Defensive{
 
         public void PrepDestroy() //great...
         {
-            throw new System.NotImplementedException();
+            (_removing as Removable).PrepDestroy();
         }
 
         public void Remove()

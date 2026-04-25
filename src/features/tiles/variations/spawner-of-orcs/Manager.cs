@@ -1,25 +1,28 @@
 using Board;
 using Godot;
+using Stats;
 using System;
 using System.Threading.Tasks;
 using Tiles;
 
 namespace SpawnerOfOrcs;
-public partial class Manager : Control, Tile, Permeable, Agentive, TurnBased, CanSpawn, AccessableBoard
+public partial class Manager : Control, Tile, Permeable, Agentive, TurnBased, CanSpawn, AccessableBoard, WithSpeed
 {
 	[ExportGroup("behaviors")]
 	[Export] private Node _spawner;
 	[Export] private Node _turn;
 
-	public TileTypes Type => TileTypes.Cart;
+	public TileTypes Type => TileTypes.SpawnerOfOrcs;
 	public TileTypes AA => Type; //for debugging
-    public Sequential TurnQueue { private get; set; }
+    public Sequential TurnQueue { private get; set; } //i don't need this
 	public Node Board {
 		set {
 			(_spawner as AccessableBoard).Board = value;
 	}}
 
-	private int _turnsPassed = 0;
+    public int Speed { get; set; } = 1; //should get rid of this or at least change it to initiative
+
+    private int _turnsPassed = 0;
 
 
 	public override void _Ready(){
@@ -29,13 +32,20 @@ public partial class Manager : Control, Tile, Permeable, Agentive, TurnBased, Ca
 										
 	}
 
-    public void AdvanceTurn(){
-        TurnQueue.AdvanceTurn();
+    public void AdvanceTurn(){ //this shit should be in the spawner ---- actually it's kind of useless...
+        //TurnQueue.AdvanceTurn();
 		_turnsPassed++;
+		if((_turnsPassed % 4) == 0){
+			_ = Spawn();
+		}
     }
 
     public void BeginTurn(){
        (_turn as TurnBased).BeginTurn();
+		_turnsPassed++;
+		if((_turnsPassed % 4) == 0){
+			_ = Spawn();
+		}	   
     }
 
     public void EndTurn(){
