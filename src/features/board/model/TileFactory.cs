@@ -84,7 +84,11 @@ namespace Board{
 					//(tile as AccessableBoard).Board = _boardModel;
 					//(tile as Mapable).Map = environment as Tileable;
 					(tile as Agentive).TurnQueue = _turnQueue as Sequential;					
-					break;					
+					break;	
+				case TileTypes.SpawnerOfOrcs:
+					(tile as AccessableBoard).Board = _boardModel;
+					(tile as Agentive).TurnQueue = _turnQueue as Sequential;
+					break;									
 				// case TileTypes.Walk:
 				// 	(tile as AccessableTileContainer).TileContainer = tileContainer;
 				// 	(tile as Mapable).Map = environment as Tileable;

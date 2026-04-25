@@ -124,6 +124,8 @@ public partial class BoardModel : Node, Organizable, MatchableBoard, WithTiles, 
 		return (_tileQuery as Queriable).GetItemAt(cell);
 	}
 
+    public Vector2I GetDimensions() => (_tileQuery as Queriable).GetDimensions();
+
     public async Task MoveBySwapping(Control sourceTile, Control targetTile){
         await (_tileOrganizer as Organizable).MoveBySwapping(sourceTile,targetTile);
     }
@@ -135,4 +137,9 @@ public partial class BoardModel : Node, Organizable, MatchableBoard, WithTiles, 
     public Vector2I GetCellFor(Control tile){
         return (_tileQuery as Queriable).GetCellFor(tile);
     }
+
+    public async Task ReplaceTileWith(TileTypes tileName, Vector2I cell){
+        await (_tileOrganizer as Organizable).ReplaceTileWith(tileName, cell);
+    }
+
 }

@@ -64,4 +64,8 @@ namespace Tiles{
     public interface WithAnimatedActor{
         public Node2D AnimatedActor{set;}
     }
+
+    public interface CanSpawn{
+        public Task Spawn();
+    }
 }

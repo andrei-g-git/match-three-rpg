@@ -45,6 +45,10 @@ public partial class TileContainer : Control, Viewable
 	public void PlaceNew(Control newTile, Control oldTile, Vector2I cell){
 		newTile.Position = (environment as Tileable).CellToPosition(cell);
 		if(oldTile!= null){
+			//should call Removing.PrepDestroy and then await Removing.WaitForRemoved
+				//unless I'm doing it inside whatever calls this
+
+			RemoveChild(oldTile);
 			oldTile.QueueFree();
 		}
 		AddChild(newTile);		

@@ -101,6 +101,19 @@ public partial class TileOrganizer: Node, Organizable, WithTiles
         EmitSignal(SignalName.DoneMatching);     
     }
 
+    public async Task ReplaceTileWith(TileTypes tileName, Vector2I cell){
+        var oldPiece = Tiles.GetItem(cell);
+        var newPiece = (_tileFactory as TileMaking).Create(tileName) as Control;
+        Tiles.SetCell(newPiece,cell);
+        Debugging.PrintStackedGridInitials(Tiles.GetGridAs2DList(), 2, 2, $"\n Grid after REPLACING {(oldPiece as Tile).Type.ToString()} with {tileName.ToString()} at {cell.X}, {cell.Y}: ");
+        (_tileContainer as Viewable).PlaceNew(newPiece, oldPiece, cell);
+
+        if(oldPiece is Removable removable){
+            removable.PrepDestroy();
+            await removable.WaitForRemoved();
+        }
+    }
+
     public async Task TransferTileToTile(Control sourceTile, Control targetTile){
         var target = Tiles.GetCellFor(targetTile);
         var source = Tiles.GetCellFor(sourceTile);

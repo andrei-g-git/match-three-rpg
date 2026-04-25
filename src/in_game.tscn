@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://vv3xapj4lprc"]
+[gd_scene load_steps=66 format=3 uid="uid://vv3xapj4lprc"]
 
 [ext_resource type="Script" uid="uid://dy1o6fmi8i4pb" path="res://src/features/board/BoardManager.cs" id="1_k7s5h"]
 [ext_resource type="Script" uid="uid://cgm6rlm3gw3je" path="res://src/features/board/Environment.cs" id="3_da6o6"]
@@ -43,6 +43,7 @@
 [ext_resource type="Texture2D" uid="uid://bpyts1xl2yh0l" path="res://assets/images/tiles/shieldBash.png" id="27_crjdv"]
 [ext_resource type="Script" uid="uid://fshl3bovmk2h" path="res://src/features/skills/SkillSelection.cs" id="29_crjdv"]
 [ext_resource type="PackedScene" uid="uid://c12ujhxw7j1ol" path="res://src/features/skills/groups/melee/leap_attack.tscn" id="29_do0gj"]
+[ext_resource type="PackedScene" uid="uid://b12g8asvr5tbr" path="res://src/features/tiles/variations/spawner-of-orcs/spawner_of_orcs.tscn" id="29_idqgv"]
 [ext_resource type="PackedScene" uid="uid://bb8fffcx3elwl" path="res://src/features/skills/groups/melee/throw_pilum.tscn" id="31_6tdc7"]
 [ext_resource type="PackedScene" uid="uid://bw3tlddmrlvfk" path="res://src/features/skills/groups/melee/kick.tscn" id="32_ya4vo"]
 [ext_resource type="Script" uid="uid://cmg0gtq5dxumt" path="res://src/features/RestartLevel.cs" id="34_1dyqb"]
@@ -54,10 +55,6 @@
 [ext_resource type="Script" uid="uid://dbiuhuvgv2yuh" path="res://src/features/skills/SkillModel.cs" id="42_0k7ag"]
 [ext_resource type="PackedScene" uid="uid://dj8xcikdtyeu0" path="res://src/features/skills/element_skills_display.tscn" id="43_ej7e5"]
 [ext_resource type="Script" uid="uid://2embsxvlyi5d" path="res://src/features/skills/SkillGroupsDisplay.cs" id="43_vl5to"]
-[ext_resource type="Texture2D" uid="uid://mr26ryv7bouq" path="res://assets/images/tiles/none.png" id="53_y5bar"]
-[ext_resource type="Texture2D" uid="uid://y0wgfw4ueafm" path="res://assets/images/tiles/walk.png" id="54_hnujk"]
-[ext_resource type="Texture2D" uid="uid://cl7an5ats0b87" path="res://assets/images/tiles/sprint.png" id="55_dcf85"]
-[ext_resource type="Texture2D" uid="uid://bav5u1v5ysjot" path="res://assets/images/tiles/delayed-smash.png" id="56_d5ibo"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x10rj"]
 
@@ -345,7 +342,7 @@ _tileMapLayer = NodePath("../../Environment")
 _boardModel = NodePath("..")
 _uiEventBus = NodePath("../../../../Events/UIEventBus")
 _turnQueue = NodePath("../Turns")
-_packedTileScenes = Array[PackedScene]([ExtResource("8_2r3xs"), ExtResource("9_4s2tm"), ExtResource("10_fusuk"), ExtResource("11_25lnr"), ExtResource("12_fusuk"), ExtResource("13_25lnr"), ExtResource("14_6bwww"), ExtResource("15_x10rj"), ExtResource("19_s5hp3"), ExtResource("20_fjexy"), ExtResource("21_mmsvb")])
+_packedTileScenes = Array[PackedScene]([ExtResource("8_2r3xs"), ExtResource("9_4s2tm"), ExtResource("10_fusuk"), ExtResource("11_25lnr"), ExtResource("12_fusuk"), ExtResource("13_25lnr"), ExtResource("14_6bwww"), ExtResource("15_x10rj"), ExtResource("19_s5hp3"), ExtResource("20_fjexy"), ExtResource("21_mmsvb"), ExtResource("29_idqgv")])
 
 [node name="TileMatcher" type="Node" parent="MainContainer/PanelContainer/Model" node_paths=PackedStringArray("_tileFactory", "_tileContainer", "_environment", "_tileQuery", "_skillsModel")]
 script = ExtResource("12_4s2tm")
@@ -469,19 +466,6 @@ _elementSkillsDisplay = ExtResource("43_ej7e5")
 [node name="ElementSkillsDisplay" parent="MainContainer/ScrollContainer/Panel" node_paths=PackedStringArray("_groupName", "_skillContainer") instance=ExtResource("43_ej7e5")]
 visible = false
 layout_mode = 1
-_skillMap = Dictionary[int, Texture2D]({
-0: ExtResource("22_gtevj"),
-2: ExtResource("23_oqk24"),
-3: ExtResource("25_r27v6"),
-4: ExtResource("53_y5bar"),
-5: ExtResource("26_10pv0"),
-6: ExtResource("27_crjdv"),
-7: ExtResource("24_w8nfc"),
-8: ExtResource("37_u1yqo"),
-9: ExtResource("54_hnujk"),
-10: ExtResource("55_dcf85"),
-11: ExtResource("56_d5ibo")
-})
 _groupName = NodePath("Header2/Label")
 _skillContainer = NodePath("Skills2")
 

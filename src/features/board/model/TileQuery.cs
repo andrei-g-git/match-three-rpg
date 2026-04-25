@@ -92,5 +92,9 @@ public partial class TileQuery : Node, Queriable, Mapable, WithTiles
 			}
 		}
 		return matchingTileCells;
-	}		
+	}	
+
+	public Vector2I GetDimensions(){
+		return new Vector2I(Tiles.Width, Tiles.Height);
+	}	
 }

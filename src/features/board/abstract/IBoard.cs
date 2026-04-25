@@ -26,6 +26,7 @@ namespace Board{
 		public /* Task */ void TransferTileTo(Control tile, Vector2I target);
 		public void RelocateTile(Control tile, Vector2I target);
 		public Task MoveBySwapping(Control sourceTile, Control targetTile);
+		public Task ReplaceTileWith(TileTypes tileName, Vector2I cell);
 	}
 
 	public interface AccessableBoard{
@@ -56,6 +57,7 @@ namespace Board{
 		public Control GetItemAt(Vector2I cell);
 		public List<Vector2I> FindAllTilesOfType(TileTypes type);
 		public Vector2I GetCellFor(Control tile);
+		public Vector2I GetDimensions();
 	}
 
 	public interface Sequential{

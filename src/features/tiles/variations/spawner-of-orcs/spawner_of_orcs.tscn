@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://b12g8asvr5tbr"]
+
+[ext_resource type="Texture2D" uid="uid://bal1nae2fjorq" path="res://assets/images/tiles/new/underground-stairs.png" id="1_uk42w"]
+[ext_resource type="Script" uid="uid://p3wbak27nmk8" path="res://src/features/tiles/variations/spawner-of-orcs/Manager.cs" id="1_xhylb"]
+[ext_resource type="Script" uid="uid://chhh207fn2bh2" path="res://src/features/tiles/behaviors/Spawner.cs" id="3_daix7"]
+[ext_resource type="Script" uid="uid://b7lfifx1qdl5x" path="res://src/features/tiles/behaviors/Turn.cs" id="4_22xbk"]
+
+[node name="SpawnerOfOrcs" type="Control" node_paths=PackedStringArray("_spawner", "_turn")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xhylb")
+_spawner = NodePath("Behaviors/Spawner")
+_turn = NodePath("Behaviors/Turn")
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+layout_mode = 0
+offset_left = -32.0
+offset_top = -27.5
+offset_right = 32.0
+offset_bottom = 27.5
+pivot_offset = Vector2(32, 27.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="AspectRatioContainer"]
+position = Vector2(32, 27.5)
+texture = ExtResource("1_uk42w")
+
+[node name="Behaviors" type="Node" parent="."]
+
+[node name="Spawner" type="Node" parent="Behaviors" node_paths=PackedStringArray("_pieceRoot")]
+script = ExtResource("3_daix7")
+_pieceRoot = NodePath("../..")
+_pieceToSpawn = 14
+_whereToSpawn = 3
+
+[node name="Turn" type="Node" parent="Behaviors"]
+script = ExtResource("4_22xbk")
