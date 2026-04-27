@@ -36,6 +36,9 @@ namespace Tiles{
     public interface Agentive{
         public Sequential TurnQueue{set;}
         public void AdvanceTurn();
+
+        //debug
+        public int Index{get;set;}
     }
 
     public interface Permeable{}

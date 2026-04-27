@@ -15,6 +15,9 @@ public partial class Turns : Node, Sequential, Initializable, /* AccessableBoard
 	private Queue<Control> _turnQueue;
 	private List<Control> _actors;
 
+	//for debugging
+	private int _index = 0;
+
 
     public void Initialize(){
 		_actors = Tiles.FindAllItemsOfType(typeof(Agentive));
@@ -22,6 +25,12 @@ public partial class Turns : Node, Sequential, Initializable, /* AccessableBoard
 		_turnQueue = new Queue<Control>();
 		PopulateQueue();
 		var bp = 123;
+
+		//debug
+		foreach(var actor in _actors){
+			(actor as Agentive).Index = _index;
+			_index++;
+		}
 	}
 
 	public void AdvanceTurn(){
@@ -34,8 +43,9 @@ public partial class Turns : Node, Sequential, Initializable, /* AccessableBoard
 		// 	(actor as TurnBased).EndTurn();
 		// }
 		//
+		GD.Print((CurrentActor as Tile).Type.ToString(), "'s turn!");		
 		(CurrentActor as TurnBased).BeginTurn();
-		GD.Print((CurrentActor as Tile).Type.ToString(), "'s turn!");
+
 		var bp = 123;
 	}
 
@@ -67,6 +77,8 @@ public partial class Turns : Node, Sequential, Initializable, /* AccessableBoard
 			if(!_actors.Contains(newActor)){
 				_actors.Add(newActor);
 				_turnQueue.Enqueue(newActor); /// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+				(newActor as Agentive).Index = _index;
+				_index++;
 			}
 		}
 

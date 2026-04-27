@@ -24,6 +24,8 @@ public partial class Manager : Control, Tile, Permeable, Agentive, TurnBased, Ca
 
     private int _turnsPassed = 0;
 
+    public int Index{get;set;}
+
 
 	public override void _Ready(){
 		//(_popTweener as Creatable).Pop();

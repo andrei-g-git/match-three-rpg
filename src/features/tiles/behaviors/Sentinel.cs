@@ -25,13 +25,14 @@ public partial class Sentinel : Node, Vigilance, Mapable, AccessableBoard//, Wit
 		// var ownCoordinates = Tiles.GetCellFor(_tileRoot); //I have no idea why but Tiles changes it's contents by the time the code gets here (it's fine when I set Tiles, but not by this breakpoint)
 		// 	//it's filled with Variation.Manager instances as opposed to <Control34546> type instances
         // var watchedCells = Map.GetCellsInRadius(ownCoordinates, _watchRadius);
+		GD.Print($"{_tileRoot.Name} with index {(_tileRoot as Agentive).Index} is scouting");
 		var watchedCells = (Board as Queriable).GetCellsInRadiusAroundTileNode(_watchRadius, _tileRoot);
 		foreach(var cell in watchedCells){
 			//var tileNode = Tiles.GetItem(cell.X, cell.Y);
 			var tileNode = (Board as Queriable).GetItemAt(cell);
 			if(tileNode is Playable player){
+				GD.Print($"{_tileRoot.Name} with index {(_tileRoot as Agentive).Index} found player at   ", cell);				
 				EmitSignal(SignalName.FoundPlayer, cell);
-				GD.Print("found player at   ", cell);
 			}
 		}
     }

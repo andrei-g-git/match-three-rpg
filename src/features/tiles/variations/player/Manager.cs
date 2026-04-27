@@ -137,6 +137,8 @@ namespace Player{
             UIEventBus.Publish(Events.WaterChanged, [_en.WaterEnergy, _en.MaxWaterEnergy]);  
         }}
 
+        public int Index{get;set;}
+
 
 
         [Signal] public delegate void FinishedTransferingEventHandler(); //rn the skill calls these directly

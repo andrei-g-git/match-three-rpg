@@ -11,16 +11,14 @@ public partial class Engagement : Node, Engageable, AccessableBoard
 	public Node Board{private get;set;}
 	//[Signal] public delegate void AttackingEventHandler(Control targetNode);
 
+	//TODO: should check that engaging and this nodes are not the same type, since enemies can otherwise attack eachother if they find themselves adjacent and the pathfinding is buggy
 	public void ProcessEngagementBy(Control engagingNode){ 
-		//if(engagingNode is Playable player){ //guess I won't be using this component on the player tile then
-			//(player as Offensive).Attack(_tileRoot);
 		if(engagingNode is Agentive actor){
 			if(actor is Disposition disposition && disposition.IsEnemy && disposition.IsAggressive){
-				//EmitSignal(SignalName.Attacking, engagingNode); //no, the node engaging this node is attacking
 
-
+				GD.Print($"{engagingNode.Name} with index {(engagingNode as Agentive).Index} will attack {_tileRoot.Name} with index {(_tileRoot as Agentive).Index}");
 				(engagingNode as Offensive).Attack(_tileRoot);
-				//(engagingNode as Engageable).EngageTarget(_tileRoot);
+				var bp = 234;
 			}
 		}else if(engagingNode is Swappable){
 			(Board as Organizable).MoveBySwapping(_tileRoot, engagingNode);

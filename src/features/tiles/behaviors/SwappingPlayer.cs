@@ -27,7 +27,7 @@ public partial class SwappingPlayer : Node, Swappable, AccessableBoard
                         emit signal Matched
                      */
                 }else{
-                    GD.Print("can't match");
+                    //GD.Print("can't match");
                     /* 
                         emnit signal EngagingDirectly ---> need Engage behavior
                      */

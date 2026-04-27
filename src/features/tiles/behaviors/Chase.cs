@@ -1,3 +1,4 @@
+using System.Linq;
 using Board;
 using Common;
 using Godot;
@@ -15,9 +16,9 @@ public partial class Chase : Node, Pursuing, Mapable, /* WithTiles */AccessableB
 
 
 	public void ChaseActor(Vector2I cell){
-		GD.Print("Chasing actor at cell:  ", cell);
+		//GD.Print("Chasing actor at cell:  ", cell);
 		var shortestPath = (_pathfinding as Pathfindable).FindPath(cell);
-		GD.Print("shortest path   \n", shortestPath);
+		GD.Print("shortest path %%%   \n", string.Join("", shortestPath.Select(cell => $"{cell.X}, {cell.Y} |")));
 		if(shortestPath[1] != cell && shortestPath.Count >= 3){ //otherwise it already reached the actor since index[0] is own self and index[-1] is actor
 			var ownCoordinates = Map.PositionToCell(_tileRoot.Position);
 			var hasReachedActor = Hex.CheckIfNeighbor(ownCoordinates, cell);

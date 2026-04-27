@@ -5,7 +5,6 @@
 [ext_resource type="Script" uid="uid://cgqks0ui8medu" path="res://src/features/UI/SpriteStatusBar.cs" id="4_64ngi"]
 [ext_resource type="Script" uid="uid://ci3qi6w5dumc2" path="res://src/features/board/TileContainer.cs" id="4_dw1vl"]
 [ext_resource type="Texture2D" uid="uid://bu6shmemeiij1" path="res://assets/images/ui/fire.png" id="4_r4pbt"]
-[ext_resource type="Texture2D" uid="uid://bhrgljbqv1p6a" path="res://assets/images/tiles/new/tile_sheet_128px_by_128px.png" id="5_1dyqb"]
 [ext_resource type="Shader" uid="uid://dill2bvqn4r14" path="res://src/shaders/energy_progress_bar.gdshader" id="5_4syyy"]
 [ext_resource type="Script" uid="uid://dnwr07sluq5la" path="res://src/NoticeDelete.cs" id="5_ai8ke"]
 [ext_resource type="Script" uid="uid://dqkgqnxmg0ulc" path="res://src/features/board/model/BoardModel.cs" id="5_qxmgw"]
@@ -20,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://vdi33w6fmyfe" path="res://src/features/tiles/variations/tech/tech.tscn" id="11_25lnr"]
 [ext_resource type="Script" uid="uid://bdnle4kn0dce5" path="res://src/features/board/model/TileMatcher.cs" id="12_4s2tm"]
 [ext_resource type="PackedScene" uid="uid://dn6stm1p41x01" path="res://src/features/tiles/variations/blank/blank.tscn" id="12_fusuk"]
+[ext_resource type="Texture2D" uid="uid://beun1hgyg5q78" path="res://assets/images/tiles/new/tile-sheet-220px.png" id="12_idqgv"]
 [ext_resource type="PackedScene" uid="uid://cjtuswk80if5y" path="res://src/features/tiles/variations/cart/cart.tscn" id="13_25lnr"]
 [ext_resource type="PackedScene" uid="uid://fo5qk4kae7aq" path="res://src/features/tiles/variations/background/background.tscn" id="14_6bwww"]
 [ext_resource type="PackedScene" uid="uid://neacnhoii1ja" path="res://src/features/tiles/variations/player/player.tscn" id="15_x10rj"]
@@ -85,48 +85,50 @@ shader_parameter/filled_b = 1.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8ggik"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mmsvb"]
-texture = ExtResource("5_1dyqb")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7ls1f"]
+texture = ExtResource("12_idqgv")
 texture_region_size = Vector2i(64, 55)
 0:0/0 = 0
-0:0/0/custom_data_0 = &"grass"
-0:0/0/custom_data_1 = true
-0:1/0 = 0
-0:1/0/custom_data_0 = &"water_1"
+0:0/0/custom_data_0 = &"brush"
 1:0/0 = 0
 1:0/0/custom_data_0 = &"boulder"
 2:0/0 = 0
-2:0/0/custom_data_0 = &"tree_lower"
+2:0/0/custom_data_0 = &"grass"
+2:0/0/custom_data_1 = true
 3:0/0 = 0
-3:0/0/custom_data_0 = &"tree_upper"
+3:0/0/custom_data_0 = &"grass__keepoff"
 4:0/0 = 0
-4:0/0/custom_data_0 = &"brush"
-4:1/0 = 0
-4:1/0/custom_data_0 = &"water_5"
-3:1/0 = 0
-3:1/0/custom_data_0 = &"water_4"
+4:0/0/custom_data_0 = &"tree_lower"
+0:1/0 = 0
+0:1/0/custom_data_0 = &"tree_upper"
 1:1/0 = 0
-1:1/0/custom_data_0 = &"water_2"
+1:1/0/custom_data_0 = &"water_1"
 2:1/0 = 0
-2:1/0/custom_data_0 = &"water_3"
+2:1/0/custom_data_0 = &"water_2"
+3:1/0 = 0
+3:1/0/custom_data_0 = &"water_3"
+4:1/0 = 0
+4:1/0/custom_data_0 = &"water_4"
 0:2/0 = 0
-0:2/0/custom_data_0 = &"water_6"
+0:2/0/custom_data_0 = &"water_5"
 1:2/0 = 0
-1:2/0/custom_data_0 = &"water_7"
+1:2/0/custom_data_0 = &"water_6"
 2:2/0 = 0
-2:2/0/custom_data_0 = &"water_8"
+2:2/0/custom_data_0 = &"water_7"
 3:2/0 = 0
-3:2/0/custom_data_0 = &"water_9"
+3:2/0/custom_data_0 = &"water_8"
 4:2/0 = 0
-4:2/0/custom_data_0 = &"water_10"
-3:3/0 = 0
-3:3/0/custom_data_0 = &"water_20"
-2:3/0 = 0
-2:3/0/custom_data_0 = &"water_13"
-1:3/0 = 0
-1:3/0/custom_data_0 = &"water_12"
+4:2/0/custom_data_0 = &"water_9"
 0:3/0 = 0
-0:3/0/custom_data_0 = &"water_11"
+0:3/0/custom_data_0 = &"water_10"
+1:3/0 = 0
+1:3/0/custom_data_0 = &"water_11"
+2:3/0 = 0
+2:3/0/custom_data_0 = &"water_12"
+3:3/0 = 0
+3:3/0/custom_data_0 = &"water_13"
+4:3/0 = 0
+4:3/0/custom_data_0 = &"water_20"
 
 [sub_resource type="TileSet" id="TileSet_bs6l1"]
 tile_shape = 3
@@ -136,7 +138,7 @@ custom_data_layer_0/name = "name"
 custom_data_layer_0/type = 21
 custom_data_layer_1/name = "navigable"
 custom_data_layer_1/type = 1
-sources/0 = SubResource("TileSetAtlasSource_mmsvb")
+sources/0 = SubResource("TileSetAtlasSource_7ls1f")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4syyy"]
 bg_color = Color(0, 0.7019608, 0.6666667, 1)

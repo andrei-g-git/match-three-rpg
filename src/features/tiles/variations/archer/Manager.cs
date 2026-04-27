@@ -34,6 +34,8 @@ namespace Archer{
         public bool IsEnemy { get => (_hostility as Disposition).IsAggressive; set => (_hostility as Disposition).IsAggressive = value; }		
         public Sequential TurnQueue{private get; set;}	
 
+        public int Index{get;set;}
+
         public override void _Ready(){
             (_popTweener as Creatable).Pop();
 

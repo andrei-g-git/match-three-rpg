@@ -125,8 +125,9 @@ _defend = NodePath("../Defender")
 [node name="Astar" type="Node" parent="Behaviors"]
 script = ExtResource("10_kfo3p")
 
-[node name="AI" type="Node" parent="Behaviors"]
+[node name="AI" type="Node" parent="Behaviors" node_paths=PackedStringArray("_pieceRoot")]
 script = ExtResource("10_qo0sn")
+_pieceRoot = NodePath("../..")
 
 [node name="Sentinel" type="Node" parent="Behaviors/AI" node_paths=PackedStringArray("_tileRoot")]
 script = ExtResource("11_qjawe")
@@ -201,4 +202,5 @@ _delay = 1.0
 [connection signal="CaughtTarget" from="Behaviors/AI/Chase" to="Behaviors/Offense" method="Attack"]
 [connection signal="TrySwapping" from="Behaviors/AI/Chase" to="Behaviors/Swapping" method="SwapWith"]
 [connection signal="RequestedTurnStart" from="Behaviors/AI/Turn" to="Behaviors/AI" method="Resume"]
+[connection signal="FinishesedAttacking" from="Tweeners/SpringForthAndBack" to="." method="EndTurn"]
 [connection signal="FinishedFading" from="Tweeners/ScaleUpFade" to="Behaviors/Removing" method="Remove"]

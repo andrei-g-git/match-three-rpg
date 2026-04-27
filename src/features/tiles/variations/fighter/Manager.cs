@@ -65,6 +65,8 @@ namespace Fighter{
                 _board = value;
         }}
 
+        public int Index{get;set;}
+
 
         public override void _Ready(){
             (_popTweener as Creatable).Pop();

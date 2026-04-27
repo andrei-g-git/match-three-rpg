@@ -21,6 +21,9 @@ public partial class OffenseForMeleeEnemy: Node, Offensive
                 var damage = (_stats as WithDamage).Damage;
                 (target as Defensible).TakeDamage(damage);  
                 //assume target is adjacent
+
+//{target.Name} with index {(target as Agentive).Index} is
+                GD.Print($" ATTACKING {target.Name} with index {(target as Agentive).Index}");
                 EmitSignal(SignalName.Attacked, target);      
             }
         }         

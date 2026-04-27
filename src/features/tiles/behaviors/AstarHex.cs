@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using Godot;
 
-public partial class AstarHex: Node
+public partial class AstarHex: Node //should have an interface for this
 {
     public List<Vector2I> _path = [];
-    public AStar2D _astar;
+    public AStar2D _astar; //public?...
 
     public override void _Ready(){
-        _astar = new AStar2D();
+        _astar = new AStar2D(); //I could just extend this...
     }
 
     public void AddHexPoint(Vector2I cell){
@@ -18,7 +18,7 @@ public partial class AstarHex: Node
 
 
     public void ConnectHexPoint(Vector2I cell){
-        var x = cell.X;
+        var x = cell.X; //?
         var y = cell.Y; 
 
         ConnectOnePoint(cell, Hex.FindTop(cell));
@@ -49,5 +49,15 @@ public partial class AstarHex: Node
             vectorIntegerPath.Add((Vector2I) cell);
         }
         return vectorIntegerPath;
-    }        
+    }   
+
+    public void Clear(){
+        _astar.Clear();
+        _path = [];
+    }
+
+    public int GetPointCount() //for debug
+    {
+        return (int) _astar.GetPointCount();
+    }     
 }
