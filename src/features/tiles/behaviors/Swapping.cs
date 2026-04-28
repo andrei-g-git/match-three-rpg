@@ -33,13 +33,14 @@ public partial class Swapping : Node, Swappable, AccessableBoard
         }            
     }
 
-    //TODO: this should just be in the Pushed behavior
+    //TODO: this should just be in the Pushed behavior? if I can't fully take advantage of the async stuff, which I won't because it's called by a signal, then I should move it there
     public async void SwapInvoluntarilyTo(Vector2I toCell, float movementForce){
         var pieceToSwap = (Board as Queriable).GetItemAt(toCell);
         var cell = (Board as Queriable).GetCellFor(_tileRoot as Control);
 
         if(pieceToSwap is Swappable swappablePiece){
-            _ = (Board as Organizable).MoveBySwapping(_tileRoot as Control, pieceToSwap);
+            /* _ =  */await (Board as Organizable).MoveBySwapping(_tileRoot as Control, pieceToSwap);
+            await (Board as MatchableBoard).MatchWithoutSwapping();
         }else{
             //TODO:
             // if(pieceToSwap is Destroyable){

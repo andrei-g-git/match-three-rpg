@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://dsidhaqh5c5wy"]
+
+[ext_resource type="Script" uid="uid://e8nkv5ttl1ts" path="res://src/features/TestAspectRatioContainerGizmo.cs" id="1_lbnj2"]
+[ext_resource type="Texture2D" uid="uid://bsumf0y23gf1a" path="res://assets/images/tiles/new/solid-prop.png" id="2_exgpo"]
+
+[node name="SolidProp" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+layout_mode = 0
+offset_left = -32.0
+offset_top = -27.0
+offset_right = 32.0
+offset_bottom = 28.0
+pivot_offset = Vector2(32, 27.5)
+script = ExtResource("1_lbnj2")
+
+[node name="Sprite2D" type="Sprite2D" parent="AspectRatioContainer"]
+position = Vector2(32, 27.5)
+texture = ExtResource("2_exgpo")

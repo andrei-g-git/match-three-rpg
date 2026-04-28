@@ -196,7 +196,6 @@ _delay = 1.0
 [connection signal="TookDamage" from="Behaviors/Defender" to="Tweeners/Recoil" method="Recoil"]
 [connection signal="TookDamage" from="Behaviors/Defender" to="Tweeners/FlashWhite" method="FlashOnce"]
 [connection signal="Attacked" from="Behaviors/Offense" to="Tweeners/SpringForthAndBack" method="Attack"]
-[connection signal="GotShoved" from="Behaviors/Pushed" to="Behaviors/Swapping" method="SwapInvoluntarilyTo"]
 [connection signal="StartedSearching" from="Behaviors/AI" to="Behaviors/AI/Sentinel" method="StandWatch"]
 [connection signal="FoundPlayer" from="Behaviors/AI/Sentinel" to="Behaviors/AI/Chase" method="ChaseActor"]
 [connection signal="CaughtTarget" from="Behaviors/AI/Chase" to="Behaviors/Offense" method="Attack"]

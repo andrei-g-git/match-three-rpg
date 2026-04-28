@@ -56,7 +56,7 @@ GD.Print("kicked");
 
 				var strength = (TileRoot as Attributive).Strength;	
 
-				(actor as Pushable).GetPushed(nextCellAtEnd, strength);	
+				await (actor as Pushable).GetPushed(nextCellAtEnd, strength);	
 			}
 		}
 

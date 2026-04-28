@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=3 uid="uid://vv3xapj4lprc"]
+[gd_scene load_steps=68 format=3 uid="uid://vv3xapj4lprc"]
 
 [ext_resource type="Script" uid="uid://dy1o6fmi8i4pb" path="res://src/features/board/BoardManager.cs" id="1_k7s5h"]
 [ext_resource type="Script" uid="uid://cgm6rlm3gw3je" path="res://src/features/board/Environment.cs" id="3_da6o6"]
@@ -44,7 +44,9 @@
 [ext_resource type="Script" uid="uid://fshl3bovmk2h" path="res://src/features/skills/SkillSelection.cs" id="29_crjdv"]
 [ext_resource type="PackedScene" uid="uid://c12ujhxw7j1ol" path="res://src/features/skills/groups/melee/leap_attack.tscn" id="29_do0gj"]
 [ext_resource type="PackedScene" uid="uid://b12g8asvr5tbr" path="res://src/features/tiles/variations/spawner-of-orcs/spawner_of_orcs.tscn" id="29_idqgv"]
+[ext_resource type="PackedScene" uid="uid://d32kp0glnbd4b" path="res://src/features/tiles/variations/hole/hole.tscn" id="30_bsf6l"]
 [ext_resource type="PackedScene" uid="uid://bb8fffcx3elwl" path="res://src/features/skills/groups/melee/throw_pilum.tscn" id="31_6tdc7"]
+[ext_resource type="PackedScene" uid="uid://dsidhaqh5c5wy" path="res://src/features/tiles/variations/solid-prop/solid_prop.tscn" id="31_y5bar"]
 [ext_resource type="PackedScene" uid="uid://bw3tlddmrlvfk" path="res://src/features/skills/groups/melee/kick.tscn" id="32_ya4vo"]
 [ext_resource type="Script" uid="uid://cmg0gtq5dxumt" path="res://src/features/RestartLevel.cs" id="34_1dyqb"]
 [ext_resource type="Texture2D" uid="uid://dvhenkqd7nu65" path="res://assets/images/tiles/kick.png" id="37_u1yqo"]
@@ -344,7 +346,7 @@ _tileMapLayer = NodePath("../../Environment")
 _boardModel = NodePath("..")
 _uiEventBus = NodePath("../../../../Events/UIEventBus")
 _turnQueue = NodePath("../Turns")
-_packedTileScenes = Array[PackedScene]([ExtResource("8_2r3xs"), ExtResource("9_4s2tm"), ExtResource("10_fusuk"), ExtResource("11_25lnr"), ExtResource("12_fusuk"), ExtResource("13_25lnr"), ExtResource("14_6bwww"), ExtResource("15_x10rj"), ExtResource("19_s5hp3"), ExtResource("20_fjexy"), ExtResource("21_mmsvb"), ExtResource("29_idqgv")])
+_packedTileScenes = Array[PackedScene]([ExtResource("8_2r3xs"), ExtResource("9_4s2tm"), ExtResource("10_fusuk"), ExtResource("11_25lnr"), ExtResource("12_fusuk"), ExtResource("13_25lnr"), ExtResource("14_6bwww"), ExtResource("15_x10rj"), ExtResource("19_s5hp3"), ExtResource("20_fjexy"), ExtResource("21_mmsvb"), ExtResource("29_idqgv"), ExtResource("30_bsf6l"), ExtResource("31_y5bar")])
 
 [node name="TileMatcher" type="Node" parent="MainContainer/PanelContainer/Model" node_paths=PackedStringArray("_tileFactory", "_tileContainer", "_environment", "_tileQuery", "_skillsModel")]
 script = ExtResource("12_4s2tm")

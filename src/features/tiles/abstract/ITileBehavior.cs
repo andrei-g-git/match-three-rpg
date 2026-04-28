@@ -49,7 +49,7 @@ namespace Tiles{
     }
 
     public interface Engageable{
-        public void ProcessEngagementBy(Control engagingActor);
+        public void /* Task */ ProcessEngagementBy(Control engagingActor);
         //public void EngageTarget(Control target); //don't need this yet
     }
 
@@ -93,8 +93,8 @@ namespace Tiles{
     }  
 
     public interface Pushable{
-        public void GetPushed(Vector2I toCell, int enemyStrength);
-        public void InteractWithObstacle(Vector2I atCell, float movementForce);
+        public /* void */ Task GetPushed(Vector2I toCell, int enemyStrength);
+        public void InteractWithObstacle(Vector2I atCell, float movementForce); //probably shouldn't be here
     }   
 
     // public interface DelayableSkill{

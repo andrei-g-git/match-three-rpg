@@ -62,6 +62,7 @@ namespace Fighter{
                 (_pathfinding as AccessableBoard).Board = value;
                 (_swapping as AccessableBoard).Board = value;
                 (_engagement as AccessableBoard).Board = value;
+                (_pushed as AccessableBoard).Board = value;
                 _board = value;
         }}
 
@@ -134,8 +135,8 @@ namespace Fighter{
             (_board as Organizable).RemoveTile(this);
         }
 
-        public void GetPushed(Vector2I toCell, int enemyStrength){
-            (_pushed as Pushable).GetPushed(toCell, enemyStrength);
+        public /* void */ async Task GetPushed(Vector2I toCell, int enemyStrength){
+            await (_pushed as Pushable).GetPushed(toCell, enemyStrength);
         }
 
         public void InteractWithObstacle(Vector2I atCell, float movementForce)

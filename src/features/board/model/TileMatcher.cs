@@ -366,8 +366,11 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
             var c2 = line[a+1];
             var c3 = line[a+2];	
 
+            //var firstPiece = 
+
             if(
-                (grid.GetItem(c1.X, c1.Y) as Tile).Type != TileTypes.Blank && //don't think I need this first one
+                //(grid.GetItem(c1.X, c1.Y) as Tile).Type != TileTypes.Blank && //don't think I need this first one
+                grid.GetItem(c1.X, c1.Y) is not Empty &&
                 grid.GetItem(c1.X, c1.Y) is Matchable &&
                 (grid.GetItem(c1.X, c1.Y) as Tile).Type  == (grid.GetItem(c2.X, c2.Y) as Tile).Type && 
                 (grid.GetItem(c2.X, c2.Y) as Tile).Type == (grid.GetItem(c3.X, c3.Y) as Tile).Type 

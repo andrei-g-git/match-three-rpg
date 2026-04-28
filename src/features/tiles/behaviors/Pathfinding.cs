@@ -32,14 +32,12 @@ public partial class Pathfinding : Control, Pathfindable /* they can't all be go
 				eligibleCellsDebug.Add(cell);			
 			}
 		}	
-		GD.Print($"there are now {(_astar as AstarHex).GetPointCount()} point connections");
-		GD.Print("&&&&&&& debug eligible cells ^^^^^^^^^^^^^^^^^^^^^  \n :  ", string.Join("", eligibleCellsDebug.Select(cell => $"|{cell.X},{cell.Y}")));
-		//
+		//GD.Print($"there are now {(_astar as AstarHex).GetPointCount()} point connections");
+		//GD.Print("&&&&&&& debug eligible cells ^^^^^^^^^^^^^^^^^^^^^  \n :  ", string.Join("", eligibleCellsDebug.Select(cell => $"|{cell.X},{cell.Y}")));
+
 		var path = (_astar as AstarHex).GetPath(source, target);
-		//GD.Print("PATH %%%%% :  ", string.Join("", path.Select(cell => $"{cell.X}, {cell.Y} |")));
-		//
 		var bp = 1123;
-		//
+
 		(_astar as AstarHex).Clear(); //otherwise it keeps the points that were only previously walkable, even though that might have changed with actors switching positions
 
 		return path;

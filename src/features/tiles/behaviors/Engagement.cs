@@ -1,6 +1,7 @@
 using Board;
 using Godot;
 using System;
+using System.Threading.Tasks;
 using Tiles;
 
 public partial class Engagement : Node, Engageable, AccessableBoard
@@ -12,7 +13,7 @@ public partial class Engagement : Node, Engageable, AccessableBoard
 	//[Signal] public delegate void AttackingEventHandler(Control targetNode);
 
 	//TODO: should check that engaging and this nodes are not the same type, since enemies can otherwise attack eachother if they find themselves adjacent and the pathfinding is buggy
-	public void ProcessEngagementBy(Control engagingNode){ 
+	public /* async Task */ void ProcessEngagementBy(Control engagingNode){ //handled by signal, can't be called asynchronously
 		if(engagingNode is Agentive actor){
 			if(actor is Disposition disposition && disposition.IsEnemy && disposition.IsAggressive){
 
@@ -21,17 +22,19 @@ public partial class Engagement : Node, Engageable, AccessableBoard
 				var bp = 234;
 			}
 		}else if(engagingNode is Swappable){
-			(Board as Organizable).MoveBySwapping(_tileRoot, engagingNode);
+			/* await  */_ = (Board as Organizable).MoveBySwapping(_tileRoot, engagingNode);
 		}
 	}
 
-	// public void EngageTarget(Control target){
-	// 	//should change this stuff
-	// 	if(target is Playable player){
-	// 		(_offense as Offensive).Attack(target);
-	// 	}
-	// 	else{
-	// 		var skill = (_skillsModel as )
-	// 	}
-	// }
+
+    // public void EngageTarget(Control target){
+    // 	//should change this stuff
+    // 	if(target is Playable player){
+    // 		(_offense as Offensive).Attack(target);
+    // 	}
+    // 	else{
+    // 		var skill = (_skillsModel as )
+    // 	}
+    // }
+
 }
