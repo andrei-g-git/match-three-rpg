@@ -1,5 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://dsidhaqh5c5wy"]
+[gd_scene load_steps=4 format=3 uid="uid://dsidhaqh5c5wy"]
 
+[ext_resource type="Script" uid="uid://baq0746kc5pi6" path="res://src/features/tiles/variations/solid-prop/Manager.cs" id="1_exgpo"]
 [ext_resource type="Script" uid="uid://e8nkv5ttl1ts" path="res://src/features/TestAspectRatioContainerGizmo.cs" id="1_lbnj2"]
 [ext_resource type="Texture2D" uid="uid://bsumf0y23gf1a" path="res://assets/images/tiles/new/solid-prop.png" id="2_exgpo"]
 
@@ -10,6 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_exgpo")
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
 layout_mode = 0

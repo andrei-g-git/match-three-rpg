@@ -17,7 +17,7 @@ public partial class Engagement : Node, Engageable, AccessableBoard
 		if(engagingNode is Agentive actor){
 			if(actor is Disposition disposition && disposition.IsEnemy && disposition.IsAggressive){
 
-				GD.Print($"{engagingNode.Name} with index {(engagingNode as Agentive).Index} will attack {_tileRoot.Name} with index {(_tileRoot as Agentive).Index}");
+				//GD.Print($"{engagingNode.Name} with index {(engagingNode as Agentive).Index} will attack {_tileRoot.Name} with index {(_tileRoot as Agentive).Index}");
 				(engagingNode as Offensive).Attack(_tileRoot);
 				var bp = 234;
 			}
