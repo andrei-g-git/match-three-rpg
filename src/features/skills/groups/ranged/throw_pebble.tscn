@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://btltfkc26c658"]
+
+[ext_resource type="Script" uid="uid://blejtrn85rsfb" path="res://src/features/skills/groups/ranged/ProjectileTween.cs" id="1_d1mba"]
+[ext_resource type="Script" uid="uid://dtfofjd65sd4f" path="res://src/features/skills/groups/ranged/ThrowPebble.cs" id="1_v24id"]
+[ext_resource type="PackedScene" uid="uid://dd3vmk48xr8ni" path="res://src/features/skills/groups/ranged/projectile.tscn" id="3_p6dm2"]
+[ext_resource type="Texture2D" uid="uid://b5cjg0fjacqii" path="res://assets/images/items/gear/Pebble.png" id="3_v24id"]
+
+[node name="ThrowPebble" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_v24id")
+
+[node name="Projectile" type="Node2D" parent="."]
+script = ExtResource("1_d1mba")
+_spriteTexture = ExtResource("3_v24id")
+_durationPerTile = 0.5
+_projectileScene = ExtResource("3_p6dm2")

@@ -33,10 +33,10 @@ namespace Melee{
             GD.Print($"position: {Position}, global: {GlobalPosition}, parent's global: {(GetParent() as Control).GlobalPosition}");
         }
 
-        public override void _Draw()
-        {
-            DrawCircle(Position, 4f, Colors.Black);
-        }
+        // public override void _Draw()
+        // {
+        //     DrawCircle(Position, 4f, Colors.Black);
+        // }
 
 
 

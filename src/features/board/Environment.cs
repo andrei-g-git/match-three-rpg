@@ -6,10 +6,10 @@ using System;
 public partial class Environment : TileMapLayer, Tileable
 {
 
-    public override void _Draw()
-    {
-        DrawCircle(Vector2.Zero, 4, Colors.Red);
-    }
+    // public override void _Draw()
+    // {
+    //     DrawCircle(Vector2.Zero, 4, Colors.Red);
+    // }
 
 	public Vector2I CellToPosition(Vector2I cell){
 		return (Vector2I) MapToLocal(cell)/*  + new Vector2I(-32, -27) */; 

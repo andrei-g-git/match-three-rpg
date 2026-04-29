@@ -46,12 +46,12 @@ namespace Defensive{
         //     (_dragAndDrop as DragAndDrop2).DropData(atPosition, data);
         // }
 
-        public override void _Draw()
-        {
-            DrawCircle(Position, 4f, Colors.Black);
+        // public override void _Draw()
+        // {
+        //     DrawCircle(Position, 4f, Colors.Black);
 
-            //(_dragAndDrop as DragAndDrop2).DrawDebugGizmo();
-        }
+        //     //(_dragAndDrop as DragAndDrop2).DrawDebugGizmo();
+        // }
 
 
         public void MoveTo(Vector2I target){

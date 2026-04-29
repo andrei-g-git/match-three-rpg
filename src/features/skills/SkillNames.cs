@@ -16,7 +16,8 @@ public class SkillNames{
 		Kick,
 		Walk,
 		Sprint,
-		DelayedSmash				
+		DelayedSmash,
+		ThrowPebble				
 	}
 
 	public enum Melee{
@@ -29,7 +30,8 @@ public class SkillNames{
 	}
 	public enum Ranged{
 		ThrowWeapon = All.ThrowWeapon,
-		Sprint = All.Sprint
+		Sprint = All.Sprint,
+		ThrowPebble = All.ThrowPebble
 	}
 	public enum Defensive{
 		ShieldBash = All.ShieldBash,

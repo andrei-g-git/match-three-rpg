@@ -88,7 +88,7 @@ public partial class MainMenu : Control, WithSceneManager
 					MaxEarthEnergy = PlayerEnergy.CalculateInitialMaxEnergy(10),	
 					EarthEnergy = 8,
 					MaxWaterEnergy = PlayerEnergy.CalculateInitialMaxEnergy(5),	
-					WaterEnergy = 0,
+					WaterEnergy = 4,
 				},
 				Speed = PlayerDerivedStats.GetSpeed(7),
 				Defense = 2
@@ -171,6 +171,17 @@ public partial class MainMenu : Control, WithSceneManager
 									Wind=4,
 									Earth=0,
 									Water=0
+								}
+							},
+							new SkillWithCount{
+								Name=SkillNames.Ranged.ThrowPebble.ToString(),
+								Uses=99,
+								Level=1,
+								EnergyRequirement = new EnergyRequirement{
+									Fire=0,
+									Wind=4,
+									Earth=0,
+									Water=4
 								}
 							},
 							new SkillWithCount{
