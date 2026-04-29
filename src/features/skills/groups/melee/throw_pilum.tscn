@@ -28,10 +28,13 @@ _skillMultiplier = 1.4
 _momentumSubdivider = 20.0
 _strengthSubdivider = 10.0
 
-[node name="Projectile" type="Node2D" parent="."]
+[node name="Projectile" type="Node2D" parent="." node_paths=PackedStringArray("_impactEffect")]
 script = ExtResource("4_ys00c")
 _spriteTexture = ExtResource("5_00bli")
 _durationPerTile = 0.5
 _projectileScene = ExtResource("6_csnnr")
+_impactEffect = NodePath("../DummySprite")
+
+[node name="DummySprite" type="AnimatedSprite2D" parent="."]
 
 [connection signal="Attacking" from="." to="Offense" method="AttackWithMomentum"]

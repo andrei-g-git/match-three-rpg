@@ -13,6 +13,7 @@ using Tiles;
 public partial class ThrowPebble : Control, Skill, WithTileRoot, AccessableBoard, Traversing, WithAnimationTree, WithAnimatedActor
 {
 	[Export] private Node2D _projectileTweener;
+	[Export] private AnimatedSprite2D _soundRipple;
 	
 	private Control _tileRoot;
 	public Control TileRoot{
@@ -64,9 +65,15 @@ public partial class ThrowPebble : Control, Skill, WithTileRoot, AccessableBoard
 				//call enemy's stunned behavior or something...
 					//it should have an effects collection each with durations. at turn start these effects are iterated and applied
 						//come to think of it perhaps delayed attacks can behave like this too? Probably not, the way I do it now is too convenient
+
+				_soundRipple.AnimationFinished += () =>{
+					GD.Print("Checking all cells in radius around landing spot")	;
+				};
+				_soundRipple.Play();
 			//}		
 		}
 	}
+
     private async Task _WaitForStateToExitAsync(string stateName, AnimationNodeStateMachinePlayback playback){
 			await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
 			await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame); //2x smells like bad practice...

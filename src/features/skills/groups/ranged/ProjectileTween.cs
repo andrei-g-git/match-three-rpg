@@ -9,10 +9,17 @@ public partial class ProjectileTween : Node2D, Mapable
 	[Export] private Texture2D _spriteTexture;
 	[Export] private float _durationPerTile;
 	[Export] private PackedScene _projectileScene;
+	[Export] private AnimatedSprite2D _impactEffect;
 
     public Tileable Map { private get; set; }
 
     [Signal] public delegate void FinishedFlyingEventHandler();
+
+
+    public override void _Ready(){
+        _impactEffect.Visible = false;
+    }
+
 
 	public Task FlyTo(Vector2I targetCell, int tilesTraveled){
 		var pixelTarget = (Vector2) Map.CellToPosition(targetCell);
@@ -30,8 +37,19 @@ public partial class ProjectileTween : Node2D, Mapable
 
 		var tcs = new TaskCompletionSource<bool>();
 
+		//_impactEffect.Visible = false;
+
+		_impactEffect.AnimationFinished += () => {
+			_impactEffect.Visible = false;
+		};
+
 		tween.Finished += () => {
 			EmitSignal(SignalName.FinishedFlying); 
+
+			_impactEffect.Visible = true;
+			_impactEffect.Position = pixelTarget;
+			_impactEffect.Play();
+
 			RemoveChild(projectile);
 			tcs.SetResult(true);
 		};

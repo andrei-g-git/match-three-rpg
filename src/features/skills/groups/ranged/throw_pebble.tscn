@@ -1,11 +1,98 @@
-[gd_scene load_steps=5 format=3 uid="uid://btltfkc26c658"]
+[gd_scene load_steps=13 format=3 uid="uid://btltfkc26c658"]
 
 [ext_resource type="Script" uid="uid://blejtrn85rsfb" path="res://src/features/skills/groups/ranged/ProjectileTween.cs" id="1_d1mba"]
 [ext_resource type="Script" uid="uid://dtfofjd65sd4f" path="res://src/features/skills/groups/ranged/ThrowPebble.cs" id="1_v24id"]
 [ext_resource type="PackedScene" uid="uid://dd3vmk48xr8ni" path="res://src/features/skills/groups/ranged/projectile.tscn" id="3_p6dm2"]
 [ext_resource type="Texture2D" uid="uid://b5cjg0fjacqii" path="res://assets/images/items/gear/Pebble.png" id="3_v24id"]
+[ext_resource type="Texture2D" uid="uid://bbp7i55gdjpyd" path="res://assets/images/vfx/skills/ripple.png" id="5_p6dm2"]
 
-[node name="ThrowPebble" type="Control"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_8mfmp"]
+atlas = ExtResource("5_p6dm2")
+region = Rect2(0, 72, 200, 115)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bja1s"]
+atlas = ExtResource("5_p6dm2")
+region = Rect2(400, 72, 200, 115)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hbi6s"]
+atlas = ExtResource("5_p6dm2")
+region = Rect2(0, 187, 200, 115)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_18wfj"]
+atlas = ExtResource("5_p6dm2")
+region = Rect2(400, 187, 200, 115)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i45d0"]
+atlas = ExtResource("5_p6dm2")
+region = Rect2(0, 302, 200, 115)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4mtrr"]
+atlas = ExtResource("5_p6dm2")
+region = Rect2(600, 302, 200, 115)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c0vvw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8mfmp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bja1s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hbi6s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_18wfj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i45d0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4mtrr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8mfmp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bja1s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hbi6s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_18wfj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i45d0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4mtrr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8mfmp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bja1s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hbi6s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_18wfj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i45d0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4mtrr")
+}],
+"loop": false,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="ThrowPebble" type="Control" node_paths=PackedStringArray("_projectileTweener", "_soundRipple")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,9 +100,23 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_v24id")
+_projectileTweener = NodePath("Container/Projectile")
+_soundRipple = NodePath("Container/AnimatedSprite2D")
 
-[node name="Projectile" type="Node2D" parent="."]
+[node name="Container" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Projectile" type="Node2D" parent="Container" node_paths=PackedStringArray("_impactEffect")]
 script = ExtResource("1_d1mba")
 _spriteTexture = ExtResource("3_v24id")
 _durationPerTile = 0.5
 _projectileScene = ExtResource("3_p6dm2")
+_impactEffect = NodePath("../AnimatedSprite2D")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Container"]
+visible = false
+sprite_frames = SubResource("SpriteFrames_c0vvw")
+frame = 17
+frame_progress = 1.0
