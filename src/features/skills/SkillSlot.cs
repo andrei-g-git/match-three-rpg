@@ -31,6 +31,7 @@ public partial class SkillSlot : Control, Skillful, AccessableBoard, DelayableSk
 	public void ActivateDelayedSkillSynchronously(){
 		_ = ActivateDelayedSkill();
 	}
+	
 	public async Task ActivateDelayedSkill(){
 		if(_skill is DelayableSkill delayableSkill){
 			await delayableSkill.ActivateDelayedSkill();

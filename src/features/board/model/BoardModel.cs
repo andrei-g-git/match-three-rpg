@@ -120,6 +120,10 @@ public partial class BoardModel : Node, Organizable, MatchableBoard, WithTiles, 
         return (_tileQuery as Queriable).GetCellsInRadiusAroundTileNode(radius, tileAtCenter);
     }
 
+    public List<Vector2I> GetCellsInRadius(int radius, Vector2I cell){
+        return (_tileQuery as Queriable).GetCellsInRadius(radius, cell);
+    }
+
     public Control GetItemAt(Vector2I cell){
 		return (_tileQuery as Queriable).GetItemAt(cell);
 	}

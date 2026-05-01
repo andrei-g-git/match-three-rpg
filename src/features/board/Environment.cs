@@ -2,14 +2,42 @@ using Board;
 using Godot;
 using Godot.Collections;
 using System;
+using System.Threading.Tasks;
 
 public partial class Environment : TileMapLayer, Tileable
 {
 
-    // public override void _Draw()
+	public Vector2I Size{
+		get{
+			var cells = GetUsedCells();
+			var pattern = GetPattern(cells);
+			return pattern.GetSize();
+		}
+	}
+    // public async override void _Ready()
     // {
-    //     DrawCircle(Vector2.Zero, 4, Colors.Red);
+	// 	await Task.Delay(3000);
+	// 	ForceUpdateTransform();
+	// 	await Task.Delay(200);
     // }
+
+    public override void _Draw()
+    {
+		var rect = GetUsedRect();
+        //DrawCircle(Vector2.Zero, 4, Colors.Red);
+		DrawRect(rect, Colors.Red, false, 2);
+    }
+
+	public Vector2I GetPixelSize(){
+		var mX = TileSet.TileSize.X * 3/4;
+		var mY = TileSet.TileSize.Y;
+		var mostOfIt = new Vector2I(
+			Size.X * mX,
+			Size.Y * mY
+		);
+		return mostOfIt + new Vector2I(TileSet.TileSize.X / 4, TileSet.TileSize.Y / 2);
+
+	}
 
 	public Vector2I CellToPosition(Vector2I cell){
 		return (Vector2I) MapToLocal(cell)/*  + new Vector2I(-32, -27) */; 

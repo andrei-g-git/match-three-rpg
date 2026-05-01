@@ -12,7 +12,8 @@ using Tiles;
 
 public partial class ThrowPebble : Control, Skill, WithTileRoot, AccessableBoard, Traversing, WithAnimationTree, WithAnimatedActor
 {
-	[Export] private Node2D _projectileTweener;
+	[Export] private int _noiseRadius = 2;
+	[Export] private /* Node2D */ Control _projectileTweener;
 	[Export] private AnimatedSprite2D _soundRipple;
 	
 	private Control _tileRoot;
@@ -68,6 +69,9 @@ public partial class ThrowPebble : Control, Skill, WithTileRoot, AccessableBoard
 
 				_soundRipple.AnimationFinished += () =>{
 					GD.Print("Checking all cells in radius around landing spot")	;
+
+					var cellsInRadius = (Board as Queriable).GetCellsInRadius(2, path.Last());
+					
 				};
 				_soundRipple.Play();
 			//}		

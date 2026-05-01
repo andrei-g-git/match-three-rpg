@@ -6,6 +6,9 @@ using Tiles;
 
 namespace Board{
 	public interface Tileable{
+		public Vector2I Size{get;}
+		//public Vector2I PixelSize{get;}
+		public Vector2I GetPixelSize();
 		public Vector2I CellToPosition(Vector2I cell);
 		public Vector2I PositionToCell(Vector2 position);
 		public Array<Vector2I> GetCellsInRadius(Vector2I center, int radiusInCells); 
@@ -54,6 +57,7 @@ namespace Board{
 		public Control FindNextTileInLine(List<Vector2I> line);
 		public bool IsCellAdjacentToLine(Vector2I cell, List<Vector2I> line);
 		public List<Vector2I> GetCellsInRadiusAroundTileNode(int radius, Control tileAtCenter);
+		public List<Vector2I> GetCellsInRadius(int radius, Vector2I cell);
 		public Control GetItemAt(Vector2I cell);
 		public List<Vector2I> FindAllTilesOfType(TileTypes type);
 		public Vector2I GetCellFor(Control tile);

@@ -28,7 +28,8 @@ _skillMultiplier = 1.4
 _momentumSubdivider = 20.0
 _strengthSubdivider = 10.0
 
-[node name="Projectile" type="Node2D" parent="." node_paths=PackedStringArray("_impactEffect")]
+[node name="Projectile" type="Control" parent="." node_paths=PackedStringArray("_impactEffect")]
+anchors_preset = 0
 script = ExtResource("4_ys00c")
 _spriteTexture = ExtResource("5_00bli")
 _durationPerTile = 0.5

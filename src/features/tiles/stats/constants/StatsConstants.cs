@@ -6,3 +6,7 @@ public enum Classes{
     Sorceress,
     Engineer
 }
+
+public enum Effects{
+    Distracted
+}

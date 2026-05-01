@@ -101,4 +101,8 @@ namespace Tiles{
     //     public void StoreSkill(SkillNames.All skill, int magnitude);
     //     public void ActivateSkill();
     // } 
+
+    public interface Distractable{
+        public void BecomeDistracted(int distractingActorIntelligence);
+    }
 }

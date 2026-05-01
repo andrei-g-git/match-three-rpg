@@ -10,11 +10,23 @@ public partial class TileContainer : Control, Viewable
 {
     [Export] private TileMapLayer environment;
 
+
+    public override void _Draw()
+    {
+		DrawRect(new Rect2(0, 0, Size), Colors.Green, false, 3);
+    }
+
+
     public override void _Ready(){
-        Size = environment.GetUsedRect().Size;
+        //Size = environment.GetUsedRect().Size; 
     }
 
     public void Initialize(Grid<Control> tiles){
+		var pixSiz = (environment as Tileable).GetPixelSize();
+		GD.Print($"tile container size: {pixSiz.X}, {pixSiz.Y}");
+		Size = pixSiz;
+
+
 		foreach(Node child in GetChildren()){
 			RemoveChild(child);
 			child.QueueFree();

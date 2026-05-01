@@ -43,6 +43,11 @@ public partial class TileQuery : Node, Queriable, Mapable, WithTiles
 		return [.. watchedCells];
 	}
 
+	public List<Vector2I> GetCellsInRadius(int radius, Vector2I cell){
+		var watchedCells = Map.GetCellsInRadius(cell, radius);
+		return [.. watchedCells];
+	}
+
 	public List<Control> GetAllActors(){
 		var actors = new List<Control>();
 		for(int x=0; x<Tiles.Width; x++){

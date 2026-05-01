@@ -13,7 +13,7 @@ using Tiles;
 public partial class ThrowPilum : Control, Skill, WithTileRoot, AccessableBoard, Traversing, WithAnimationTree, WithAnimatedActor//, Mapable
 {
 	[Export] private Node _damageCalculator;
-	[Export] private Node2D _projectileTweener;
+	[Export] private /* Node2D */ Control _projectileTweener;
 	
 	private Control _tileRoot;
 	public Control TileRoot{

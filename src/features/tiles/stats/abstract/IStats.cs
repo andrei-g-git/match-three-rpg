@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 namespace Stats;
 public interface StatBased{ //not sure I need this, I can just encapsulate it's constituents
@@ -59,4 +60,30 @@ public interface WithSpeed{
 
 public interface WithStrength{
 	public int Strength{get;set;}
+}
+
+public interface WithIntelligence{
+	public int Intelligence{get;set;}
+}
+
+public interface WithAgility{
+	public int Agility{get;set;}
+}
+
+// public interface Effectful{ //nah this is a waste of a perfectly good interface name that I can replace with an abstract class, which is serializable
+// 	public int MaxDuration{get;set;}
+// 	public int TurnsLeft{get;set;}
+// 	public Effects Type{get;set;}
+// 	public void ApplyToStats(Node stats); //this means enemies must have the same stat objects as the player, which sucks. Also some effects don't need to call this so interface segregation is broken
+// }
+
+public interface Effectful{
+	public List<ActiveEffect> Effects {get;set;}
+	public void Add(ActiveEffect effect);
+	public void Remove(ActiveEffect effect);
+	public void RemoveAt(int index);
+	public void UpdateDurations();
+	public ActiveEffect GetEffect(Effects effectName);
+	public int GetEffectDuration(Effects effectName);
+	public void ApplyAll();
 }

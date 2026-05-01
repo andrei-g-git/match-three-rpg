@@ -108,12 +108,14 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Projectile" type="Node2D" parent="Container" node_paths=PackedStringArray("_impactEffect")]
+[node name="Projectile" type="Control" parent="Container" node_paths=PackedStringArray("_impactEffect", "_container")]
+anchors_preset = 0
 script = ExtResource("1_d1mba")
 _spriteTexture = ExtResource("3_v24id")
 _durationPerTile = 0.5
 _projectileScene = ExtResource("3_p6dm2")
 _impactEffect = NodePath("../AnimatedSprite2D")
+_container = NodePath("..")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Container"]
 visible = false

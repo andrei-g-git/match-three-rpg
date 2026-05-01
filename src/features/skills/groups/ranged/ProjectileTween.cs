@@ -4,12 +4,13 @@ using Godot;
 using System;
 using System.Threading.Tasks;
 
-public partial class ProjectileTween : Node2D, Mapable
+public partial class ProjectileTween : Control, Mapable
 {
 	[Export] private Texture2D _spriteTexture;
 	[Export] private float _durationPerTile;
 	[Export] private PackedScene _projectileScene;
 	[Export] private AnimatedSprite2D _impactEffect;
+	[Export] private Control _container; //prob not necessary
 
     public Tileable Map { private get; set; }
 
@@ -33,7 +34,7 @@ public partial class ProjectileTween : Node2D, Mapable
 			.SetTrans(Tween.TransitionType.Sine)
 			.SetEase(Tween.EaseType.Out);
 
-		tween.TweenProperty(projectile, "position", pixelTarget, (float)(_durationPerTile * tilesTraveled));
+		tween.TweenProperty(projectile/* _container */, "position", pixelTarget, (float)(_durationPerTile * tilesTraveled));
 
 		var tcs = new TaskCompletionSource<bool>();
 
@@ -41,6 +42,7 @@ public partial class ProjectileTween : Node2D, Mapable
 
 		_impactEffect.AnimationFinished += () => {
 			_impactEffect.Visible = false;
+			//_container.Position = source;
 		};
 
 		tween.Finished += () => {
