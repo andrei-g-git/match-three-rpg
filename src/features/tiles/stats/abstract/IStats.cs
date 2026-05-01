@@ -86,4 +86,5 @@ public interface Effectful{
 	public ActiveEffect GetEffect(Effects effectName);
 	public int GetEffectDuration(Effects effectName);
 	public void ApplyAll();
+	public bool CheckIfStunned();
 }

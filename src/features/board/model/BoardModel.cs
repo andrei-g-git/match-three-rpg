@@ -146,4 +146,8 @@ public partial class BoardModel : Node, Organizable, MatchableBoard, WithTiles, 
         await (_tileOrganizer as Organizable).ReplaceTileWith(tileName, cell);
     }
 
+	public List<Control> GetPiecesInRadius(int radius, Vector2I cell){
+        return (_tileQuery as Queriable).GetPiecesInRadius(radius, cell);
+	}
+
 }

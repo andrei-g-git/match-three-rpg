@@ -28,7 +28,7 @@
 [ext_resource type="Script" uid="uid://ddpi0w1lsd8bv" path="res://src/features/tiles/stats/ActiveEffects.cs" id="20_48iox"]
 [ext_resource type="Script" uid="uid://m05lgru2ui7v" path="res://src/features/tiles/animations/SpringForthAndBack.cs" id="22_vn581"]
 
-[node name="Fighter" type="Control" node_paths=PackedStringArray("_defender", "_hostility", "_turn", "_sentinel", "_chase", "_pathfinding", "_swapping", "_engagement", "_pushed", "_stats", "_moveTweener", "_popTweener", "_recoil", "_flashWhite")]
+[node name="Fighter" type="Control" node_paths=PackedStringArray("_defender", "_hostility", "_turn", "_sentinel", "_chase", "_pathfinding", "_swapping", "_engagement", "_pushed", "_distracted", "_stats", "_moveTweener", "_popTweener", "_recoil", "_flashWhite")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 55.0
@@ -43,6 +43,7 @@ _pathfinding = NodePath("Behaviors/Pathfinding")
 _swapping = NodePath("Behaviors/Swapping")
 _engagement = NodePath("Behaviors/Engagement")
 _pushed = NodePath("Behaviors/Pushed")
+_distracted = NodePath("Behaviors/Distracted")
 _stats = NodePath("Behaviors/Stats")
 _moveTweener = NodePath("Tweeners/Move")
 _popTweener = NodePath("Tweeners/Pop")
@@ -92,6 +93,8 @@ _defense = 1
 _damage = 5
 _speed = 5
 _strength = 10
+_intelligence = 3
+_agility = 5
 
 [node name="Defender" type="Node" parent="Behaviors" node_paths=PackedStringArray("_stats")]
 script = ExtResource("7_vn581")
@@ -118,8 +121,10 @@ _astar = NodePath("../Astar")
 script = ExtResource("11_vn581")
 _stats = NodePath("../Stats")
 
-[node name="Distracted" type="Node" parent="Behaviors"]
+[node name="Distracted" type="Node" parent="Behaviors" node_paths=PackedStringArray("_stats", "_activeEffects")]
 script = ExtResource("13_0ruit")
+_stats = NodePath("../Stats")
+_activeEffects = NodePath("../../ActiveEffects")
 
 [node name="Pushed" type="Node" parent="Behaviors" node_paths=PackedStringArray("_tileRoot", "_stats", "_defend")]
 script = ExtResource("13_h2d5x")
@@ -130,8 +135,9 @@ _defend = NodePath("../Defender")
 [node name="Astar" type="Node" parent="Behaviors"]
 script = ExtResource("10_kfo3p")
 
-[node name="AI" type="Node" parent="Behaviors" node_paths=PackedStringArray("_pieceRoot")]
+[node name="AI" type="Node" parent="Behaviors" node_paths=PackedStringArray("_activeEffects", "_pieceRoot")]
 script = ExtResource("10_qo0sn")
+_activeEffects = NodePath("../../ActiveEffects")
 _pieceRoot = NodePath("../..")
 
 [node name="Sentinel" type="Node" parent="Behaviors/AI" node_paths=PackedStringArray("_tileRoot")]
@@ -147,8 +153,9 @@ _tileRoot = NodePath("../../..")
 [node name="Turn" type="Node" parent="Behaviors/AI"]
 script = ExtResource("9_sb5bf")
 
-[node name="ActiveEffects" type="Node" parent="."]
+[node name="ActiveEffects" type="Node" parent="." node_paths=PackedStringArray("_stats")]
 script = ExtResource("20_48iox")
+_stats = NodePath("../Behaviors/Stats")
 
 [node name="Tweeners" type="Node2D" parent="."]
 

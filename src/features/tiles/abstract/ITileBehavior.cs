@@ -103,6 +103,6 @@ namespace Tiles{
     // } 
 
     public interface Distractable{
-        public void BecomeDistracted(int distractingActorIntelligence);
+        public void BecomeDistractedFor(int turns, int distractingActorIntelligence);
     }
 }

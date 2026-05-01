@@ -62,6 +62,7 @@ namespace Board{
 		public List<Vector2I> FindAllTilesOfType(TileTypes type);
 		public Vector2I GetCellFor(Control tile);
 		public Vector2I GetDimensions();
+		public List<Control> GetPiecesInRadius(int radius, Vector2I cell);
 	}
 
 	public interface Sequential{

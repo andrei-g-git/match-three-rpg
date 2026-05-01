@@ -4,6 +4,7 @@ using Common;
 using Godot;
 using Inventory;
 using Skills;
+using Stats;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -70,8 +71,14 @@ public partial class ThrowPebble : Control, Skill, WithTileRoot, AccessableBoard
 				_soundRipple.AnimationFinished += () =>{
 					GD.Print("Checking all cells in radius around landing spot")	;
 
-					var cellsInRadius = (Board as Queriable).GetCellsInRadius(2, path.Last());
-					
+					var piecesInRadius = (Board as Queriable).GetPiecesInRadius(2, path.Last());
+					foreach(var piece in piecesInRadius){
+						if(piece is Disposition actor && actor is not Playable && actor.IsEnemy){
+							var intelligence = (TileRoot as Attributive).Intelligence;
+							(actor as Distractable).BecomeDistractedFor(1, intelligence);
+						}
+					}
+
 				};
 				_soundRipple.Play();
 			//}		

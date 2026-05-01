@@ -1,8 +1,7 @@
 using Godot;
 using Stats;
-using System;
 using System.Collections.Generic;
-using System.Linq;
+
 
 public partial class ActiveEffects : Node, Effectful
 {
@@ -52,4 +51,12 @@ public partial class ActiveEffects : Node, Effectful
 		}
 	}
 
+	public bool CheckIfStunned(){
+		foreach(var effect in Effects){
+			if(effect.Type == Stats.Effects.Distracted){
+				return true;
+			}
+		}
+		return false;
+	}
 }

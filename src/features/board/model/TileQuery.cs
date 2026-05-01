@@ -102,4 +102,9 @@ public partial class TileQuery : Node, Queriable, Mapable, WithTiles
 	public Vector2I GetDimensions(){
 		return new Vector2I(Tiles.Width, Tiles.Height);
 	}	
+
+	public List<Control> GetPiecesInRadius(int radius, Vector2I cell){
+		var cells = Map.GetCellsInRadius(cell, radius);
+		return cells.Select(cell => Tiles.GetItem(cell)).ToList();
+	}
 }

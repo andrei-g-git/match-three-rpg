@@ -8,7 +8,7 @@ using Tiles;
 using static Skills.SkillNames;
 
 namespace Fighter{
-	public partial class Manager : Control, Tile, AccessableBoard, /* WithTiles, */  Movable, Mapable, Permeable, RelayableUIEvents, Defensible, WithHealth, WithDefense, WithDamage, WithSpeed, Disposition, Creatable, Agentive, TurnBased, Pushable
+	public partial class Manager : Control, Tile, AccessableBoard, /* WithTiles, */  Movable, Mapable, Permeable, RelayableUIEvents, Defensible, WithHealth, WithDefense, WithDamage, WithSpeed, Disposition, Creatable, Agentive, TurnBased, Pushable, Distractable
 	{
 		[ExportGroup("behaviors")]
         [Export] private Node _defender;
@@ -21,6 +21,7 @@ namespace Fighter{
         [Export] private Node _swapping;
         [Export] private Node _engagement;
         [Export] private Node _pushed;
+        [Export] private Node _distracted;
 
         [ExportGroup("stats")]
         [Export] private Node _stats;
@@ -143,6 +144,11 @@ namespace Fighter{
         {
             throw new System.NotImplementedException();
         }
+
+        public void BecomeDistractedFor(int turns, int distractingActorIntelligence){
+            (_distracted as Distractable).BecomeDistractedFor(turns, distractingActorIntelligence);
+        }
+
     }	
 }
 
