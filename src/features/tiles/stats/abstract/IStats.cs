@@ -82,9 +82,16 @@ public interface Effectful{
 	public void Add(ActiveEffect effect);
 	public void Remove(ActiveEffect effect);
 	public void RemoveAt(int index);
+	public void RemoveAllOfType<T>() where T: ActiveEffect;
 	public void UpdateDurations();
 	public ActiveEffect GetEffect(Effects effectName);
 	public int GetEffectDuration(Effects effectName);
 	public void ApplyAll();
 	public bool CheckIfStunned();
+}
+
+public interface WithEffects{
+	public void Add(ActiveEffect effect);
+	public void Remove(ActiveEffect effect);	
+	public void RemoveAllOfType<T>() where T: ActiveEffect;
 }

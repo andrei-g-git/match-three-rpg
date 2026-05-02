@@ -34,6 +34,14 @@ public partial class ActiveEffects : Node, Effectful
         Effects.RemoveAt(index);
     }
 
+	public void RemoveAllOfType<T>() where T: ActiveEffect{
+		foreach(var effect in Effects){
+			if(effect is T t){
+				Effects.Remove(effect);
+			}
+		}
+	}
+
     public void UpdateDurations(){
         foreach(var effect in Effects){
 			effect.TurnsLeft--;

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Common;
@@ -150,4 +151,15 @@ public partial class BoardModel : Node, Organizable, MatchableBoard, WithTiles, 
         return (_tileQuery as Queriable).GetPiecesInRadius(radius, cell);
 	}
 
+	public List<Control> GetPiecesAroundLine(List<Vector2I> line){
+        return (_tileQuery as Queriable).GetPiecesAroundLine(line);
+	}
+
+	public List</* T */Control> GetPiecesAroundLineOfType<T>(List<Vector2I> line/* , Type interfaceType */){
+        return (_tileQuery as Queriable).GetPiecesAroundLineOfType<T>(line/* , interfaceType */);
+	}
+
+	public Control GetClosestPieceToCellInList(Vector2I cell, List<Control> pieces){
+        return (_tileQuery as Queriable).GetClosestPieceToCellInList(cell, pieces);
+	}
 }

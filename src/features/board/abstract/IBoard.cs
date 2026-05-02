@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Godot;
@@ -63,6 +64,9 @@ namespace Board{
 		public Vector2I GetCellFor(Control tile);
 		public Vector2I GetDimensions();
 		public List<Control> GetPiecesInRadius(int radius, Vector2I cell);
+		public List<Control> GetPiecesAroundLine(List<Vector2I> line);
+		public List</* T */Control> GetPiecesAroundLineOfType<T>(List<Vector2I> line/* , Type interfaceType */);
+		public Control GetClosestPieceToCellInList(Vector2I cell, List<Control> pieces);
 	}
 
 	public interface Sequential{

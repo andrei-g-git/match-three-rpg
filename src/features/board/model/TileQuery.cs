@@ -107,4 +107,46 @@ public partial class TileQuery : Node, Queriable, Mapable, WithTiles
 		var cells = Map.GetCellsInRadius(cell, radius);
 		return cells.Select(cell => Tiles.GetItem(cell)).ToList();
 	}
+
+	public List<Control> GetPiecesAroundLine(List<Vector2I> line){
+		var surroundingPieces = new List<Control>();
+		foreach(var cell in line){
+			var neighbouringPieces = GetNeighboringTiles(cell);
+			surroundingPieces.AddRange(neighbouringPieces);
+		}
+		return surroundingPieces.Distinct().ToList();
+	}
+
+	public List</* T */Control> GetPiecesAroundLineOfType<T>(List<Vector2I> line/* , Type interfaceType */){
+		// if(interfaceType.IsInterface || interfaceType.IsAbstract){
+		// 	var surroundingPieces = GetPiecesAroundLine(line);
+		// 	return surroundingPieces.Where(piece => interfaceType.IsAssignableFrom(piece.GetType())).ToList();			
+		// }
+		// GD.Print($"no pieces of type {interfaceType.Name} were found around the matches line");
+		// return [];
+		var surroundingPieces = GetPiecesAroundLine(line);
+		var eligible = new List</* T */Control>();
+		foreach(var piece in surroundingPieces){
+			if(piece is T t){
+				eligible.Add(/* t */piece);
+			}
+		}
+		return eligible;
+	}	
+
+	public Control GetClosestPieceToCellInList(Vector2I cell, List<Control> pieces){
+		//var distances = pieces.Select(piece => cell.DistanceTo(piece))
+		//var distances = new List<float>();
+		var shortestDistance = 9999f; //this is dangerous, I should just make a full list and get the smallest value 
+		Control closestPiece = null;
+		foreach(var piece in pieces){
+			var thisCell = GetCellFor(piece);
+			var distance = cell.DistanceTo(thisCell);
+			if(distance < shortestDistance){
+				shortestDistance = distance;
+				closestPiece = piece;
+			}
+		}
+		return closestPiece;
+	}
 }
