@@ -9,5 +9,6 @@ public enum Classes{
 
 public enum Effects{
     Distracted,
-    //Stunned
+    //Stunned,
+    LoweredDefense
 }

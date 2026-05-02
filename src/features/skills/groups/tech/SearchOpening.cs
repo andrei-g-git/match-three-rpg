@@ -28,9 +28,10 @@ public partial class SearchOpening : Control, Skill, WithTileRoot, AccessableBoa
 			var allActors = boardQuery.GetAllActors();
 			allActors.Remove(TileRoot);
 			foreach(var actor in allActors){
-				(actor as Effectful).RemoveAllOfType<FocusedDefenseDebuff>();
+				if(actor is WithEffects effectable)
+				effectable.RemoveAllOfType<FocusedDefenseDebuff>();
 			}	
-			(targetPiece as Effectful).Add(new FocusedDefenseDebuff(999, 2));
+			(targetPiece as WithEffects).Add(new FocusedDefenseDebuff(999, 2));
 		}
 
 

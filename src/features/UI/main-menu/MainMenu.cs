@@ -243,6 +243,17 @@ public partial class MainMenu : Control, WithSceneManager
 									Earth=0,
 									Water=4
 								}
+							},
+							new SkillWithCount{
+								Name=SkillNames.Tech.SearchOpening.ToString(),
+								Uses=99,
+								Level=1,
+								EnergyRequirement = new EnergyRequirement{
+									Fire=1,
+									Wind=2,
+									Earth=0,
+									Water=4
+								}
 							}						
 						]
 					}

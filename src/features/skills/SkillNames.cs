@@ -17,7 +17,8 @@ public class SkillNames{
 		Walk,
 		Sprint,
 		DelayedSmash,
-		ThrowPebble				
+		ThrowPebble,
+		SearchOpening				
 	}
 
 	public enum Melee{
@@ -38,7 +39,8 @@ public class SkillNames{
 		Walk = All.Walk	
 	}
 	public enum Tech{
-		Ensnare	= All.Ensnare
+		Ensnare	= All.Ensnare,
+		SearchOpening = All.SearchOpening
 	}
 
 	public enum SkillGroups{

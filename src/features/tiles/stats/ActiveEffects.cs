@@ -6,11 +6,15 @@ using System.Collections.Generic;
 public partial class ActiveEffects : Node, Effectful
 {
 	[Export] private Node _stats;
+	//[Export] private Node _effectFeedback; //observer
+
+	[Signal] public delegate void GotEffectEventHandler(string effect);
 
 	public List<ActiveEffect> Effects {get;set;} = []; //ActiveEffect is not an interface (but it is abstract). I need this for serialization ..but since activeEffect is already an abstraction ... i don't actually need an interface...
 
 	public void Add(ActiveEffect effect){
 		Effects.Add(effect);
+		EmitSignal(SignalName.GotEffect, effect.Type.ToString());
 	}
 
     public ActiveEffect GetEffect(Effects effectName){

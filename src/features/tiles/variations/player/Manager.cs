@@ -256,13 +256,13 @@ namespace Player{
 
 
         public /* void */async Task ReactToMatchesBySkillType(List<Vector2I> matches, SkillGroups skillGroup, SkillNames.All skillName, bool isAdjacent){
-            if(isAdjacent){
+            //if(isAdjacent){
                 //var skillType = SkillsModel.GetSelectedInGroup(skillGroup);
                 var skill = (SkillsModel as SkillMaking).Create(/* skillType */skillName) as Skill;
                 await (_matchesTraversal as TraversableMatching).ReceivePathAndSkill(matches, skill);
-            }else{
-                FillEnergy(matches.Count, skillGroup);                
-            }
+            //}else{
+                //FillEnergy(matches.Count, skillGroup);                
+            //}
 
         }
 

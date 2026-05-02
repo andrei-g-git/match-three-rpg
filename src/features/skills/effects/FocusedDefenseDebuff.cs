@@ -7,6 +7,7 @@ public class FocusedDefenseDebuff: ActiveEffect
     public FocusedDefenseDebuff(int maxDuration, int amount){
         MaxDuration = maxDuration;
         _amount = amount;
+        Type = Effects.LoweredDefense;
     }
     public override void ApplyToStats(Node stats){
         if((stats as WithDefense).Defense >= _amount){

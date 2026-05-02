@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://vv3xapj4lprc"]
+[gd_scene load_steps=70 format=3 uid="uid://vv3xapj4lprc"]
 
 [ext_resource type="Script" uid="uid://dy1o6fmi8i4pb" path="res://src/features/board/BoardManager.cs" id="1_k7s5h"]
 [ext_resource type="Script" uid="uid://cgm6rlm3gw3je" path="res://src/features/board/Environment.cs" id="3_da6o6"]
@@ -58,6 +58,7 @@
 [ext_resource type="PackedScene" uid="uid://dj8xcikdtyeu0" path="res://src/features/skills/element_skills_display.tscn" id="43_ej7e5"]
 [ext_resource type="Script" uid="uid://2embsxvlyi5d" path="res://src/features/skills/SkillGroupsDisplay.cs" id="43_vl5to"]
 [ext_resource type="PackedScene" uid="uid://btltfkc26c658" path="res://src/features/skills/groups/ranged/throw_pebble.tscn" id="44_y5bar"]
+[ext_resource type="PackedScene" uid="uid://cl06pykjw7ts8" path="res://src/features/skills/groups/tech/search_opening.tscn" id="45_hnujk"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x10rj"]
 
@@ -378,7 +379,8 @@ _skillsWithScenes = Dictionary[int, PackedScene]({
 9: ExtResource("39_idqgv"),
 10: ExtResource("40_ijiib"),
 11: ExtResource("40_y5bar"),
-12: ExtResource("44_y5bar")
+12: ExtResource("44_y5bar"),
+13: ExtResource("45_hnujk")
 })
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MainContainer"]
