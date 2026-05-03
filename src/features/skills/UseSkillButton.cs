@@ -10,6 +10,8 @@ public partial class UseSkillButton : VBoxContainer, DeactivatableButton
 	[Export] private Label _label;
     [Export] private TextureButton _button;
 
+	[Export] private Sprite2D _hexagonLine;
+
 	[ExportGroup("Energy Requirements")]
 	[Export] private Sprite2D _fireIcon;
 	[Export] private Label _fireEnergyRequirement;
@@ -37,13 +39,18 @@ public partial class UseSkillButton : VBoxContainer, DeactivatableButton
 	public void Activate(){
 		SetProcessInput(true);
 		Modulate = new Color(1, 1, 1, 1);	
-		Active = true;		
+		Active = true;	
+
+		_hexagonLine.Visible = false;	
 	}
 
 	public void Deactivate(){
 		SetProcessInput(false);
 		Modulate = new Color(0.6f, 0.6f, 0.6f, 1);	
-		Active = false;		
+		Active = false;	
+
+		_hexagonLine.Modulate = Colors.Red;
+		_hexagonLine.Visible = true;	
 	}
 
 	public void SetSkillLabel(/* SkillNames.All skillName */string skillName){
@@ -58,7 +65,7 @@ public partial class UseSkillButton : VBoxContainer, DeactivatableButton
 	}
 
 
-	public void DecideActivationByEnergyNeed(bool enoughFire, bool enoughWind, bool enoughEarth, bool enoughWater){
+	public void DecideActivation(bool enoughFire, bool enoughWind, bool enoughEarth, bool enoughWater, bool meetsBoardRequirements){
 		//I don't like branching
 		// _fireIcon.Modulate = new Color(1, Convert.ToSingle(enoughFire), Convert.ToSingle(enoughFire), 1);
 		// _windIcon.Modulate = new Color(1, Convert.ToSingle(enoughWind), Convert.ToSingle(enoughWind), 1);
@@ -67,9 +74,9 @@ public partial class UseSkillButton : VBoxContainer, DeactivatableButton
 		_fireEnergyRequirement.Modulate = new Color(1, Convert.ToSingle(enoughFire), Convert.ToSingle(enoughFire), 1);
 		_windEnergyRequirement.Modulate = new Color(1, Convert.ToSingle(enoughWind), Convert.ToSingle(enoughWind), 1);
 		_earthEnergyRequirement.Modulate = new Color(1, Convert.ToSingle(enoughEarth), Convert.ToSingle(enoughEarth), 1);
-		_waterEnergyRequirement.Modulate = new Color(1, Convert.ToSingle(enoughWater), Convert.ToSingle(enoughWater), 1);		
+		_waterEnergyRequirement.Modulate = new Color(1, Convert.ToSingle(enoughWater), Convert.ToSingle(enoughWater), 1);	
 
-		if(enoughFire && enoughWind && enoughEarth && enoughWater){
+		if(enoughFire && enoughWind && enoughEarth && enoughWater && meetsBoardRequirements){
 			Activate();
 		}
 		else{

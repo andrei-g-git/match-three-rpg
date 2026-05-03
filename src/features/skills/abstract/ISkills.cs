@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Board;
 using Godot;
 using static Skills.SkillNames;
 
@@ -133,6 +134,10 @@ public interface RefillableEnergy{
     // public void GainWaterEnergy(int howManyTimes);
 }
 
+public interface FilterableSkill{
+    //public static abstract bool CheckIfUsable(List<Vector2I> matchedGroup, SkillGroups skillGroup, Queriable boardQuery); //can't call this dynamically, if I don't know the type before hand and I will need to instantiate the skill anyway
+    public bool CheckIfUsable(List<Vector2I> matchedGroup, SkillGroups skillGroup, Queriable boardQuery);
+}
 
 
 

@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Tiles;
 
-public partial class Kick : Control, Skill, WithTileRoot, AccessableBoard, Traversing, WithAnimationTree
+public partial class Kick : Control, Skill, WithTileRoot, AccessableBoard, Traversing, WithAnimationTree, FilterableSkill
 {
     public Control TileRoot { get; set; }
     public Node Board { private get; set; }
@@ -66,4 +66,20 @@ GD.Print("kicked");
     {
         throw new NotImplementedException();
     }
+
+    public /* static */ bool CheckIfUsable(List<Vector2I> matchedGroup, SkillNames.SkillGroups skillGroup, Queriable boardQuery){
+		var path = matchedGroup;
+		path.Reverse();
+		var playerCell = boardQuery.GetPlayerPosition();		
+        var nextCellAtEnd = Hex.FindNextInLine(path);
+		if(nextCellAtEnd.Equals(playerCell)){
+			path.Add(playerCell);
+			nextCellAtEnd = Hex.FindNextInLine(path);
+			var nextPiece = boardQuery.GetItemAt(nextCellAtEnd);
+			if(nextPiece is Disposition actor && actor.IsEnemy){
+				return true;
+			}
+		}
+		return false; 
+    }		
 }

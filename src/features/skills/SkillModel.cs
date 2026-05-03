@@ -1,3 +1,4 @@
+using Board;
 using Content;
 using Godot;
 using Skills;
@@ -10,10 +11,10 @@ using System.Threading.Tasks;
 
 public partial class SkillModel : Node/* , WithEnergy, WithFireEnergy, WithWindEnergy, WithEarthEnergy, WithWaterEnergy */
 {
-	[Export] 
-	private PackedScene _elementSkillsDisplay;
-	[Export]
-	private Control _skillGroupsDisplay;
+	[Export] private PackedScene _elementSkillsDisplay;
+	[Export] private Control _skillGroupsDisplay;
+	[Export] private Node _boardQuery;
+	[Export] private Node _skillFactory;
 
 	public SkillGroup[] SkillGroups = [];
 
@@ -112,7 +113,7 @@ public partial class SkillModel : Node/* , WithEnergy, WithFireEnergy, WithWindE
 		// }
 	}
 
-	public async Task<string> EnableSkillPickingByGroup(SkillNames.SkillGroups skillGroup){
+	public async Task<string> EnableSkillPickingByGroup(SkillNames.SkillGroups skillGroup, List<Vector2I> matchGroup){
 
 		// I should petition the actuall skill, giving it the path etc, to check if it's usable on the match group
 		var skills = SkillGroups
@@ -126,6 +127,9 @@ public partial class SkillModel : Node/* , WithEnergy, WithFireEnergy, WithWindE
 				var earth = skill.EnergyRequirement.Earth;
 				var water = skill.EnergyRequirement.Water;
 
+				var skillInstance = (_skillFactory as SkillMaking).Create(skillEnum);
+				var meetsBoardRequirements = (skillInstance as FilterableSkill).CheckIfUsable(matchGroup, skillGroup, _boardQuery as Queriable);
+
 				return new{
 					name=skillEnum,
 					fire=fire,
@@ -135,7 +139,8 @@ public partial class SkillModel : Node/* , WithEnergy, WithFireEnergy, WithWindE
 					enoughFire = PlayerEnergy.FireEnergy >= fire,
 					enoughWind = PlayerEnergy.WindEnergy >= wind,
 					enoughEarth = PlayerEnergy.EarthEnergy >= earth,
-					enoughWater = PlayerEnergy.WaterEnergy >= water
+					enoughWater = PlayerEnergy.WaterEnergy >= water,
+					meetsBoardRequirements = meetsBoardRequirements
 				};
 			})
 			.ToArray();		

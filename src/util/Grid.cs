@@ -103,6 +103,17 @@ public class Grid<[MustBeVariant] T>
 		return default;
 	}
 
+	// public T FindItemByType<T>(){
+	// 	foreach(var column in _grid){
+	// 		foreach(var item in column){
+	// 			if(typeof(item) == typeof(T)){
+	// 				return item;
+	// 			}
+	// 		}
+	// 	}
+	// 	return default;		
+	// }
+
 	public List<T> FindAllItemsOfType(Type interfaceOrClass){
 		if(!interfaceOrClass.IsInterface && !interfaceOrClass.IsClass){
 			throw new ArgumentException("Expected interface or class :", nameof(interfaceOrClass));

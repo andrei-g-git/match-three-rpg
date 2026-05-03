@@ -7,8 +7,9 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Tiles;
+using static Skills.SkillNames;
 
-public partial class SearchOpening : Control, Skill, WithTileRoot, AccessableBoard, Traversing, WithAnimationTree, WithAnimatedActor
+public partial class SearchOpening : Control, Skill, WithTileRoot, AccessableBoard, Traversing, WithAnimationTree, WithAnimatedActor//, FilterableSkill
 {
     public Control TileRoot { get; set; }
     public Node Board { private get; set; }
@@ -41,5 +42,6 @@ public partial class SearchOpening : Control, Skill, WithTileRoot, AccessableBoa
     {
         throw new NotImplementedException();
     }
+
 
 }

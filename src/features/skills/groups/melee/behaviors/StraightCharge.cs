@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Tiles;
 
-public partial class StraightCharge : Node, Traversing, AccessableBoard, WithTileRoot
+public partial class StraightCharge : Node, Traversing, AccessableBoard, WithTileRoot//, FilterableSkill
 {
 	public Node Board { get; set; }
 	public Control TileRoot {get; set;}
@@ -62,48 +62,10 @@ public partial class StraightCharge : Node, Traversing, AccessableBoard, WithTil
 		}
 	}
 
-	// public async Task ProcessPathAsync_old(List<Vector2I> path){ //should check that path is not empty	
-	// 	var foundOneTarget = false;
-	
-	// 	for(int i=0; i<path.Count; i++){
-	// 		var cellAhead = i < path.Count-1 ? path[i+1] : Hex.FindNextInLine(path);
-	// 		if(cellAhead.X >= 0){
-	// 			var tileAhead = (Board as Queriable).GetItemAt(cellAhead);
-	// 			if (tileAhead is Disposition actor && actor.IsEnemy) {
-
-	// 				await (Board as BoardModel).TransferTileToAsync(TileRoot, path[i]);
-
-	// 				EmitSignal(SignalName.FinishedPath);
-
-	// 				var playback = (AnimationNodeStateMachinePlayback)AnimationTree.Get("parameters/playback");
-	// 				playback.Travel("Swing");
-
-	// 				// wait until it actually enters Swing
-	// 				while (playback.GetCurrentNode() != "Swing"){
-	// 					await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-	// 				}
-
-	// 				// var sw = new Stopwatch();
-	// 				// sw.Start();
-	// 				while (playback.GetCurrentNode() == "Swing") {
-    // 					await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame); 
-	// 				}
-
-	// 				// sw.Stop();
-	// 				// GD.Print($"TIME ELAPSED:   {sw.Elapsed}");
-
-	// 				EmitSignal(SignalName.Attacking, actor as Control, cellAhead); 
-
-	// 				foundOneTarget = true; 
-	// 				break;
-	// 			}				
-	// 		}
-	// 	}
-
-	// 	if (!foundOneTarget){
-	// 		await (Board as BoardModel).TransferTileToAsync(TileRoot, path[^1]);	
-	// 		EmitSignal(SignalName.FinishedPath);			
-	// 	}
-	// }
+    // public static bool CheckIfUsable(List<Vector2I> matchedGroup, SkillNames.SkillGroups skillGroup, Queriable boardQuery){
+	// 	var playerPosition = boardQuery.GetPlayerPosition();
+    //     var playerIsAdjacent = boardQuery.IsCellAdjacentToLine(playerPosition, matchedGroup);
+	// 	return playerIsAdjacent; //the player is allowed to waste the skill if there's no eligible enemy
+    // }
 
 }

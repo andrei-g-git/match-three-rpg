@@ -6,7 +6,7 @@ using Godot;
 using Skills;
 using Tiles;
 
-public partial class Whirlwind : Node, Skill, WithTileRoot, AccessableBoard, Traversing, WithAnimationTree
+public partial class Whirlwind : Node, Skill, WithTileRoot, AccessableBoard, Traversing, WithAnimationTree, FilterableSkill
 {
 	[Export] private Node _omniCharge;
 	[Export] private Node _damageCalculator;
@@ -50,4 +50,10 @@ public partial class Whirlwind : Node, Skill, WithTileRoot, AccessableBoard, Tra
     public async Task ProcessPathAsync(List<Vector2I> path){
         await (_omniCharge as Traversing).ProcessPathAsync(path);
     }
+
+    public /* static */ bool CheckIfUsable(List<Vector2I> matchedGroup, SkillNames.SkillGroups skillGroup, Queriable boardQuery){
+		var playerPosition = boardQuery.GetPlayerPosition();
+        var playerIsAdjacent = boardQuery.IsCellAdjacentToLine(playerPosition, matchedGroup);
+		return playerIsAdjacent; //the player is allowed to waste the skill if there's no eligible enemy
+    }	
 }

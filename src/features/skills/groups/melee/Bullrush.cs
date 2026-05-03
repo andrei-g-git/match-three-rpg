@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Tiles;
 
-public partial class Bullrush : Control, Skill, WithTileRoot, AccessableBoard, Traversing, WithAnimationTree
+public partial class Bullrush : Control, Skill, WithTileRoot, AccessableBoard, Traversing, WithAnimationTree, FilterableSkill
 {
 	[Export] private Node _straightCharge;
 	[Export] private Node _damageCalculator;
@@ -48,5 +48,11 @@ public partial class Bullrush : Control, Skill, WithTileRoot, AccessableBoard, T
 
     public async Task ProcessPathAsync(List<Vector2I> path){
         await (_straightCharge as Traversing).ProcessPathAsync(path);
+    }	
+
+    public /* static */ bool CheckIfUsable(List<Vector2I> matchedGroup, SkillNames.SkillGroups skillGroup, Queriable boardQuery){
+		var playerPosition = boardQuery.GetPlayerPosition();
+        var playerIsAdjacent = boardQuery.IsCellAdjacentToLine(playerPosition, matchedGroup);
+		return playerIsAdjacent; //the player is allowed to waste the skill if there's no eligible enemy
     }	
 }

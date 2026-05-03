@@ -86,6 +86,19 @@ public partial class TileQuery : Node, Queriable, Mapable, WithTiles
 		return false;		
 	}	
 
+	public bool IsPieceAdjacentToLine(Control piece, List<Vector2I> line){
+		var pieceCell = GetCellFor(piece);
+		for(int i = 0; i < line.Count; i++){
+			var neighbors = _GetNeighboringCells(line[i]);
+			foreach(var neighbor in neighbors){
+				if(neighbor == pieceCell){
+					return true;
+				}
+			}	
+		}	
+		return false;		
+	}
+
 	public List<Vector2I> FindAllTilesOfType(TileTypes type){
 		var listGrid = Tiles.GetGridAs2DList();
 		var matchingTileCells = new List<Vector2I>();
@@ -149,4 +162,14 @@ public partial class TileQuery : Node, Queriable, Mapable, WithTiles
 		}
 		return closestPiece;
 	}
+
+    public Control GetPlayer(){
+        return Tiles.FindItemByType(typeof(Playable));
+    }
+
+    public Vector2I GetPlayerPosition(){
+		var player = Tiles.FindItemByType(typeof(Playable));
+        return GetCellFor(player);
+    }
+
 }

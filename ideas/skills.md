@@ -28,6 +28,7 @@
   - `A` throw equipped weapon: **Adv. implementation:** desperate attack that temporarily removes your melee weapon from you. once the enemy dies, preferably in that attack, it appears as an item on the ground 
   - `S` [r] push object: **Adv. implementation:** if stationary with no matches, pushes a piece one tile ahead, if it has momentum, pushes the piece 2 tiles (or maybe more). if an enemy is in the way, takes damage and debuff -- maybe I should have these replentish
   - `C` fortify: *stationary* buff defense, can match any anjacent defensive group, lasts at least 2 turns **Adv. implementation:**: the match group must be 'ahead' of the player, but which way is ahead is difficult to determine. maybe an area between the player and the closest aggroed enemy?
+  - `C` a skill that keeps you from being pushed back and grants defense, can only match groups directly behind the player like Kick
   - `C` shield focus **Adv. implementation:** pick an enemy to debuff damage indefinitely. if you cast the skill on another enemy, that one bets the debuff and the former loses the debuff
   - `S` search opening **Adv. implementation:** pick an enemy to debuff defense indefinitely. ----//----
   - `S` stare-down **Adv. implementation:** pick an enemy to debuff initiative indefinitely. ----//----

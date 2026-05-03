@@ -33,7 +33,7 @@ public partial class ElementSkillsDisplay : /* ItemList */Control, SelectableSki
 			button.Texture = _skillMap[skill.name];
 			button.SetSkillLabel(skill.name.ToString());
 			button.SetEnergyRequirements(skill.fire, skill.wind, skill.earth, skill.water);
-			button.DecideActivationByEnergyNeed(skill.enoughFire, skill.enoughWind, skill.enoughEarth, skill.enoughWater);
+			button.DecideActivation(skill.enoughFire, skill.enoughWind, skill.enoughEarth, skill.enoughWater, skill.meetsBoardRequirements);
 
 
 

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using Tiles;
 using static Godot.AnimationMixer;
 
-public partial class LeapAttack : Control, Skill, WithTileRoot, AccessableBoard, Traversing, WithAnimationTree
+public partial class LeapAttack : Control, Skill, WithTileRoot, AccessableBoard, Traversing, WithAnimationTree, FilterableSkill
 {
 	[Export] private Node _damageCalculator;
 	
@@ -144,18 +144,16 @@ public partial class LeapAttack : Control, Skill, WithTileRoot, AccessableBoard,
 	} 
 
 
-
-	// private async Task _WaitForAnimationToFinish(AnimationNodeStateMachinePlayback playback, string animation){
-	// 	var animationIsPlaying = true;
-		
-	// 	await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame); // Wait one frame for animation to start
-
-	// 	while (animationIsPlaying){
-	// 		if (playback.IsPlaying() == false){ // Check if playback stopped
-	// 			animationIsPlaying = false;
-	// 		}
-	// 		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-	// 	}
-	// 	var bp = 134;
-	// }
+    public /* static */ bool CheckIfUsable(List<Vector2I> matchedGroup, SkillNames.SkillGroups skillGroup, Queriable boardQuery){
+		var allMatchingTileCells = boardQuery.FindAllTilesOfType(TileTypes.Melee);
+		var allMatchingTileCellsWithAdjacentEnemies = new List<Vector2I>();
+		foreach(var cell in allMatchingTileCells){
+			var neighbours = boardQuery.GetNeighboringTiles(cell);
+			var enemies = neighbours.Where(neighbour => neighbour is Disposition actor && actor.IsEnemy).ToList();
+			if(enemies.Count > 0){
+				return true;			
+			}
+		}
+		return false;
+    }	
 }

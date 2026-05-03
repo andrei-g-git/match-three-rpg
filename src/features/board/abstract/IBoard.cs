@@ -57,6 +57,7 @@ namespace Board{
 		public List<Control> GetAllActors();
 		public Control FindNextTileInLine(List<Vector2I> line);
 		public bool IsCellAdjacentToLine(Vector2I cell, List<Vector2I> line);
+		public bool IsPieceAdjacentToLine(Control piece, List<Vector2I> line);
 		public List<Vector2I> GetCellsInRadiusAroundTileNode(int radius, Control tileAtCenter);
 		public List<Vector2I> GetCellsInRadius(int radius, Vector2I cell);
 		public Control GetItemAt(Vector2I cell);
@@ -67,6 +68,8 @@ namespace Board{
 		public List<Control> GetPiecesAroundLine(List<Vector2I> line);
 		public List</* T */Control> GetPiecesAroundLineOfType<T>(List<Vector2I> line/* , Type interfaceType */);
 		public Control GetClosestPieceToCellInList(Vector2I cell, List<Control> pieces);
+		public Control GetPlayer();
+		public Vector2I GetPlayerPosition();
 	}
 
 	public interface Sequential{

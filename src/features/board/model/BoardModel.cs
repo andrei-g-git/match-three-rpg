@@ -117,6 +117,10 @@ public partial class BoardModel : Node, Organizable, MatchableBoard, WithTiles, 
         return (_tileQuery as Queriable).IsCellAdjacentToLine(cell, line);
     }
 
+    public bool IsPieceAdjacentToLine(Control piece, List<Vector2I> line){
+        return (_tileQuery as Queriable).IsPieceAdjacentToLine(piece, line);
+    }
+
     public List<Vector2I> GetCellsInRadiusAroundTileNode(int radius, Control tileAtCenter){
         return (_tileQuery as Queriable).GetCellsInRadiusAroundTileNode(radius, tileAtCenter);
     }
@@ -162,4 +166,13 @@ public partial class BoardModel : Node, Organizable, MatchableBoard, WithTiles, 
 	public Control GetClosestPieceToCellInList(Vector2I cell, List<Control> pieces){
         return (_tileQuery as Queriable).GetClosestPieceToCellInList(cell, pieces);
 	}
+
+    public Control GetPlayer(){
+        return (_tileQuery as Queriable).GetPlayer();
+    }
+
+    public Vector2I GetPlayerPosition(){
+        return (_tileQuery as Queriable).GetPlayerPosition();
+    }
+
 }

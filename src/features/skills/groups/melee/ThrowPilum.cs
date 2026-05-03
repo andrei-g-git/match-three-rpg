@@ -10,7 +10,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Tiles;
 
-public partial class ThrowPilum : Control, Skill, WithTileRoot, AccessableBoard, Traversing, WithAnimationTree, WithAnimatedActor//, Mapable
+public partial class ThrowPilum : Control, Skill, WithTileRoot, AccessableBoard, Traversing, WithAnimationTree, WithAnimatedActor, FilterableSkill
 {
 	[Export] private Node _damageCalculator;
 	[Export] private /* Node2D */ Control _projectileTweener;
@@ -93,4 +93,10 @@ public partial class ThrowPilum : Control, Skill, WithTileRoot, AccessableBoard,
         throw new NotImplementedException();
     }
 
+
+    public /* static */ bool CheckIfUsable(List<Vector2I> matchedGroup, SkillNames.SkillGroups skillGroup, Queriable boardQuery){
+		var playerPosition = boardQuery.GetPlayerPosition();
+        var playerIsAdjacent = boardQuery.IsCellAdjacentToLine(playerPosition, matchedGroup);
+		return playerIsAdjacent; //the player is allowed to waste the skill if there's no eligible enemy
+    }
 }
