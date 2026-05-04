@@ -203,17 +203,17 @@ public partial class MainMenu : Control, WithSceneManager
 					new SkillGroup{
 						Group = SkillNames.SkillGroups.Defensive.ToString(),
 						Skills = [
-							// new SkillWithCount{
-							// 	Name=SkillNames.Defensive.ShieldBash.ToString(),
-							// 	Uses=99,
-							// 	Level=1,
-							// 	EnergyRequirement = new EnergyRequirement{
-							// 		Fire=2,
-							// 		Wind=0,
-							// 		Earth=4,
-							// 		Water=0
-							// 	}
-							// },
+							new SkillWithCount{
+								Name=SkillNames.Defensive.ShieldBash.ToString(),
+								Uses=99,
+								Level=1,
+								EnergyRequirement = new EnergyRequirement{
+									Fire=3,
+									Wind=0,
+									Earth=5,
+									Water=0
+								}
+							},
 							new SkillWithCount{
 								Name=SkillNames.Defensive.Walk.ToString(),
 								Uses=99,

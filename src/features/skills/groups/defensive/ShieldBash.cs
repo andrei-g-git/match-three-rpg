@@ -20,13 +20,16 @@ public partial class ShieldBash : Control, Skill, WithTileRoot, AccessableBoard,
     public async Task ProcessPathAsync(List<Vector2I> path){
 		//matches pieces at the direct back of the player, who then kicks forward if enemy RIGHT in front, on a line with player and matches eg. m,m,m,p,f
 		//received path direction is away from player as always, need to reverse 
-		path.Reverse();
+
+		path.Reverse(); //this is not mindful of the player position, it's just relative to the direction tiles are generally matched
+
         var nextCellAtEnd = Hex.FindNextInLine(path);
 		var playerCell = (Board as Queriable).GetCellFor(TileRoot);
 		if(nextCellAtEnd.Equals(playerCell)){
 			path.Add(playerCell);
 			nextCellAtEnd = Hex.FindNextInLine(path);
 			var nextPiece = (Board as Queriable).GetItemAt(nextCellAtEnd);
+			GD.Print($"NEXT CELL AT END:   {nextCellAtEnd}");
 			if(nextPiece is Disposition actor && actor.IsEnemy){
 				var playback = (AnimationNodeStateMachinePlayback)AnimationTree.Get("parameters/playback");
 
