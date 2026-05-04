@@ -70,6 +70,10 @@ public interface WithAgility{
 	public int Agility{get;set;}
 }
 
+public interface WithConstitution{
+	public int Constitution{get;set;}
+}
+
 // public interface Effectful{ //nah this is a waste of a perfectly good interface name that I can replace with an abstract class, which is serializable
 // 	public int MaxDuration{get;set;}
 // 	public int TurnsLeft{get;set;}

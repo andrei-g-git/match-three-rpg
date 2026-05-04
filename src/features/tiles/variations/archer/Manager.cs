@@ -8,7 +8,7 @@ using Tiles;
 using static Skills.SkillNames;
 
 namespace Archer{
-	public partial class Manager : Control, Tile, /* AccessableBoard, */ Movable, Mapable, Permeable, RelayableUIEvents, Defensible, WithHealth, WithDefense, WithDamage, WithSpeed, Disposition, Creatable, Agentive, TurnBased
+	public partial class Manager : Control, Tile, /* AccessableBoard, */ Movable, Mapable, Permeable, RelayableUIEvents, Defensible, WithHealth, WithDefense, WithDamage, WithSpeed, WithConstitution, Disposition, Creatable, Agentive, TurnBased
 	{
 		[ExportGroup("behaviors")]
         [Export] private Node _defender;
@@ -29,12 +29,15 @@ namespace Archer{
         public int Defense {get => (_stats as WithDefense).Defense; set => (_stats as WithDefense).Defense = value;}
         public int Damage {get => (_stats as WithDamage).Damage; set => (_stats as WithDamage).Damage = value;}
         public int Speed {get => (_stats as WithSpeed).Speed; set => (_stats as WithSpeed).Speed = value;}
+        public int Constitution {get => (_stats as WithConstitution).Constitution; set => (_stats as WithConstitution).Constitution = value;}
+
         public RemoteSignaling UIEventBus{private get; set;} //NO INTERFACE FOR THIS YET
         public bool IsAggressive { get => (_hostility as Disposition).IsAggressive; set => (_hostility as Disposition).IsAggressive = value; }
         public bool IsEnemy { get => (_hostility as Disposition).IsAggressive; set => (_hostility as Disposition).IsAggressive = value; }		
         public Sequential TurnQueue{private get; set;}	
 
         public int Index{get;set;}
+
 
         public override void _Ready(){
             (_popTweener as Creatable).Pop();

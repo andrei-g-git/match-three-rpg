@@ -105,4 +105,8 @@ namespace Tiles{
     public interface Distractable{
         public void BecomeDistractedFor(int turns, int distractingActorIntelligence);
     }
+
+    public interface Bashable{
+        public /* Task */ void BeBashed(int enemyStrength, int enemyConstitution);
+    }
 }

@@ -1,7 +1,7 @@
 using Godot;
 using Stats;
 
-public partial class OrcStats: Node, WithHealth, WithDefense, WithDamage, WithSpeed, WithStrength, WithIntelligence, WithAgility 
+public partial class OrcStats: Node, WithHealth, WithDefense, WithDamage, WithSpeed, WithStrength, WithIntelligence, WithAgility, WithConstitution 
 {
     [Export] int _maxHealth;
     [Export] int _defense;
@@ -10,6 +10,7 @@ public partial class OrcStats: Node, WithHealth, WithDefense, WithDamage, WithSp
     [Export] int _strength;
     [Export] int _intelligence;
     [Export] int _agility;
+    [Export] int _constitution;
     public int Health{get;set;} //needs to pick off from save 
     public int MaxHealth => _maxHealth; //might need setter if it can suffer health debuffs, but that's neither here or there
     public int Defense     { //I probably won't have to set these programatically ... maybe they can be changed with buffs and dbuffs
@@ -44,6 +45,12 @@ public partial class OrcStats: Node, WithHealth, WithDefense, WithDamage, WithSp
         get => _agility;
         set{
             _agility = value;    
+    }}
+
+    public int Constitution { 
+        get => _constitution;
+        set{
+            _constitution = value;    
     }}
 
     public override void _Ready()
