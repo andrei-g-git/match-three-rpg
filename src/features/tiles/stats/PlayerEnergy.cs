@@ -14,25 +14,37 @@ public partial class PlayerEnergy : Node, RefillableEnergy, WithEnergy, /* Deriv
 	private int _FireEnergy;
 	public int FireEnergy{
 		get => _FireEnergy;
-		set { _FireEnergy = Math.Clamp(value, 0, MaxFireEnergy); }
+		set { 
+			_FireEnergy = Math.Clamp(value, 0, MaxFireEnergy); 
+			(UIEventBus as UIEventBus).Publish(Events.FireChanged, [FireEnergy, MaxFireEnergy]);			
+		}
 	}
 	public int MaxWindEnergy{get;set;}
 	private int _WindEnergy;
 	public int WindEnergy{
 		get => _WindEnergy;
-		set { _WindEnergy = Math.Clamp(value, 0, MaxWindEnergy); }
+		set { 
+			_WindEnergy = Math.Clamp(value, 0, MaxWindEnergy); 
+			(UIEventBus as UIEventBus).Publish(Events.WindChanged, [WindEnergy, MaxWindEnergy]);
+		}
 	}
 	public int MaxEarthEnergy{get;set;}
 	private int _EarthEnergy;
 	public int EarthEnergy{
 		get => _EarthEnergy;
-		set { _EarthEnergy = Math.Clamp(value, 0, MaxEarthEnergy); }
+		set { 
+			_EarthEnergy = Math.Clamp(value, 0, MaxEarthEnergy); 
+			(UIEventBus as UIEventBus).Publish(Events.EarthChanged, [EarthEnergy, MaxEarthEnergy]);		
+		}
 	}
 	public int MaxWaterEnergy{get;set;}
 	private int _WaterEnergy;
 	public int WaterEnergy{
 		get => _WaterEnergy;
-		set { _WaterEnergy = Math.Clamp(value, 0, MaxWaterEnergy); }
+		set { 
+			_WaterEnergy = Math.Clamp(value, 0, MaxWaterEnergy); 
+			(UIEventBus as UIEventBus).Publish(Events.WaterChanged, [WaterEnergy, MaxWaterEnergy]);
+		}
 	}
 
     public override void _Ready(){

@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Tiles;
 
-public partial class Sprint : Control, Skill, WithTileRoot, AccessableBoard, WithAnimationTree, Traversing
+public partial class Sprint : Control, Skill, WithTileRoot, AccessableBoard, WithAnimationTree, Traversing, FilterableSkill
 {
     public Node Board { private get; set; }
     public Control TileRoot { get; set; }
@@ -38,4 +38,9 @@ public partial class Sprint : Control, Skill, WithTileRoot, AccessableBoard, Wit
         throw new NotImplementedException();
     }
 
+    public bool CheckIfUsable(List<Vector2I> matchedGroup, SkillNames.SkillGroups skillGroup, Queriable boardQuery){
+		var playerPosition = boardQuery.GetPlayerPosition();
+        var playerIsAdjacent = boardQuery.IsCellAdjacentToLine(playerPosition, matchedGroup);
+		return playerIsAdjacent; 
+    }
 }

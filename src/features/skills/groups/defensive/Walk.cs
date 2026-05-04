@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Tiles;
 
-public partial class Walk : Control, Skill, WithTileRoot, AccessableBoard, WithAnimationTree, Traversing
+public partial class Walk : Control, Skill, WithTileRoot, AccessableBoard, WithAnimationTree, Traversing, FilterableSkill
 {
     public Node Board { private get; set; }
     public Control TileRoot { get; set; }
@@ -37,4 +37,9 @@ public partial class Walk : Control, Skill, WithTileRoot, AccessableBoard, WithA
         throw new NotImplementedException();
     }
 
+    public bool CheckIfUsable(List<Vector2I> matchedGroup, SkillNames.SkillGroups skillGroup, Queriable boardQuery){
+		var playerPosition = boardQuery.GetPlayerPosition();
+        var playerIsAdjacent = boardQuery.IsCellAdjacentToLine(playerPosition, matchedGroup);
+		return playerIsAdjacent; 
+    }
 }

@@ -11,7 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Tiles;
 
-public partial class ThrowPebble : Control, Skill, WithTileRoot, AccessableBoard, Traversing, WithAnimationTree, WithAnimatedActor
+public partial class ThrowPebble : Control, Skill, WithTileRoot, AccessableBoard, Traversing, WithAnimationTree, WithAnimatedActor, FilterableSkill
 {
 	[Export] private int _noiseRadius = 2;
 	[Export] private /* Node2D */ Control _projectileTweener;
@@ -103,4 +103,11 @@ public partial class ThrowPebble : Control, Skill, WithTileRoot, AccessableBoard
             await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);		
         }
     }
+
+
+    public  bool CheckIfUsable(List<Vector2I> matchedGroup, SkillNames.SkillGroups skillGroup, Queriable boardQuery){
+		// var playerPosition = boardQuery.GetPlayerPosition();
+        // var playerIsAdjacent = boardQuery.IsCellAdjacentToLine(playerPosition, matchedGroup);
+		return true; //playerIsAdjacent; 
+    }	
 }

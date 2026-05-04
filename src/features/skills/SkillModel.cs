@@ -152,6 +152,9 @@ public partial class SkillModel : Node/* , WithEnergy, WithFireEnergy, WithWindE
 
 			var parameters = await ToSignal(_skillGroupsDisplay, "SkillPicked");
 			var pickedSkill = (string) parameters[0];	
+
+			_SpendEnergy(pickedSkill, skills);
+
 			return pickedSkill;					
 		}
 
@@ -170,6 +173,20 @@ public partial class SkillModel : Node/* , WithEnergy, WithFireEnergy, WithWindE
 			}
 		}
 		return false;
+	}
+
+	private void _SpendEnergy(string pickedSkillName, dynamic[] skills){
+		Enum.TryParse(pickedSkillName, out SkillNames.All skillEnum);
+		var active = skills.ToList().Find(skill => skill.name == skillEnum);
+		var fire = active.fire;
+		var wind = active.wind;
+		var earth = active.earth;
+		var water = active.water;
+
+		PlayerEnergy.FireEnergy -= fire;
+		PlayerEnergy.WindEnergy -= wind;
+		PlayerEnergy.EarthEnergy -= earth;
+		PlayerEnergy.WaterEnergy -= water;
 	}
 
 }

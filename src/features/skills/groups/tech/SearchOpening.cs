@@ -5,11 +5,12 @@ using Skills;
 using Stats;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Tiles;
 using static Skills.SkillNames;
 
-public partial class SearchOpening : Control, Skill, WithTileRoot, AccessableBoard, Traversing, WithAnimationTree, WithAnimatedActor//, FilterableSkill
+public partial class SearchOpening : Control, Skill, WithTileRoot, AccessableBoard, Traversing, WithAnimationTree, WithAnimatedActor, FilterableSkill
 {
     public Control TileRoot { get; set; }
     public Node Board { private get; set; }
@@ -44,4 +45,11 @@ public partial class SearchOpening : Control, Skill, WithTileRoot, AccessableBoa
     }
 
 
+    public bool CheckIfUsable(List<Vector2I> matchedGroup, SkillGroups skillGroup, Queriable boardQuery){
+		var actors = boardQuery.GetPiecesAroundLineOfType<Disposition>(matchedGroup);
+		var player = boardQuery.GetPlayer();
+		actors.Remove(player);
+		if(actors.Count > 0) return true;
+		return false;
+	}
 }
