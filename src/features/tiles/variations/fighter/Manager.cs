@@ -8,7 +8,7 @@ using Tiles;
 using static Skills.SkillNames;
 
 namespace Fighter{
-	public partial class Manager : Control, Tile, AccessableBoard, /* WithTiles, */  Movable, Mapable, Permeable, RelayableUIEvents, Defensible, WithHealth, WithDefense, WithDamage, WithSpeed, WithConstitution, Disposition, Creatable, Agentive, TurnBased, Pushable, Distractable, WithEffects
+	public partial class Manager : Control, Tile, AccessableBoard, /* WithTiles, */  Movable, Mapable, Permeable, RelayableUIEvents, Defensible, WithHealth, WithDefense, WithDamage, WithSpeed, WithConstitution, Disposition, Creatable, Agentive, TurnBased, Pushable, Distractable, WithEffects, Bashable
 	{
 		[ExportGroup("behaviors")]
         [Export] private Node _defender;
@@ -22,6 +22,7 @@ namespace Fighter{
         [Export] private Node _engagement;
         [Export] private Node _pushed;
         [Export] private Node _distracted;
+        [Export] private Node _bashed;
 
         [ExportGroup("stats")]
         [Export] private Node _stats;
@@ -162,6 +163,11 @@ namespace Fighter{
         public void RemoveAllOfType<T>() where T: ActiveEffect{
             (_activeEffects as Effectful).RemoveAllOfType<T>();
         }
+
+        public void BeBashed(int enemyStrength, int enemyConstitution){
+            (_bashed as Bashable).BeBashed(enemyStrength, enemyConstitution);
+        }
+        
     }	
 }
 

@@ -12,6 +12,7 @@ public partial class Ai : Node, AI
 
 	public void Resume(){
 		(_activeEffects as Effectful).UpdateDurations();
+		(_activeEffects as Effectful).ApplyAll();
 		var isStunned = (_activeEffects as Effectful).CheckIfStunned();
 		if(!isStunned){
 			//GD.Print($"{_pieceRoot.Name} with index {(_pieceRoot as Agentive).Index} has switched ON");

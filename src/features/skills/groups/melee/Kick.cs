@@ -68,7 +68,8 @@ GD.Print("kicked");
     }
 
     public /* static */ bool CheckIfUsable(List<Vector2I> matchedGroup, SkillNames.SkillGroups skillGroup, Queriable boardQuery){
-		var path = matchedGroup;
+		//var path = matchedGroup;
+		var path = new List<Vector2I>(matchedGroup);
 		path.Reverse();
 		var playerCell = boardQuery.GetPlayerPosition();		
         var nextCellAtEnd = Hex.FindNextInLine(path);

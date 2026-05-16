@@ -5,6 +5,7 @@ using Skills;
 using Stats;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Tiles;
 public partial class ShieldBash : Control, Skill, WithTileRoot, AccessableBoard, Traversing, WithAnimationTree, FilterableSkill
@@ -54,7 +55,9 @@ public partial class ShieldBash : Control, Skill, WithTileRoot, AccessableBoard,
     }
 
     public /* static */ bool CheckIfUsable(List<Vector2I> matchedGroup, SkillNames.SkillGroups skillGroup, Queriable boardQuery){
-		var path = matchedGroup;
+		//var path = matchedGroup;
+		//var path = matchedGroup.AsEnumerable().Reverse().ToList();
+		var path = new List<Vector2I>(matchedGroup);
 		path.Reverse();
 		var playerCell = boardQuery.GetPlayerPosition();		
         var nextCellAtEnd = Hex.FindNextInLine(path);
