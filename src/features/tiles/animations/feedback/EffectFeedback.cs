@@ -10,10 +10,17 @@ public partial class EffectFeedback : Node2D, DisplayableEffect
 	[Export] private float spread;
 	[Export] private float height;
 
+	[Signal] public delegate void EffectDisplayedEventHandler();
+
 
 	public void DisplayEffect(string effect){ 
 		label.Text = effect;
 
+		//
+		animationPlayer.Stop();
+		animationPlayer.Seek(0f, true);
+		//
+		
 		animationPlayer.Play("FadeScaleInOut");
 		var tween = CreateTween();
 		var endPosition = new Vector2(
@@ -24,6 +31,9 @@ public partial class EffectFeedback : Node2D, DisplayableEffect
 
 		var pixelStart = MathUtils.InvertVector(Position);
 		var pixelEnd = MathUtils.InvertVector(endPosition);
+
+		tween.Finished += () => EmitSignal(SignalName.EffectDisplayed);
+
 		tween.TweenProperty(
 			this,
 			"position",

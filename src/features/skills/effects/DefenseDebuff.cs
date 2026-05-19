@@ -14,4 +14,8 @@ public class DefenseDebuff: ActiveEffect
             (stats as WithDefense).Defense -= _amount;             
         }
     }
+
+    public override void RemoveFromStats(Node stats){
+        (stats as WithDefense).Defense += _amount;
+    }
 }

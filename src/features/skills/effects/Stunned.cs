@@ -11,4 +11,9 @@ public class Stunned : ActiveEffect
     public override void ApplyToStats(Node stats){
         //throw new System.NotImplementedException();
     }
+
+    public override void RemoveFromStats(Node stats)
+    {
+        //throw new NotImplementedException();
+    }
 }

@@ -137,10 +137,11 @@ _tileRoot = NodePath("../..")
 _stats = NodePath("../Stats")
 _defend = NodePath("../Defender")
 
-[node name="Bashed" type="Node" parent="Behaviors" node_paths=PackedStringArray("_stats", "_activeEffects")]
+[node name="Bashed" type="Node" parent="Behaviors" node_paths=PackedStringArray("_stats", "_activeEffects", "_effectTween")]
 script = ExtResource("15_vejbs")
 _stats = NodePath("../Stats")
 _activeEffects = NodePath("../../ActiveEffects")
+_effectTween = NodePath("../../Tweeners/EffectFeedback")
 
 [node name="Astar" type="Node" parent="Behaviors"]
 script = ExtResource("10_kfo3p")

@@ -9,11 +9,13 @@ public partial class ActiveEffects : Node, Effectful
 	//[Export] private Node _effectFeedback; //observer
 
 	[Signal] public delegate void GotEffectEventHandler(string effect);
+	[Signal] public delegate void EffectExpiredEventHandler(string effect);
 
 	public List<ActiveEffect> Effects {get;set;} = []; //ActiveEffect is not an interface (but it is abstract). I need this for serialization ..but since activeEffect is already an abstraction ... i don't actually need an interface...
 
 	public void Add(ActiveEffect effect){
 		Effects.Add(effect);
+		//effect.ApplyToStats(_stats); //
 		EmitSignal(SignalName.GotEffect, effect.Type.ToString());
 	}
 
@@ -32,6 +34,7 @@ public partial class ActiveEffects : Node, Effectful
 
     public void Remove(ActiveEffect effect){
         Effects.Remove(effect);
+		EmitSignal(SignalName.EffectExpired, effect.Type.ToString());
     }
 
     public void RemoveAt(int index){
@@ -49,14 +52,17 @@ public partial class ActiveEffects : Node, Effectful
     public void UpdateDurations(){
         foreach(var effect in Effects){
 			effect.TurnsLeft--;
-			if(effect.TurnsLeft < 0){
-				effect.TurnsLeft = 0;
+			if(effect.TurnsLeft <= 0){
+				effect.TurnsLeft = 0; //kind of redundant now...
+				Remove(effect);
+				//effect.RemoveFromStats(_stats);
 			}
 		}
     }
 
 	public void ApplyAll(){
         foreach(var effect in Effects){
+			effect.RemoveFromStats(_stats);
 			if(effect.TurnsLeft > 0){ //this method sould run after UpdateDurations, but it's better to make sure
 				effect.ApplyToStats(_stats);				
 			}
