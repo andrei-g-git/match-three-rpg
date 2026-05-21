@@ -516,7 +516,13 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
         }
         var bp2 = 12344;
 
-        /* _ = */await MoveTilesOnTheirPaths(list3D, originalGrid); //not sure if this awaits the move signal...
+        var isEmpty = pathGrid.CheckIfEmpty(list3D);
+        var bp3 =234;
+        if (! isEmpty)
+        {
+        /* _ = */await MoveTilesOnTheirPaths(list3D, originalGrid); //not sure if this awaits the move signal...            
+        }
+
 
         var bppp = 1232;
     }   

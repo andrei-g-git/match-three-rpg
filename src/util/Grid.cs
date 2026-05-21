@@ -89,6 +89,28 @@ public class Grid<[MustBeVariant] T>
 		return grid;		
 	}
 
+	public bool CheckIfEmpty(){
+		for (int i = 0; i < Width; i++){
+			for (int j = 0; j < Height; j++){
+				var item = GetItem(i, j);
+				var containsSomething = EqualityComparer<T>.Default.Equals(item, default);
+				if(containsSomething) return false;
+			}
+		}		
+		return true;
+	}
+
+	public bool CheckIfEmpty(List<List<T>> externalGrid){
+		for (int i = 0; i < Width; i++){
+			for (int j = 0; j < Height; j++){
+				var item = externalGrid[i][j];
+				var isEmpty = EqualityComparer<T>.Default.Equals(item, default);
+				if(! isEmpty) return false;
+			}
+		}		
+		return true;
+	}
+
 	public T FindItemByType(Type interfaceOrClass){
 		if(!interfaceOrClass.IsInterface && !interfaceOrClass.IsClass){
 			throw new ArgumentException("Expected interface or class :", nameof(interfaceOrClass));
