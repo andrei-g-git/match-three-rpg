@@ -45,9 +45,11 @@ public partial class TileOrganizer: Node, Organizable, WithTiles
         Grid<TileTypes> tileTable,
         TileMaking factory
     ){
-        var board = new Grid<Control>(tileTable.Width, tileTable.Height);
-        for (int x = 0; x < tileTable.Width; x++){
-            for (int y = 0; y < tileTable.Height; y++){
+        var board = new Grid<Control>(tileTable./* Width */Height, tileTable./* Height */Width);
+        //for (int x = 0; x < tileTable.Width; x++){
+        for (int x = 0; x < tileTable.Height; x++){
+            //for (int y = 0; y < tileTable.Height; y++){
+            for (int y = 0; y < tileTable.Width; y++){
                 var tileName = tileTable.GetItem(y, x); //REVERSED
                 if (tileName != TileTypes.Blank){
                     var tile = (Control) factory.Create(tileName);

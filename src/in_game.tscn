@@ -61,26 +61,6 @@
 [ext_resource type="PackedScene" uid="uid://cl06pykjw7ts8" path="res://src/features/skills/groups/tech/search_opening.tscn" id="45_hnujk"]
 [ext_resource type="PackedScene" uid="uid://3a0yv8kd6tqi" path="res://src/features/skills/groups/defensive/shield_bash.tscn" id="47_d5ibo"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_4syyy"]
-shader = ExtResource("5_4syyy")
-shader_parameter/energy = 0.0
-shader_parameter/depleted_r = 0.0
-shader_parameter/depleted_g = 0.0
-shader_parameter/depleted_b = 0.0
-shader_parameter/filled_r = 0.0
-shader_parameter/filled_g = 0.0
-shader_parameter/filled_b = 0.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_64ngi"]
-shader = ExtResource("5_4syyy")
-shader_parameter/energy = 0.0
-shader_parameter/depleted_r = 0.0
-shader_parameter/depleted_g = 0.0
-shader_parameter/depleted_b = 0.0
-shader_parameter/filled_r = 1.0
-shader_parameter/filled_g = 1.0
-shader_parameter/filled_b = 1.0
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4syyy"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8ggik"]
@@ -140,6 +120,26 @@ custom_data_layer_1/name = "navigable"
 custom_data_layer_1/type = 1
 sources/0 = SubResource("TileSetAtlasSource_7ls1f")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4syyy"]
+shader = ExtResource("5_4syyy")
+shader_parameter/energy = 0.0
+shader_parameter/depleted_r = 0.0
+shader_parameter/depleted_g = 0.0
+shader_parameter/depleted_b = 0.0
+shader_parameter/filled_r = 0.0
+shader_parameter/filled_g = 0.0
+shader_parameter/filled_b = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_64ngi"]
+shader = ExtResource("5_4syyy")
+shader_parameter/energy = 0.0
+shader_parameter/depleted_r = 0.0
+shader_parameter/depleted_g = 0.0
+shader_parameter/depleted_b = 0.0
+shader_parameter/filled_r = 1.0
+shader_parameter/filled_g = 1.0
+shader_parameter/filled_b = 1.0
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4syyy"]
 bg_color = Color(0, 0.7019608, 0.6666667, 1)
 
@@ -174,118 +174,6 @@ custom_minimum_size = Vector2(420, 0)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Hud" type="Control" parent="MainContainer/PanelContainer" node_paths=PackedStringArray("_uiEventBus", "_fireBar", "_windBar", "_earthBar", "_waterBar")]
-layout_mode = 2
-script = ExtResource("17_q2jqf")
-_uiEventBus = NodePath("../../../Events/UIEventBus")
-_fireBar = NodePath("Elemental Energies/Fire")
-_windBar = NodePath("Elemental Energies/Wind")
-_earthBar = NodePath("Elemental Energies/Earth")
-_waterBar = NodePath("Elemental Energies/Water")
-
-[node name="Elemental Energies" type="HBoxContainer" parent="MainContainer/PanelContainer/Hud"]
-custom_minimum_size = Vector2(192, 32)
-layout_mode = 0
-offset_right = 204.0
-offset_bottom = 32.0
-
-[node name="Fire" type="VBoxContainer" parent="MainContainer/PanelContainer/Hud/Elemental Energies" node_paths=PackedStringArray("_label", "_sprite")]
-custom_minimum_size = Vector2(32, 48)
-layout_mode = 2
-alignment = 1
-script = ExtResource("4_64ngi")
-_label = NodePath("Label")
-_sprite = NodePath("AspectRatioContainer/FireGauge")
-_filledColor = Color(1, 1, 1, 1)
-_depletedColor = Color(0.47058824, 0.47058824, 0.5058824, 1)
-
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="MainContainer/PanelContainer/Hud/Elemental Energies/Fire"]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-
-[node name="FireGauge" type="Sprite2D" parent="MainContainer/PanelContainer/Hud/Elemental Energies/Fire/AspectRatioContainer"]
-material = SubResource("ShaderMaterial_4syyy")
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_r4pbt")
-offset = Vector2(32, 32)
-
-[node name="Label" type="Label" parent="MainContainer/PanelContainer/Hud/Elemental Energies/Fire"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 8
-horizontal_alignment = 1
-
-[node name="Wind" type="VBoxContainer" parent="MainContainer/PanelContainer/Hud/Elemental Energies" node_paths=PackedStringArray("_label", "_sprite")]
-custom_minimum_size = Vector2(32, 48)
-layout_mode = 2
-script = ExtResource("4_64ngi")
-_label = NodePath("Label")
-_sprite = NodePath("AspectRatioContainer/WindGauge")
-_filledColor = Color(1, 1, 1, 1)
-_depletedColor = Color(0.47058824, 0.47058824, 0.47058824, 1)
-
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="MainContainer/PanelContainer/Hud/Elemental Energies/Wind"]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-
-[node name="WindGauge" type="Sprite2D" parent="MainContainer/PanelContainer/Hud/Elemental Energies/Wind/AspectRatioContainer"]
-material = SubResource("ShaderMaterial_64ngi")
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("6_lxb6n")
-offset = Vector2(32, 32)
-
-[node name="Label" type="Label" parent="MainContainer/PanelContainer/Hud/Elemental Energies/Wind"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 8
-horizontal_alignment = 1
-
-[node name="Earth" type="VBoxContainer" parent="MainContainer/PanelContainer/Hud/Elemental Energies" node_paths=PackedStringArray("_label", "_sprite")]
-custom_minimum_size = Vector2(32, 48)
-layout_mode = 2
-script = ExtResource("4_64ngi")
-_label = NodePath("Label")
-_sprite = NodePath("AspectRatioContainer/EarthGauge")
-_filledColor = Color(1, 1, 1, 1)
-_depletedColor = Color(0.47058824, 0.47058824, 0.47058824, 1)
-
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="MainContainer/PanelContainer/Hud/Elemental Energies/Earth"]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-
-[node name="EarthGauge" type="Sprite2D" parent="MainContainer/PanelContainer/Hud/Elemental Energies/Earth/AspectRatioContainer"]
-material = SubResource("ShaderMaterial_64ngi")
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("7_hhowy")
-offset = Vector2(32, 32)
-
-[node name="Label" type="Label" parent="MainContainer/PanelContainer/Hud/Elemental Energies/Earth"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 8
-horizontal_alignment = 1
-
-[node name="Water" type="VBoxContainer" parent="MainContainer/PanelContainer/Hud/Elemental Energies" node_paths=PackedStringArray("_label", "_sprite")]
-custom_minimum_size = Vector2(32, 48)
-layout_mode = 2
-script = ExtResource("4_64ngi")
-_label = NodePath("Label")
-_sprite = NodePath("AspectRatioContainer/WaterGauge")
-_filledColor = Color(1, 1, 1, 1)
-_depletedColor = Color(0.47058824, 0.47058824, 0.47058824, 1)
-
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="MainContainer/PanelContainer/Hud/Elemental Energies/Water"]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-
-[node name="WaterGauge" type="Sprite2D" parent="MainContainer/PanelContainer/Hud/Elemental Energies/Water/AspectRatioContainer"]
-material = SubResource("ShaderMaterial_64ngi")
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("8_4syyy")
-offset = Vector2(32, 32)
-
-[node name="Label" type="Label" parent="MainContainer/PanelContainer/Hud/Elemental Energies/Water"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 8
-horizontal_alignment = 1
-
 [node name="TilesPanel" type="PanelContainer" parent="MainContainer/PanelContainer" node_paths=PackedStringArray("_tileMap", "_model", "_playerSkillsModel", "_skillPickerModel")]
 custom_minimum_size = Vector2(0, 450)
 layout_mode = 2
@@ -309,6 +197,128 @@ script = ExtResource("3_da6o6")
 layout_mode = 2
 script = ExtResource("4_dw1vl")
 environment = NodePath("../Environment")
+
+[node name="Hud" type="Control" parent="MainContainer/PanelContainer" node_paths=PackedStringArray("_uiEventBus", "_fireBar", "_windBar", "_earthBar", "_waterBar")]
+layout_mode = 2
+mouse_filter = 2
+script = ExtResource("17_q2jqf")
+_uiEventBus = NodePath("../../../Events/UIEventBus")
+_fireBar = NodePath("Elemental Energies/Fire")
+_windBar = NodePath("Elemental Energies/Wind")
+_earthBar = NodePath("Elemental Energies/Earth")
+_waterBar = NodePath("Elemental Energies/Water")
+
+[node name="Elemental Energies" type="HBoxContainer" parent="MainContainer/PanelContainer/Hud"]
+custom_minimum_size = Vector2(192, 32)
+layout_mode = 0
+offset_right = 204.0
+offset_bottom = 32.0
+mouse_filter = 2
+
+[node name="Fire" type="VBoxContainer" parent="MainContainer/PanelContainer/Hud/Elemental Energies" node_paths=PackedStringArray("_label", "_sprite")]
+custom_minimum_size = Vector2(32, 48)
+layout_mode = 2
+mouse_filter = 2
+alignment = 1
+script = ExtResource("4_64ngi")
+_label = NodePath("Label")
+_sprite = NodePath("AspectRatioContainer/FireGauge")
+_filledColor = Color(1, 1, 1, 1)
+_depletedColor = Color(0.47058824, 0.47058824, 0.5058824, 1)
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="MainContainer/PanelContainer/Hud/Elemental Energies/Fire"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="FireGauge" type="Sprite2D" parent="MainContainer/PanelContainer/Hud/Elemental Energies/Fire/AspectRatioContainer"]
+material = SubResource("ShaderMaterial_4syyy")
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_r4pbt")
+offset = Vector2(32, 32)
+
+[node name="Label" type="Label" parent="MainContainer/PanelContainer/Hud/Elemental Energies/Fire"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+horizontal_alignment = 1
+
+[node name="Wind" type="VBoxContainer" parent="MainContainer/PanelContainer/Hud/Elemental Energies" node_paths=PackedStringArray("_label", "_sprite")]
+custom_minimum_size = Vector2(32, 48)
+layout_mode = 2
+mouse_filter = 2
+script = ExtResource("4_64ngi")
+_label = NodePath("Label")
+_sprite = NodePath("AspectRatioContainer/WindGauge")
+_filledColor = Color(1, 1, 1, 1)
+_depletedColor = Color(0.47058824, 0.47058824, 0.47058824, 1)
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="MainContainer/PanelContainer/Hud/Elemental Energies/Wind"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="WindGauge" type="Sprite2D" parent="MainContainer/PanelContainer/Hud/Elemental Energies/Wind/AspectRatioContainer"]
+material = SubResource("ShaderMaterial_64ngi")
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_lxb6n")
+offset = Vector2(32, 32)
+
+[node name="Label" type="Label" parent="MainContainer/PanelContainer/Hud/Elemental Energies/Wind"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+horizontal_alignment = 1
+
+[node name="Earth" type="VBoxContainer" parent="MainContainer/PanelContainer/Hud/Elemental Energies" node_paths=PackedStringArray("_label", "_sprite")]
+custom_minimum_size = Vector2(32, 48)
+layout_mode = 2
+mouse_filter = 2
+script = ExtResource("4_64ngi")
+_label = NodePath("Label")
+_sprite = NodePath("AspectRatioContainer/EarthGauge")
+_filledColor = Color(1, 1, 1, 1)
+_depletedColor = Color(0.47058824, 0.47058824, 0.47058824, 1)
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="MainContainer/PanelContainer/Hud/Elemental Energies/Earth"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="EarthGauge" type="Sprite2D" parent="MainContainer/PanelContainer/Hud/Elemental Energies/Earth/AspectRatioContainer"]
+material = SubResource("ShaderMaterial_64ngi")
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_hhowy")
+offset = Vector2(32, 32)
+
+[node name="Label" type="Label" parent="MainContainer/PanelContainer/Hud/Elemental Energies/Earth"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+horizontal_alignment = 1
+
+[node name="Water" type="VBoxContainer" parent="MainContainer/PanelContainer/Hud/Elemental Energies" node_paths=PackedStringArray("_label", "_sprite")]
+custom_minimum_size = Vector2(32, 48)
+layout_mode = 2
+mouse_filter = 2
+script = ExtResource("4_64ngi")
+_label = NodePath("Label")
+_sprite = NodePath("AspectRatioContainer/WaterGauge")
+_filledColor = Color(1, 1, 1, 1)
+_depletedColor = Color(0.47058824, 0.47058824, 0.47058824, 1)
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="MainContainer/PanelContainer/Hud/Elemental Energies/Water"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="WaterGauge" type="Sprite2D" parent="MainContainer/PanelContainer/Hud/Elemental Energies/Water/AspectRatioContainer"]
+material = SubResource("ShaderMaterial_64ngi")
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_4syyy")
+offset = Vector2(32, 32)
+
+[node name="Label" type="Label" parent="MainContainer/PanelContainer/Hud/Elemental Energies/Water"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+horizontal_alignment = 1
 
 [node name="Model" type="Node" parent="MainContainer/PanelContainer" node_paths=PackedStringArray("_tileOrganizer", "_tileMatcher", "_tileQuery", "_tileFactory", "_environment", "_selectedSkillsModel", "_turns")]
 script = ExtResource("5_qxmgw")

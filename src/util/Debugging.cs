@@ -68,10 +68,13 @@ public static class Debugging
         var extraSpace = new String(' ', spacing);
         var computedNewLines = howManyLetters % 2;    
         GD.Print(header);    
-        for(int x=0;x<grid.Count;x++){
+        //for(int x=0;x<grid.Count;x++){
+        for(int y=0;y<grid[0].Count;y++){
             var row = new List<string>();
-            for(int y=0;y<grid[0].Count;y++){
-                var item = grid[y][x]; //REVERSED
+            //for(int y=0;y<grid[0].Count;y++){
+            for(int x=0;x<grid.Count;x++){
+                //var item = grid[y][x]; //REVERSED
+                var item = grid[x][y];
                 if(item is Tile tile){
                     row.Add(tile.Type.ToString().Substring(0, howManyLetters) + extraSpace);
                 }else{

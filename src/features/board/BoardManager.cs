@@ -220,9 +220,11 @@ public partial class BoardManager : PanelContainer
 		Grid<string> cellTable, 
 		Dictionary<string, Vector2I> tileAtlasCoordinateDict
 	){
-		for (int x = 0; x < cellTable.Width; x++){
-			for (int y = 0; y < cellTable.Height; y++){
-				var cellType = cellTable.GetItem(y, x); //only the csv table needs reversing
+		//for (int x = 0; x < cellTable.Width; x++){
+		for (int x = 0; x < cellTable.Height; x++){
+			//for (int y = 0; y < cellTable.Height; y++){
+			for (int y = 0; y < cellTable.Width; y++){
+				var cellType = cellTable.GetItem(y, x); //only the csv table needs reversing --- actually the piece grid needs this too now
 				if (cellType != "-1"){
 					var atlasCell = tileAtlasCoordinateDict[cellType];
 					//GD.Print(atlasCell);

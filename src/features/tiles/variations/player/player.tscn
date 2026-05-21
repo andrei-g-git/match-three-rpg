@@ -315,7 +315,7 @@ _tileRoot = NodePath("../..")
 
 [node name="MatchingRange" type="Node" parent="Behaviors" node_paths=PackedStringArray("_tileRoot")]
 script = ExtResource("6_xn80g")
-_matchRange = 3
+_matchRange = 14
 _tileRoot = NodePath("../..")
 
 [node name="EnergyCollector" type="Node" parent="Behaviors" node_paths=PackedStringArray("_derivedStats", "_player")]
