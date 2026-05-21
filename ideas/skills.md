@@ -38,6 +38,7 @@
 #### ranged
   - `A` distract: throw a pebble to make enemy stop and check around for a turn. **Adv. implementation:** should pass intelligence check
   - `A` piercing shot: fire an arrow when matching a group behind an enemy (when you're on the other side and on the same board line/direction                            )
+  - `A` -----  cedes the turn and gets 2 consecutive turns the next round
 
 #### stealth
   - `A` runthrough?: attacks in straighht line but the thief stops way past the match group, 1 tile away from and behind the target

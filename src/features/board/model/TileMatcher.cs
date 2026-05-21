@@ -198,14 +198,14 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
 
 
             //////////////////////////////////////////    NEW april '26
-            var pickedSkill = await (_skillsModel as SkillModel).EnableSkillPickingByGroup(tile1.SkillGroup, path); //not interface
-            GD.Print("/////// picked SKILL ///////   ", pickedSkill);            
-            if(pickedSkill.Length <= 1 || pickedSkill == SkillNames.All.None.ToString() || pickedSkill == SkillNames.All.None.ToString().ToLower()){
-                (_skillsModel as SkillModel).CollectEnergyFromMatches(tile1.SkillGroup, group.Count);
-            }else{
-                _ = Enum.TryParse(pickedSkill, out SkillNames.All skillNameEnum);
-                await player.ReactToMatchesBySkillType(path, tile1.SkillGroup, skillNameEnum, isAdjacent);
-            }
+            var pickedSkill = await (_skillsModel as SkillModel).EnableSkillPickingByGroup(tile1.SkillGroup, path); //not interface --- doesn't need to be async anymmore
+            // GD.Print("/////// picked SKILL ///////   ", pickedSkill);            
+            // if(pickedSkill.Length <= 1 || pickedSkill == SkillNames.All.None.ToString() || pickedSkill == SkillNames.All.None.ToString().ToLower()){ //should be doing this in the skill model
+            //     (_skillsModel as SkillModel).CollectEnergyFromMatches(tile1.SkillGroup, group.Count);
+            // }else{
+            //     _ = Enum.TryParse(pickedSkill, out SkillNames.All skillNameEnum);
+            //     await player.ReactToMatchesBySkillType(path, tile1.SkillGroup, skillNameEnum);
+            // }
 
 
 

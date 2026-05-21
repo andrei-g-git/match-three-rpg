@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Tiles;
 
 public partial class SkillModel : Node/* , WithEnergy, WithFireEnergy, WithWindEnergy, WithEarthEnergy, WithWaterEnergy */
 {
@@ -113,7 +114,7 @@ public partial class SkillModel : Node/* , WithEnergy, WithFireEnergy, WithWindE
 		// }
 	}
 
-	public async Task<string> EnableSkillPickingByGroup(SkillNames.SkillGroups skillGroup, List<Vector2I> matchGroup){
+	public async Task<string> EnableSkillPickingByGroup(SkillNames.SkillGroups skillGroup, List<Vector2I> matchPath){
 
 		// I should petition the actuall skill, giving it the path etc, to check if it's usable on the match group
 		var skills = SkillGroups
@@ -128,7 +129,7 @@ public partial class SkillModel : Node/* , WithEnergy, WithFireEnergy, WithWindE
 				var water = skill.EnergyRequirement.Water;
 
 				var skillInstance = (_skillFactory as SkillMaking).Create(skillEnum);
-				var meetsBoardRequirements = (skillInstance as FilterableSkill).CheckIfUsable(matchGroup, skillGroup, _boardQuery as Queriable);
+				var meetsBoardRequirements = (skillInstance as FilterableSkill).CheckIfUsable(matchPath, skillGroup, _boardQuery as Queriable);
 
 				return new{
 					name=skillEnum,
@@ -153,7 +154,17 @@ public partial class SkillModel : Node/* , WithEnergy, WithFireEnergy, WithWindE
 			var parameters = await ToSignal(_skillGroupsDisplay, "SkillPicked");
 			var pickedSkill = (string) parameters[0];	
 
-			_SpendEnergy(pickedSkill, skills);
+            if(pickedSkill.Length <= 1 || pickedSkill == SkillNames.All.None.ToString() || pickedSkill == SkillNames.All.None.ToString().ToLower()){ 
+            	CollectEnergyFromMatches(skillGroup, matchPath.Count);
+            }else{
+				_SpendEnergy(pickedSkill, skills);
+				var player = (_boardQuery as Queriable).GetPlayer() as ReactiveToMatches;
+                _ = Enum.TryParse(pickedSkill, out SkillNames.All skillNameEnum);
+                await player.ReactToMatchesBySkillType(matchPath, skillGroup, skillNameEnum/* , isAdjacent */);
+
+            }
+
+			//_SpendEnergy(pickedSkill, skills);
 
 			return pickedSkill;					
 		}
