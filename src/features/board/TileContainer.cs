@@ -10,6 +10,7 @@ public partial class TileContainer : Control, Viewable
 {
     [Export] private TileMapLayer environment;
 
+	[Signal] public delegate void ResizedEventHandler(Vector2 size);
 
     public override void _Draw()
     {
@@ -39,7 +40,9 @@ public partial class TileContainer : Control, Viewable
 					AddChild(tile);					
 				}
 			}
-		}        
+		}   
+
+		EmitSignal(SignalName.Resized, Size);     
     }
 
     public void UpdatePositions(Grid<Control> tiles){
