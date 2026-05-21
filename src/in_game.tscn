@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=3 uid="uid://vv3xapj4lprc"]
+[gd_scene load_steps=69 format=3 uid="uid://vv3xapj4lprc"]
 
 [ext_resource type="Script" uid="uid://dy1o6fmi8i4pb" path="res://src/features/board/BoardManager.cs" id="1_k7s5h"]
 [ext_resource type="Script" uid="uid://cgm6rlm3gw3je" path="res://src/features/board/Environment.cs" id="3_da6o6"]
@@ -23,7 +23,6 @@
 [ext_resource type="PackedScene" uid="uid://cjtuswk80if5y" path="res://src/features/tiles/variations/cart/cart.tscn" id="13_25lnr"]
 [ext_resource type="PackedScene" uid="uid://fo5qk4kae7aq" path="res://src/features/tiles/variations/background/background.tscn" id="14_6bwww"]
 [ext_resource type="PackedScene" uid="uid://neacnhoii1ja" path="res://src/features/tiles/variations/player/player.tscn" id="15_x10rj"]
-[ext_resource type="Script" uid="uid://485we3tfl7vk" path="res://src/features/UI/StatusBar.cs" id="17_057js"]
 [ext_resource type="Script" uid="uid://kary54w5mpd8" path="res://src/features/UI/Hud.cs" id="17_q2jqf"]
 [ext_resource type="Script" uid="uid://djqo663m7vx35" path="res://src/features/UI/UIEventBus.cs" id="19_amteu"]
 [ext_resource type="PackedScene" uid="uid://bd6owm6pwgyaa" path="res://src/features/tiles/variations/walk/walk.tscn" id="19_s5hp3"]
@@ -61,11 +60,6 @@
 [ext_resource type="PackedScene" uid="uid://btltfkc26c658" path="res://src/features/skills/groups/ranged/throw_pebble.tscn" id="44_y5bar"]
 [ext_resource type="PackedScene" uid="uid://cl06pykjw7ts8" path="res://src/features/skills/groups/tech/search_opening.tscn" id="45_hnujk"]
 [ext_resource type="PackedScene" uid="uid://3a0yv8kd6tqi" path="res://src/features/skills/groups/defensive/shield_bash.tscn" id="47_d5ibo"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x10rj"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_057js"]
-bg_color = Color(0, 0.463429, 0.739759, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4syyy"]
 shader = ExtResource("5_4syyy")
@@ -188,17 +182,6 @@ _fireBar = NodePath("Elemental Energies/Fire")
 _windBar = NodePath("Elemental Energies/Wind")
 _earthBar = NodePath("Elemental Energies/Earth")
 _waterBar = NodePath("Elemental Energies/Water")
-
-[node name="EnergyBar" type="ProgressBar" parent="MainContainer/PanelContainer/Hud"]
-visible = false
-layout_mode = 0
-offset_left = 323.0
-offset_top = 16.0
-offset_right = 419.0
-offset_bottom = 51.0
-theme_override_styles/background = SubResource("StyleBoxFlat_x10rj")
-theme_override_styles/fill = SubResource("StyleBoxFlat_057js")
-script = ExtResource("17_057js")
 
 [node name="Elemental Energies" type="HBoxContainer" parent="MainContainer/PanelContainer/Hud"]
 custom_minimum_size = Vector2(192, 32)
