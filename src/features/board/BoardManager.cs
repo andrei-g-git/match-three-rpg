@@ -23,12 +23,14 @@ using Tiles;
 public partial class BoardManager : PanelContainer
 {
 	[Export] private TileMapLayer _tileMap;
+	[Export] private TileMapLayer _upcomingBg;
 	[Export] private Node _model;
 	[Export] private Node _tileFactory;
 	[Export] private Node _playerSkillsModel;
 	[Export] private Node _skillPickerModel;
 
 	private Grid<TileTypes> _tileTypes;
+	private Grid<TileTypes> _upcomingTileTypes;
 	private GameSave _loadedGame;
 
 	private static readonly string _userPath = ProjectSettings.GlobalizePath("user://"); //delete
@@ -84,17 +86,29 @@ public partial class BoardManager : PanelContainer
 
 						var environmentPath = _loadedGame.Environment;
 						var tilesPath = _loadedGame.Pieces;
+						var upcomingPath = _loadedGame.Upcoming; //I'm not sure if I even need this serialized...
+						var upcomingBgPath = _loadedGame.UpcomingBg;
 
 						var env = Files.LoadCsv(environmentPath);
 						var environmentCellStructure = Hex.StringGridToEnums(env);
 						var tileNames = Files.LoadCsv(tilesPath);
-						_tileTypes = Hex.StringGridToEnums(tileNames);		
+						_tileTypes = Hex.StringGridToEnums(tileNames);	
+						var upcoming = Files.LoadCsv(upcomingPath);	
+						_upcomingTileTypes = Hex.StringGridToEnums(upcoming);
+						var upcomingBg = Files.LoadCsv(upcomingBgPath);	
+
 
 						_PopulateMap(
 							_tileMap,
 							env,
-							_MakeTileCoordDict()
+							_MakeTileCoordDict(_tileMap)
 						);		
+
+						_PopulateMap(
+							_upcomingBg,
+							upcomingBg,
+							_MakeTileCoordDict(_upcomingBg)
+						);	
 
 						//(_model as Organizable).Initialize(tileTypes);
 						var bp = 123;	
@@ -116,6 +130,7 @@ public partial class BoardManager : PanelContainer
 			_tileMap.QueueRedraw(); //debugging, delete
 
 			(_model as Organizable).Initialize(_tileTypes);
+			(_model as BoardModel).InitializeUpcoming(_upcomingTileTypes); //not an interface
 
 			var player = (_model as WithTiles).Tiles.FindItemByType(typeof(Playable));
 			var loadedAttributes = _loadedGame.Player.Stats.Attributes; //well this sucks on multiple levels
@@ -197,12 +212,12 @@ public partial class BoardManager : PanelContainer
 
 
 	//this is a bit too manager-y for a simple manager, I should have a separate model for the environment tile map, etc and do this stuff there...
-	private Dictionary<string, Vector2I> _MakeTileCoordDict(){
+	private Dictionary<string, Vector2I> _MakeTileCoordDict(TileMapLayer tileMap){
 		var dict = new Dictionary<string, Vector2I>();
-		var nameLayerId = _tileMap.TileSet.GetCustomDataLayerByName("name");
+		var nameLayerId = tileMap.TileSet.GetCustomDataLayerByName("name");
 
-		var sourceId = _tileMap.TileSet.GetSourceId(0);
-		var source = _tileMap.TileSet.GetSource(sourceId) as TileSetAtlasSource;
+		var sourceId = tileMap.TileSet.GetSourceId(0);
+		var source = tileMap.TileSet.GetSource(sourceId) as TileSetAtlasSource;
 
 		for (int i = 0; i < source.GetTilesCount(); i++){
 			var tileId = source.GetTileId(i); //tileid is actually an atlas coord ...
@@ -236,25 +251,23 @@ public partial class BoardManager : PanelContainer
 				}
 			}
 		}
-
-		//TEST DELETE
-		//_SaveUsedTiles();
+		var bg = 123;
 	}
 
-	private void _TestSaveFile(string path, string fileName, string data){
-		if(!Directory.Exists(path)){
-			Directory.CreateDirectory(path);
-		}
+	// private void _TestSaveFile(string path, string fileName, string data){
+	// 	if(!Directory.Exists(path)){
+	// 		Directory.CreateDirectory(path);
+	// 	}
 
-		var fullPath = Path.Join(path, fileName);
-		GD.Print(fullPath);
+	// 	var fullPath = Path.Join(path, fileName);
+	// 	GD.Print(fullPath);
 
-		try{
-			File.WriteAllText(fullPath, data);
-		}catch(System.Exception exception){
-			GD.Print(exception);
-		}
-	}
+	// 	try{
+	// 		File.WriteAllText(fullPath, data);
+	// 	}catch(System.Exception exception){
+	// 		GD.Print(exception);
+	// 	}
+	// }
 
 public async void CreateLogMessagePopup(string text){
     var dlg = new AcceptDialog();

@@ -9,6 +9,7 @@ public partial class Initializations : Node
 	public override void _Ready(){
 		Files.CreateFolder(Files.LevelEnvironmentsPath);
 		Files.CreateFolder(Files.LevelPiecesPath);
+		Files.CreateFolder(Files.LevelUpcomingPath);
 		Files.CreateFolder(Files.SavesPath);
 		Files.CreateFolder(Files.ManualSavesPath);
 

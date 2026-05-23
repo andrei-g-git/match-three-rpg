@@ -24,3 +24,8 @@
     * unintentional matches should maybe trigger from longest lines or most numerous contiguous match, because right now it's not intuitive
     * i should change matching to work for 'contiguous groups, not just lines'. At the very least if I match, say, a V line, it's not clear to the player which line in the 'V' will be used as a path. 
 	* xp is gained on room clearance to prevent farming. XP gain depends on various indicators, you are graded after passing a room
+    * pieces that exist outside of the play area should not have mathcing behavior
+        - best course would be to have a completely separate board for outer pieces, but that's difficult to implement
+            -every time a piece falls, signals the upcoming_board that pieces on that column can fall too, by the ammount the playable piece falls
+            -when an upcoming piece leaves the upcoming area, it automatically enters the play board
+            -first, on every column on the play board, check if the piece is the upper-most piece, then signal the upcoming board. make an mvc type thing, model sets the pieces to lower positions in the column then updates the container to make the non playable pieces fall

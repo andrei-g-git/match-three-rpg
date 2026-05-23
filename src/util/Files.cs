@@ -11,6 +11,8 @@ public static class Files
 {
 	public static string LevelEnvironmentsPath{get;} = "content/levels/environment/";
 	public static string LevelPiecesPath{get;} = "content/levels/pieces/";
+	public static string LevelUpcomingPath{get;} = "content/levels/upcoming/";
+	public static string LevelUpcomingBgPath{get;} = "content/levels/upcomingBg/";
 	public static string LevelsPath{get;} = "content/levels/";	
 	public static string SavesPath{get;} = "saves/";
 	public static string ManualSavesPath{get;} = "saves/manual/";

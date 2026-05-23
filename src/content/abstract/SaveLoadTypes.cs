@@ -14,6 +14,8 @@ namespace Content{
         public int Turn{get; set;}
         public string Environment{get; set;}
         public string Pieces{get; set;}
+        public string Upcoming{get; set;}
+        public string UpcomingBg{get; set;}
         public /* SavablePlayer */PlayerSave Player{get; set;}
         public List<object> OtherStatefulPieces{get; set;}
     }

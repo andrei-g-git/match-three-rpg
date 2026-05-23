@@ -96,6 +96,7 @@ namespace Tiles {
 			{"boulder", TileTypes.SolidProp},
 			{"brush", TileTypes.Brush}, 
 			{"grass", TileTypes.Grass}, //TileTypes.Blank},
+			{"transparent_1", TileTypes.Grass},
 			{"grass_keepoff", TileTypes.Grass},//TileTypes.Blank},
 			// {"tree_lower", TileTypes.TreeLower}, 
 			// {"tree_upper", TileTypes.TreeUpper}, 	

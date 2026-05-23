@@ -47,8 +47,10 @@ public partial class MainMenu : Control, WithSceneManager
 			LevelIndex = 0,
 			LevelName = Levels.LevelNames.Tutorial.ToString(),
 			Turn = 0, 
-			Environment = Path.Join(Files.LevelEnvironmentsPath, "level_1_environment.csv"),
+			Environment = Path.Join(Files.LevelEnvironmentsPath, "level_1_environment.csv"), //THESE ARE ALL IN AllLevels class, I'm repeating this shit for no reason
 			Pieces = Path.Join(Files.LevelPiecesPath, "level_1_pieces.csv"),
+			Upcoming = Path.Join(Files.LevelUpcomingPath, "level_1_upcoming.csv"),
+			UpcomingBg = Path.Join(Files.LevelUpcomingBgPath, "level_1_upcoming_bg.csv"),
 			Player = _CreateNewPlayerCharacter(),
 			OtherStatefulPieces = new List<object>(),
 

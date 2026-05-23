@@ -9,6 +9,7 @@ namespace Board;
 
 public partial class BoardModel : Node, Organizable, MatchableBoard, WithTiles, Queriable//, Mapable
 {
+    [Export] private Node _upcomingOrganizer;
     [Export] private Node _tileOrganizer;
     [Export] private Node _tileMatcher;
     [Export] private Node _tileQuery;
@@ -45,6 +46,10 @@ public partial class BoardModel : Node, Organizable, MatchableBoard, WithTiles, 
         (_tileQuery as WithTiles).Tiles = (_tileOrganizer as WithTiles).Tiles;
         (_turns as WithTiles).Tiles = (_tileOrganizer as WithTiles).Tiles;
         //(_turns as Initializable).Initialize(); //happens before player stats are loaded, need speed stat...
+    }
+
+    public void InitializeUpcoming(Grid<TileTypes> tileTypes){ ///////// Not in interface /////////////
+        (_upcomingOrganizer as Organizable).Initialize(tileTypes);
     }
 
 

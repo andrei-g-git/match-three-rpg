@@ -30,4 +30,29 @@ public partial class LevelSchema
 			}
 		}
 	}
+	public string _upcoming;
+	public string Upcoming{
+		get => _upcoming;
+		set{
+			if(value.Contains(".csv")){
+				_upcoming = value;
+			}else{
+				throw new ArgumentException("Must be *.csv file");
+				value = ""; 
+			}
+		}
+	}	
+
+	public string _upcomingBg;
+	public string UpcomingBg{
+		get => _upcomingBg;
+		set{
+			if(value.Contains(".csv")){
+				_upcomingBg = value;
+			}else{
+				throw new ArgumentException("Must be *.csv file");
+				value = ""; 
+			}
+		}
+	}	
 }
