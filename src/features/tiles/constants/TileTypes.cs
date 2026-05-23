@@ -105,6 +105,7 @@ namespace Tiles {
 			{"water", TileTypes.Hole},
 			//{"empty_solid", TileTypes.EmptySolid}							
 			//{ "0", TileTypes.EmptySolid},{"1", TileTypes.EmptySolid},{"2", TileTypes.EmptySolid},{"3", TileTypes.EmptySolid},{"4", TileTypes.EmptySolid},{"5", TileTypes.EmptySolid},{"6", TileTypes.EmptySolid},{"7", TileTypes.EmptySolid},{"8", TileTypes.EmptySolid},{"9", TileTypes.EmptySolid},{"10", TileTypes.EmptySolid},{"11", TileTypes.EmptySolid},{"12", TileTypes.EmptySolid},{"13", TileTypes.EmptySolid},{"14", TileTypes.EmptySolid},{"15", TileTypes.EmptySolid},
+			{"wall_up", TileTypes.SolidProp},{"wall_down", TileTypes.SolidProp},	{"wall_up_last", TileTypes.SolidProp},	{"wall_down_last", TileTypes.SolidProp},				
 		};
 
 		public static TileTypes GetEnum(string key)
