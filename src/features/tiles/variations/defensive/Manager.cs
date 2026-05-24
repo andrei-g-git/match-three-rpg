@@ -30,7 +30,7 @@ namespace Defensive{
         public override void _Ready(){
             (_popTweener as Creatable).Pop();
 
-            GD.Print($"position: {Position}, global: {GlobalPosition}, parent's global: {(GetParent() as Control).GlobalPosition}");
+            //GD.Print($"position: {Position}, global: {GlobalPosition}, parent's global: {(GetParent() as Control).GlobalPosition}");
         }
 
         // public Variant GetDragData(Vector2 atPosition){

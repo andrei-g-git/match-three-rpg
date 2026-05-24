@@ -30,7 +30,7 @@ namespace Tech{
         public override void _Ready(){
             (_popTweener as Creatable).Pop();
 
-            GD.Print($"position: {Position}, global: {GlobalPosition}, parent's global: {(GetParent() as Control).GlobalPosition}");
+            //GD.Print($"position: {Position}, global: {GlobalPosition}, parent's global: {(GetParent() as Control).GlobalPosition}");
         }
 
         // public override void _Draw()

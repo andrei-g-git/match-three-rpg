@@ -14,18 +14,22 @@ public partial class Environment : TileMapLayer, Tileable
 			return pattern.GetSize();
 		}
 	}
-    // public async override void _Ready()
-    // {
-	// 	await Task.Delay(3000);
-	// 	ForceUpdateTransform();
-	// 	await Task.Delay(200);
-    // }
+    public override void _Ready(){
+        GetTree().CreateTimer(1.0).Timeout += () =>{
+            GD.Print($"there are {GetUsedCells().Count} used cells");
+		};
+    }
 
     public override void _Draw()
     {
 		var rect = GetUsedRect();
         //DrawCircle(Vector2.Zero, 4, Colors.Red);
 		DrawRect(rect, Colors.Red, false, 2);
+
+		for(int i=0; i<Size.Y; i++)
+		{
+			DrawLine(new Vector2(10 + i * 30, 0), new Vector2(10 + i * 30, 50), Colors.Olive, 3f);
+		}
     }
 
 	public Vector2I GetPixelSize(){

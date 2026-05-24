@@ -15,17 +15,30 @@ public partial class TileContainer : Control, Viewable
     public override void _Draw()
     {
 		DrawRect(new Rect2(0, 0, Size), Colors.Green, false, 3);
+		//GD.Print($"TileContainer size: {Size.X}, {Size.Y} <---------------");
     }
 
 
     public override void _Ready(){
         //Size = environment.GetUsedRect().Size; 
+		Connect(Control.SignalName.Resized, new Callable(this, nameof(_OnResized)));
     }
+
+	private void _OnResized()
+	{
+		var pixSiz = (environment as Tileable).GetPixelSize();
+		EmitSignal(SignalName.Resized, pixSiz);
+		GD.Print($"tile container RESIZED: {pixSiz.X}, {pixSiz.Y}");
+    }
+	
 
     public void Initialize(Grid<Control> tiles){
 		var pixSiz = (environment as Tileable).GetPixelSize();
-		GD.Print($"tile container size: {pixSiz.X}, {pixSiz.Y}");
+		//GD.Print($"tile container size: {pixSiz.X}, {pixSiz.Y}");
 		Size = pixSiz;
+
+//GD.Print($"Code executed at: {DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}");
+
 
 
 		foreach(Node child in GetChildren()){
@@ -42,7 +55,8 @@ public partial class TileContainer : Control, Viewable
 			}
 		}   
 
-		EmitSignal(SignalName.Resized, Size);     
+		// EmitSignal(SignalName.Resized, Size);     
+		// GD.Print($"tile container RESIZED: {pixSiz.X}, {pixSiz.Y}");
     }
 
     public void UpdatePositions(Grid<Control> tiles){
