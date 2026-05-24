@@ -20,6 +20,8 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
     [Export] private Node _skillGroupsDisplay;
     [Export] private Node _skillsModel;
 
+    [Export] private Node _upcomingOrganizer;
+
     public Grid<Control> Tiles{get;set;}	
     private Queue<List<Vector2I>> _matchGroupQueue = [];  //I am no longer using this as a queue, just to store one group until I can replace it with a local v2i list
     private System.Collections.Generic.Dictionary<TileTypes, int> _spawnOddsByTileType;
@@ -518,6 +520,8 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
 
         var isEmpty = pathGrid.CheckIfEmpty(list3D);
         var bp3 =234;
+
+        //TODO: ensure matches at the very top cause the upcoming column to fall
         if (! isEmpty)
         {
         /* _ = */await MoveTilesOnTheirPaths(list3D, originalGrid); //not sure if this awaits the move signal...            
@@ -539,6 +543,12 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
                     var tile = originalGrid.GetItem(a, b); 
                     if(tile != null && tile is Collapsable && tile is Movable movable){
                         path.Reverse(); //because I loop columns bottom-up when processing the paths
+
+
+                        //TEST
+                        (_upcomingOrganizer as TileOrganizer).MoveColumnDown(a, path.Count);
+
+
                         movable.MoveOnPath(new Stack<Vector2I>(path));
                         aa = a;
                         bb = b;

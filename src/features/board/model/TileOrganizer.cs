@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Archer;
@@ -194,5 +195,26 @@ public partial class TileOrganizer: Node, Organizable, WithTiles
 
 						await ToSignal(dlg, "popup_hide");
 						dlg.QueueFree();
-					}	         
+					}	
+
+
+    //not in interface
+    public List<Control> MoveColumnDown(int column, int cellCount){
+        var cellsToTransfer = new List<Control>();
+        for(int y = Tiles.Height-1; y >= 0; y--){
+            var piece = Tiles.GetItem(column, y);
+            var fallHeight = y + cellCount;
+            if(fallHeight >= Tiles.Height){
+                cellsToTransfer.Add(piece);
+            }else{
+                Tiles.SetCell(piece, column, fallHeight);   
+                (piece as Movable).MoveTo(new Vector2I(column, fallHeight));
+                //TODO: the pieces at the old positions need to be removed
+            }
+        } 
+        cellsToTransfer.Reverse(); 
+        return cellsToTransfer;          
+    }
+
+
 }
