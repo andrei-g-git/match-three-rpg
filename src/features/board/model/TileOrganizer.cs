@@ -197,6 +197,20 @@ public partial class TileOrganizer: Node, Organizable, WithTiles
 						dlg.QueueFree();
 					}	
 
+    //can't believe I didn't have this
+    public void AddPiece(Control piece, int x, int y){
+        Tiles.SetCell(piece, x, y);
+        _AddTile(piece, new Vector2I(x, y));
+    }
+
+    public void MovePiece(Control piece, int x, int y){
+        //should check if it can move there
+        var source = Tiles.GetCellFor(piece);
+        var target = new Vector2I(x, y);
+        Tiles.SetCell(piece, x, y);
+        Tiles.SetCell((_tileFactory as TileMaking).Create(TileTypes.Blank) as Control, source);
+        (piece as Movable).MoveTo(target);
+    }
 
     //not in interface
     public List<Control> MoveColumnDown(int column, int cellCount){
@@ -212,13 +226,14 @@ public partial class TileOrganizer: Node, Organizable, WithTiles
 
             var fallHeight = y + cellCount;
             if(fallHeight >= Tiles.Height){
-                cellsToTransfer.Add(piece);
+                cellsToTransfer.Add(piece); 
+                _tileContainer.RemoveChild(piece);//TODO: maybe this should be async
             }else{
                 Tiles.SetCell(piece, column, fallHeight);   
             }
             (piece as Movable).MoveTo(new Vector2I(column, fallHeight));
         } 
-        cellsToTransfer.Reverse(); 
+        //cellsToTransfer.Reverse(); 
         return cellsToTransfer;          
     }
 

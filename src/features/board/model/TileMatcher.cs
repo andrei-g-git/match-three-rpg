@@ -21,6 +21,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
     [Export] private Node _skillsModel;
 
     [Export] private Node _upcomingOrganizer;
+    [Export] private Node _tileOrganizer;
 
     public Grid<Control> Tiles{get;set;}	
     private Queue<List<Vector2I>> _matchGroupQueue = [];  //I am no longer using this as a queue, just to store one group until I can replace it with a local v2i list
@@ -550,7 +551,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
 
 
                         //TEST
-                        (_upcomingOrganizer as TileOrganizer).MoveColumnDown(a, path.Count);
+                        //(_upcomingOrganizer as TileOrganizer).MoveColumnDown(a, path.Count);
 
 
                         movable.MoveOnPath(new Stack<Vector2I>(path));
@@ -559,6 +560,8 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
                     }                    
                 }
             }
+            //TEST
+            //(_upcomingOrganizer as TileOrganizer).MoveColumnDown(a, path.Count);            
         } 
 
         var bp = 1123;
@@ -567,12 +570,49 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
             await movableTile.WaitUntilMoved(); //this is dicey, maybe not even all tiles move...                
         }
 
-        Debugging.PrintStackedGridInitials(Tiles.GetGridAs2DList(), 2, 2, "AFTER COLLAPSE");
+
+        //Debugging.PrintStackedGridInitials(Tiles.GetGridAs2DList(), 2, 2, "After collapse right before UpcominTransfer");
+        //TEST
+        _TransferPiecesFromUpcomingGridByColumn();
+
         bp = 345;  
+    }
+
+    //this shouldn't even be here...
+    private void _TransferPiecesFromUpcomingGridByColumn(){
+        for(int x=0;x<Tiles.Width;x++){
+            var collapseCount = 0;
+            var firstBlankHeight = 0;
+            for(int y = 0; y < Tiles.Height; y++){
+                //GD.Print($"{Tiles.GetItem(x, y).Name} has Tile interface?  {Tiles.GetItem(x, y) is Tile}");
+                if((Tiles.GetItem(x, y) as Tile).Type == TileTypes.Blank){
+                    collapseCount++;
+                    if(firstBlankHeight < 1){
+                        firstBlankHeight = y;                        
+                    }
+                }
+            }
+            if (collapseCount > 0){
+                var incomingPiecesForColummn = (_upcomingOrganizer as TileOrganizer).MoveColumnDown(x, collapseCount);
+                var incomingCollapseCount = collapseCount - 1;
+                for(int a=0; a<incomingPiecesForColummn.Count; a++){ //not checking against collapseCount directly because there may be fewer pieces than that if I choose not to make the upcoming grid create new pieces
+                    var newPiece = incomingPiecesForColummn[a];                
+                    (_tileOrganizer as TileOrganizer).AddPiece(newPiece, x, firstBlankHeight);
+                    (_tileOrganizer as TileOrganizer).MovePiece(newPiece, x, firstBlankHeight + incomingCollapseCount - a);
+                }
+
+            }   
+        }   
     }
 
 
     private bool _FallToLowerCellAndStorePath(int x, int y, Vector2I bottom, List<List<Array<Vector2I>>> path3DList, bool collapsing, Grid<Control> originalGrid){
+        //this runs in the context of an algorithm that collapses each piece in the gird once and then checks in another cycle if any of
+        // the pieces can fall again; in a new collapse cycle, even though the simulated piece has moved down and is not at x, y anymore, 
+        //if the collapse group is vertical, the piece in that was here in the last cycle would implicitly also fall another cell, because 
+        //if the piece that was on top of it and is now where it was previsouly can fall, it's only because this piece also fell down. 
+        //and this is why it gives the illusion that it works fine, when it's just happenstance. this algo is fubar I think and it might not work at all 
+        //in cases where one piece needs to fall more cells than the others
         var collapsable = Tiles.GetItem(x, y);
         var lowerTile = Tiles.GetItem(bottom.X, bottom.Y);  
         var originalCell = originalGrid.GetCellFor(collapsable);

@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://d32kp0glnbd4b"]
+[gd_scene load_steps=4 format=3 uid="uid://d32kp0glnbd4b"]
 
 [ext_resource type="Script" uid="uid://e8nkv5ttl1ts" path="res://src/features/TestAspectRatioContainerGizmo.cs" id="1_hhp4t"]
+[ext_resource type="Script" uid="uid://brievm38r8bcm" path="res://src/features/tiles/variations/hole/Manager.cs" id="1_o7ltl"]
 [ext_resource type="Texture2D" uid="uid://dxc84dikgjfrj" path="res://assets/images/tiles/new/hole-2.png" id="2_o7ltl"]
 
 [node name="Hole" type="Control"]
@@ -10,6 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_o7ltl")
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
 layout_mode = 0
