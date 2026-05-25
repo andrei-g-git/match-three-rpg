@@ -203,14 +203,20 @@ public partial class TileOrganizer: Node, Organizable, WithTiles
         var cellsToTransfer = new List<Control>();
         for(int y = Tiles.Height-1; y >= 0; y--){
             var piece = Tiles.GetItem(column, y);
+
+            Tiles.SetCell( //might work, gets replaced by falling piece if necessary
+                (Control) (_tileFactory as TileMaking).Create(TileTypes.Blank),   
+                column,
+                y              
+            );
+
             var fallHeight = y + cellCount;
             if(fallHeight >= Tiles.Height){
                 cellsToTransfer.Add(piece);
             }else{
                 Tiles.SetCell(piece, column, fallHeight);   
-                (piece as Movable).MoveTo(new Vector2I(column, fallHeight));
-                //TODO: the pieces at the old positions need to be removed
             }
+            (piece as Movable).MoveTo(new Vector2I(column, fallHeight));
         } 
         cellsToTransfer.Reverse(); 
         return cellsToTransfer;          

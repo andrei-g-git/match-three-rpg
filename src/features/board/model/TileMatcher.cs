@@ -235,30 +235,34 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
 
 
 
-        //GetTree().CreateTimer(1.5).Timeout += () => { //booooo! Also I can't have these running in parallel
-            _ = _FillUpEmptyCells(_spawnWeights, _spawnTiles);   
+        ///  THIS IS DONE IN THE UPCOMING MODEL
+        //_ = _FillUpEmptyCells(_spawnWeights, _spawnTiles);   
+        ///
 
-            Debugging.PrintStackedGridInitials(Tiles.GetGridAs2DList(), 2, 2, "-----AFTER COLLAPSE ---------:");
-            bp = 123;
-            if(matchGroupQueue.Count > 0){ //I dequeue on every match that's found ---- april '26, won't be storing multiple match groups, they can become outdated after the grid collapses 
-                GD.Print("__more groups in queue");
-                //GetTree().CreateTimer(1).Timeout += () => { //I really need to stop doing this
+
+
+
+        Debugging.PrintStackedGridInitials(Tiles.GetGridAs2DList(), 2, 2, "-----AFTER COLLAPSE ---------:");
+        bp = 123;
+        if(matchGroupQueue.Count > 0){ //I dequeue on every match that's found ---- april '26, won't be storing multiple match groups, they can become outdated after the grid collapses 
+            GD.Print("__more groups in queue");
+            //GetTree().CreateTimer(1).Timeout += () => { //I really need to stop doing this
+                (_tileContainer as Viewable).UpdatePositions(Tiles); //<<<<
+                await _ActivateMatchedTilesAndCollapseGrid(matchGroupQueue);  
+            //};
+        }else{
+            _CheckNewMatchesAndProcess(Tiles); //New <<<<<<<<<<<<<<<<<<<
+            if(_matchGroupQueue.Count > 0){ //this doesn't make much sense but it kind of does...
+                GD.Print("__new queue from new matches. 1st in queue:");
+                GD.Print((Tiles.GetItem(_matchGroupQueue.Peek().ElementAt(0)) as Tile).Type.ToString());
+                GD.Print(_matchGroupQueue.Peek().Select(cell => $"<{cell.X} , {cell.Y}>").ToArray());
+                //GetTree().CreateTimer(1).Timeout += () => { 
                     (_tileContainer as Viewable).UpdatePositions(Tiles); //<<<<
-                    await _ActivateMatchedTilesAndCollapseGrid(matchGroupQueue);  
+                    await _ActivateMatchedTilesAndCollapseGrid(_matchGroupQueue);  
                 //};
-            }else{
-                _CheckNewMatchesAndProcess(Tiles); //New <<<<<<<<<<<<<<<<<<<
-                if(_matchGroupQueue.Count > 0){ //this doesn't make much sense but it kind of does...
-                    GD.Print("__new queue from new matches. 1st in queue:");
-                    GD.Print((Tiles.GetItem(_matchGroupQueue.Peek().ElementAt(0)) as Tile).Type.ToString());
-                    GD.Print(_matchGroupQueue.Peek().Select(cell => $"<{cell.X} , {cell.Y}>").ToArray());
-                    //GetTree().CreateTimer(1).Timeout += () => { 
-                        (_tileContainer as Viewable).UpdatePositions(Tiles); //<<<<
-                        await _ActivateMatchedTilesAndCollapseGrid(_matchGroupQueue);  
-                    //};
-                }            
-            }                      
-        //};
+            }            
+        }                      
+
 
 
 
@@ -536,7 +540,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
         var aa = 0;
         var bb = 0;
         for(int a=0;a<pathGrid.Count;a++){
-            for(int b=0;b<pathGrid[0].Count;b++){    
+            for(int b=0;b<pathGrid[0].Count;b++){    //i have no idea why this sees one collapse group as a single element... it's convenient but also worrying...
                 if(pathGrid[a][b] != null){
                     pathGrid[a][b] = Collections.RemoveDuplicates(pathGrid[a][b]);  
                     var path = pathGrid[a][b];                     
@@ -563,7 +567,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
             await movableTile.WaitUntilMoved(); //this is dicey, maybe not even all tiles move...                
         }
 
-
+        Debugging.PrintStackedGridInitials(Tiles.GetGridAs2DList(), 2, 2, "AFTER COLLAPSE");
         bp = 345;  
     }
 
