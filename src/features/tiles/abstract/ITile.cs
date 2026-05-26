@@ -13,6 +13,9 @@ namespace Tiles{
     public interface Movable{
         public void MoveTo(Vector2I target);
         public void MoveOnPath(Stack<Vector2I> path);
+        public void MoveToEndOfPath(List<Vector2I> path);
+        public void MoveOverDistance(Vector2I target, int distance);
+         public void MoveOverDistanceDelayed(Vector2I target, int distance, int delayInCells);
         public Task WaitUntilMoved();
     }
 

@@ -63,6 +63,18 @@ namespace Defensive{
 			(_moveTweener as Movable).MoveOnPath(path);
 		}
 
+		public void MoveToEndOfPath(List<Vector2I> path){
+			(_moveTweener as Movable).MoveToEndOfPath(path);
+		}
+
+        public void MoveOverDistance(Vector2I target, int distance){
+            (_moveTweener as Movable).MoveOverDistance(target, distance);
+        }
+
+        public void MoveOverDistanceDelayed(Vector2I target, int distance, int delayInCells){
+            (_moveTweener as Movable).MoveOverDistanceDelayed(target, distance, delayInCells);
+        }
+
         public async Task WaitUntilMoved(){
             await (_moveTweener as Movable).WaitUntilMoved();
         }

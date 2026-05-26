@@ -222,7 +222,9 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
 
         await _CollapseTiles();
         var bp = 123;
-
+        // //TEST
+        // _TransferPiecesFromUpcomingGridByColumn();
+        // Debugging.PrintStackedGridInitials(Tiles.GetGridAs2DList(), 2, 2, "After UpcominTransfer");
 
 
         //////////////////////////////////////////
@@ -533,6 +535,10 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
         }
 
 
+        //TEST
+        await _TransferPiecesFromUpcomingGridByColumn();
+        Debugging.PrintStackedGridInitials(Tiles.GetGridAs2DList(), 2, 2, "After UpcominTransfer");
+
         var bppp = 1232;
     }   
 
@@ -570,16 +576,16 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
             await movableTile.WaitUntilMoved(); //this is dicey, maybe not even all tiles move...                
         }
 
-
-        //Debugging.PrintStackedGridInitials(Tiles.GetGridAs2DList(), 2, 2, "After collapse right before UpcominTransfer");
-        //TEST
-        _TransferPiecesFromUpcomingGridByColumn();
-
         bp = 345;  
     }
 
     //this shouldn't even be here...
-    private void _TransferPiecesFromUpcomingGridByColumn(){
+    private async Task _TransferPiecesFromUpcomingGridByColumn(){
+        //
+        var bp = 1233;
+        GD.PrintRich("[color=red]TRANSFERRING UPCOMING[/color]");
+        var dfgg = 3524;
+
         for(int x=0;x<Tiles.Width;x++){
             var collapseCount = 0;
             var firstBlankHeight = 0;
@@ -593,16 +599,29 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
                 }
             }
             if (collapseCount > 0){
-                var incomingPiecesForColummn = (_upcomingOrganizer as TileOrganizer).MoveColumnDown(x, collapseCount);
+                var incomingPiecesForColummn = await (_upcomingOrganizer as TileOrganizer).MoveColumnDown(x, collapseCount);
                 var incomingCollapseCount = collapseCount - 1;
                 for(int a=0; a<incomingPiecesForColummn.Count; a++){ //not checking against collapseCount directly because there may be fewer pieces than that if I choose not to make the upcoming grid create new pieces
                     var newPiece = incomingPiecesForColummn[a];                
-                    (_tileOrganizer as TileOrganizer).AddPiece(newPiece, x, firstBlankHeight);
-                    (_tileOrganizer as TileOrganizer).MovePiece(newPiece, x, firstBlankHeight + incomingCollapseCount - a);
+                    (_tileOrganizer as TileOrganizer).AddPiece(newPiece, x, firstBlankHeight/*  + incomingCollapseCount - a */);
+                    if(incomingCollapseCount - a > 0){
+                        //(_tileOrganizer as TileOrganizer).MoveOverDistance(newPiece, x, firstBlankHeight + incomingCollapseCount - a, incomingCollapseCount - a);   
+                        (_tileOrganizer as TileOrganizer).MoveOverDistanceDelayed(
+                            newPiece, 
+                            x, 
+                            firstBlankHeight + incomingCollapseCount - a, 
+                            incomingCollapseCount - a,
+                            a
+                        ); 
+                        //(_tileOrganizer as TileOrganizer).MovePiece(newPiece, x, firstBlankHeight + incomingCollapseCount - a);
+                    }
+                    //(_tileOrganizer as TileOrganizer).MovePiece(newPiece, x, firstBlankHeight + incomingCollapseCount - a);
                 }
 
             }   
         }   
+        //Debugging.PrintStackedGridInitials(Tiles.GetGridAs2DList(), 2, 2, "After UpcominTransfer");
+
     }
 
 

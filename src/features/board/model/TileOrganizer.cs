@@ -212,8 +212,27 @@ public partial class TileOrganizer: Node, Organizable, WithTiles
         (piece as Movable).MoveTo(target);
     }
 
+    public void MoveOverDistance(Control piece, int x, int y, int distance){
+        //should check if it can move there
+        var source = Tiles.GetCellFor(piece);
+        var target = new Vector2I(x, y);
+        Tiles.SetCell(piece, target);
+        Tiles.SetCell((_tileFactory as TileMaking).Create(TileTypes.Blank) as Control, source);
+        (piece as Movable).MoveOverDistance(target, distance);
+    }
+
+    public void MoveOverDistanceDelayed(Control piece, int x, int y, int distance, int delayInCells){
+        //should check if it can move there
+        var source = Tiles.GetCellFor(piece);
+        var target = new Vector2I(x, y);
+        Tiles.SetCell(piece, target);
+        Tiles.SetCell((_tileFactory as TileMaking).Create(TileTypes.Blank) as Control, source);
+        (piece as Movable).MoveOverDistanceDelayed(target, distance, delayInCells);
+    }
+
     //not in interface
-    public List<Control> MoveColumnDown(int column, int cellCount){
+    public async Task<List<Control>> MoveColumnDown(int column, int cellCount){
+        GD.PrintRich($"[color=green] MOVING COLUMN {column}; has {cellCount} pieces to move; Grid height is {Tiles.Height} [/color]");
         var cellsToTransfer = new List<Control>();
         for(int y = Tiles.Height-1; y >= 0; y--){
             var piece = Tiles.GetItem(column, y);
@@ -224,16 +243,30 @@ public partial class TileOrganizer: Node, Organizable, WithTiles
                 y              
             );
 
-            var fallHeight = y + cellCount;
-            if(fallHeight >= Tiles.Height){
+            var fallToHeight = y + cellCount;
+            if(fallToHeight >= Tiles.Height){
+                fallToHeight = Tiles.Height; //otherwise it may keep falling over the play area and settle there
+                //(piece as Movable).MoveTo(new Vector2I(column, fallToHeight)); 
+                //(piece as Movable).MoveOverDistanceDelayed(new Vector2I(column, fallToHeight), fallToHeight - y, y);
+                //(piece as Movable).MoveOverDistance(new Vector2I(column, fallToHeight), fallToHeight - y);
+ 
                 cellsToTransfer.Add(piece); 
-                _tileContainer.RemoveChild(piece);//TODO: maybe this should be async
+                //_tileContainer.RemoveChild(piece);
             }else{
-                Tiles.SetCell(piece, column, fallHeight);   
+                Tiles.SetCell(piece, column, fallToHeight);   
+                //(piece as Movable).MoveTo(new Vector2I(column, fallToHeight)); 
             }
-            (piece as Movable).MoveTo(new Vector2I(column, fallHeight));
+            (piece as Movable).MoveOverDistance(new Vector2I(column, fallToHeight), fallToHeight - y);
+            if(y <= 0){
+                await (piece as Movable).WaitUntilMoved();                    
+            }
+            // (piece as Movable).MoveTo(new Vector2I(column, fallToHeight)); //no use, these still fall on the coordinates of the play area after they are removed from the upcoming grid
+            // await (piece as Movable).WaitUntilMoved();         
         } 
         //cellsToTransfer.Reverse(); 
+        foreach(var piece in cellsToTransfer){
+            _tileContainer.RemoveChild(piece);
+        }
         return cellsToTransfer;          
     }
 

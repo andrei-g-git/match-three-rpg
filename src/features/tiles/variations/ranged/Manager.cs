@@ -54,6 +54,18 @@ namespace Ranged{
 			(_moveTweener as Movable).MoveOnPath(path);
 		}
 
+		public void MoveToEndOfPath(List<Vector2I> path){
+			(_moveTweener as Movable).MoveToEndOfPath(path);
+		}
+
+        public void MoveOverDistance(Vector2I target, int distance){
+            (_moveTweener as Movable).MoveOverDistance(target, distance);
+        }
+
+        public void MoveOverDistanceDelayed(Vector2I target, int distance, int delayInCells){
+            (_moveTweener as Movable).MoveOverDistanceDelayed(target, distance, delayInCells);
+        }
+
 
         public void BeginPostMatchProcessDependingOnPlayerPosition(Vector2I ownPosition, Node playerTile, bool playerAjacent){
             (_matching as Matchable).BeginPostMatchProcessDependingOnPlayerPosition(ownPosition, playerTile, playerAjacent);

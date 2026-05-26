@@ -89,7 +89,7 @@ public partial class MoveTweener : Node, Movable, Mapable
 		//GD.Print("move on path:  ");
 		//GD.Print( path.Select(item => item.ToString()).ToArray()); 
 		if(path.Count>0){
-			var target = path.Pop();
+			var target = path.Pop(); //this could cause trouble <-----------------------------------
 			var pixelTarget = Map.CellToPosition(target);
 			Tween tween = CreateTween()
 				.SetTrans(Tween.TransitionType.Linear);
@@ -99,7 +99,7 @@ public partial class MoveTweener : Node, Movable, Mapable
 			
 			tween.Finished += () => {
 				//if(path.Count>0){
-					MoveOnPath(path);
+					MoveOnPath(path); //can't rememmber why I'm doing this.,..
 				//}
 			};				
 		}else{
@@ -108,18 +108,60 @@ public partial class MoveTweener : Node, Movable, Mapable
 		bp = 122;
 	}	
 
+	public void MoveToEndOfPath(List<Vector2I> path){
+		var target = path.Last(); 
+		var pixelTarget = Map.CellToPosition(target);
+		Tween tween = CreateTween()
+			.SetTrans(Tween.TransitionType.Linear);
+			//.SetEase(Tween.EaseType.Out);
+
+		tween.Finished += () => {
+			EmitSignal(SignalName.FinishedMoving);
+		};
+		tween.TweenProperty(_tileRoot, "position", (Vector2) pixelTarget, _duration * path.Count);
+	}
+
+	public void MoveOverDistance(Vector2I target, int distance){
+		var pixelTarget = Map.CellToPosition(target);
+		Tween tween = CreateTween()
+			.SetTrans(Tween.TransitionType.Linear);
+			//.SetEase(Tween.EaseType.Out);
+
+		tween.Finished += () => {
+			EmitSignal(SignalName.FinishedMoving);
+		};
+		tween.TweenProperty(_tileRoot, "position", (Vector2) pixelTarget, _duration * distance);
+		
+	}
+
+    public void MoveOverDistanceDelayed(Vector2I target, int distance, int delayInCells){
+		var pixelTarget = Map.CellToPosition(target);
+		Tween tween = CreateTween()
+			.SetTrans(Tween.TransitionType.Linear);
+			//.SetEase(Tween.EaseType.Out);
+		tween.TweenInterval(delayInCells * _duration);
+
+		tween.Finished += () => {
+			EmitSignal(SignalName.FinishedMoving);
+		};
+		tween.TweenProperty(_tileRoot, "position", (Vector2) pixelTarget, _duration * distance);
+    }
+
 	public async Task WaitUntilMoved(){
 		var bp = 123;
 		await ToSignal(this, SignalName.FinishedMoving);
 		bp = 1123;
 	}
 
-	//moved to individual states e.g. Dash
-	// private void _PlaySpriteAnimation(AnimatedSprite2D sprite, TileStates animation, float duration){
-	// 	var animationName = animation.ToString();
-	// 	var frames = sprite.SpriteFrames.GetFrameCount(animationName);
-	// 	var fps = frames * duration; 
-	// 	//sprite.SpriteFrames.SetAnimationSpeed(animationName, fps);
-	// 	sprite.Play(animationName, fps);
-	// }
+
+
+    //moved to individual states e.g. Dash
+    // private void _PlaySpriteAnimation(AnimatedSprite2D sprite, TileStates animation, float duration){
+    // 	var animationName = animation.ToString();
+    // 	var frames = sprite.SpriteFrames.GetFrameCount(animationName);
+    // 	var fps = frames * duration; 
+    // 	//sprite.SpriteFrames.SetAnimationSpeed(animationName, fps);
+    // 	sprite.Play(animationName, fps);
+    // }
+
 }
