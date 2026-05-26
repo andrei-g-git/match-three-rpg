@@ -531,7 +531,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
         //TODO: ensure matches at the very top cause the upcoming column to fall
         if (! isEmpty)
         {
-        /* _ = */await MoveTilesOnTheirPaths(list3D, originalGrid); //not sure if this awaits the move signal...            
+            await MoveTilesOnTheirPaths(list3D, originalGrid); //not sure if this awaits the move signal...            
         }
 
 
