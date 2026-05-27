@@ -598,6 +598,8 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
                     }
                 }
             }
+            //TODO: there is some kind of sync issue between the opcoming organizer and this matcher, pieces fall all the way god knows where before they get moved by this matcher, but not all of them get re-commandered
+            //updating positions after a delay is only a precareous band aid            
             if (collapseCount > 0){
                 var incomingPiecesForColummn = await (_upcomingOrganizer as TileOrganizer).MoveColumnDown(x, collapseCount);
                 var incomingCollapseCount = collapseCount - 1;
@@ -612,11 +614,19 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
                             firstBlankHeight + incomingCollapseCount - a, 
                             incomingCollapseCount - a,
                             a
-                        ); 
+                        );
                         //(_tileOrganizer as TileOrganizer).MovePiece(newPiece, x, firstBlankHeight + incomingCollapseCount - a);
+
+                        if(incomingCollapseCount - a == 1){ //if it's the last piece that moves down
+                            await (newPiece as Movable).WaitUntilMoved();
+                        }
                     }
                     //(_tileOrganizer as TileOrganizer).MovePiece(newPiece, x, firstBlankHeight + incomingCollapseCount - a);
                 }
+                GetTree().CreateTimer(1f).Timeout += () =>
+                {
+                    (_tileContainer as Viewable).UpdatePositions(Tiles);                    
+                };
 
             }   
         }   

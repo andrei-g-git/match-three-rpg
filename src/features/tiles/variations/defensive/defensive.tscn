@@ -72,12 +72,13 @@ script = ExtResource("6_alpki")
 [node name="Move" type="Node" parent="Tweeners" node_paths=PackedStringArray("_tileRoot")]
 script = ExtResource("6_un1x1")
 _tileRoot = NodePath("../..")
-_duration = 0.3
+_duration = 0.2
 
 [node name="ScaleUpFade" type="Node" parent="Tweeners" node_paths=PackedStringArray("_tileRoot")]
 script = ExtResource("9_1sfff")
 _tileRoot = NodePath("../..")
 _duration = 0.1
+_delay = 0.1
 
 [node name="Pop" type="Node" parent="Tweeners" node_paths=PackedStringArray("_tileRoot")]
 script = ExtResource("9_aldut")
