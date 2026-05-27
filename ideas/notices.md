@@ -29,3 +29,6 @@
             -every time a piece falls, signals the upcoming_board that pieces on that column can fall too, by the ammount the playable piece falls
             -when an upcoming piece leaves the upcoming area, it automatically enters the play board
             -first, on every column on the play board, check if the piece is the upper-most piece, then signal the upcoming board. make an mvc type thing, model sets the pieces to lower positions in the column then updates the container to make the non playable pieces fall
+    * making a puzzle level where I arrange the upcoming tiles in a way players can formulate strategies ahead of time is increddibly hard, especially for 7x7 boards
+        - I should reintroduce the placeable skill tiles to reduce variance; classes will get placeable pieces according to their stats at the start of the level
+        - Unless I'm willing to make many dozens of layers of upcoming tiles, puzzle levels should also be very short, so I don't need many enemies

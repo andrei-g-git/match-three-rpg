@@ -20,17 +20,17 @@ public partial class Environment : TileMapLayer, Tileable
 		};
     }
 
-    public override void _Draw()
-    {
-		var rect = GetUsedRect();
-        //DrawCircle(Vector2.Zero, 4, Colors.Red);
-		DrawRect(rect, Colors.Red, false, 2);
+    // public override void _Draw()
+    // {
+	// 	var rect = GetUsedRect();
+    //     //DrawCircle(Vector2.Zero, 4, Colors.Red);
+	// 	DrawRect(rect, Colors.Red, false, 2);
 
-		for(int i=0; i<Size.Y; i++)
-		{
-			DrawLine(new Vector2(10 + i * 30, 0), new Vector2(10 + i * 30, 50), Colors.Olive, 3f);
-		}
-    }
+	// 	for(int i=0; i<Size.Y; i++)
+	// 	{
+	// 		DrawLine(new Vector2(10 + i * 30, 0), new Vector2(10 + i * 30, 50), Colors.Olive, 3f);
+	// 	}
+    // }
 
 	public Vector2I GetPixelSize(){
 		var mX = TileSet.TileSize.X * 3/4;

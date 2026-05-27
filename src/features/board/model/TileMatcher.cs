@@ -75,7 +75,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
 
 
     public /* bool */async Task<bool> TryMatching(Control sourceTile, Control targetTile){
-        if(sourceTile is Swappable && targetTile is Swappable){
+        //if(sourceTile is Swappable && targetTile is Swappable){
             var initialSource = Tiles.GetCellFor(sourceTile);
             var initialTarget = Tiles.GetCellFor(targetTile);
             Debugging.PrintStackedGridInitials(Tiles.GetGridAs2DList(), 2, 2, "STACKED Grid before current match attempt:");
@@ -110,8 +110,8 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
                 EmitSignal(SignalName.DoneMatching);
             }
             return gotMatches;            
-        }
-        return false;
+        //}
+        //return false;
     }
 
 
@@ -623,8 +623,7 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
                     }
                     //(_tileOrganizer as TileOrganizer).MovePiece(newPiece, x, firstBlankHeight + incomingCollapseCount - a);
                 }
-                GetTree().CreateTimer(1f).Timeout += () =>
-                {
+                GetTree().CreateTimer(1f).Timeout += () =>{ //at 1s or more, this will run after the enemy's turn, since it runs in parallel and I need the board to arrange itself before that happens
                     (_tileContainer as Viewable).UpdatePositions(Tiles);                    
                 };
 

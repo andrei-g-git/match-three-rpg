@@ -12,11 +12,11 @@ public partial class TileContainer : Control, Viewable
 
 	[Signal] public delegate void ResizedEventHandler(Vector2 size);
 
-    public override void _Draw()
-    {
-		DrawRect(new Rect2(0, 0, Size), Colors.Green, false, 3);
-		//GD.Print($"TileContainer size: {Size.X}, {Size.Y} <---------------");
-    }
+    // public override void _Draw()
+    // {
+	// 	//DrawRect(new Rect2(0, 0, Size), Colors.Green, false, 3);
+	// 	//GD.Print($"TileContainer size: {Size.X}, {Size.Y} <---------------");
+    // }
 
 
     public override void _Ready(){
