@@ -43,6 +43,14 @@ public partial class Environment : TileMapLayer, Tileable
 
 	}
 
+	//not interface
+	public Vector2I GetCellSize(){
+		return new Vector2I(
+			TileSet.TileSize.X,
+			TileSet.TileSize.Y
+		);		
+	}
+
 	public Vector2I CellToPosition(Vector2I cell){
 		return (Vector2I) MapToLocal(cell)/*  + new Vector2I(-32, -27) */; 
 	}

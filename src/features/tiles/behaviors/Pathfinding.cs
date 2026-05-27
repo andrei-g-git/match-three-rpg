@@ -15,6 +15,23 @@ public partial class Pathfinding : Control, Pathfindable /* they can't all be go
 	//public Grid<Control> Tiles{get; set;}
 	public Node Board{private get;set;}
 
+	private List<Vector2I> _pathPoints = [];
+
+    public override void _Draw()
+    {
+		//DrawRect(new Rect2(Vector2.Zero, new Vector2(10f, 10f)), Colors.Blue, true);
+		GD.Print($"_pathPoints are {_pathPoints.Count} for actor at {_tileRoot.Position.X},  {_tileRoot.Position.Y}");
+		var bp = 234;
+		for(int i=0; i<_pathPoints.Count-1; i++){
+			var pixWidth = (Map as Environment).GetCellSize().X;
+			var pixHeight = (Map as Environment).GetCellSize().Y;
+			var pixelFrom = new Vector2(_pathPoints[i].X * pixWidth, _pathPoints[i].Y * pixHeight);
+			var pixelTo = new Vector2(_pathPoints[i+1].X * pixWidth, _pathPoints[i+1].Y * pixHeight);
+			DrawDashedLine(pixelFrom, pixelTo, Colors.White, 3f);
+		}
+    }
+
+
 	public List<Vector2I> FindPath(Vector2I target){
 		var pixelPosition = _tileRoot.Position;
 		var source = ((TileMapLayer) Map).LocalToMap(pixelPosition); 
@@ -36,6 +53,11 @@ public partial class Pathfinding : Control, Pathfindable /* they can't all be go
 		//GD.Print("&&&&&&& debug eligible cells ^^^^^^^^^^^^^^^^^^^^^  \n :  ", string.Join("", eligibleCellsDebug.Select(cell => $"|{cell.X},{cell.Y}")));
 
 		var path = (_astar as AstarHex).GetPath(source, target);
+
+		//test
+		_pathPoints = path;
+		QueueRedraw();
+
 		var bp = 1123;
 
 		(_astar as AstarHex).Clear(); //otherwise it keeps the points that were only previously walkable, even though that might have changed with actors switching positions
