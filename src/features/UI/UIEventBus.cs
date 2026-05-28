@@ -8,5 +8,7 @@ public partial class UIEventBus: EventBus
         AddUserSignal(Events.WindChanged.ToString());
         AddUserSignal(Events.EarthChanged.ToString());
         AddUserSignal(Events.WaterChanged.ToString());
+
+        AddUserSignal(Events.RoomModifiersChanged.ToString());
     }
 }

@@ -1,7 +1,8 @@
-[gd_scene load_steps=77 format=3 uid="uid://vv3xapj4lprc"]
+[gd_scene load_steps=79 format=3 uid="uid://vv3xapj4lprc"]
 
 [ext_resource type="Script" uid="uid://dy1o6fmi8i4pb" path="res://src/features/board/BoardManager.cs" id="1_k7s5h"]
 [ext_resource type="Script" uid="uid://dopwsstby7kmn" path="res://src/features/board/BoardContentContainer.cs" id="2_d5ibo"]
+[ext_resource type="Script" uid="uid://caniuk0qvkxs7" path="res://src/features/room/RoomModifiers.cs" id="2_q0v2v"]
 [ext_resource type="Script" uid="uid://cgm6rlm3gw3je" path="res://src/features/board/Environment.cs" id="3_da6o6"]
 [ext_resource type="Script" uid="uid://cgqks0ui8medu" path="res://src/features/UI/SpriteStatusBar.cs" id="4_64ngi"]
 [ext_resource type="Script" uid="uid://ci3qi6w5dumc2" path="res://src/features/board/TileContainer.cs" id="4_dw1vl"]
@@ -27,6 +28,7 @@
 [ext_resource type="PackedScene" uid="uid://fo5qk4kae7aq" path="res://src/features/tiles/variations/background/background.tscn" id="14_6bwww"]
 [ext_resource type="PackedScene" uid="uid://neacnhoii1ja" path="res://src/features/tiles/variations/player/player.tscn" id="15_x10rj"]
 [ext_resource type="Script" uid="uid://kary54w5mpd8" path="res://src/features/UI/Hud.cs" id="17_q2jqf"]
+[ext_resource type="Script" uid="uid://dggcexdarwmgk" path="res://src/features/UI/RoomModifierDisplay.cs" id="18_jl78i"]
 [ext_resource type="Script" uid="uid://djqo663m7vx35" path="res://src/features/UI/UIEventBus.cs" id="19_amteu"]
 [ext_resource type="PackedScene" uid="uid://bd6owm6pwgyaa" path="res://src/features/tiles/variations/walk/walk.tscn" id="19_s5hp3"]
 [ext_resource type="PackedScene" uid="uid://dbpwe34yxcfuf" path="res://src/features/tiles/variations/fighter/fighter.tscn" id="20_fjexy"]
@@ -198,6 +200,10 @@ scale = Vector2(1.63, 1.63)
 [node name="UIEventBus" type="Node" parent="Events"]
 script = ExtResource("19_amteu")
 
+[node name="Modifiers" type="Node" parent="." node_paths=PackedStringArray("_roomModifiersHud")]
+script = ExtResource("2_q0v2v")
+_roomModifiersHud = NodePath("../MainContainer/ScrollContainer2/PanelContainer/Hud/RoomModifiers")
+
 [node name="MainContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
 offset_right = 904.0
@@ -214,7 +220,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("2_d5ibo")
 
-[node name="TilesPanel" type="PanelContainer" parent="MainContainer/ScrollContainer2/PanelContainer" node_paths=PackedStringArray("_tileMap", "_upcomingBg", "_model", "_playerSkillsModel", "_skillPickerModel")]
+[node name="TilesPanel" type="PanelContainer" parent="MainContainer/ScrollContainer2/PanelContainer" node_paths=PackedStringArray("_tileMap", "_upcomingBg", "_model", "_playerSkillsModel", "_skillPickerModel", "_roomModifiers")]
 custom_minimum_size = Vector2(0, 450)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_4syyy")
@@ -224,6 +230,7 @@ _upcomingBg = NodePath("../VBoxContainer/MarginContainer/UpcomingBg")
 _model = NodePath("../Model")
 _playerSkillsModel = NodePath("../Model/PlayerSkills")
 _skillPickerModel = NodePath("../../../ScrollContainer/SkillPickerModel")
+_roomModifiers = NodePath("../../../../Modifiers")
 
 [node name="EffectsLayer" type="PanelContainer" parent="MainContainer/ScrollContainer2/PanelContainer"]
 layout_mode = 2
@@ -267,7 +274,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_j211f")
 script = ExtResource("4_dw1vl")
 environment = NodePath("../Environment")
 
-[node name="Hud" type="Control" parent="MainContainer/ScrollContainer2/PanelContainer" node_paths=PackedStringArray("_uiEventBus", "_fireBar", "_windBar", "_earthBar", "_waterBar")]
+[node name="Hud" type="HBoxContainer" parent="MainContainer/ScrollContainer2/PanelContainer" node_paths=PackedStringArray("_uiEventBus", "_fireBar", "_windBar", "_earthBar", "_waterBar")]
 layout_mode = 2
 mouse_filter = 2
 script = ExtResource("17_q2jqf")
@@ -279,9 +286,7 @@ _waterBar = NodePath("Elemental Energies/Water")
 
 [node name="Elemental Energies" type="HBoxContainer" parent="MainContainer/ScrollContainer2/PanelContainer/Hud"]
 custom_minimum_size = Vector2(192, 32)
-layout_mode = 0
-offset_right = 204.0
-offset_bottom = 32.0
+layout_mode = 2
 mouse_filter = 2
 
 [node name="Fire" type="VBoxContainer" parent="MainContainer/ScrollContainer2/PanelContainer/Hud/Elemental Energies" node_paths=PackedStringArray("_label", "_sprite")]
@@ -388,6 +393,10 @@ offset = Vector2(32, 32)
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
 horizontal_alignment = 1
+
+[node name="RoomModifiers" type="HBoxContainer" parent="MainContainer/ScrollContainer2/PanelContainer/Hud"]
+layout_mode = 2
+script = ExtResource("18_jl78i")
 
 [node name="Model" type="Node" parent="MainContainer/ScrollContainer2/PanelContainer" node_paths=PackedStringArray("_upcomingOrganizer", "_tileOrganizer", "_tileMatcher", "_tileQuery", "_tileFactory", "_tileContainer", "_environment", "_selectedSkillsModel", "_turns")]
 script = ExtResource("5_qxmgw")

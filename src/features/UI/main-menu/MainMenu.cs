@@ -2,6 +2,7 @@ using Common;
 using Content;
 using Godot;
 using Inventory;
+using Levels;
 using Skills;
 using Stats;
 using System;
@@ -65,6 +66,8 @@ public partial class MainMenu : Control, WithSceneManager
 			Files.SavesPath,
 			"current.json"
 		);
+
+		await Files.SaveJson(new AllLevels().Levels, Files.LevelsPath, "levels.json");
 
 		var firstLevel = _firstLevelScene.Instantiate();
 		SceneManager.ChangeScene(firstLevel);		

@@ -1,6 +1,8 @@
 using Common;
 using Godot;
+using Godot.Collections;
 using System;
+using System.Collections.Generic;
 using UI;
 
 public partial class Hud : Control
@@ -12,6 +14,8 @@ public partial class Hud : Control
 	[Export] Node _earthBar;
 	[Export] Node _waterBar;
 
+	[Export] Node _roomModifiers;
+
 	public override void _Ready(){
 		var eventBus = _uiEventBus as RemoteSignaling;
 		//eventBus.Subscribe(Callable.From((_energyBar as ProgressableBar).Update), Events.EnergyChanged);
@@ -22,6 +26,8 @@ public partial class Hud : Control
 		eventBus.Subscribe<int, int>((_windBar as ProgressableBar).Update, Events.WindChanged);
 		eventBus.Subscribe<int, int>((_earthBar as ProgressableBar).Update, Events.EarthChanged);
 		eventBus.Subscribe<int, int>((_waterBar as ProgressableBar).Update, Events.WaterChanged);
+
+		eventBus.Subscribe<Array<string>, bool>((elements, unimportant) => (_roomModifiers as DisplayableElements).Update(elements), Events.RoomModifiersChanged);
 		var bp = 123;
 	}
 

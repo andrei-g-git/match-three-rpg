@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class LevelSchema 
 {
@@ -55,4 +56,6 @@ public partial class LevelSchema
 			}
 		}
 	}	
+
+	public List<string> Modifiers{get;set;}
 }

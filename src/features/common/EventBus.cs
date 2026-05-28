@@ -28,7 +28,7 @@ public partial class EventBus: Node, RemoteSignaling{ ///I have no idea why I'm 
     //     Connect(event_.ToString(), callable);
     // }
 
-    public void Subscribe<[MustBeVariant]T1, [MustBeVariant]T2>(Action<T1, T2> callback, Events event_){
+    public void Subscribe<[MustBeVariant]T1, [MustBeVariant]T2>(Action<T1, T2> callback, Events event_){ //I rememver I have to have 2 parameters for callbaacks... this is kindd of crap...
         Connect(event_.ToString(), Callable.From(callback));
     }
 }

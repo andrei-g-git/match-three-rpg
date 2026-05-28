@@ -58,6 +58,7 @@
   - `I` rearrange pieces clockwise around you
   - `I` rearrange pieces clockwise around the end of the match line
   - `I` rearrange pieces clockwise around the start of the match line
+  - `I` add random pieces to the upcoming queue **Adv. implementation:** has cooldown because it's otherwise too exploitable. vertical matches get 3 random pieces x multiplier. diagonal get 1
 
 #### placeable pieces
   -walk piece: uses depend on agility

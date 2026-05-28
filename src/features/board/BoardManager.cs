@@ -4,6 +4,7 @@ using Content;
 using Godot;
 using Godot.Collections;
 using Inventory;
+using Room;
 using Skills;
 using Stats;
 using System;
@@ -28,6 +29,7 @@ public partial class BoardManager : PanelContainer
 	[Export] private Node _tileFactory;
 	[Export] private Node _playerSkillsModel;
 	[Export] private Node _skillPickerModel;
+	[Export] private Node _roomModifiers;
 
 	private Grid<TileTypes> _tileTypes;
 	private Grid<TileTypes> _upcomingTileTypes;
@@ -83,6 +85,8 @@ public partial class BoardManager : PanelContainer
 					.ContinueWith(t => {
 
 						_loadedGame = t.Result; 
+
+						(_roomModifiers as ModifiableRoom).RoomIndex = _loadedGame.LevelIndex;
 
 						var environmentPath = _loadedGame.Environment;
 						var tilesPath = _loadedGame.Pieces;

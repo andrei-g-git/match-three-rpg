@@ -5,8 +5,8 @@ using System.IO;
 
 namespace Levels;
 
-public static class AllLevels{
-	public static List<LevelSchema> Levels{get;} = [
+public class AllLevels{
+	public List<LevelSchema> Levels{get;} = [
 		new LevelSchema{
 			Index = 0,
 			Name = LevelNames.Tutorial.ToString(),
@@ -15,6 +15,9 @@ public static class AllLevels{
 			Pieces = Path.Join(Files.LevelPiecesPath, "level_1_pieces.csv"),		
 			Upcoming = Path.Join(Files.LevelUpcomingPath, "level_1_upcoming.csv"),
 			UpcomingBg = Path.Join(Files.LevelUpcomingBgPath, "level_1_upcoming_bg.csv"),
+			Modifiers = [
+				RoomModifiers.VerticalMatchMultiplier
+			]
 		}
 	];
 }

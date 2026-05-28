@@ -17,6 +17,6 @@ public partial class Initializations : Node
 	}
 
 	private async Task _CreateLevelsData(){
-		await Files.SaveJsonIfNoneExists(AllLevels.Levels, Files.LevelsPath, "levels.json");
+		await Files.SaveJsonIfNoneExists(new AllLevels().Levels, Files.LevelsPath, "levels.json");
 	}
 }

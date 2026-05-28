@@ -32,3 +32,6 @@
     * making a puzzle level where I arrange the upcoming tiles in a way players can formulate strategies ahead of time is increddibly hard, especially for 7x7 boards
         - I should reintroduce the placeable skill tiles to reduce variance; classes will get placeable pieces according to their stats at the start of the level
         - Unless I'm willing to make many dozens of layers of upcoming tiles, puzzle levels should also be very short, so I don't need many enemies
+    
+    * matching vertically expends upcoming columns 3x faster, which will deincentivize the thinking player from matching vertically, so I need to add an incentive
+        - there could be skill effect multipliers for vertical matching

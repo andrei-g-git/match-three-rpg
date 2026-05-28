@@ -5,5 +5,7 @@ public enum Events{
     FireChanged,
     WindChanged,
     EarthChanged,
-    WaterChanged
+    WaterChanged,
+
+    RoomModifiersChanged
 }
