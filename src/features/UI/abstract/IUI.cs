@@ -12,3 +12,7 @@ public interface ProgressableBar{
 public interface DisplayableElements{
     public void Update<[MustBeVariant]T>(Array<T> elementsData);
 }
+
+public interface DisplayableNodeListFromStrings{
+    public void Update(Array<string> elementsData);
+}

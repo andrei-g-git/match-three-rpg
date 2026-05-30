@@ -16,7 +16,7 @@ public class AllLevels{
 			Upcoming = Path.Join(Files.LevelUpcomingPath, "level_1_upcoming.csv"),
 			UpcomingBg = Path.Join(Files.LevelUpcomingBgPath, "level_1_upcoming_bg.csv"),
 			Modifiers = [
-				RoomModifiers.VerticalMatchMultiplier
+				LevelModifiers.vertical_match_multiplier.ToString()
 			]
 		}
 	];

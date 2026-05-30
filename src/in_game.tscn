@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=3 uid="uid://vv3xapj4lprc"]
+[gd_scene load_steps=80 format=3 uid="uid://vv3xapj4lprc"]
 
 [ext_resource type="Script" uid="uid://dy1o6fmi8i4pb" path="res://src/features/board/BoardManager.cs" id="1_k7s5h"]
 [ext_resource type="Script" uid="uid://dopwsstby7kmn" path="res://src/features/board/BoardContentContainer.cs" id="2_d5ibo"]
@@ -30,6 +30,7 @@
 [ext_resource type="Script" uid="uid://kary54w5mpd8" path="res://src/features/UI/Hud.cs" id="17_q2jqf"]
 [ext_resource type="Script" uid="uid://dggcexdarwmgk" path="res://src/features/UI/RoomModifierDisplay.cs" id="18_jl78i"]
 [ext_resource type="Script" uid="uid://djqo663m7vx35" path="res://src/features/UI/UIEventBus.cs" id="19_amteu"]
+[ext_resource type="Texture2D" uid="uid://0l6o1b12qaw2" path="res://assets/images/ui/modifiers/vertical_match_multiplier_64.png" id="19_kvble"]
 [ext_resource type="PackedScene" uid="uid://bd6owm6pwgyaa" path="res://src/features/tiles/variations/walk/walk.tscn" id="19_s5hp3"]
 [ext_resource type="PackedScene" uid="uid://dbpwe34yxcfuf" path="res://src/features/tiles/variations/fighter/fighter.tscn" id="20_fjexy"]
 [ext_resource type="PackedScene" uid="uid://cmvpga1j811ia" path="res://src/features/tiles/variations/archer/archer.tscn" id="21_mmsvb"]
@@ -397,6 +398,9 @@ horizontal_alignment = 1
 [node name="RoomModifiers" type="HBoxContainer" parent="MainContainer/ScrollContainer2/PanelContainer/Hud"]
 layout_mode = 2
 script = ExtResource("18_jl78i")
+_modifierMappings = Dictionary[int, Texture2D]({
+0: ExtResource("19_kvble")
+})
 
 [node name="Model" type="Node" parent="MainContainer/ScrollContainer2/PanelContainer" node_paths=PackedStringArray("_upcomingOrganizer", "_tileOrganizer", "_tileMatcher", "_tileQuery", "_tileFactory", "_tileContainer", "_environment", "_selectedSkillsModel", "_turns")]
 script = ExtResource("5_qxmgw")

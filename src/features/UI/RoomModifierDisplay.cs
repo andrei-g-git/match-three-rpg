@@ -1,18 +1,24 @@
+using System;
 using Godot;
 using Godot.Collections;
-using System;
-using System.Collections.Generic;
+//using System.Collections.Generic;
 using UI;
+using Levels;
 
-public partial class RoomModifierDisplay : HBoxContainer, DisplayableElements
+public partial class RoomModifierDisplay : HBoxContainer, DisplayableElements/* DisplayableNodeListFromStrings */
 {
+	[Export] private Dictionary<LevelModifiers, Texture2D> _modifierMappings;
 
     public void Update<[MustBeVariant]T>(Array<T> elementsData){
         foreach(var modifierName in elementsData){
-			var label = new Label{
-				Text = modifierName as string
-			};
-			AddChild(label);
+			var stringModifier = modifierName.ToString();
+			if (stringModifier.Length > 0 && Enum.TryParse<LevelModifiers>(modifierName as string, out var modifierEnum)){
+				var sprite = new Sprite2D(){
+					Texture =  _modifierMappings[modifierEnum]
+				};
+				AddChild(sprite);
+			}
+
 		}
     }
 }
