@@ -1,5 +1,6 @@
 using Godot;
 using Godot.Collections;
+using Room;
 using Skills;
 using System;
 
@@ -7,6 +8,7 @@ public partial class SkillFactory : Node, SkillMaking//, Initializable
 {
     //[Export] private Array<PackedScene> _skillPackedScenes;
     //[Export] private TileMapLayer _environment;
+    [Export] private Node _roomModifiers;
     [Export] private Dictionary<SkillNames.All, PackedScene> _skillsWithScenes;// = [];
 
     // public void Initialize(){
@@ -22,12 +24,13 @@ public partial class SkillFactory : Node, SkillMaking//, Initializable
     }
 
     private void InitializeSkill(SkillNames.All type, /* Control */Node skill){
-        // switch(type){
-        //     case SkillNames.All.LeapAttack:
-        //     case SkillNames.All.Charge:
-        //         //(skill as Mapable).Map = _environment as Tileable;
-        //         break;
-        // }
+        switch(type){
+            case SkillNames.All.LeapAttack:
+            case SkillNames.All.Charge:
+            case SkillNames.All.Walk:            
+                (skill as WithRoomModifiers).RoomModifiers = (_roomModifiers as ModifiableRoom).Modifiers;
+                break;
+        }
     }
 
     private Dictionary<SkillNames.All, PackedScene> _AssociateSkillScenesWithTheirNames(Array<PackedScene> packedScenes){ //don't need

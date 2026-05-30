@@ -8,11 +8,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Tiles;
-public partial class ShieldBash : Control, Skill, WithTileRoot, AccessableBoard, Traversing, WithAnimationTree, FilterableSkill
+public partial class ShieldBash : Control, Skill, WithTileRoot, AccessableBoard, Traversing, WithAnimationTree, FilterableSkill, WithRoomModifiers
 {
     public Control TileRoot { get; set; }
     public Node Board { private get; set; }
     public AnimationTree AnimationTree { private get; set; }
+	public List<string> RoomModifiers{private get; set;}
 
 	[Signal] public delegate void AttackingEventHandler(Control enemy, int coveredTileDistance);
 

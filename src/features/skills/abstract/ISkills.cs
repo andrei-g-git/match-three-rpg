@@ -139,5 +139,9 @@ public interface FilterableSkill{
     public bool CheckIfUsable(List<Vector2I> matchedGroup, SkillGroups skillGroup, Queriable boardQuery);
 }
 
+public interface WithRoomModifiers{
+    public List<string> RoomModifiers{set;}
+}
+
 
 

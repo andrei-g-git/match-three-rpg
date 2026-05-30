@@ -454,8 +454,9 @@ script = ExtResource("24_kr07k")
 script = ExtResource("22_10pv0")
 _skillFactory = NodePath("SkillFactory")
 
-[node name="SkillFactory" type="Node" parent="MainContainer/ScrollContainer2/PanelContainer/Model/PlayerSkills"]
+[node name="SkillFactory" type="Node" parent="MainContainer/ScrollContainer2/PanelContainer/Model/PlayerSkills" node_paths=PackedStringArray("_roomModifiers")]
 script = ExtResource("24_ewl7t")
+_roomModifiers = NodePath("../../../../../../Modifiers")
 _skillsWithScenes = Dictionary[int, PackedScene]({
 0: ExtResource("37_dcf85"),
 2: ExtResource("29_do0gj"),
