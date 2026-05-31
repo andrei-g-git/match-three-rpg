@@ -20,7 +20,7 @@ public partial class Walk : Control, Skill, WithTileRoot, AccessableBoard, WithA
 		var playerCell = (Board as Queriable).GetCellFor(TileRoot);
 		var isAdjacent = (Board as Queriable).IsCellAdjacentToLine(playerCell, path);
 		if (isAdjacent){
-			var index = _ProcessEffectMagnitudeFromVerticalityModifier();
+			var index = _ProcessEffectMagnitudeFromVerticalityModifier(path);
 
 			var playback = (AnimationNodeStateMachinePlayback)AnimationTree.Get("parameters/playback");
 
@@ -47,8 +47,19 @@ public partial class Walk : Control, Skill, WithTileRoot, AccessableBoard, WithA
 		return playerIsAdjacent; 
     }
 
-	private int _ProcessEffectMagnitudeFromVerticalityModifier(){
+	private int _ProcessEffectMagnitudeFromVerticalityModifier(List<Vector2I> path){
+		var pathIsVerticalMultiplier = _EncodeBooleanForPathVerticality(path);
 		var pathIndexToStopAt = RoomModifiers.FindAll(mod => mod == LevelModifiers.vertical_match_multiplier.ToString()).Count;
+		pathIndexToStopAt *= pathIsVerticalMultiplier;
 		return pathIndexToStopAt;
+	}
+
+	private int _EncodeBooleanForPathVerticality(List<Vector2I> path){
+		for(int i=0; i<path.Count-1; i++){
+			var height = path[i].Y;
+			var nextHeight = path[i+1].Y;
+			if (height != nextHeight) return 0;
+		}	
+		return 1;	
 	}
 }

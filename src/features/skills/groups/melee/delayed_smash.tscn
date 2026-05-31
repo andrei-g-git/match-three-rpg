@@ -1,8 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://cftf7dsxjgcfa"]
+[gd_scene load_steps=3 format=3 uid="uid://cftf7dsxjgcfa"]
 
 [ext_resource type="Script" uid="uid://dw0yjk1dvwl64" path="res://src/features/skills/groups/melee/DelayedSmash.cs" id="1_mklh5"]
+[ext_resource type="Script" uid="uid://bjq4scdw22ard" path="res://src/features/skills/groups/melee/behaviors/MeleSkillDamageCalculator.cs" id="2_jyugn"]
 
-[node name="DelayedSmash" type="Control" node_paths=PackedStringArray("_delete")]
+[node name="DelayedSmash" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -10,4 +11,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_mklh5")
-_delete = NodePath("")
+
+[node name="DamageCalculator" type="Node" parent="."]
+script = ExtResource("2_jyugn")
+_skillMultiplier = 1.5
+_momentumSubdivider = 20.0
+_strengthSubdivider = 10.0

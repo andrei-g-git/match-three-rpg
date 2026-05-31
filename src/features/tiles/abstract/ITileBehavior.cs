@@ -61,6 +61,7 @@ namespace Tiles{
 
     public interface CalculatableDamage {
         public int CalculateDamageFromMomentum(int tilesCovered);
+        public int CalculateDamageFromMomentum(List<Vector2I> path);
         public int CalculateDamage();
     } 
 

@@ -1,17 +1,20 @@
 using Board;
 using Common;
 using Godot;
+using Levels;
 using Skills;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Tiles;
 
-public partial class DelayedSmash : Control, Skill, DelayableSkill, WithTileRoot, AccessableBoard, Traversing, WithAnimationTree, FilterableSkill
+public partial class DelayedSmash : Control, Skill, DelayableSkill, WithTileRoot, AccessableBoard, Traversing, WithAnimationTree, FilterableSkill/* , WithRoomModifiers */
 {
+    [Export] Node _damageCalculator;
     public Control TileRoot { get; set; }
     public Node Board { private get; set; }
     public AnimationTree AnimationTree { private get; set; }
+	//public List<string> RoomModifiers{private get; set;}
 
 	private int _builtUpMagnitude;
 
@@ -47,6 +50,8 @@ public partial class DelayedSmash : Control, Skill, DelayableSkill, WithTileRoot
             if (tile is Disposition actor && actor.IsEnemy) {
                 //EmitSignal(SignalName.Attacking, actor as Control, _pathIndex + 1);       
 
+
+
 				(actor as Defensible).TakeDamage(69420);             
             }
         }			
@@ -57,4 +62,5 @@ public partial class DelayedSmash : Control, Skill, DelayableSkill, WithTileRoot
         var playerIsAdjacent = boardQuery.IsCellAdjacentToLine(playerPosition, matchedGroup);
 		return playerIsAdjacent; //the player is allowed to waste the skill if there's no eligible enemy
     }	
+   
 }
