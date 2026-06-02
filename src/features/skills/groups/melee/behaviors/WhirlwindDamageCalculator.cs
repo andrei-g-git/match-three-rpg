@@ -2,6 +2,7 @@ using Godot;
 using Inventory;
 using Stats;
 using System;
+using System.Collections.Generic;
 using Tiles;
 
 public partial class WhirlwindDamageCalculator : Node, CalculatableDamage, WithTileRoot
@@ -25,5 +26,9 @@ public partial class WhirlwindDamageCalculator : Node, CalculatableDamage, WithT
 		return (int) Math.Floor(rawDamage);
 	}
 
-	
+    public int CalculateDamageFromMomentum(List<Vector2I> path)
+    {
+        throw new NotImplementedException();
+    }
+
 }

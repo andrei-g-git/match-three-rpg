@@ -2,6 +2,7 @@ using Godot;
 using Inventory;
 using Stats;
 using System;
+using System.Collections.Generic;
 using Tiles;
 
 public partial class DamageCalculator : Node, CalculatableDamage //this is a crappy interface, I will need to expand functionality in the future for damage calculation and there will be very poor interface segregation
@@ -22,4 +23,10 @@ public partial class DamageCalculator : Node, CalculatableDamage //this is a cra
     {
         throw new NotImplementedException();
     }
+
+    public int CalculateDamageFromMomentum(List<Vector2I> path)
+    {
+        throw new NotImplementedException();
+    }
+
 }

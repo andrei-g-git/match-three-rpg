@@ -2,6 +2,7 @@ using Godot;
 using Inventory;
 using Stats;
 using System;
+using System.Collections.Generic;
 using Tiles;
 
 public partial class BullrushDamageCalculator : Node, CalculatableDamage, WithTileRoot
@@ -23,5 +24,11 @@ public partial class BullrushDamageCalculator : Node, CalculatableDamage, WithTi
 		GD.Print($"rawDamage : {rawDamage}");
 		return (int) Math.Floor(rawDamage);
 	}
+
+    public int CalculateDamageFromMomentum(List<Vector2I> path)
+    {
+        throw new NotImplementedException();
+    }
+
 }
 
