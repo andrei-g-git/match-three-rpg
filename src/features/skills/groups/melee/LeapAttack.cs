@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using Tiles;
 using static Godot.AnimationMixer;
 
-public partial class LeapAttack : Control, Skill, WithTileRoot, AccessableBoard, Traversing, WithAnimationTree, FilterableSkill
+public partial class LeapAttack : Control, Skill, WithTileRoot, AccessableBoard, Traversing, WithAnimationTree, FilterableSkill, WithRoomModifiers
 {
 	[Export] private Node _damageCalculator;
 	
@@ -26,6 +26,7 @@ public partial class LeapAttack : Control, Skill, WithTileRoot, AccessableBoard,
 
 	private AnimationTree _animationTree;
     public AnimationTree AnimationTree {get; set;}	
+	public List<string> RoomModifiers{private get; set;}
 	[Signal] public delegate void AttackingEventHandler(Control enemy, int coveredTileDistance);
 	//[Signal] public delegate void FinishedPathEventHandler();
 

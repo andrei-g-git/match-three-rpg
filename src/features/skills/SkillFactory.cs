@@ -26,10 +26,12 @@ public partial class SkillFactory : Node, SkillMaking//, Initializable
     private void InitializeSkill(SkillNames.All type, /* Control */Node skill){
         switch(type){
             case SkillNames.All.LeapAttack:
-            case SkillNames.All.Charge:
+            //case SkillNames.All.Charge:
+            case SkillNames.All.Bullrush:
             case SkillNames.All.Walk:            
                 (skill as WithRoomModifiers).RoomModifiers = (_roomModifiers as ModifiableRoom).Modifiers;
                 break;
+            //also need dash
         }
     }
 

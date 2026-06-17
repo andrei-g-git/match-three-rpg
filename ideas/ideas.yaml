@@ -298,3 +298,16 @@ maybe letting the pieces do so much work themselves isn't such a great idea, I s
 	-I might be able to draw this
 
 -some skills should have cooldowns
+
+-maybe another way of getting around is that when tiles fall down with force, they displace the character, etc, maybe sideways along with the columnns above - some of the game pieces 
+	could go back up into the upcoming grid
+		-maybe that could be an ability or a temporary powerup of the character... like the tiles collapse with so much momentum that the chaaracter might get swaped up with certain 
+			tiles in the collapsing column ... or in other directions
+-maybe collapsing tiles become weapons that strike the enemy with various effects when passing through them -- could be a spell, or a fighter buff or something
+
+-some characters, in some circumstances can maybe swap enemies if it leads to matched pieces?
+
+-a skill/ability that let's you sneak (reduces enemies sight range) but makes you slow, many enemies will take multiple turns for your one turn. this would mean enemies have to 
+	patrol, so it's a bit of a no go, unless I find a way to design match piece boards and upcoming pieces that take ebemy set routes into account. The thief class could use this
+
+-some skills will merge matches into an upgraded piece

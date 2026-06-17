@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml.Schema;
 using Tiles;
 using Util;
 
@@ -74,7 +75,127 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
     }
 
 
-    public /* bool */async Task<bool> TryMatching(Control sourceTile, Control targetTile){
+
+
+/* it looks like the match algoithm can only store 3 piece matches, but matches can be 4-piece and 5-piece? how do I account for this?
+
+
+
+Use a flood-fill (BFS/DFS) to collect the entire connected component of same-colored hexes starting from each cell, and treat any component size >= 3 as a match. Key points and concise C# sketch:
+
+    Use the full 6-neighbor set (parity-aware for your offset grid, or convert to cube coords and use parity-free deltas).
+    Track visited cells so you only process each component once.
+    If component.Count >= 3, add them to matches.
+
+Minimal C# BFS sketch (parity-aware even-q offset; adapt indices/types to your code):
+
+List<GameObject> FindAllMatches()
+{
+    var matches = new List<GameObject>();
+    bool[,] visited = new bool[gridWidth, gridHeight];
+
+    for (int q = 0; q < gridWidth; q++)
+    for (int r = 0; r < gridHeight; r++)
+    {
+        if (visited[q, r]) continue;
+        var color = gridArrray[q, r].GetComponent<Hex>().color;
+
+        // BFS
+        var queue = new Queue<(int q,int r)>();
+        var comp = new List<(int q,int r)>();
+        queue.Enqueue((q,r));
+        visited[q,r] = true;
+
+        while (queue.Count > 0)
+        {
+            var (cq, cr) = queue.Dequeue();
+            comp.Add((cq, cr));
+
+            int parity = cq % 2;
+            // parity-aware 6 neighbors for even-q flat-topped
+            (int dq,int dr)[] neighbors = parity == 0
+                ? new[] { ( +1,  0), ( 0, +1), (-1,  0), (-1, -1), ( 0, -1), ( +1, -1) }
+                : new[] { ( +1,  0), ( 0, +1), (-1,  0), (-1, +1), ( 0, -1), ( +1, +1) };
+
+            foreach (var (dq, dr) in neighbors)
+            {
+                int nq = cq + dq, nr = cr + dr;
+                if (nq < 0 || nq >= gridWidth || nr < 0 || nr >= gridHeight) continue;
+                if (visited[nq, nr]) continue;
+                if (gridArrray[nq, nr].GetComponent<Hex>().color != color) continue;
+                visited[nq, nr] = true;
+                queue.Enqueue((nq, nr));
+            }
+        }
+
+        if (comp.Count >= 3)
+        {
+            foreach (var (mq, mr) in comp)
+                matches.Add(gridArrray[mq, mr]);
+        }
+    }
+
+    return matches;
+}
+
+ */
+
+
+
+
+
+
+
+
+
+
+
+    // public async Task<bool> TryMatching_nope(Control sourceTile, Control targetTile){
+    //     var possibleMatchGroup = new List<Vector2I>();
+    //     for(int x=0; x < Tiles.Width-1; x++){
+    //         for(int y=0; y < Tiles.Height; y++){
+    //             //I'm interested in the two-cell slopes and peeks of each checkered row - those are good base lines to form a diagonal on which to check for matches
+    //             var firstPiece = Tiles.GetItem(x, y);
+    //             var secondPiece = Tiles.GetItem(x+1, y);
+    //             if(
+    //                 firstPiece is not Empty &&
+    //                 firstPiece is Matchable &&
+    //                 (firstPiece as Tile).Type == (secondPiece as Tile).Type
+    //             ){
+    //                 var firstCell = new Vector2I(x, y);
+    //                 var secondCell = new Vector2I(x+1, y);
+    //                 possibleMatchGroup.AddRange([firstCell, secondCell]);
+
+    //                 var sign = x % 2 == 0 ? 1 : -1; 
+
+    //                 if(y + sign >= 0 && y + sign < Tiles.Height){
+    //                     var thirdPiece = Tiles.GetItem(x+1, y+sign);
+    //                     if((firstPiece as Tile).Type == (thirdPiece as Tile).Type){
+    //                         var thirdCell = new Vector2I(x+1, y+sign);
+    //                         possibleMatchGroup.Add(thirdCell);
+    //                     }                            
+    //                 }
+
+
+    //                 if(y - sign >= 0 && y - sign < Tiles.Height){
+    //                     var thirdPiece = Tiles.GetItem(x, y-sign);
+    //                     if((firstPiece as Tile).Type == (thirdPiece as Tile).Type){
+    //                         var thirdCell = new Vector2I(x, y-sign);
+    //                         possibleMatchGroup.Add(thirdCell);
+    //                     }                               
+    //                 }  
+
+    //                 if(possibleMatchGroup.Count > 2){
+    //                     if(!_matchGroupQueue.Contains(possibleMatchGroup)) _matchGroupQueue.Enqueue(possibleMatchGroup);
+    //                 }                  
+    //             }
+    //         }
+    //     }
+    // }
+
+
+
+    public async Task<bool> TryMatching(Control sourceTile, Control targetTile){
         //if(sourceTile is Swappable && targetTile is Swappable){
             var initialSource = Tiles.GetCellFor(sourceTile);
             var initialTarget = Tiles.GetCellFor(targetTile);
@@ -413,20 +534,22 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
                 matchGroups[index].Add(cell);
             }
         }
+        var bp = 12123;
     }    
 
 
     private List<List<Vector2I>> _FindMatchingGroupsNorthWest(Grid<Control> grid){
         var matchGroups = new List<List<Vector2I>>();
-        for(int x=1; x<=grid.Height + 1; x++){		 //!!!! add + 1	
+        var offset = (int)Math.Floor((float)grid.Width / 2);
+        for(int x=offset /* 1 *//* 0 */; x<=grid.Height + offset/*+1*/; x++){	// !!! add + 1? maybe	 
             var diagonal = new List<Vector2I>();
             for(int y=0; y<grid.Width; y++){
                 var xx = grid.Width - 1 - y;
-                var yy = x - (y - (y / 2));
+                var yy = x - (int)Math.Floor((float)(grid.Width - y)/2);//(y - (y / 2)); // this can be a float?.... wtf was I doing?.... also that last part in the 'equation' is just y/2 ...
                 if(
                     xx >= 0 &&
                     yy >= 0	&&			
-                    yy < grid.Width &&	
+                    yy < grid./* Width */Height &&	
                     grid.GetItem(xx, yy) != null && 
                     (grid.GetItem(xx, yy) is Tile) //&&
                 ){
@@ -439,18 +562,52 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
         return matchGroups;		
     }
 
+    private int GetStaggerCorrection(int x){
+        return x % 2 == 0? 1 : 0;
+    }
+
+    //// NEW
+    // private List<List<Vector2I>> _FindMatchingGroupsNorthWest(Grid<Control> grid){
+    //     var matchGroups = new List<List<Vector2I>>();
+    //     //var correction = GetStaggerCorrection(grid.Width - 1); 
+    //     var altWidth = grid.Height + Math.Floor((float)grid.Width / 2);// + GetStaggerCorrection(grid.Width - 1);
+    //     for(int x=0; x<=altWidth; x++){	
+    //         var diagonal = new List<Vector2I>();
+    //         for(int y=0; y<grid.Width; y++){
+    //             var xx = grid.Width - 1 - y;
+    //             var yy = x/*  - (y - (y / 2)) */; // this can be a float?.... wtf was I doing?.... also that last part in the 'equation' is just y/2 ...
+    //             if(
+    //                 xx >= 0 &&
+    //                 yy >= 0	&&			
+    //                 yy < grid.Width &&	
+    //                 grid.GetItem(xx, yy) != null && 
+    //                 (grid.GetItem(xx, yy) is Tile) //&&
+    //             ){
+    //                 diagonal.Add(new Vector2I(xx, yy)); 
+    //             }										
+    //         }
+    //         _FindMatchingGroupsInLine(diagonal, matchGroups, grid);
+    //         var bp = 324;            
+    //     }	
+    //     return matchGroups;		
+    // }
+
 
     private List<List<Vector2I>> _FindMatchingGroupsNorthEast(Grid<Control> grid){
         var matchGroups = new List<List<Vector2I>>(){new List<Vector2I>()};
-        for(int x=1; x<=grid.Height + 1; x++){	// !!! add + 1	 	
+        var offset = (int)Math.Ceiling((float)grid.Width / 2) - 1;
+        
+        for(int x=offset/* 1 *//* 0 */; x<=grid.Height + offset/* 1 */; x++){	// !!! add + 1? maybe	 	
             var diagonal = new List<Vector2I>();
             for(int y=0; y<grid.Width; y++){
+                var sign = y % 2 == 0? 0 : -1;
 				var xx = y; 
-				var yy = x - (y - (y / 2));  //integer division will floor the result automatically, leaving ODD loops having the same yy value as the last loop
+				var yy = x - (int)Math./* Ceiling */Floor((float)(grid.Width /* + sign */ - y)/2)/*  + sign */;//(y - (y / 2));  
+                var bp = 123;
                 if(
                     xx >= 0 &&
                     yy >= 0	&&			
-                    yy < grid.Width &&	
+                    yy < grid./* Width */Height &&	
                     grid.GetItem(xx, yy) != null && 
                     (grid.GetItem(xx, yy) is Tile) //&&
                 ){
@@ -461,6 +618,31 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
         }	
         return matchGroups;		
     }
+
+
+    // //New
+    // private List<List<Vector2I>> _FindMatchingGroupsNorthEast(Grid<Control> grid){
+    //     var matchGroups = new List<List<Vector2I>>(){new List<Vector2I>()};
+    //     var altWidth = grid.Height + Math.Ceiling((float)grid.Width / 2) - 1; //-1 because it staggers down so the upper most diagonal column would be completely empty
+    //     for(int x=0; x<=altWidth; x++){	 	
+    //         var diagonal = new List<Vector2I>();
+    //         for(int y=0; y<grid.Width; y++){
+	// 			var xx = y; 
+	// 			var yy = x;
+    //             if(
+    //                 xx >= 0 &&
+    //                 yy >= 0	&&			
+    //                 yy < grid.Width &&	
+    //                 grid.GetItem(xx, yy) != null && 
+    //                 (grid.GetItem(xx, yy) is Tile) //&&
+    //             ){
+    //                 diagonal.Add(new Vector2I(xx, yy)); 
+    //             }										
+    //         }
+    //         _FindMatchingGroupsInLine(diagonal, matchGroups, grid);
+    //     }	
+    //     return matchGroups;		
+    // }
 
 
     private List<List<Vector2I>> _FindMatchingGroupsVertical(Grid<Control> grid){

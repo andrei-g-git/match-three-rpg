@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Tiles;
 
-public partial class Bullrush : Control, Skill, WithTileRoot, AccessableBoard, Traversing, WithAnimationTree, FilterableSkill
+public partial class Bullrush : Control, Skill, WithTileRoot, AccessableBoard, Traversing, WithAnimationTree, FilterableSkill, WithRoomModifiers
 {
 	[Export] private Node _straightCharge;
 	[Export] private Node _damageCalculator;
@@ -31,7 +31,8 @@ public partial class Bullrush : Control, Skill, WithTileRoot, AccessableBoard, T
 		private get => _animationTree; 
 		set{
 			(_straightCharge as StraightCharge).AnimationTree = value; //StraightCharge is not an interface!
-	}}	
+	}}		
+	public List<string> RoomModifiers{private get; set;}
 
 
 	public void OnFinishedTransfering(){
