@@ -89,8 +89,37 @@ public partial class TileOrganizer: Node, Organizable, WithTiles
             bp = 2345;     
             EmitSignal(SignalName.DoneSwapping);   
             Debugging.PrintStackedGridInitials(Tiles.GetGridAs2DList(), 2, 2, $"{sourceTile.Name} MOVED");    
+
+
+            //should check for matches
         }
     }
+
+
+    public async Task MoveBySwapping(Vector2I source, Vector2I target){ //this sould check if there are matches
+        var targetTile = Tiles.GetItem(target);
+        var sourceTile = Tiles.GetItem(source);
+        if(targetTile is Swappable swappable){
+
+            (sourceTile as Movable).MoveTo(target);
+            var bp = 123;
+            (targetTile as Movable).MoveTo(source);
+
+            await (targetTile as Movable).WaitUntilMoved();
+
+            //NEW, CAREFUL WITH THIS
+            Tiles.SetCell(sourceTile, target);
+            Tiles.SetCell(targetTile, source);
+
+            bp = 2345;     
+            EmitSignal(SignalName.DoneSwapping);   
+            Debugging.PrintStackedGridInitials(Tiles.GetGridAs2DList(), 2, 2, $"{sourceTile.Name} MOVED");    
+
+
+            //should check for matches
+        }
+    }
+
 
     public async Task RemoveTile(Control tile){
         var cell = Tiles.GetCellFor(tile);

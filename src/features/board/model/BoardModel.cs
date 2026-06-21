@@ -144,6 +144,10 @@ public partial class BoardModel : Node, Organizable, MatchableBoard, WithTiles, 
         await (_tileOrganizer as Organizable).MoveBySwapping(sourceTile,targetTile);
     }
 
+    public async Task MoveBySwapping(Vector2I sourceCell, Vector2I targetCell){
+        await (_tileOrganizer as Organizable).MoveBySwapping(sourceCell,targetCell);
+    }
+
     public List<Vector2I> FindAllTilesOfType(TileTypes type){
         return (_tileQuery as Queriable).FindAllTilesOfType(type);
     }

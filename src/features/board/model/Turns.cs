@@ -84,8 +84,8 @@ public partial class Turns : Node, Sequential, Initializable, /* AccessableBoard
 
 		foreach(var actor in _actors){
 			var cell = Tiles.GetCellFor(actor);
-			if(cell.X < 0 || cell.Y < 0){
-				_actors.Remove(actor);
+			if(cell.X < 0 || cell.Y < 0){//<<<<<<<<<<<<<<<<<<<
+				_actors.Remove(actor); //this will give a collection modified error, obv i can't change the list while it's being iterated
 				_turnQueue = new Queue<Control>(_turnQueue.Where(_actor => _actor != actor));
 			}
 	

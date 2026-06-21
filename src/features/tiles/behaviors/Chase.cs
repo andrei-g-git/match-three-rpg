@@ -11,7 +11,7 @@ public partial class Chase : Node, Pursuing, Mapable, /* WithTiles */AccessableB
 	public Tileable Map{private get; set;}
 	//public Grid<Control> Tiles {get; set;}
 	public Node Board {private get; set;}
-	[Signal] public delegate void TrySwappingEventHandler(Control targetNode);
+	//[Signal] public delegate void TrySwappingEventHandler(Control targetNode);
 	[Signal] public delegate void CaughtTargetEventHandler(/* Vector2I target */Control targetNode);
 
 
@@ -27,7 +27,8 @@ public partial class Chase : Node, Pursuing, Mapable, /* WithTiles */AccessableB
 			}else{
 				var target = shortestPath[1];
 				var targetNode = (Board as Queriable).GetItemAt(new Vector2I(target.X, target.Y));//tiles[target.X][target.Y];
-				EmitSignal(SignalName.TrySwapping, targetNode/* shortestPath[1] */);				
+				//EmitSignal(SignalName.TrySwapping, targetNode/* shortestPath[1] */);	
+				(Board as Organizable).MoveBySwapping(_tileRoot, targetNode);			
 			}
 
 		}else{ //lol wtf... whatever... too lazy

@@ -30,6 +30,7 @@ namespace Board{
 		public /* Task */ void TransferTileTo(Control tile, Vector2I target);
 		public void RelocateTile(Control tile, Vector2I target);
 		public Task MoveBySwapping(Control sourceTile, Control targetTile);
+		public Task MoveBySwapping(Vector2I sourceCell, Vector2I targetCell);
 		public Task ReplaceTileWith(TileTypes tileName, Vector2I cell);
 	}
 
