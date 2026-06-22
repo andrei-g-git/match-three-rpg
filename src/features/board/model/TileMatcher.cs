@@ -24,7 +24,12 @@ public partial class TileMatcher : Node, MatchableBoard, WithTiles
     [Export] private Node _upcomingOrganizer;
     [Export] private Node _tileOrganizer;
 
-    public Grid<Control> Tiles{get;set;}	
+    //public Grid<Control> Tiles{get;set;}	//this is dangerous ... since I have the organizer I should just assign those tiles to a private var here...
+    private Grid<Control> _tiles;
+    public Grid<Control> Tiles{
+        get => (_tileOrganizer as WithTiles).Tiles;
+        set{_tiles = value;}
+    }
     private Queue<List<Vector2I>> _matchGroupQueue = [];  //I am no longer using this as a queue, just to store one group until I can replace it with a local v2i list
     private System.Collections.Generic.Dictionary<TileTypes, int> _spawnOddsByTileType;
     private float[] _spawnWeights;
@@ -719,7 +724,10 @@ List<GameObject> FindAllMatches()
 
         //TEST
         await _TransferPiecesFromUpcomingGridByColumn();
-        Debugging.PrintStackedGridInitials(Tiles.GetGridAs2DList(), 2, 2, "After UpcominTransfer");
+                        GetTree().CreateTimer(0.2f).Timeout += () =>{ //at 1s or more, this will run after the enemy's turn, since it runs in parallel and I need the board to arrange itself before that happens
+                                Debugging.PrintStackedGridInitials(Tiles.GetGridAs2DList(), 2, 2, "After UpcominTransfer");             
+                };
+
 
         var bppp = 1232;
     }   
@@ -768,13 +776,16 @@ List<GameObject> FindAllMatches()
         GD.PrintRich("[color=red]TRANSFERRING UPCOMING[/color]");
         var dfgg = 3524;
 
+
         for(int x=0;x<Tiles.Width;x++){
             var collapseCount = 0;
-            var firstBlankHeight = 0;
+            var firstBlankHeight = 0; //ditching this
+            var blankCellHeights = new List<int>();
             for(int y = 0; y < Tiles.Height; y++){
                 //GD.Print($"{Tiles.GetItem(x, y).Name} has Tile interface?  {Tiles.GetItem(x, y) is Tile}");
                 if((Tiles.GetItem(x, y) as Tile).Type == TileTypes.Blank){
                     collapseCount++;
+                    blankCellHeights.Add(y);
                     if(firstBlankHeight < 1){
                         firstBlankHeight = y;                        
                     }
@@ -783,17 +794,19 @@ List<GameObject> FindAllMatches()
             //TODO: there is some kind of sync issue between the opcoming organizer and this matcher, pieces fall all the way god knows where before they get moved by this matcher, but not all of them get re-commandered
             //updating positions after a delay is only a precareous band aid            
             if (collapseCount > 0){
+                var reversedBlankCellHeights = blankCellHeights.AsEnumerable().Reverse().ToList();
                 var incomingPiecesForColummn = await (_upcomingOrganizer as TileOrganizer).MoveColumnDown(x, collapseCount);
                 var incomingCollapseCount = collapseCount - 1;
                 for(int a=0; a<incomingPiecesForColummn.Count; a++){ //not checking against collapseCount directly because there may be fewer pieces than that if I choose not to make the upcoming grid create new pieces
                     var newPiece = incomingPiecesForColummn[a];                
-                    (_tileOrganizer as TileOrganizer).AddPiece(newPiece, x, firstBlankHeight/*  + incomingCollapseCount - a */);
+                    (_tileOrganizer as TileOrganizer).AddPiece(newPiece, x, reversedBlankCellHeights[a]/* firstBlankHeight *//*  + incomingCollapseCount - a */);
                     if(incomingCollapseCount - a > 0){
                         //(_tileOrganizer as TileOrganizer).MoveOverDistance(newPiece, x, firstBlankHeight + incomingCollapseCount - a, incomingCollapseCount - a);   
                         (_tileOrganizer as TileOrganizer).MoveOverDistanceDelayed(
                             newPiece, 
                             x, 
-                            firstBlankHeight + incomingCollapseCount - a, 
+                            //firstBlankHeight + incomingCollapseCount - a, 
+                            reversedBlankCellHeights[a],
                             incomingCollapseCount - a,
                             a
                         );

@@ -41,7 +41,7 @@ public partial class BoardModel : Node, Organizable, MatchableBoard, WithTiles, 
     public void Initialize(Grid<TileTypes> tileTypes){
         (_tileOrganizer as Organizable).Initialize(tileTypes);
         //Tiles = (_tileOrganizer as WithTiles).Tiles;
-        (_tileMatcher as WithTiles).Tiles = (_tileOrganizer as WithTiles).Tiles;
+        //(_tileMatcher as WithTiles).Tiles = (_tileOrganizer as WithTiles).Tiles;
 
         (_tileQuery as WithTiles).Tiles = (_tileOrganizer as WithTiles).Tiles;
         (_turns as WithTiles).Tiles = (_tileOrganizer as WithTiles).Tiles;

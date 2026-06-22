@@ -254,8 +254,8 @@ public partial class TileOrganizer: Node, Organizable, WithTiles
         //should check if it can move there
         var source = Tiles.GetCellFor(piece);
         var target = new Vector2I(x, y);
-        Tiles.SetCell(piece, target);
-        Tiles.SetCell((_tileFactory as TileMaking).Create(TileTypes.Blank) as Control, source);
+        // Tiles.SetCell(piece, target);
+        // Tiles.SetCell((_tileFactory as TileMaking).Create(TileTypes.Blank) as Control, source);
         (piece as Movable).MoveOverDistanceDelayed(target, distance, delayInCells);
     }
 
