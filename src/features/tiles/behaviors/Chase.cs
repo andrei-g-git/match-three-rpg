@@ -19,23 +19,33 @@ public partial class Chase : Node, Pursuing, Mapable, /* WithTiles */AccessableB
 		//GD.Print("Chasing actor at cell:  ", cell);
 		var shortestPath = (_pathfinding as Pathfindable).FindPath(cell);
 		GD.Print("shortest path %%%   \n", string.Join("", shortestPath.Select(cell => $"{cell.X}, {cell.Y} |")));
-		if(shortestPath[1] != cell && shortestPath.Count >= 3){ //otherwise it already reached the actor since index[0] is own self and index[-1] is actor
+		var next = shortestPath[1]; //shortestPath[0] is the agent, I think
+		if(next != cell && shortestPath.Count >= 3){ //otherwise it already reached the actor since index[0] is own self and index[-1] is actor
 			var ownCoordinates = Map.PositionToCell(_tileRoot.Position);
 			var hasReachedActor = Hex.CheckIfNeighbor(ownCoordinates, cell);
 			if(hasReachedActor){
 				EmitSignal(SignalName.CaughtTarget, cell); //THIS IS INCONSISTENT, WILL ALLOW ENEMY TO ATTACK AFTER MOVING (not sure if I want that)
-			}else{
-				var target = shortestPath[1];
+			}else if(! _CheckIfEmpty(next)){
+				var target = next;
 				var targetNode = (Board as Queriable).GetItemAt(new Vector2I(target.X, target.Y));//tiles[target.X][target.Y];
-				//EmitSignal(SignalName.TrySwapping, targetNode/* shortestPath[1] */);	
-				(Board as Organizable).MoveBySwapping(_tileRoot, targetNode);			
+				//EmitSignal(SignalName.TrySwapping, targetNode/* next */);	
+				(Board as Organizable).MoveBySwapping(_tileRoot, targetNode);
+			}else{
+				(Board as Organizable).MovePiece(_tileRoot, next.X, next.Y); //meh ... if it doens't work I'll replace it
 			}
 
 		}else{ //lol wtf... whatever... too lazy
-			if(shortestPath[1] == cell){
+			if(next == cell){
 				var targetNode = (Board as Queriable).GetItemAt(new Vector2I(cell.X, cell.Y));//tiles[cell.X][cell.Y];
 				EmitSignal(SignalName.CaughtTarget, targetNode/* cell */);
 			}
 		}
+	}	
+
+
+	private bool _CheckIfEmpty(Vector2I cell){
+		var x = cell.X;
+		var y = cell.Y;
+		return (Board as Queriable).GetItemAt(new Vector2I(x, y)) is Empty;		
 	}	
 }

@@ -184,4 +184,9 @@ public partial class BoardModel : Node, Organizable, MatchableBoard, WithTiles, 
         return (_tileQuery as Queriable).GetPlayerPosition();
     }
 
+
+    public void MovePiece(Control piece, int x, int y){
+        (_tileOrganizer as Organizable).MovePiece(piece, x, y);
+    }    
+
 }

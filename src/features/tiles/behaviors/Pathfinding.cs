@@ -40,10 +40,11 @@ public partial class Pathfinding : Control, Pathfindable /* they can't all be go
 		foreach (var cell in ((TileMapLayer) Map).GetUsedCells()){
 			var isNavigable = _CheckIfNavigable(cell); 
 			var isSwapable = _CheckIfSwapable(cell); 
+			var isEmpty = _CheckIfEmpty(cell);
 			//var isActor = _CheckIfActor(cell);
 			//var testName = tiles[cell.X][cell.Y] != null ? tiles[cell.X][cell.Y].Name.ToString() : "nah...";
 
-			if(isNavigable && (isSwapable || /* isActor - no, it makes it attempt to pass through other enemies */(cell == source) || (cell == target))){
+			if(isNavigable && (isSwapable || (cell == source) || (cell == target) || isEmpty)){
 				(_astar as AstarHex).AddHexPoint(cell);
 				(_astar as AstarHex).ConnectHexPoint(cell);	
 				eligibleCellsDebug.Add(cell);			
@@ -86,4 +87,9 @@ public partial class Pathfinding : Control, Pathfindable /* they can't all be go
 		return (Board as Queriable).GetItemAt(new Vector2I(x, y)) is Agentive;
 	}
 
+	private bool _CheckIfEmpty(Vector2I cell){
+		var x = cell.X;
+		var y = cell.Y;
+		return (Board as Queriable).GetItemAt(new Vector2I(x, y)) is Empty;		
+	}
 }

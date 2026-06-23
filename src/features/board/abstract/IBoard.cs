@@ -32,6 +32,7 @@ namespace Board{
 		public Task MoveBySwapping(Control sourceTile, Control targetTile);
 		public Task MoveBySwapping(Vector2I sourceCell, Vector2I targetCell);
 		public Task ReplaceTileWith(TileTypes tileName, Vector2I cell);
+		public void MovePiece(Control piece, int x, int y);
 	}
 
 	public interface AccessableBoard{
