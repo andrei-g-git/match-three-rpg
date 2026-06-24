@@ -88,10 +88,14 @@ public partial class BoardManager : PanelContainer
 
 						(_roomModifiers as ModifiableRoom).RoomIndex = _loadedGame.LevelIndex;
 
-						var environmentPath = _loadedGame.Environment;
-						var tilesPath = _loadedGame.Pieces;
-						var upcomingPath = _loadedGame.Upcoming; //I'm not sure if I even need this serialized...
-						var upcomingBgPath = _loadedGame.UpcomingBg;
+						// var environmentPath = _loadedGame.Environment;
+						// var tilesPath = _loadedGame.Pieces;
+						// var upcomingPath = _loadedGame.Upcoming; //I'm not sure if I even need this serialized...
+						// var upcomingBgPath = _loadedGame.UpcomingBg;
+						var environmentPath = "content/levels/z_test_delete/level_1_2_environment.csv";
+						var tilesPath = "content/levels/z_test_delete/level_1_2_pieces.csv";
+						var upcomingPath = "content/levels/z_test_delete/level_1_2_upcoming.csv";
+						var upcomingBgPath = "content/levels/z_test_delete/level_1_2_upcoming_bg.csv";			
 
 						var env = Files.LoadCsv(environmentPath);
 						var environmentCellStructure = Hex.StringGridToEnums(env);

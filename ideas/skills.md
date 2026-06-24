@@ -39,6 +39,8 @@
   - `A` distract: throw a pebble to make enemy stop and check around for a turn. **Adv. implementation:** should pass intelligence check
   - `A` piercing shot: fire an arrow when matching a group behind an enemy (when you're on the other side and on the same board line/direction                            )
   - `A` -----  cedes the turn and gets 2 consecutive turns the next round
+  - `A` gain initiative: match a line and gain temp agility or some shit
+  - `A` gain explosive movement: match a line and your move skill (earth) goes one cell farther for one round. these are useful for when match lines don't point into a useful direction but you don't need energy
 
 #### stealth
   - `A` runthrough?: attacks in straighht line but the thief stops way past the match group, 1 tile away from and behind the target
