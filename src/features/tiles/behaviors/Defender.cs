@@ -21,5 +21,7 @@ public partial class Defender : Node, Defensible
 	// public void ConnectTookDamage(Action<int> action){
 	// 	Connect(SignalName.TookDamage, Callable.From(action));
 	// }
-	
+	public void JustDie(){
+		//EmitSignal(SignalName.Dying);
+	}
 }

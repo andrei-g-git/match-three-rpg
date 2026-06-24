@@ -41,6 +41,7 @@ namespace Tiles{
 
     public interface Defensible{
         public void TakeDamage(int damage);
+        public void JustDie();
     }
 
     public interface Offensive{

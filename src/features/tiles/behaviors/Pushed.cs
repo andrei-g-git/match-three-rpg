@@ -44,6 +44,10 @@ public partial class Pushed : Node, Pushable, AccessableBoard
 			if(pieceToSwap is Permeable){
 				(_defend as Defensible).TakeDamage((int)Math.Ceiling(movementForce * 3));	//sucky formula, gotta change			
 			}
+
+            if(_tileRoot is WithHealth && pieceToSwap is FatalArea){
+                (_defend as Defensible).JustDie();
+            }
         }
     }
 

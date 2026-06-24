@@ -288,6 +288,9 @@ namespace Player{
         public void TakeDamage(int damage){
             (_defender as Defensible).TakeDamage(damage); 
         } 
+        public void JustDie(){
+            //EmitSignal(SignalName.Dying);
+        }
 
         public /* void */async Task ReceivePathAndSkill(List<Vector2I> path, Skill/* ful */ skill){
             //await (_matchesTraversal as TraversableMatching).ReceivePathAndSkill(path, skill);

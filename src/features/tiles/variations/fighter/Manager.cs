@@ -122,6 +122,10 @@ namespace Fighter{
 
         public void TakeDamage(int damage){
             (_defender as Defensible).TakeDamage(damage); 
+        }  
+
+        public void JustDie(){
+            (_defender as Defensible).JustDie();
         }   
 
         public void Pop() {

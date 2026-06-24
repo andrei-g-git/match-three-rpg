@@ -45,6 +45,7 @@ namespace Tiles{
     }
 
     public interface Permeable{}
+    public interface FatalArea{}
 
     public interface Playable{}
 

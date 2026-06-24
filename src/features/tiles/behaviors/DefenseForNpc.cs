@@ -23,6 +23,10 @@ public partial class DefenseForNpc : Node, Defensible
 		}
 	}
 
+	public void JustDie(){
+		EmitSignal(SignalName.Dying);
+	}
+
 	public void ConnectTookDamage(Action<int> action){
 		Connect(SignalName.TookDamage, Callable.From(action));
 	}

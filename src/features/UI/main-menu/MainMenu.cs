@@ -91,7 +91,7 @@ public partial class MainMenu : Control, WithSceneManager
 					MaxWindEnergy = PlayerEnergy.CalculateInitialMaxEnergy(7),	
 					WindEnergy = 5,
 					MaxEarthEnergy = PlayerEnergy.CalculateInitialMaxEnergy(10),	
-					EarthEnergy = 8,
+					EarthEnergy = 9,
 					MaxWaterEnergy = PlayerEnergy.CalculateInitialMaxEnergy(5),	
 					WaterEnergy = 4,
 				},
