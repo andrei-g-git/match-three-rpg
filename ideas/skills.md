@@ -34,6 +34,7 @@
   - `S` stare-down **Adv. implementation:** pick an enemy to debuff initiative indefinitely. ----//----
 
   - `C` strong-side **Adv. implementation:** pick between 6 directions by matching adjacent pieces in one of those directions: physical attacks coming from that direction will be softened
+  - `S` lasso: if player and enemy is on same direction made by the matched line, pull enemy x amount of cells toward player (maybe player doesn't need to be at end of match). If enemy passes through negative tile, takes damage or effect, if it's fatal tile, it stops there and dies 
 
 #### ranged
   - `A` distract: throw a pebble to make enemy stop and check around for a turn. **Adv. implementation:** should pass intelligence check

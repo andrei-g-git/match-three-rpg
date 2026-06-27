@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://drxuwm7x5y7mb"]
+[gd_scene load_steps=25 format=3 uid="uid://drxuwm7x5y7mb"]
 
 [ext_resource type="Script" uid="uid://c336s8cjkvnk0" path="res://src/features/tiles/variations/melee/Manager.cs" id="1_xe2b7"]
 [ext_resource type="Texture2D" uid="uid://cof8nmcm8754o" path="res://assets/images/tiles/new/melee.png" id="2_p70jn"]
@@ -8,8 +8,101 @@
 [ext_resource type="Script" uid="uid://bo1vqtqcusngb" path="res://src/features/tiles/behaviors/Removing.cs" id="5_jadod"]
 [ext_resource type="Script" uid="uid://316a3o75npwl" path="res://src/features/tiles/behaviors/Matching.cs" id="6_jadod"]
 [ext_resource type="Script" uid="uid://dmkt3wetl7b0l" path="res://src/features/tiles/animations/MoveTweener.cs" id="6_p70jn"]
+[ext_resource type="Texture2D" uid="uid://bk7an1c3q4ad6" path="res://assets/images/tiles/new/elements/fire-piece-sheet-64.png" id="6_sfik2"]
 [ext_resource type="Script" uid="uid://whroff6nwt7n" path="res://src/features/tiles/animations/ScaleUpFade.cs" id="9_p70jn"]
 [ext_resource type="Script" uid="uid://dkxyfo8ok7v3x" path="res://src/features/tiles/animations/Pop.cs" id="9_tua7i"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w652b"]
+atlas = ExtResource("6_sfik2")
+region = Rect2(10, 0, 88, 99)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_knh84"]
+atlas = ExtResource("6_sfik2")
+region = Rect2(114, 0, 88, 99)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fn1x5"]
+atlas = ExtResource("6_sfik2")
+region = Rect2(218, 0, 88, 99)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xnqvi"]
+atlas = ExtResource("6_sfik2")
+region = Rect2(322, 0, 88, 99)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_23wy1"]
+atlas = ExtResource("6_sfik2")
+region = Rect2(10, 111, 88, 99)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rjnio"]
+atlas = ExtResource("6_sfik2")
+region = Rect2(114, 111, 88, 99)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mx8j6"]
+atlas = ExtResource("6_sfik2")
+region = Rect2(218, 111, 88, 99)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_14ot7"]
+atlas = ExtResource("6_sfik2")
+region = Rect2(322, 111, 88, 99)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c1jnd"]
+atlas = ExtResource("6_sfik2")
+region = Rect2(10, 222, 88, 99)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hc2ac"]
+atlas = ExtResource("6_sfik2")
+region = Rect2(114, 222, 88, 99)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ufuio"]
+atlas = ExtResource("6_sfik2")
+region = Rect2(218, 222, 88, 99)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hk2q0"]
+atlas = ExtResource("6_sfik2")
+region = Rect2(322, 222, 88, 99)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_w652b"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w652b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_knh84")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fn1x5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xnqvi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_23wy1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rjnio")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mx8j6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_14ot7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c1jnd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hc2ac")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ufuio")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hk2q0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="Melee" type="Control" node_paths=PackedStringArray("_swapping", "_matching", "_removing", "_moveTweener", "_popTweener")]
 layout_mode = 3
@@ -33,6 +126,7 @@ pivot_offset = Vector2(32, 27.5)
 script = ExtResource("2_tua7i")
 
 [node name="Sprite2D" type="Sprite2D" parent="AspectRatioContainer"]
+visible = false
 position = Vector2(32, 27.5)
 texture = ExtResource("2_p70jn")
 
@@ -43,6 +137,13 @@ script = ExtResource("3_5l2g4")
 _tileNode = NodePath("../..")
 _container = NodePath("..")
 _sprite = NodePath("../Sprite2D")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="AspectRatioContainer"]
+position = Vector2(32, 27.5)
+scale = Vector2(0.75, 0.75)
+sprite_frames = SubResource("SpriteFrames_w652b")
+autoplay = "default"
+frame_progress = 0.59139186
 
 [node name="Behaviors" type="Node" parent="."]
 
