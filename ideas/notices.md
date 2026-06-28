@@ -35,3 +35,5 @@
     
     * matching vertically expends upcoming columns 3x faster, which will deincentivize the thinking player from matching vertically, so I need to add an incentive
         - there could be skill effect multipliers for vertical matching
+
+    * animated element pieces are too distracting, I'll have to make them very inocuous - very low fps, lots of similar frames

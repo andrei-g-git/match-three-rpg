@@ -22,9 +22,14 @@ public static class Files
 	public static Grid<string>LoadCsv(string path){
 		var fullPath = System.IO.Path.Join(_userPath, path);
 		Grid<string> grid = new Grid<string>();
-		var file = FileAccess.Open(fullPath, FileAccess.ModeFlags.Read);
+
+		if (!FileAccess.FileExists(fullPath)){    
+			GD.PrintErr($"Missing file: {fullPath}");    
+			return grid;
+		}
+
+		using var file = FileAccess.Open(fullPath, FileAccess.ModeFlags.Read); // In C#, using guarantees Dispose() is called at the end of the block (even if an exception occurs), which closes/releases the underlying file handle.
 		while(!file.EofReached()){
-			//var row = new Array<string>(file.GetCsvLine());
 			var row = new List<string>(file.GetCsvLine());
 			if(row.Count > 1){
 				//grid.Append(row);	// looks like csvs have a 'secret' row with crap content like ['0'] or something
@@ -34,6 +39,28 @@ public static class Files
 		}
 		return grid;	
 	}
+
+	public static Grid<string>LoadLocalCsv(string path){
+		var fullPath = System.IO.Path.Join("res://", path);
+		Grid<string> grid = new Grid<string>();
+
+		if (!FileAccess.FileExists(fullPath)){    
+			GD.PrintErr($"Missing file: {fullPath}");    
+			return grid;
+		}
+
+		using var file = FileAccess.Open(fullPath, FileAccess.ModeFlags.Read); // In C#, using guarantees Dispose() is called at the end of the block (even if an exception occurs), which closes/releases the underlying file handle.
+		while(!file.EofReached()){
+			var row = new List<string>(file.GetCsvLine());
+			if(row.Count > 1){
+				//grid.Append(row);	// looks like csvs have a 'secret' row with crap content like ['0'] or something
+				grid.AddRow(row);
+			} 
+							
+		}
+		return grid;	
+	}
+
 
 	public static Array<Array<string>>LoadCsv_test(string path){
 		Array<Array<string>> grid = new Array<Array<string>>();

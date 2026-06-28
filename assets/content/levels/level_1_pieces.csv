@@ -1,0 +1,8 @@
+solid_prop,solid_prop,solid_prop,solid_prop,solid_prop
+fighter,defensive,hole,hole,fighter
+melee,ranged,hole,defensive,tech
+melee,defensive,ranged,tech,melee
+ranged,defensive,ranged,melee,melee
+melee,tech,tech,defensive,defensive
+defensive,player,melee,ranged,ranged
+tech,melee,melee,ranged,melee

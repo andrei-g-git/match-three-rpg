@@ -1,0 +1,12 @@
+-1,-1,-1,-1,-1
+-1,-1,-1,-1,-1
+-1,-1,-1,-1,-1
+-1,-1,-1,-1,-1
+-1,-1,-1,-1,-1
+-1,tech,-1,-1,-1
+-1,melee,-1,-1,-1
+-1,ranged,-1,-1,-1
+-1,tech,melee,-1,-1
+-1,defensive,tech,-1,-1
+-1,ranged,melee,-1,tech
+-1,defensive,tech,melee,defensive

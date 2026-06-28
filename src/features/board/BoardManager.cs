@@ -98,12 +98,29 @@ public partial class BoardManager : PanelContainer
 						var upcomingBgPath = "content/levels/z_test_delete/level_1_2_upcoming_bg.csv";			
 
 						var env = Files.LoadCsv(environmentPath);
-						var environmentCellStructure = Hex.StringGridToEnums(env);
-						var tileNames = Files.LoadCsv(tilesPath);
-						_tileTypes = Hex.StringGridToEnums(tileNames);	
-						var upcoming = Files.LoadCsv(upcomingPath);	
-						_upcomingTileTypes = Hex.StringGridToEnums(upcoming);
-						var upcomingBg = Files.LoadCsv(upcomingBgPath);	
+						//Grid<string> tileNames, upcoming, upcomingBg;// = new Grid<string>();
+						var tileNames = new Grid<string>();
+						var upcoming = new Grid<string>();
+						var upcomingBg = new Grid<string>();
+						//var environmentCellStructure = Hex.StringGridToEnums(env);
+
+						if(env.Width > 0 && env.Height > 0){
+							/* var */ tileNames = Files.LoadCsv(tilesPath);
+							_tileTypes = Hex.StringGridToEnums(tileNames);	
+							/* var */ upcoming = Files.LoadCsv(upcomingPath);	
+							_upcomingTileTypes = Hex.StringGridToEnums(upcoming);
+							/* var */ upcomingBg = Files.LoadCsv(upcomingBgPath);
+						}else{
+							GD.Print("Loading Level from Local Assets");
+							env = Files.LoadLocalCsv("assets/content/levels/level_1_environment.csv");
+							tileNames = Files.LoadLocalCsv("assets/content/levels/level_1_pieces.csv");
+							_tileTypes = Hex.StringGridToEnums(tileNames);	
+							upcoming = Files.LoadLocalCsv("assets/content/levels/level_1_upcoming.csv");	
+							_upcomingTileTypes = Hex.StringGridToEnums(upcoming);
+							upcomingBg = Files.LoadLocalCsv("assets/content/levels/level_1_upcoming_bg.csv");							
+						}
+
+
 
 
 						_PopulateMap(

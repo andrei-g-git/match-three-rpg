@@ -126,7 +126,6 @@ pivot_offset = Vector2(32, 27.5)
 script = ExtResource("2_tua7i")
 
 [node name="Sprite2D" type="Sprite2D" parent="AspectRatioContainer"]
-visible = false
 position = Vector2(32, 27.5)
 texture = ExtResource("2_p70jn")
 
@@ -139,6 +138,7 @@ _container = NodePath("..")
 _sprite = NodePath("../Sprite2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="AspectRatioContainer"]
+visible = false
 position = Vector2(32, 27.5)
 scale = Vector2(0.75, 0.75)
 sprite_frames = SubResource("SpriteFrames_w652b")
