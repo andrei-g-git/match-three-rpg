@@ -92,10 +92,10 @@ public partial class BoardManager : PanelContainer
 						// var tilesPath = _loadedGame.Pieces;
 						// var upcomingPath = _loadedGame.Upcoming; //I'm not sure if I even need this serialized...
 						// var upcomingBgPath = _loadedGame.UpcomingBg;
-						var environmentPath = "content/levels/z_test_delete/level_1_2_environment.csv";
-						var tilesPath = "content/levels/z_test_delete/level_1_2_pieces.csv";
-						var upcomingPath = "content/levels/z_test_delete/level_1_2_upcoming.csv";
-						var upcomingBgPath = "content/levels/z_test_delete/level_1_2_upcoming_bg.csv";			
+						var environmentPath = "content/levels/z_test_delete/level_2_0_environment.csv";
+						var tilesPath = "content/levels/z_test_delete/level_2_0_pieces.csv";
+						var upcomingPath = "content/levels/z_test_delete/level_2_0_upcoming.csv";
+						var upcomingBgPath = "content/levels/z_test_delete/level_2_0_upcoming_bg.csv";			
 
 						var env = Files.LoadCsv(environmentPath);
 						//Grid<string> tileNames, upcoming, upcomingBg;// = new Grid<string>();
