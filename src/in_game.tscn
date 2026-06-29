@@ -1,4 +1,4 @@
-[gd_scene load_steps=82 format=3 uid="uid://vv3xapj4lprc"]
+[gd_scene load_steps=83 format=3 uid="uid://vv3xapj4lprc"]
 
 [ext_resource type="Script" uid="uid://dy1o6fmi8i4pb" path="res://src/features/board/BoardManager.cs" id="1_k7s5h"]
 [ext_resource type="Script" uid="uid://dopwsstby7kmn" path="res://src/features/board/BoardContentContainer.cs" id="2_d5ibo"]
@@ -39,6 +39,7 @@
 [ext_resource type="Script" uid="uid://bt865kjovyit6" path="res://src/features/board/model/TileQuery.cs" id="22_7t1so"]
 [ext_resource type="Script" uid="uid://byx4kqe8rgr43" path="res://src/features/skills/PlayerSkillsModel.cs" id="22_10pv0"]
 [ext_resource type="Texture2D" uid="uid://c3twceykx1fxf" path="res://assets/images/tiles/charge.png" id="22_gtevj"]
+[ext_resource type="Script" uid="uid://k6gnl3qvse1o" path="res://src/features/board/model/UpcomingOrganizer.cs" id="23_maq8b"]
 [ext_resource type="Texture2D" uid="uid://o7ate3k72l8g" path="res://assets/images/tiles/leapAttack.png" id="23_oqk24"]
 [ext_resource type="Script" uid="uid://brll1nni2ffjy" path="res://src/features/skills/SkillGroupsController.cs" id="23_w8nfc"]
 [ext_resource type="Script" uid="uid://bw0yags88t6ah" path="res://src/features/skills/SkillFactory.cs" id="24_ewl7t"]
@@ -419,12 +420,15 @@ _environment = NodePath("../VBoxContainer/MarginContainer2/Environment")
 _selectedSkillsModel = NodePath("PlayerSkills")
 _turns = NodePath("Turns")
 
-[node name="UpcomingOrganizer" type="Node" parent="MainContainer/ScrollContainer2/PanelContainer/Model" node_paths=PackedStringArray("_tileFactory", "_tileContainer")]
-script = ExtResource("6_ygp36")
-_tileFactory = NodePath("../TileFactory")
-_tileContainer = NodePath("../../VBoxContainer/MarginContainer/Upcoming")
+[node name="UpcomingOrganizer" type="Node" parent="MainContainer/ScrollContainer2/PanelContainer/Model"]
+script = ExtResource("23_maq8b")
 
-[node name="Node" type="Node" parent="MainContainer/ScrollContainer2/PanelContainer/Model/UpcomingOrganizer"]
+[node name="TileOrganizer" type="Node" parent="MainContainer/ScrollContainer2/PanelContainer/Model/UpcomingOrganizer" node_paths=PackedStringArray("_tileFactory", "_environment", "_tileContainer", "_tileMatcher")]
+script = ExtResource("6_ygp36")
+_tileFactory = NodePath("../../TileFactory")
+_environment = NodePath("../../../VBoxContainer/MarginContainer/UpcomingBg")
+_tileContainer = NodePath("../../../VBoxContainer/MarginContainer/Upcoming")
+_tileMatcher = NodePath("../../TileMatcher")
 
 [node name="TileOrganizer" type="Node" parent="MainContainer/ScrollContainer2/PanelContainer/Model" node_paths=PackedStringArray("_tileFactory", "_environment", "_tileContainer", "_tileMatcher")]
 script = ExtResource("6_ygp36")

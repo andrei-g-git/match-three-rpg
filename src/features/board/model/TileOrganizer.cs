@@ -260,7 +260,7 @@ public partial class TileOrganizer: Node, Organizable, WithTiles
     }
 
     //not in interface
-    public async Task<List<Control>> MoveColumnDown(int column, int cellCount){
+    public async Task<List<Control>> MoveColumnDown(int column, int cellCount){ //should move to upcoming organizer, I'll just copy/paste for now
         GD.PrintRich($"[color=green] MOVING COLUMN {column}; has {cellCount} pieces to move; Grid height is {Tiles.Height} [/color]");
         var cellsToTransfer = new List<Control>();
         for(int y = Tiles.Height-1; y >= 0; y--){
