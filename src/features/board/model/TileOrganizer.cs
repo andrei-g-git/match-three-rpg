@@ -52,10 +52,10 @@ public partial class TileOrganizer: Node, Organizable, WithTiles
             //for (int y = 0; y < tileTable.Height; y++){
             for (int y = 0; y < tileTable.Width; y++){
                 var tileName = tileTable.GetItem(y, x); //REVERSED
-                if (tileName != TileTypes.Blank){
+                //if (tileName != TileTypes.Blank){ //I will actually need to create blanks too, for the upcoming grid and for the play grid when I load ongoing lavels that have exhausted finite upcoming columns
                     var tile = (Control) factory.Create(tileName);
                     board.SetCell(tile, x, y);
-                }
+                //}
             }
         }
         return board;				

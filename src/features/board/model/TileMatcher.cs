@@ -795,7 +795,7 @@ List<GameObject> FindAllMatches()
             //updating positions after a delay is only a precareous band aid            
             if (collapseCount > 0){
                 var reversedBlankCellHeights = blankCellHeights.AsEnumerable().Reverse().ToList();
-                var incomingPiecesForColummn = await (_upcomingOrganizer as TileOrganizer).MoveColumnDown(x, collapseCount);
+                var incomingPiecesForColummn = await (_upcomingOrganizer as UpcomingOrganizer/* TileOrganizer */).MoveColumnDown(x, collapseCount);
                 var incomingCollapseCount = collapseCount - 1;
                 for(int a=0; a<incomingPiecesForColummn.Count; a++){ //not checking against collapseCount directly because there may be fewer pieces than that if I choose not to make the upcoming grid create new pieces
                     var newPiece = incomingPiecesForColummn[a];                

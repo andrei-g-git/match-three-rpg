@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Tiles;
+using Util;
 
 public partial class UpcomingOrganizer : Node
 {
@@ -50,6 +51,13 @@ public partial class UpcomingOrganizer : Node
 
 	}
 
+    public void Initialize(Grid<TileTypes> pieceTypes){
+        (_tileOrganizer as Organizable).Initialize(pieceTypes);
+
+        _FillInTheBlanks(); //this might run before  random piece distribution data is loaded
+
+        Debugging.PrintStackedGridInitials(_tiles.GetGridAs2DList(), 2, 2, "UPCOMING PIECES INITIALIZED");
+    }
 
     //not in interface
     public async Task<List<Control>> MoveColumnDown(int column, int cellCount){ //should move to upcoming organizer, I'll just copy/paste for now
@@ -88,10 +96,15 @@ public partial class UpcomingOrganizer : Node
 		_collapsedEvent.Invoke();
 
 		//
+
+        Debugging.PrintStackedGridInitials(_tiles.GetGridAs2DList(), 2, 2, "UPCOMING PIECE COLUMN COLLAPSED");
+
         return cellsToTransfer;          
     }
 
-	private void _FillInTheBlanks(){
+    //TODO: Ensure that there are no matched generations
+    //      Also make sure that enemies don't act in the upcoming grid
+	private void _FillInTheBlanks(){ 
 		var levelMods = (_roomModifiers as ModifiableRoom).Modifiers;
 		if(
 			levelMods.Contains(LevelModifiers.random_upcoming_pieces.ToString()) &&
@@ -99,14 +112,18 @@ public partial class UpcomingOrganizer : Node
 		){
 			for(var x=0; x<_tiles.Width; x++){
 				for(var y=0; y<_tiles.Height; y++){
-					if((_tiles.GetItem(x, y) as Tile).Type == TileTypes.Blank){
+					if((_tiles.GetItem(x, y) as Tile).Type == TileTypes.Blank/*  || (_tiles.GetItem(x, y) == null) */){
+                        var blank = _tiles.GetItem(x, y);
 						var pieceName = _RollPiece(_randomPieceDistribution);
                         var pieceType = TileDict.GetEnum(pieceName);
                         var piece = (_tileFactory as TileMaking).Create(pieceType);
                         _tiles.SetCell(piece as Control, new Vector2I(x, y));
+                        (_tileContainer as Viewable).PlaceNew(piece as Control, blank, new Vector2I(x, y));                        
 					}
 				}
 			}
+            //(_tileContainer as Viewable).Initialize(_tiles); //2ND TIME
+
 		}
 	}
 

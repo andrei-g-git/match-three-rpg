@@ -49,7 +49,8 @@ public partial class BoardModel : Node, Organizable, MatchableBoard, WithTiles, 
     }
 
     public void InitializeUpcoming(Grid<TileTypes> tileTypes){ ///////// Not in interface /////////////
-        (_upcomingOrganizer as Organizable).Initialize(tileTypes);
+        //(_upcomingOrganizer as Organizable).Initialize(tileTypes);
+        (_upcomingOrganizer as UpcomingOrganizer).Initialize(tileTypes);
     }
 
 
