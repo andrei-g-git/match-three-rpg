@@ -1,4 +1,5 @@
 using Board;
+using Content;
 using Godot;
 using Levels;
 using Room;
@@ -15,12 +16,38 @@ public partial class UpcomingOrganizer : Node
 	[Export] private Node _roomModifiers;
 
 	private Grid<Control> _tiles => (_tileOrganizer as WithTiles).Tiles;
-
+	//private GameSave _loadedGame;
+    private List<PieceOdds> _randomPieceDistribution;
 	private delegate void CollapsedEventHandler();
 	private CollapsedEventHandler _collapsedEvent;
 
 	public override void _Ready(){
 		_collapsedEvent += _FillInTheBlanks;
+
+
+        //might be cleaner if this was in the board manager and passed here, but screw it, it's less work
+		Files.LoadJson<CurrentSaveGame>(Files.SavesPath, "current.json")
+			.ContinueWith(task => {
+				var currentGame = task.Result;
+				var currentGameName = currentGame.CurrentSave;
+				Files.LoadJson<GameSave>(Files.SavesPath, currentGameName)
+					.ContinueWith(t => {
+
+						var loadedGame = t.Result; 
+
+						var roomIndex = loadedGame.LevelIndex;
+
+					
+                        Files.LoadJson<List<LevelSchema>>(Files.LevelsPath, "levels.json")
+                            .ContinueWith(task =>{
+                                var levels = task.Result;
+                                var level = levels[roomIndex];
+                                _randomPieceDistribution = level.RandomPieceDistribution;
+                            });	                    
+					});
+			
+			});
+
 	}
 
 
@@ -72,12 +99,33 @@ public partial class UpcomingOrganizer : Node
 		){
 			for(var x=0; x<_tiles.Width; x++){
 				for(var y=0; y<_tiles.Height; y++){
-					if((_tiles.GetItem(x, y) as Tile).Type == TileTypes.Blank)
-					{
-						
+					if((_tiles.GetItem(x, y) as Tile).Type == TileTypes.Blank){
+						var pieceName = _RollPiece(_randomPieceDistribution);
+                        var pieceType = TileDict.GetEnum(pieceName);
+                        var piece = (_tileFactory as TileMaking).Create(pieceType);
+                        _tiles.SetCell(piece as Control, new Vector2I(x, y));
 					}
 				}
 			}
 		}
 	}
+
+    private string _RollPiece(List<PieceOdds> pieceDistribution){
+        int maxOdds = 0;
+        foreach(var pieceOdds in pieceDistribution){
+            maxOdds += pieceOdds.Odds;
+        }
+        var rng = new Random();
+        int roll = rng.Next(maxOdds);
+
+        int cumulativeInterval = 0;
+        foreach(var pieceOdds in pieceDistribution){
+            cumulativeInterval += pieceOdds.Odds;
+            if(roll < cumulativeInterval){
+                return pieceOdds.Piece;
+            }
+        } 
+
+        return "no upcoming randomized piece for you!";       
+    }
 }

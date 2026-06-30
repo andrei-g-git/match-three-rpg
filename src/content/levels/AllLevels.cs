@@ -30,7 +30,29 @@ public class AllLevels{
 			Modifiers = [
 				LevelModifiers.random_upcoming_pieces.ToString(),
 				LevelModifiers.infinite_upcoming_pieces.ToString()
-			]
+			],
+			RandomPieceDistribution = new List<PieceOdds> {
+				new(){
+					Piece = "melee",
+					Odds = 20
+				},
+				new(){
+					Piece = "ranged",
+					Odds = 20
+				},
+				new(){
+					Piece = "defensive",
+					Odds = 20
+				},
+				new(){
+					Piece = "tech",
+					Odds = 20
+				},
+				new(){
+					Piece = "fighter",
+					Odds = 1
+				}
+			}
 		}
 	];
 }

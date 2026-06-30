@@ -1,4 +1,5 @@
 using Godot;
+using Levels;
 using System;
 using System.Collections.Generic;
 
@@ -58,4 +59,5 @@ public partial class LevelSchema
 	}	
 
 	public List<string> Modifiers{get;set;}
+	public List<PieceOdds> RandomPieceDistribution{get;set;}
 }

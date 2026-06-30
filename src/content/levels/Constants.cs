@@ -23,6 +23,8 @@ namespace Levels{
 		vertical_match_multiplier,
 		random_upcoming_pieces,
 		infinite_upcoming_pieces
-	}	
+	}
+
+	//public enum Upcoming	
 }
 
