@@ -88,14 +88,14 @@ public partial class BoardManager : PanelContainer
 
 						(_roomModifiers as ModifiableRoom).RoomIndex = _loadedGame.LevelIndex;
 
-						// var environmentPath = _loadedGame.Environment;
-						// var tilesPath = _loadedGame.Pieces;
-						// var upcomingPath = _loadedGame.Upcoming; //I'm not sure if I even need this serialized...
-						// var upcomingBgPath = _loadedGame.UpcomingBg;
-						var environmentPath = "content/levels/z_test_delete/level_2_0_environment.csv";
-						var tilesPath = "content/levels/z_test_delete/level_2_0_pieces.csv";
-						var upcomingPath = "content/levels/z_test_delete/level_2_0_upcoming.csv";
-						var upcomingBgPath = "content/levels/z_test_delete/level_2_0_upcoming_bg.csv";			
+						var environmentPath = _loadedGame.Environment;
+						var tilesPath = _loadedGame.Pieces;
+						var upcomingPath = _loadedGame.Upcoming; //I'm not sure if I even need this serialized...
+						var upcomingBgPath = _loadedGame.UpcomingBg;
+						// var environmentPath = "content/levels/z_test_delete/level_2_0_environment.csv";
+						// var tilesPath = "content/levels/z_test_delete/level_2_0_pieces.csv";
+						// var upcomingPath = "content/levels/z_test_delete/level_2_0_upcoming.csv";
+						// var upcomingBgPath = "content/levels/z_test_delete/level_2_0_upcoming_bg.csv";			
 
 						var env = Files.LoadCsv(environmentPath);
 						//Grid<string> tileNames, upcoming, upcomingBg;// = new Grid<string>();

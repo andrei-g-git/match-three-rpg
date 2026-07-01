@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://dafwidbhuhtvs"
+
+[deps]
+
+files=["res://assets/content/levels/level_2_pieces.solid.translation", "res://assets/content/levels/level_2_pieces.defensive.translation", "res://assets/content/levels/level_2_pieces.melee.translation", "res://assets/content/levels/level_2_pieces.tech.translation", "res://assets/content/levels/level_2_pieces.fighter.translation", "res://assets/content/levels/level_2_pieces.ranged.translation"]
+
+source_file="res://assets/content/levels/level_2_pieces.csv"
+dest_files=["res://assets/content/levels/level_2_pieces.solid.translation", "res://assets/content/levels/level_2_pieces.defensive.translation", "res://assets/content/levels/level_2_pieces.melee.translation", "res://assets/content/levels/level_2_pieces.tech.translation", "res://assets/content/levels/level_2_pieces.fighter.translation", "res://assets/content/levels/level_2_pieces.ranged.translation"]
+
+[params]
+
+compress=true
+delimiter=0

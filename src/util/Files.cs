@@ -6,6 +6,7 @@ using System;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Text;
+//using System.IO;
 
 public static class Files
 {
@@ -39,6 +40,45 @@ public static class Files
 		}
 		return grid;	
 	}
+
+	public static async Task SaveCsvFromGrid(Grid<Control> grid, string path){
+		var fullPath = System.IO.Path.Join(_userPath, path);
+		//check if already exists first?
+		var stringGrid = Hex.EnumGridToStrings(grid);
+
+		using(var writer = new System.IO.StreamWriter(fullPath)){
+			foreach(var row in stringGrid.GetGridAs2DList()){
+				var csvLine = string.Join(",", row);
+				writer.WriteLine(csvLine);
+			}
+		}
+	}
+
+	// public static async Task CopyFileAsync(string sourcePath, string destinationPath){
+	// 	var fullSourcePath = System.IO.Path.Join(_userPath, sourcePath);
+	// 	var fullDestinationPath = System.IO.Path.Join(_userPath, destinationPath);
+	// 	using (var source = System.IO.File.Open(fullSourcePath, System.IO.FileMode.Open)){
+	// 		using(var destination = System.IO.File.Create(fullDestinationPath)){
+	// 			await source.CopyToAsync(destination);
+	// 		}
+	// 	}
+	// }
+
+
+	public static async Task CopyFileAsync(string sourcePath, string destinationPath)
+	{
+		var fullDestinationPath = System.IO.Path.Join(_userPath, destinationPath);        
+		// Use Godot's FileAccess to read the source    
+		var sourceFile = FileAccess.Open(sourcePath, FileAccess.ModeFlags.Read);    
+		if (sourceFile == null)        
+			throw new System.IO.FileNotFoundException($"Source file not found: {sourcePath}");        
+		string content = sourceFile.GetAsText();        
+		// Use System.IO to write the destination    
+		System.IO.File.WriteAllText(fullDestinationPath, content);        
+		// If you need it async:    
+		await System.IO.File.WriteAllTextAsync(fullDestinationPath, content);
+	}
+
 
 	public static Grid<string>LoadLocalCsv(string path){
 		var fullPath = System.IO.Path.Join("res://", path);

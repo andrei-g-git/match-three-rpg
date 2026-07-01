@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://drfh15one6p78"
+
+[deps]
+
+files=["res://assets/content/levels/level_2_environment.boulder.translation", "res://assets/content/levels/level_2_environment.grass.translation", "res://assets/content/levels/level_2_environment.grass.translation", "res://assets/content/levels/level_2_environment.grass.translation", "res://assets/content/levels/level_2_environment.grass.translation", "res://assets/content/levels/level_2_environment.grass.translation"]
+
+source_file="res://assets/content/levels/level_2_environment.csv"
+dest_files=["res://assets/content/levels/level_2_environment.boulder.translation", "res://assets/content/levels/level_2_environment.grass.translation", "res://assets/content/levels/level_2_environment.grass.translation", "res://assets/content/levels/level_2_environment.grass.translation", "res://assets/content/levels/level_2_environment.grass.translation", "res://assets/content/levels/level_2_environment.grass.translation"]
+
+[params]
+
+compress=true
+delimiter=0

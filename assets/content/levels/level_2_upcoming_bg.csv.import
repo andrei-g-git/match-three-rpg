@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://detpn0ky3iibc"
+
+[deps]
+
+files=["res://assets/content/levels/level_2_upcoming_bg.transparent.translation", "res://assets/content/levels/level_2_upcoming_bg.transparent.translation", "res://assets/content/levels/level_2_upcoming_bg.transparent.translation", "res://assets/content/levels/level_2_upcoming_bg.transparent.translation", "res://assets/content/levels/level_2_upcoming_bg.transparent.translation", "res://assets/content/levels/level_2_upcoming_bg.transparent.translation"]
+
+source_file="res://assets/content/levels/level_2_upcoming_bg.csv"
+dest_files=["res://assets/content/levels/level_2_upcoming_bg.transparent.translation", "res://assets/content/levels/level_2_upcoming_bg.transparent.translation", "res://assets/content/levels/level_2_upcoming_bg.transparent.translation", "res://assets/content/levels/level_2_upcoming_bg.transparent.translation", "res://assets/content/levels/level_2_upcoming_bg.transparent.translation", "res://assets/content/levels/level_2_upcoming_bg.transparent.translation"]
+
+[params]
+
+compress=true
+delimiter=0

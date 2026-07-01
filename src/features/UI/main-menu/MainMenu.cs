@@ -69,6 +69,11 @@ public partial class MainMenu : Control, WithSceneManager
 
 		await Files.SaveJson(new AllLevels().Levels, Files.LevelsPath, "levels.json");
 
+		await Files.CopyFileAsync("res://assets/content/levels/level_2_environment.csv", Path.Join(Files.LevelEnvironmentsPath, "level_2_environment.csv"));
+		await Files.CopyFileAsync("res://assets/content/levels/level_2_pieces.csv", Path.Join(Files.LevelPiecesPath, "level_2_pieces.csv"));
+		await Files.CopyFileAsync("res://assets/content/levels/level_2_upcoming_bg.csv", Path.Join(Files.LevelUpcomingBgPath, "level_2_upcoming_bg.csv"));
+		await Files.CopyFileAsync("res://assets/content/levels/level_2_upcoming.csv", Path.Join(Files.LevelUpcomingPath, "level_2_upcoming.csv"));
+
 		var firstLevel = _firstLevelScene.Instantiate();
 		SceneManager.ChangeScene(firstLevel);		
 	}

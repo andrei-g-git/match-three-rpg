@@ -160,7 +160,7 @@ public static class Hex{
 	// 	return enumGrid;
 	// }
 
-	public static Grid<TileTypes> StringGridToEnums(Grid<string> stringGrid){ //these shouldn't be here
+	public static Grid<TileTypes> StringGridToEnums(Grid<string> stringGrid){ //these shouldn't be here .. should be in Grid probably, or stringutils
 		var enumGrid = new Grid<TileTypes>(stringGrid.Width, stringGrid.Height);
 		for (int a = 0; a < stringGrid.Width; a++){
 			for (int b = 0; b < stringGrid.Height; b++){
@@ -170,6 +170,19 @@ public static class Hex{
 		}
 		return enumGrid;
 	}
+
+	public static Grid<string> EnumGridToStrings(Grid<Control> enumGrid){ 
+		var stringGrid = new Grid<string>(enumGrid.Width, enumGrid.Height);
+		for (int a = 0; a < enumGrid.Width; a++){
+			for (int b = 0; b < enumGrid.Height; b++){
+				var pieceType = (enumGrid.GetItem(a, b) as Tile).Type;
+				stringGrid.SetCell(TileDict.GetKey(pieceType), a, b);
+			}
+		}
+		return stringGrid;
+	}
+
+
 	public static Array<Array<TileTypes>> StringGridToEnums_test(Array<Array<string>> stringGrid){ //these shouldn't be here
 		var enumGrid = new Array<Array<TileTypes>>();
         enumGrid.Resize(stringGrid.Count);
