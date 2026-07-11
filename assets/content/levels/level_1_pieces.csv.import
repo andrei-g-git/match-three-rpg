@@ -15,3 +15,5 @@ dest_files=["res://assets/content/levels/level_1_pieces.solid.translation", "res
 
 compress=true
 delimiter=0
+unescape_keys=false
+unescape_translations=true

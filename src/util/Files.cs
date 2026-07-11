@@ -65,18 +65,52 @@ public static class Files
 	// }
 
 
-	public static async Task CopyFileAsync(string sourcePath, string destinationPath)
+	public static /* async Task */ void CopyFileAsync(string sourcePath, string /* destinationPath */destinationUserPath)
 	{
-		var fullDestinationPath = System.IO.Path.Join(_userPath, destinationPath);        
-		// Use Godot's FileAccess to read the source    
+		//var fullDestinationPath = System.IO.Path.Join(_userPath, /* destinationPath */destinationUserPath);        
+		
 		var sourceFile = FileAccess.Open(sourcePath, FileAccess.ModeFlags.Read);    
 		if (sourceFile == null)        
 			throw new System.IO.FileNotFoundException($"Source file not found: {sourcePath}");        
-		string content = sourceFile.GetAsText();        
-		// Use System.IO to write the destination    
-		System.IO.File.WriteAllText(fullDestinationPath, content);        
-		// If you need it async:    
-		await System.IO.File.WriteAllTextAsync(fullDestinationPath, content);
+		// string content = sourceFile.GetAsText();          
+		// System.IO.File.WriteAllText(fullDestinationPath, content);        
+		// await System.IO.File.WriteAllTextAsync(fullDestinationPath, content);
+
+        var dir = destinationUserPath.GetBaseDir(); // e.g. "user://content/levels/environment"        
+		if (!string.IsNullOrEmpty(dir) && !DirAccess.DirExistsAbsolute(dir))            
+			DirAccess.MakeDirRecursiveAbsolute(dir);
+        using var dst = FileAccess.Open(destinationUserPath, FileAccess.ModeFlags.Write);        
+		if (dst == null)            
+			throw new System.IO.IOException($"Could not open destination for write: {destinationUserPath}");
+        // If it's text:        
+		var text = sourceFile.GetAsText();        
+		dst.StoreString(text);
+		GD.Print("in copyFile method");
+        //await Task.CompletedTask; // FileAccess is synchronous; keep API shape if you need it.		
+	}
+
+
+	public static void CopyFile(string sourcePath, string destinationUserPath){
+
+GD.Print($"Exists? {FileAccess.FileExists(sourcePath)} : {sourcePath}");
+GD.Print(ProjectSettings.GlobalizePath("res://assets/content/levels/level_2_environment.csv")); 
+// GD.Print(FileAccess.FileExists("res://icon.svg"));
+//var p = "res://assets/content/levels/level_2_environment.csv";GD.Print("exists: ", FileAccess.FileExists(p));GD.Print("real: ", ProjectSettings.GlobalizePath(p));using var f = FileAccess.Open(p, FileAccess.ModeFlags.Read);GD.Print("open ok: ", f != null);if (f != null)    GD.Print(f.GetAsText());
+		try{
+			var sourceFile = FileAccess.Open(sourcePath, FileAccess.ModeFlags.Read); 
+			if (sourceFile == null) 
+				throw new System.IO.FileNotFoundException($"Source file not found: {sourcePath}");
+			var dir = DirAccess.Open(destinationUserPath.GetBaseDir()); 
+			if (dir == null) 
+				DirAccess.MakeDirRecursiveAbsolute(destinationUserPath.GetBaseDir());
+			using var dst = FileAccess.Open(destinationUserPath, FileAccess.ModeFlags.Write); 
+			if (dst == null) 
+				throw new System.IO.IOException($"Could not open destination for write: {destinationUserPath}");
+			var text = sourceFile.GetAsText(); dst.StoreString(text); GD.Print($"Successfully copied to {destinationUserPath}");
+		}
+		catch (Exception ex) { 
+			GD.PrintErr($"Error in CopyFile: {ex.Message}\n{ex.StackTrace}"); 
+		}
 	}
 
 
@@ -195,5 +229,15 @@ public static class Files
             Console.Error.WriteLine($"I/O error reading {fullPath}: {exception.Message}");
             throw;
         }
-    }	
+    }
+
+	public static T LoadTres<T>(string path) where T: Resource{
+		var res = ResourceLoader.Load(path);
+		if(res is T  tTyped){
+			return tTyped;
+		}else{
+			GD.PushError($"Failed to load {path} as {typeof(T).Name} (got {res?.GetType().Name ?? "null"})");
+		}
+		return default;
+	}	
 }

@@ -1,0 +1,15 @@
+[gd_resource type="GridResource" load_steps=2 format=3]
+
+[resource]
+
+Grid=[
+    ["solid_prop", "solid_prop", "defensive", "melee", "tech", "fighter", "ranged"],
+    ["solid_prop", "solid_prop", "tech", "ranged", "defensive", "ranged", "defensive"],
+    ["solid_prop", "defensive", "fighter", "tech", "melee", "defensive", "tech"],
+    ["ranged", "melee", "ranged", "hole", "tech", "ranged", "melee"],
+    ["tech", "ranged", "defensive", "defensive", "defensive", "melee", "ranged"],
+    ["melee", "tech", "melee", "tech", "ranged", "defensive", "melee"],
+    ["melee", "ranged", "defensive", "tech", "melee", "solid_prop", "solid_prop"],
+    ["tech", "melee", "defensive", "ranged", "ranged", "-1", "solid_prop"],
+    ["melee", "ranged", "player", "ranged", "melee", "solid_prop", "solid_prop"]
+]

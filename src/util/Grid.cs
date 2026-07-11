@@ -77,6 +77,10 @@ public class Grid<[MustBeVariant] T>
 		return copy;
 	}
 
+	public void SetGrid(List<List<T>> grid){ //having a c# setter seems too dangerous, I made this since it's less likely I'll use it by acceident
+		_grid = grid;
+	}
+
 	private List<List<T>> _Make2DList(int width, int height){
 		var grid = new List<List<T>>(width);
 		for (int i = 0; i < width; i++){

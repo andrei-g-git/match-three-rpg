@@ -12,3 +12,5 @@ source_file="res://assets/content/levels/level_1_upcoming.csv"
 
 compress=true
 delimiter=0
+unescape_keys=false
+unescape_translations=true

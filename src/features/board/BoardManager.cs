@@ -4,6 +4,8 @@ using Content;
 using Godot;
 using Godot.Collections;
 using Inventory;
+using Levels;
+
 using Room;
 using Skills;
 using Stats;
@@ -39,7 +41,11 @@ public partial class BoardManager : PanelContainer
 
 
 	public override void _Ready(){
-		InitializeLevel();
+		GetTree().CreateTimer(1).Timeout += () =>
+		{
+			InitializeLevel();
+		};
+		
 
 		//test
 
@@ -112,12 +118,34 @@ public partial class BoardManager : PanelContainer
 							/* var */ upcomingBg = Files.LoadCsv(upcomingBgPath);
 						}else{
 							GD.Print("Loading Level from Local Assets");
-							env = Files.LoadLocalCsv("assets/content/levels/level_1_environment.csv");
-							tileNames = Files.LoadLocalCsv("assets/content/levels/level_1_pieces.csv");
-							_tileTypes = Hex.StringGridToEnums(tileNames);	
-							upcoming = Files.LoadLocalCsv("assets/content/levels/level_1_upcoming.csv");	
-							_upcomingTileTypes = Hex.StringGridToEnums(upcoming);
-							upcomingBg = Files.LoadLocalCsv("assets/content/levels/level_1_upcoming_bg.csv");							
+							// env = Files.LoadLocalCsv("assets/content/levels/level_1_environment.csv");
+							// tileNames = Files.LoadLocalCsv("assets/content/levels/level_1_pieces.csv");
+							// _tileTypes = Hex.StringGridToEnums(tileNames);	
+							// upcoming = Files.LoadLocalCsv("assets/content/levels/level_1_upcoming.csv");	
+							// _upcomingTileTypes = Hex.StringGridToEnums(upcoming);
+							// upcomingBg = Files.LoadLocalCsv("assets/content/levels/level_1_upcoming_bg.csv");	
+
+							// env = new Grid<string>();
+							// env.SetGrid(Files.LoadTres<GridResource>("res://assets/content/levels/level_2_environment.tres").Grid);
+							// upcomingBg = new Grid<string>();
+							// upcomingBg.SetGrid(Files.LoadTres<GridResource>("res://assets/content/levels/level_2_upcoming_bg.tres").Grid);	
+							// tileNames = new Grid<string>();
+							// tileNames.SetGrid(Files.LoadTres<GridResource>("res://assets/content/levels/level_2_pieces.tres").Grid);	
+							// _tileTypes = Hex.StringGridToEnums(tileNames);
+							// upcoming = 	new Grid<string>();					
+							// upcoming.SetGrid(Files.LoadTres<GridResource>("res://assets/content/levels/level_2_upcoming.tres").Grid);	
+							// _upcomingTileTypes = Hex.StringGridToEnums(upcoming);	
+
+							env = new Grid<string>();
+							env.SetGrid(EachLevel.level_2_environment);
+							upcomingBg = new Grid<string>();
+							upcomingBg.SetGrid(EachLevel.level_2_upcoming_bg);	
+							tileNames = new Grid<string>();
+							tileNames.SetGrid(EachLevel.level_2_pieces);	
+							_tileTypes = Hex.StringGridToEnums(tileNames);
+							upcoming = 	new Grid<string>();					
+							upcoming.SetGrid(EachLevel.level_2_upcoming);	
+							_upcomingTileTypes = Hex.StringGridToEnums(upcoming);																		
 						}
 
 

@@ -15,3 +15,5 @@ dest_files=["res://assets/content/levels/level_2_environment.boulder.translation
 
 compress=true
 delimiter=0
+unescape_keys=false
+unescape_translations=true

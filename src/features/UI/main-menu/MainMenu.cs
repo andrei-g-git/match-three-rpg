@@ -29,6 +29,7 @@ public partial class MainMenu : Control, WithSceneManager
 			case MainMenuItems.NewGame:
                 // var firstLevel = _firstLevelScene.Instantiate();
                 // SceneManager.ChangeScene(firstLevel);
+				GD.Print("clicked new game");
                 _ = _CreateNewGame();
 				break;
 			default:
@@ -42,6 +43,7 @@ public partial class MainMenu : Control, WithSceneManager
 
 
 	private async Task _CreateNewGame(){
+		GD.PrintRich("[color=green] creating new game[/color]");
 		var path = Files.SavesPath;
 		var fileName = "new_game.json";
 		var saveGame = new GameSave{
@@ -69,10 +71,24 @@ public partial class MainMenu : Control, WithSceneManager
 
 		await Files.SaveJson(new AllLevels().Levels, Files.LevelsPath, "levels.json");
 
-		await Files.CopyFileAsync("res://assets/content/levels/level_2_environment.csv", Path.Join(Files.LevelEnvironmentsPath, "level_2_environment.csv"));
-		await Files.CopyFileAsync("res://assets/content/levels/level_2_pieces.csv", Path.Join(Files.LevelPiecesPath, "level_2_pieces.csv"));
-		await Files.CopyFileAsync("res://assets/content/levels/level_2_upcoming_bg.csv", Path.Join(Files.LevelUpcomingBgPath, "level_2_upcoming_bg.csv"));
-		await Files.CopyFileAsync("res://assets/content/levels/level_2_upcoming.csv", Path.Join(Files.LevelUpcomingPath, "level_2_upcoming.csv"));
+		var bp = 123;
+		var bar = 3245;
+		// await Files.CopyFileAsync("res://assets/content/levels/level_2_environment.csv", Path.Join(Files.LevelEnvironmentsPath, "level_2_environment.csv"));
+		// await Files.CopyFileAsync("res://assets/content/levels/level_2_pieces.csv", Path.Join(Files.LevelPiecesPath, "level_2_pieces.csv"));
+		// await Files.CopyFileAsync("res://assets/content/levels/level_2_upcoming_bg.csv", Path.Join(Files.LevelUpcomingBgPath, "level_2_upcoming_bg.csv"));
+		// await Files.CopyFileAsync("res://assets/content/levels/level_2_upcoming.csv", Path.Join(Files.LevelUpcomingPath, "level_2_upcoming.csv"));
+		//GD.Print("before copyFIle");
+		//Files.CopyFileAsync("res://assets/content/levels/level_2_environment.csv", "user://content/levels/environments/level_2_environment.csv");
+		//Files.CopyFileAsync("res://assets/content/levels/level_2_pieces.csv", "user://content/levels/pieces/level_2_pieces.csv");
+		//Files.CopyFileAsync("res://assets/content/levels/level_2_upcoming_bg.csv", "user://content/levels/upcomingBg/level_2_upcoming_bg.csv");
+		//Files.CopyFileAsync("res://assets/content/levels/level_2_upcoming.csv", "user://content/levels/upcoming/level_2_upcoming.csv");
+		//GD.Print("AFTER copyFIle");
+
+		// Files.CopyFile("res://level_2_environment.csv"/* "res://assets/content/levels/level_2_environment.csv" */, "user://content/levels/environment/level_2_environment.csv");
+		// Files.CopyFile("res://level_2_pieces.csv"/* "res://assets/content/levels/level_2_pieces.csv" */, "user://content/levels/pieces/level_2_pieces.csv");
+		// Files.CopyFile("res://level_2_upcoming_bg.csv"/* "res://assets/content/levels/level_2_upcoming_bg.csv" */, "user://content/levels/upcomingBg/level_2_upcoming_bg.csv");
+		// Files.CopyFile("res://level_2_upcoming.csv"/* "res://assets/content/levels/level_2_upcoming.csv" */, "user://content/levels/upcoming/level_2_upcoming.csv");
+
 
 		var firstLevel = _firstLevelScene.Instantiate();
 		SceneManager.ChangeScene(firstLevel);		

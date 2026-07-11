@@ -1,0 +1,14 @@
+[gd_resource type="GridResource" load_steps=2 format=3]
+
+[resource]
+
+Grid=[
+    ["transparent_1", "transparent_1", "transparent_1", "transparent_1", "transparent_1", "transparent_1", "transparent_1"],
+    ["transparent_1", "transparent_1", "transparent_1", "transparent_1", "transparent_1", "transparent_1", "transparent_1"],
+    ["transparent_1", "transparent_1", "transparent_1", "transparent_1", "transparent_1", "transparent_1", "transparent_1"],
+    ["transparent_1", "transparent_1", "transparent_1", "transparent_1", "transparent_1", "transparent_1", "transparent_1"],
+    ["transparent_1", "transparent_1", "transparent_1", "transparent_1", "transparent_1", "transparent_1", "transparent_1"],
+    ["transparent_1", "transparent_1", "transparent_1", "transparent_1", "transparent_1", "transparent_1", "transparent_1"],
+    ["transparent_1", "transparent_1", "transparent_1", "transparent_1", "transparent_1", "transparent_1", "transparent_1"],
+    ["transparent_1", "transparent_1", "transparent_1", "transparent_1", "transparent_1", "transparent_1", "transparent_1"]
+]

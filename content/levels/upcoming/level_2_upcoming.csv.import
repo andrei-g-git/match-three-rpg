@@ -2,15 +2,15 @@
 
 importer="csv_translation"
 type="Translation"
-uid="uid://0frhrn3nmfov"
+uid="uid://dlqvji6iimm7p"
 
 [deps]
 
-source_file="res://assets/content/levels/level_2_upcoming.csv"
+source_file="res://content/levels/upcoming/level_2_upcoming.csv"
 
 [params]
 
-compress=true
+compress=1
 delimiter=0
 unescape_keys=false
 unescape_translations=true
