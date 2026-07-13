@@ -1,4 +1,4 @@
-[gd_scene load_steps=83 format=3 uid="uid://vv3xapj4lprc"]
+[gd_scene format=3 uid="uid://vv3xapj4lprc"]
 
 [ext_resource type="Script" uid="uid://dy1o6fmi8i4pb" path="res://src/features/board/BoardManager.cs" id="1_k7s5h"]
 [ext_resource type="Script" uid="uid://dopwsstby7kmn" path="res://src/features/board/BoardContentContainer.cs" id="2_d5ibo"]
@@ -69,6 +69,32 @@
 [ext_resource type="PackedScene" uid="uid://btltfkc26c658" path="res://src/features/skills/groups/ranged/throw_pebble.tscn" id="44_y5bar"]
 [ext_resource type="PackedScene" uid="uid://cl06pykjw7ts8" path="res://src/features/skills/groups/tech/search_opening.tscn" id="45_hnujk"]
 [ext_resource type="PackedScene" uid="uid://3a0yv8kd6tqi" path="res://src/features/skills/groups/defensive/shield_bash.tscn" id="47_d5ibo"]
+[ext_resource type="Script" uid="uid://bis1gbx8d6tgu" path="res://src/features/skills/SkillPopup.cs" id="65_ijhso"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4syyy"]
+shader = ExtResource("5_4syyy")
+shader_parameter/energy = 0.0
+shader_parameter/depleted_r = 0.0
+shader_parameter/depleted_g = 0.0
+shader_parameter/depleted_b = 0.0
+shader_parameter/filled_r = 0.0
+shader_parameter/filled_g = 0.0
+shader_parameter/filled_b = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_64ngi"]
+shader = ExtResource("5_4syyy")
+shader_parameter/energy = 0.0
+shader_parameter/depleted_r = 0.0
+shader_parameter/depleted_g = 0.0
+shader_parameter/depleted_b = 0.0
+shader_parameter/filled_r = 1.0
+shader_parameter/filled_g = 1.0
+shader_parameter/filled_b = 1.0
+
+[sub_resource type="TileSet" id="TileSet_ai8ke"]
+tile_shape = 3
+tile_offset_axis = 1
+tile_size = Vector2i(128, 96)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4syyy"]
 
@@ -160,141 +186,51 @@ sources/0 = SubResource("TileSetAtlasSource_j211f")
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j211f"]
 bg_color = Color(1, 0.7882353, 0.7921569, 0)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_4syyy"]
-shader = ExtResource("5_4syyy")
-shader_parameter/energy = 0.0
-shader_parameter/depleted_r = 0.0
-shader_parameter/depleted_g = 0.0
-shader_parameter/depleted_b = 0.0
-shader_parameter/filled_r = 0.0
-shader_parameter/filled_g = 0.0
-shader_parameter/filled_b = 0.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_64ngi"]
-shader = ExtResource("5_4syyy")
-shader_parameter/energy = 0.0
-shader_parameter/depleted_r = 0.0
-shader_parameter/depleted_g = 0.0
-shader_parameter/depleted_b = 0.0
-shader_parameter/filled_r = 1.0
-shader_parameter/filled_g = 1.0
-shader_parameter/filled_b = 1.0
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4syyy"]
 bg_color = Color(0, 0.7019608, 0.6666667, 1)
 
-[sub_resource type="TileSet" id="TileSet_ai8ke"]
-tile_shape = 3
-tile_offset_axis = 1
-tile_size = Vector2i(128, 96)
-
-[node name="Level" type="Control"]
+[node name="Level" type="Control" unique_id=1514237498]
+custom_minimum_size = Vector2(360, 900)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -620.0
-offset_bottom = -350.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(1.63, 1.63)
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
-[node name="Events" type="Node" parent="."]
+[node name="Events" type="Node" parent="." unique_id=617360470]
 
-[node name="UIEventBus" type="Node" parent="Events"]
+[node name="UIEventBus" type="Node" parent="Events" unique_id=1840107367]
 script = ExtResource("19_amteu")
 
-[node name="Modifiers" type="Node" parent="." node_paths=PackedStringArray("_roomModifiersHud")]
+[node name="Modifiers" type="Node" parent="." unique_id=1954339357 node_paths=PackedStringArray("_roomModifiersHud")]
 script = ExtResource("2_q0v2v")
-_roomModifiersHud = NodePath("../MainContainer/ScrollContainer2/PanelContainer/Hud/RoomModifiers")
+_roomModifiersHud = NodePath("../MainContainer/Hud/RoomModifiers")
 
-[node name="MainContainer" type="HBoxContainer" parent="."]
+[node name="MainContainer" type="VBoxContainer" parent="." unique_id=267194178]
 layout_mode = 1
-offset_right = 904.0
-offset_bottom = 450.0
+offset_right = 360.0
+offset_bottom = 958.0
 
-[node name="ScrollContainer2" type="ScrollContainer" parent="MainContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="PanelContainer" type="MarginContainer" parent="MainContainer/ScrollContainer2"]
-custom_minimum_size = Vector2(420, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-script = ExtResource("2_d5ibo")
-
-[node name="TilesPanel" type="PanelContainer" parent="MainContainer/ScrollContainer2/PanelContainer" node_paths=PackedStringArray("_tileMap", "_upcomingBg", "_model", "_playerSkillsModel", "_skillPickerModel", "_roomModifiers")]
-custom_minimum_size = Vector2(0, 450)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_4syyy")
-script = ExtResource("1_k7s5h")
-_tileMap = NodePath("../VBoxContainer/MarginContainer2/Environment")
-_upcomingBg = NodePath("../VBoxContainer/MarginContainer/UpcomingBg")
-_model = NodePath("../Model")
-_playerSkillsModel = NodePath("../Model/PlayerSkills")
-_skillPickerModel = NodePath("../../../ScrollContainer/SkillPickerModel")
-_roomModifiers = NodePath("../../../../Modifiers")
-
-[node name="EffectsLayer" type="PanelContainer" parent="MainContainer/ScrollContainer2/PanelContainer"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_8ggik")
-script = ExtResource("5_ai8ke")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MainContainer/ScrollContainer2/PanelContainer"]
-layout_mode = 2
-
-[node name="MarginContainer" type="PanelContainer" parent="MainContainer/ScrollContainer2/PanelContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxEmpty_ect6s")
-script = ExtResource("5_j211f")
-
-[node name="UpcomingBg" type="TileMapLayer" parent="MainContainer/ScrollContainer2/PanelContainer/VBoxContainer/MarginContainer"]
-position = Vector2(0, 25)
-tile_set = SubResource("TileSet_jl78i")
-script = ExtResource("3_da6o6")
-
-[node name="Upcoming" type="Panel" parent="MainContainer/ScrollContainer2/PanelContainer/VBoxContainer/MarginContainer" node_paths=PackedStringArray("environment")]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_ect6s")
-script = ExtResource("4_dw1vl")
-environment = NodePath("../UpcomingBg")
-
-[node name="MarginContainer2" type="PanelContainer" parent="MainContainer/ScrollContainer2/PanelContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-script = ExtResource("5_j211f")
-
-[node name="Environment" type="TileMapLayer" parent="MainContainer/ScrollContainer2/PanelContainer/VBoxContainer/MarginContainer2"]
-tile_set = SubResource("TileSet_bs6l1")
-script = ExtResource("3_da6o6")
-
-[node name="Tiles" type="Panel" parent="MainContainer/ScrollContainer2/PanelContainer/VBoxContainer/MarginContainer2" node_paths=PackedStringArray("environment")]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_j211f")
-script = ExtResource("4_dw1vl")
-environment = NodePath("../Environment")
-
-[node name="Hud" type="HBoxContainer" parent="MainContainer/ScrollContainer2/PanelContainer" node_paths=PackedStringArray("_uiEventBus", "_fireBar", "_windBar", "_earthBar", "_waterBar", "_roomModifiers")]
+[node name="Hud" type="HBoxContainer" parent="MainContainer" unique_id=423629944 node_paths=PackedStringArray("_uiEventBus", "_fireBar", "_windBar", "_earthBar", "_waterBar", "_roomModifiers")]
 layout_mode = 2
 mouse_filter = 2
 script = ExtResource("17_q2jqf")
-_uiEventBus = NodePath("../../../../Events/UIEventBus")
+_uiEventBus = NodePath("../../Events/UIEventBus")
 _fireBar = NodePath("Elemental Energies/Fire")
 _windBar = NodePath("Elemental Energies/Wind")
 _earthBar = NodePath("Elemental Energies/Earth")
 _waterBar = NodePath("Elemental Energies/Water")
 _roomModifiers = NodePath("RoomModifiers")
 
-[node name="Elemental Energies" type="HBoxContainer" parent="MainContainer/ScrollContainer2/PanelContainer/Hud"]
+[node name="Elemental Energies" type="HBoxContainer" parent="MainContainer/Hud" unique_id=624259126]
 custom_minimum_size = Vector2(192, 32)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Fire" type="VBoxContainer" parent="MainContainer/ScrollContainer2/PanelContainer/Hud/Elemental Energies" node_paths=PackedStringArray("_label", "_sprite")]
+[node name="Fire" type="VBoxContainer" parent="MainContainer/Hud/Elemental Energies" unique_id=36984254 node_paths=PackedStringArray("_label", "_sprite")]
 custom_minimum_size = Vector2(32, 48)
 layout_mode = 2
 mouse_filter = 2
@@ -305,23 +241,23 @@ _sprite = NodePath("AspectRatioContainer/FireGauge")
 _filledColor = Color(1, 1, 1, 1)
 _depletedColor = Color(0.47058824, 0.47058824, 0.5058824, 1)
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="MainContainer/ScrollContainer2/PanelContainer/Hud/Elemental Energies/Fire"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="MainContainer/Hud/Elemental Energies/Fire" unique_id=1825664755]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="FireGauge" type="Sprite2D" parent="MainContainer/ScrollContainer2/PanelContainer/Hud/Elemental Energies/Fire/AspectRatioContainer"]
+[node name="FireGauge" type="Sprite2D" parent="MainContainer/Hud/Elemental Energies/Fire/AspectRatioContainer" unique_id=563859439]
 material = SubResource("ShaderMaterial_4syyy")
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_r4pbt")
 offset = Vector2(32, 32)
 
-[node name="Label" type="Label" parent="MainContainer/ScrollContainer2/PanelContainer/Hud/Elemental Energies/Fire"]
+[node name="Label" type="Label" parent="MainContainer/Hud/Elemental Energies/Fire" unique_id=1350672220]
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
 horizontal_alignment = 1
 
-[node name="Wind" type="VBoxContainer" parent="MainContainer/ScrollContainer2/PanelContainer/Hud/Elemental Energies" node_paths=PackedStringArray("_label", "_sprite")]
+[node name="Wind" type="VBoxContainer" parent="MainContainer/Hud/Elemental Energies" unique_id=1468180314 node_paths=PackedStringArray("_label", "_sprite")]
 custom_minimum_size = Vector2(32, 48)
 layout_mode = 2
 mouse_filter = 2
@@ -331,23 +267,23 @@ _sprite = NodePath("AspectRatioContainer/WindGauge")
 _filledColor = Color(1, 1, 1, 1)
 _depletedColor = Color(0.47058824, 0.47058824, 0.47058824, 1)
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="MainContainer/ScrollContainer2/PanelContainer/Hud/Elemental Energies/Wind"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="MainContainer/Hud/Elemental Energies/Wind" unique_id=552522186]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="WindGauge" type="Sprite2D" parent="MainContainer/ScrollContainer2/PanelContainer/Hud/Elemental Energies/Wind/AspectRatioContainer"]
+[node name="WindGauge" type="Sprite2D" parent="MainContainer/Hud/Elemental Energies/Wind/AspectRatioContainer" unique_id=497711573]
 material = SubResource("ShaderMaterial_64ngi")
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_lxb6n")
 offset = Vector2(32, 32)
 
-[node name="Label" type="Label" parent="MainContainer/ScrollContainer2/PanelContainer/Hud/Elemental Energies/Wind"]
+[node name="Label" type="Label" parent="MainContainer/Hud/Elemental Energies/Wind" unique_id=1331562292]
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
 horizontal_alignment = 1
 
-[node name="Earth" type="VBoxContainer" parent="MainContainer/ScrollContainer2/PanelContainer/Hud/Elemental Energies" node_paths=PackedStringArray("_label", "_sprite")]
+[node name="Earth" type="VBoxContainer" parent="MainContainer/Hud/Elemental Energies" unique_id=722086062 node_paths=PackedStringArray("_label", "_sprite")]
 custom_minimum_size = Vector2(32, 48)
 layout_mode = 2
 mouse_filter = 2
@@ -357,23 +293,23 @@ _sprite = NodePath("AspectRatioContainer/EarthGauge")
 _filledColor = Color(1, 1, 1, 1)
 _depletedColor = Color(0.47058824, 0.47058824, 0.47058824, 1)
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="MainContainer/ScrollContainer2/PanelContainer/Hud/Elemental Energies/Earth"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="MainContainer/Hud/Elemental Energies/Earth" unique_id=1381476890]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="EarthGauge" type="Sprite2D" parent="MainContainer/ScrollContainer2/PanelContainer/Hud/Elemental Energies/Earth/AspectRatioContainer"]
+[node name="EarthGauge" type="Sprite2D" parent="MainContainer/Hud/Elemental Energies/Earth/AspectRatioContainer" unique_id=1451072205]
 material = SubResource("ShaderMaterial_64ngi")
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("7_hhowy")
 offset = Vector2(32, 32)
 
-[node name="Label" type="Label" parent="MainContainer/ScrollContainer2/PanelContainer/Hud/Elemental Energies/Earth"]
+[node name="Label" type="Label" parent="MainContainer/Hud/Elemental Energies/Earth" unique_id=338635963]
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
 horizontal_alignment = 1
 
-[node name="Water" type="VBoxContainer" parent="MainContainer/ScrollContainer2/PanelContainer/Hud/Elemental Energies" node_paths=PackedStringArray("_label", "_sprite")]
+[node name="Water" type="VBoxContainer" parent="MainContainer/Hud/Elemental Energies" unique_id=413119939 node_paths=PackedStringArray("_label", "_sprite")]
 custom_minimum_size = Vector2(32, 48)
 layout_mode = 2
 mouse_filter = 2
@@ -383,23 +319,23 @@ _sprite = NodePath("AspectRatioContainer/WaterGauge")
 _filledColor = Color(1, 1, 1, 1)
 _depletedColor = Color(0.47058824, 0.47058824, 0.47058824, 1)
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="MainContainer/ScrollContainer2/PanelContainer/Hud/Elemental Energies/Water"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="MainContainer/Hud/Elemental Energies/Water" unique_id=930757242]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="WaterGauge" type="Sprite2D" parent="MainContainer/ScrollContainer2/PanelContainer/Hud/Elemental Energies/Water/AspectRatioContainer"]
+[node name="WaterGauge" type="Sprite2D" parent="MainContainer/Hud/Elemental Energies/Water/AspectRatioContainer" unique_id=577727438]
 material = SubResource("ShaderMaterial_64ngi")
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("8_4syyy")
 offset = Vector2(32, 32)
 
-[node name="Label" type="Label" parent="MainContainer/ScrollContainer2/PanelContainer/Hud/Elemental Energies/Water"]
+[node name="Label" type="Label" parent="MainContainer/Hud/Elemental Energies/Water" unique_id=764526549]
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
 horizontal_alignment = 1
 
-[node name="RoomModifiers" type="HBoxContainer" parent="MainContainer/ScrollContainer2/PanelContainer/Hud"]
+[node name="RoomModifiers" type="HBoxContainer" parent="MainContainer/Hud" unique_id=134569821]
 layout_mode = 2
 script = ExtResource("18_jl78i")
 _modifierMappings = Dictionary[int, Texture2D]({
@@ -408,7 +344,95 @@ _modifierMappings = Dictionary[int, Texture2D]({
 2: ExtResource("20_ss6sx")
 })
 
-[node name="Model" type="Node" parent="MainContainer/ScrollContainer2/PanelContainer" node_paths=PackedStringArray("_upcomingOrganizer", "_tileOrganizer", "_tileMatcher", "_tileQuery", "_tileFactory", "_tileContainer", "_environment", "_selectedSkillsModel", "_turns")]
+[node name="HBoxContainer" type="HBoxContainer" parent="MainContainer/Hud" unique_id=1701251033]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+
+[node name="EndTurn" type="Button" parent="MainContainer/Hud/HBoxContainer" unique_id=1639786110 node_paths=PackedStringArray("_turnQueue")]
+layout_mode = 2
+text = "End
+Turn"
+script = ExtResource("37_wou0k")
+_turnQueue = NodePath("../../../ScrollContainer2/PanelContainer/Model/Turns")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="MainContainer/Hud/HBoxContainer/EndTurn" unique_id=1794892908]
+tile_set = SubResource("TileSet_ai8ke")
+
+[node name="RestartLevel" type="Button" parent="MainContainer/Hud/HBoxContainer" unique_id=1428379436 node_paths=PackedStringArray("_boardManager")]
+layout_mode = 2
+text = "Restart 
+Level"
+script = ExtResource("34_1dyqb")
+_boardManager = NodePath("../../../ScrollContainer2/PanelContainer/TilesPanel")
+
+[node name="ScrollContainer2" type="ScrollContainer" parent="MainContainer" unique_id=131410580]
+custom_minimum_size = Vector2(360, 900)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PanelContainer" type="MarginContainer" parent="MainContainer/ScrollContainer2" unique_id=1815439658]
+custom_minimum_size = Vector2(360, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("2_d5ibo")
+
+[node name="TilesPanel" type="PanelContainer" parent="MainContainer/ScrollContainer2/PanelContainer" unique_id=314859519 node_paths=PackedStringArray("_tileMap", "_upcomingBg", "_model", "_playerSkillsModel", "_skillPickerModel", "_roomModifiers")]
+custom_minimum_size = Vector2(0, 450)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_4syyy")
+script = ExtResource("1_k7s5h")
+_tileMap = NodePath("../VBoxContainer/MarginContainer2/Environment")
+_upcomingBg = NodePath("../VBoxContainer/MarginContainer/UpcomingBg")
+_model = NodePath("../Model")
+_playerSkillsModel = NodePath("../Model/PlayerSkills")
+_skillPickerModel = NodePath("../../../SkillPopup/ScrollContainer/SkillPickerModel")
+_roomModifiers = NodePath("../../../../Modifiers")
+
+[node name="EffectsLayer" type="PanelContainer" parent="MainContainer/ScrollContainer2/PanelContainer" unique_id=1563525926]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_8ggik")
+script = ExtResource("5_ai8ke")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainContainer/ScrollContainer2/PanelContainer" unique_id=454787244]
+layout_mode = 2
+
+[node name="MarginContainer" type="PanelContainer" parent="MainContainer/ScrollContainer2/PanelContainer/VBoxContainer" unique_id=657989622]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ect6s")
+script = ExtResource("5_j211f")
+
+[node name="UpcomingBg" type="TileMapLayer" parent="MainContainer/ScrollContainer2/PanelContainer/VBoxContainer/MarginContainer" unique_id=1318814888]
+position = Vector2(0, 25)
+tile_set = SubResource("TileSet_jl78i")
+script = ExtResource("3_da6o6")
+
+[node name="Upcoming" type="Panel" parent="MainContainer/ScrollContainer2/PanelContainer/VBoxContainer/MarginContainer" unique_id=78062459 node_paths=PackedStringArray("environment")]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_ect6s")
+script = ExtResource("4_dw1vl")
+environment = NodePath("../UpcomingBg")
+
+[node name="MarginContainer2" type="PanelContainer" parent="MainContainer/ScrollContainer2/PanelContainer/VBoxContainer" unique_id=1671062639]
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("5_j211f")
+
+[node name="Environment" type="TileMapLayer" parent="MainContainer/ScrollContainer2/PanelContainer/VBoxContainer/MarginContainer2" unique_id=1960573323]
+tile_set = SubResource("TileSet_bs6l1")
+script = ExtResource("3_da6o6")
+
+[node name="Tiles" type="Panel" parent="MainContainer/ScrollContainer2/PanelContainer/VBoxContainer/MarginContainer2" unique_id=981368440 node_paths=PackedStringArray("environment")]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_j211f")
+script = ExtResource("4_dw1vl")
+environment = NodePath("../Environment")
+
+[node name="Model" type="Node" parent="MainContainer/ScrollContainer2/PanelContainer" unique_id=639438762 node_paths=PackedStringArray("_upcomingOrganizer", "_tileOrganizer", "_tileMatcher", "_tileQuery", "_tileFactory", "_tileContainer", "_environment", "_selectedSkillsModel", "_turns")]
 script = ExtResource("5_qxmgw")
 _upcomingOrganizer = NodePath("UpcomingOrganizer")
 _tileOrganizer = NodePath("TileOrganizer")
@@ -420,28 +444,28 @@ _environment = NodePath("../VBoxContainer/MarginContainer2/Environment")
 _selectedSkillsModel = NodePath("PlayerSkills")
 _turns = NodePath("Turns")
 
-[node name="UpcomingOrganizer" type="Node" parent="MainContainer/ScrollContainer2/PanelContainer/Model" node_paths=PackedStringArray("_tileOrganizer", "_tileFactory", "_tileContainer", "_roomModifiers")]
+[node name="UpcomingOrganizer" type="Node" parent="MainContainer/ScrollContainer2/PanelContainer/Model" unique_id=1505168214 node_paths=PackedStringArray("_tileOrganizer", "_tileFactory", "_tileContainer", "_roomModifiers")]
 script = ExtResource("23_maq8b")
 _tileOrganizer = NodePath("TileOrganizer")
 _tileFactory = NodePath("../TileFactory")
 _tileContainer = NodePath("../../VBoxContainer/MarginContainer/Upcoming")
 _roomModifiers = NodePath("../../../../../Modifiers")
 
-[node name="TileOrganizer" type="Node" parent="MainContainer/ScrollContainer2/PanelContainer/Model/UpcomingOrganizer" node_paths=PackedStringArray("_tileFactory", "_environment", "_tileContainer", "_tileMatcher")]
+[node name="TileOrganizer" type="Node" parent="MainContainer/ScrollContainer2/PanelContainer/Model/UpcomingOrganizer" unique_id=1103123679 node_paths=PackedStringArray("_tileFactory", "_environment", "_tileContainer", "_tileMatcher")]
 script = ExtResource("6_ygp36")
 _tileFactory = NodePath("../../TileFactory")
 _environment = NodePath("../../../VBoxContainer/MarginContainer/UpcomingBg")
 _tileContainer = NodePath("../../../VBoxContainer/MarginContainer/Upcoming")
 _tileMatcher = NodePath("../../TileMatcher")
 
-[node name="TileOrganizer" type="Node" parent="MainContainer/ScrollContainer2/PanelContainer/Model" node_paths=PackedStringArray("_tileFactory", "_environment", "_tileContainer", "_tileMatcher")]
+[node name="TileOrganizer" type="Node" parent="MainContainer/ScrollContainer2/PanelContainer/Model" unique_id=1685764094 node_paths=PackedStringArray("_tileFactory", "_environment", "_tileContainer", "_tileMatcher")]
 script = ExtResource("6_ygp36")
 _tileFactory = NodePath("../TileFactory")
 _environment = NodePath("../../VBoxContainer/MarginContainer2/Environment")
 _tileContainer = NodePath("../../VBoxContainer/MarginContainer2/Tiles")
 _tileMatcher = NodePath("../TileMatcher")
 
-[node name="TileFactory" type="Node" parent="MainContainer/ScrollContainer2/PanelContainer/Model" node_paths=PackedStringArray("_tileMapLayer", "_boardModel", "_uiEventBus", "_turnQueue")]
+[node name="TileFactory" type="Node" parent="MainContainer/ScrollContainer2/PanelContainer/Model" unique_id=1478300613 node_paths=PackedStringArray("_tileMapLayer", "_boardModel", "_uiEventBus", "_turnQueue")]
 script = ExtResource("7_ygp36")
 _tileMapLayer = NodePath("../../VBoxContainer/MarginContainer2/Environment")
 _boardModel = NodePath("..")
@@ -449,27 +473,27 @@ _uiEventBus = NodePath("../../../../../Events/UIEventBus")
 _turnQueue = NodePath("../Turns")
 _packedTileScenes = Array[PackedScene]([ExtResource("8_2r3xs"), ExtResource("9_4s2tm"), ExtResource("10_fusuk"), ExtResource("11_25lnr"), ExtResource("12_fusuk"), ExtResource("13_25lnr"), ExtResource("14_6bwww"), ExtResource("15_x10rj"), ExtResource("19_s5hp3"), ExtResource("20_fjexy"), ExtResource("21_mmsvb"), ExtResource("29_idqgv"), ExtResource("30_bsf6l"), ExtResource("31_y5bar")])
 
-[node name="TileMatcher" type="Node" parent="MainContainer/ScrollContainer2/PanelContainer/Model" node_paths=PackedStringArray("_tileFactory", "_tileContainer", "_environment", "_tileQuery", "_skillsModel", "_upcomingOrganizer", "_tileOrganizer")]
+[node name="TileMatcher" type="Node" parent="MainContainer/ScrollContainer2/PanelContainer/Model" unique_id=109723290 node_paths=PackedStringArray("_tileFactory", "_tileContainer", "_environment", "_tileQuery", "_skillsModel", "_upcomingOrganizer", "_tileOrganizer")]
 script = ExtResource("12_4s2tm")
 _tileFactory = NodePath("../TileFactory")
 _tileContainer = NodePath("../../VBoxContainer/MarginContainer2/Tiles")
 _environment = NodePath("../../VBoxContainer/MarginContainer2/Environment")
 _tileQuery = NodePath("../TileQuery")
-_skillsModel = NodePath("../../../../ScrollContainer/SkillPickerModel")
+_skillsModel = NodePath("../../../../SkillPopup/ScrollContainer/SkillPickerModel")
 _upcomingOrganizer = NodePath("../UpcomingOrganizer")
 _tileOrganizer = NodePath("../TileOrganizer")
 
-[node name="TileQuery" type="Node" parent="MainContainer/ScrollContainer2/PanelContainer/Model"]
+[node name="TileQuery" type="Node" parent="MainContainer/ScrollContainer2/PanelContainer/Model" unique_id=501691359]
 script = ExtResource("22_7t1so")
 
-[node name="Turns" type="Node" parent="MainContainer/ScrollContainer2/PanelContainer/Model"]
+[node name="Turns" type="Node" parent="MainContainer/ScrollContainer2/PanelContainer/Model" unique_id=1502050249]
 script = ExtResource("24_kr07k")
 
-[node name="PlayerSkills" type="Node" parent="MainContainer/ScrollContainer2/PanelContainer/Model" node_paths=PackedStringArray("_skillFactory")]
+[node name="PlayerSkills" type="Node" parent="MainContainer/ScrollContainer2/PanelContainer/Model" unique_id=177833903 node_paths=PackedStringArray("_skillFactory")]
 script = ExtResource("22_10pv0")
 _skillFactory = NodePath("SkillFactory")
 
-[node name="SkillFactory" type="Node" parent="MainContainer/ScrollContainer2/PanelContainer/Model/PlayerSkills" node_paths=PackedStringArray("_roomModifiers")]
+[node name="SkillFactory" type="Node" parent="MainContainer/ScrollContainer2/PanelContainer/Model/PlayerSkills" unique_id=1641549114 node_paths=PackedStringArray("_roomModifiers")]
 script = ExtResource("24_ewl7t")
 _roomModifiers = NodePath("../../../../../../Modifiers")
 _skillsWithScenes = Dictionary[int, PackedScene]({
@@ -486,16 +510,16 @@ _skillsWithScenes = Dictionary[int, PackedScene]({
 13: ExtResource("45_hnujk")
 })
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MainContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MainContainer" unique_id=154339287]
 visible = false
-custom_minimum_size = Vector2(480, 0)
+custom_minimum_size = Vector2(360, 0)
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MainContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MainContainer/VBoxContainer" unique_id=286583775]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="SkillGroups" type="HBoxContainer" parent="MainContainer/VBoxContainer/MarginContainer" node_paths=PackedStringArray("_playerSkillsModel", "_melee", "_ranged", "_defensive", "_tech")]
+[node name="SkillGroups" type="HBoxContainer" parent="MainContainer/VBoxContainer/MarginContainer" unique_id=464425045 node_paths=PackedStringArray("_playerSkillsModel", "_melee", "_ranged", "_defensive", "_tech")]
 layout_mode = 2
 script = ExtResource("23_w8nfc")
 _playerSkillsModel = NodePath("../../../ScrollContainer2/PanelContainer/Model/PlayerSkills")
@@ -504,7 +528,7 @@ _ranged = NodePath("RangedSkills")
 _defensive = NodePath("DefensiveSkills")
 _tech = NodePath("TechSkills")
 
-[node name="MeleeSkills" type="ItemList" parent="MainContainer/VBoxContainer/MarginContainer/SkillGroups"]
+[node name="MeleeSkills" type="ItemList" parent="MainContainer/VBoxContainer/MarginContainer/SkillGroups" unique_id=1313220867]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 10
@@ -518,7 +542,7 @@ _skillMap = Dictionary[int, Texture2D]({
 8: ExtResource("37_u1yqo")
 })
 
-[node name="RangedSkills" type="ItemList" parent="MainContainer/VBoxContainer/MarginContainer/SkillGroups"]
+[node name="RangedSkills" type="ItemList" parent="MainContainer/VBoxContainer/MarginContainer/SkillGroups" unique_id=202880408]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 10
@@ -530,7 +554,7 @@ _skillMap = Dictionary[int, Texture2D]({
 5: ExtResource("26_10pv0")
 })
 
-[node name="DefensiveSkills" type="ItemList" parent="MainContainer/VBoxContainer/MarginContainer/SkillGroups"]
+[node name="DefensiveSkills" type="ItemList" parent="MainContainer/VBoxContainer/MarginContainer/SkillGroups" unique_id=542676131]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 10
@@ -542,7 +566,7 @@ _skillMap = Dictionary[int, Texture2D]({
 6: ExtResource("27_crjdv")
 })
 
-[node name="TechSkills" type="ItemList" parent="MainContainer/VBoxContainer/MarginContainer/SkillGroups"]
+[node name="TechSkills" type="ItemList" parent="MainContainer/VBoxContainer/MarginContainer/SkillGroups" unique_id=1403026483]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 10
@@ -554,52 +578,37 @@ _skillMap = Dictionary[int, Texture2D]({
 7: ExtResource("24_w8nfc")
 })
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MainContainer"]
-custom_minimum_size = Vector2(0, 500)
-layout_mode = 2
+[node name="SkillPopup" type="Popup" parent="MainContainer" unique_id=794974316]
+oversampling_override = 1.0
+title = "Use a Skill"
+initial_position = 2
+size = Vector2i(360, 500)
+borderless = false
+always_on_top = true
+script = ExtResource("65_ijhso")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MainContainer/SkillPopup" unique_id=986594374]
+custom_minimum_size = Vector2(360, 500)
+offset_right = 450.0
+offset_bottom = 500.0
 size_flags_horizontal = 3
 
-[node name="SkillPickerModel" type="Node" parent="MainContainer/ScrollContainer" node_paths=PackedStringArray("_skillGroupsDisplay", "_boardQuery", "_skillFactory")]
+[node name="SkillPickerModel" type="Node" parent="MainContainer/SkillPopup/ScrollContainer" unique_id=304166108 node_paths=PackedStringArray("_skillGroupsDisplay", "_boardQuery", "_skillFactory", "_popup")]
 script = ExtResource("42_0k7ag")
 _elementSkillsDisplay = ExtResource("43_ej7e5")
 _skillGroupsDisplay = NodePath("../Panel")
-_boardQuery = NodePath("../../ScrollContainer2/PanelContainer/Model/TileQuery")
-_skillFactory = NodePath("../../ScrollContainer2/PanelContainer/Model/PlayerSkills/SkillFactory")
+_boardQuery = NodePath("../../../ScrollContainer2/PanelContainer/Model/TileQuery")
+_skillFactory = NodePath("../../../ScrollContainer2/PanelContainer/Model/PlayerSkills/SkillFactory")
+_popup = NodePath("../..")
 
-[node name="Panel" type="Panel" parent="MainContainer/ScrollContainer"]
+[node name="Panel" type="Panel" parent="MainContainer/SkillPopup/ScrollContainer" unique_id=1688538371]
 modulate = Color(1.0000322, 1.0039686, 1.0039686, 1)
-custom_minimum_size = Vector2(300, 300)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_4syyy")
 script = ExtResource("43_vl5to")
 _elementSkillsDisplay = ExtResource("43_ej7e5")
-
-[node name="RestartLevel" type="Button" parent="." node_paths=PackedStringArray("_boardManager")]
-layout_mode = 0
-offset_left = 908.0
-offset_top = 3.0
-offset_right = 973.0
-offset_bottom = 57.0
-text = "Restart 
-Level"
-script = ExtResource("34_1dyqb")
-_boardManager = NodePath("../MainContainer/ScrollContainer2/PanelContainer/TilesPanel")
-
-[node name="EndTurn" type="Button" parent="." node_paths=PackedStringArray("_turnQueue")]
-layout_mode = 0
-offset_left = 909.203
-offset_top = 86.5031
-offset_right = 974.203
-offset_bottom = 140.503
-text = "End
-Turn"
-script = ExtResource("37_wou0k")
-_turnQueue = NodePath("../MainContainer/ScrollContainer2/PanelContainer/Model/Turns")
-
-[node name="TileMapLayer" type="TileMapLayer" parent="EndTurn"]
-tile_set = SubResource("TileSet_ai8ke")
 
 [connection signal="Resized" from="MainContainer/ScrollContainer2/PanelContainer/VBoxContainer/MarginContainer/Upcoming" to="MainContainer/ScrollContainer2/PanelContainer" method="Resize"]
 [connection signal="Resized" from="MainContainer/ScrollContainer2/PanelContainer/VBoxContainer/MarginContainer/Upcoming" to="MainContainer/ScrollContainer2/PanelContainer/VBoxContainer/MarginContainer" method="Resize"]

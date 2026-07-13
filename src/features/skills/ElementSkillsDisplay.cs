@@ -11,6 +11,9 @@ public partial class ElementSkillsDisplay : /* ItemList */Control, SelectableSki
 	[Export] private PackedScene _skillButton;
 	[Export] private Label _groupName;
 	[Export] private Control _skillContainer;
+
+	//[Export] private Node _popup; //crap, change
+
 	public CountableSkill[] Skills{get;set;} = [];
 
 	public Node TestParent{get;set;}
@@ -75,7 +78,9 @@ public partial class ElementSkillsDisplay : /* ItemList */Control, SelectableSki
 		//var selectedSkill = (string) GetItemMetadata(index);
 		//EmitSignal(SignalName.SelectedSkillFromGroup, selectedSkill, _skillGroup.ToString());
 
-		(TestParent as SkillGroupsDisplay).TestEmitSkillPicked(skillName);
+		//(TestParent as SkillGroupsDisplay).TestEmitSkillPicked(skillName);
+
+		//(_popup as Window).Hide();
 	}	
 
 	// public void OnCollectEnergyClicked(){

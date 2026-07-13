@@ -12,7 +12,10 @@ public partial class SkillGroupsDisplay : Control/* VBoxContainer */ //this is a
 
 	public override void _Ready()
 	{
-		Visible = false;
+		//Visible = false;
+
+
+
 		// SetProcessInput(false);
 		// Modulate = new Color(0.6f, 0.6f, 0.6f, 1);
 	}
@@ -31,7 +34,7 @@ public partial class SkillGroupsDisplay : Control/* VBoxContainer */ //this is a
 			(elementSkillsNode /* _elementSkillsDisplay */ as ElementSkillsDisplay).Update(skills, element);
 		}
 
-		PopIn();	
+		//PopIn();	
 	}
 
 	private void PopIn(){

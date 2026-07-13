@@ -17,6 +17,8 @@ public partial class SkillModel : Node/* , WithEnergy, WithFireEnergy, WithWindE
 	[Export] private Node _boardQuery;
 	[Export] private Node _skillFactory;
 
+	[Export] private Node _popup; //crap, change
+
 	public SkillGroup[] SkillGroups = [];
 
 	public WithEnergy PlayerEnergy{private get; set;}
@@ -150,6 +152,10 @@ public partial class SkillModel : Node/* , WithEnergy, WithFireEnergy, WithWindE
 
 		if (enoughEnergyForeOneSkill){
 			(_skillGroupsDisplay as SkillGroupsDisplay).Update(skills, skillGroup);
+
+			//new
+			(_popup as Window).Show();
+
 
 			var parameters = await ToSignal(_skillGroupsDisplay, "SkillPicked");
 			var pickedSkill = (string) parameters[0];	
