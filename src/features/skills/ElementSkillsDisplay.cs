@@ -75,10 +75,10 @@ public partial class ElementSkillsDisplay : /* ItemList */Control, SelectableSki
 	}
 
 	public void OnSkillClicked(string skillName){
-		//var selectedSkill = (string) GetItemMetadata(index);
-		//EmitSignal(SignalName.SelectedSkillFromGroup, selectedSkill, _skillGroup.ToString());
+		// var selectedSkill = (string) GetItemMetadata(index);
+		// EmitSignal(SignalName.SelectedSkillFromGroup, selectedSkill, _skillGroup.ToString());
 
-		//(TestParent as SkillGroupsDisplay).TestEmitSkillPicked(skillName);
+		(TestParent as SkillGroupsDisplay).TestEmitSkillPicked(skillName);
 
 		//(_popup as Window).Hide();
 	}	

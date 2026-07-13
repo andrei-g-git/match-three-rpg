@@ -8,6 +8,7 @@ public partial class SkillGroupsDisplay : Control/* VBoxContainer */ //this is a
 {
 	[Export] private PackedScene _elementSkillsDisplay;	
 	//[Export] private Control _elementSkillsDisplay;
+	[Export] private AnimationPlayer _animationPlayer;
 	[Signal] public delegate void SkillPickedEventHandler(string name);
 
 	public override void _Ready()
@@ -34,10 +35,19 @@ public partial class SkillGroupsDisplay : Control/* VBoxContainer */ //this is a
 			(elementSkillsNode /* _elementSkillsDisplay */ as ElementSkillsDisplay).Update(skills, element);
 		}
 
-		//PopIn();	
+		PopIn();	
 	}
 
 	private void PopIn(){
+		_animationPlayer.Play("pop_in"); //well this sucks
+	}
+
+	private void PopOut(){
+		_animationPlayer.Play("pop_out"); 
+	}
+
+
+	private void PopIn_____(){
 		Visible = true;
 
 		var tween = CreateTween()
@@ -45,12 +55,9 @@ public partial class SkillGroupsDisplay : Control/* VBoxContainer */ //this is a
 			.SetEase(Tween.EaseType.Out);
 		tween.TweenProperty(this, "scale", Vector2.One, 0.5f)
 			.From(Vector2.Zero);
-		// tween.Join()
-		// 	.TweenProperty(this, "modulate", new Color(1, 1, 1, 1), 0.5f)
-		// 	.From(new Color(1, 1, 1, 0));
 	}
 
-	private void PopOut(string skillName){ //when Update runs, PopIn overrides this while it's still playing...
+	private void PopOut_____(string skillName){ //when Update runs, PopIn overrides this while it's still playing...
 		Visible = false;
 
 		var tween = CreateTween()
@@ -58,7 +65,6 @@ public partial class SkillGroupsDisplay : Control/* VBoxContainer */ //this is a
 			.SetEase(Tween.EaseType.Out);
 		tween.TweenProperty(this, "scale",  Vector2.Zero, 0.5f)
 			.From(Vector2.One);
-		//tween.TweenProperty(this, "modulate.a", 1.0f, 0.0f); //apparently modulate.a isn't for Panel
 
 		tween.Finished += () => EmitSignal(SignalName.SkillPicked, skillName);
 		
@@ -89,6 +95,11 @@ public partial class SkillGroupsDisplay : Control/* VBoxContainer */ //this is a
 
 	public void TestEmitSkillPicked(string skillName)
 	{
-		PopOut(skillName);
+		_animationPlayer.AnimationFinished += (StringName animation) =>{
+			if(animation == "pop_out"){
+				EmitSignal(SignalName.SkillPicked, skillName);
+			}
+		};		
+		PopOut();
 	}
 }

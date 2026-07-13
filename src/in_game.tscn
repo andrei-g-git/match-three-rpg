@@ -189,6 +189,258 @@ bg_color = Color(1, 0.7882353, 0.7921569, 0)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4syyy"]
 bg_color = Color(0, 0.7019608, 0.6666667, 1)
 
+[sub_resource type="Animation" id="Animation_ijhso"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0.605, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0.605, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate:r")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:modulate:g")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:modulate:b")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".:modulate:a")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath(".:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_3prjb"]
+resource_name = "pop_in"
+length = 0.5
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 2, 2),
+"points": PackedFloat32Array(0.605, -0.25, 0, 0.25, 0, 0.93, -0.050135583, -0.054166663, 0, 0, 0.805, -0.033197753, 0.020833336, 0, 0),
+"times": PackedFloat32Array(0, 0.3008135, 0.5)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 2, 2),
+"points": PackedFloat32Array(0.605, -0.25, 0, 0.25, 0, 0.93, -0.050135583, -0.054166663, 0, 0, 0.805, -0.033197753, 0.020833336, 0, 0),
+"times": PackedFloat32Array(0, 0.3008135, 0.5)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate:r")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.050230898, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.30138537)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:modulate:g")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.050230898, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.30138537)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:modulate:b")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.050230898, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.30138537)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".:modulate:a")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1, -0.050230898, -0.16666667, 0, 0),
+"times": PackedFloat32Array(0, 0.30138537)
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath(".:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_kd5nw"]
+resource_name = "pop_out"
+length = 0.5
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(0.805, -0.25, 0, 0.25, 0, 0.5, -0.083333336, 0.050833337, 0, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(0.805, -0.25, 0, 0.25, 0, 0.5, -0.083333336, 0.050833337, 0, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate:r")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.083333336, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:modulate:g")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.083333336, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:modulate:b")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.083333336, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".:modulate:a")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.083333336, 0.16666667, 0, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath(".:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3prjb"]
+_data = {
+&"RESET": SubResource("Animation_ijhso"),
+&"pop_in": SubResource("Animation_3prjb"),
+&"pop_out": SubResource("Animation_kd5nw")
+}
+
 [node name="Level" type="Control" unique_id=1514237498]
 custom_minimum_size = Vector2(360, 900)
 layout_mode = 3
@@ -589,9 +841,19 @@ script = ExtResource("65_ijhso")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MainContainer/SkillPopup" unique_id=986594374]
 custom_minimum_size = Vector2(360, 500)
-offset_right = 450.0
-offset_bottom = 500.0
-size_flags_horizontal = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = -250.0
+offset_right = 180.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
 
 [node name="SkillPickerModel" type="Node" parent="MainContainer/SkillPopup/ScrollContainer" unique_id=304166108 node_paths=PackedStringArray("_skillGroupsDisplay", "_boardQuery", "_skillFactory", "_popup")]
 script = ExtResource("42_0k7ag")
@@ -609,6 +871,48 @@ size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_4syyy")
 script = ExtResource("43_vl5to")
 _elementSkillsDisplay = ExtResource("43_ej7e5")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1153433599]
+
+[node name="SkillPicker" type="ScrollContainer" parent="CanvasLayer" unique_id=2118925987]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(360, 600)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = -300.0
+offset_right = 180.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.605, 0.605)
+pivot_offset = Vector2(180, 300)
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
+[node name="Panel" type="Panel" parent="CanvasLayer/SkillPicker" unique_id=2058199438 node_paths=PackedStringArray("_animationPlayer")]
+modulate = Color(1.0000322, 1.0039686, 1.0039686, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_4syyy")
+script = ExtResource("43_vl5to")
+_elementSkillsDisplay = ExtResource("43_ej7e5")
+_animationPlayer = NodePath("../AnimationPlayer")
+
+[node name="SkillPickerModel" type="Node" parent="CanvasLayer/SkillPicker" unique_id=2095435943 node_paths=PackedStringArray("_skillGroupsDisplay", "_boardQuery", "_skillFactory", "_popup")]
+script = ExtResource("42_0k7ag")
+_elementSkillsDisplay = ExtResource("43_ej7e5")
+_skillGroupsDisplay = NodePath("../../../MainContainer/SkillPopup/ScrollContainer/Panel")
+_boardQuery = NodePath("../../../MainContainer/ScrollContainer2/PanelContainer/Model/TileQuery")
+_skillFactory = NodePath("../../../MainContainer/ScrollContainer2/PanelContainer/Model/PlayerSkills/SkillFactory")
+_popup = NodePath("../../../MainContainer/SkillPopup")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/SkillPicker" unique_id=1920489179]
+libraries/ = SubResource("AnimationLibrary_3prjb")
 
 [connection signal="Resized" from="MainContainer/ScrollContainer2/PanelContainer/VBoxContainer/MarginContainer/Upcoming" to="MainContainer/ScrollContainer2/PanelContainer" method="Resize"]
 [connection signal="Resized" from="MainContainer/ScrollContainer2/PanelContainer/VBoxContainer/MarginContainer/Upcoming" to="MainContainer/ScrollContainer2/PanelContainer/VBoxContainer/MarginContainer" method="Resize"]
