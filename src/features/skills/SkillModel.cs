@@ -17,7 +17,7 @@ public partial class SkillModel : Node/* , WithEnergy, WithFireEnergy, WithWindE
 	[Export] private Node _boardQuery;
 	[Export] private Node _skillFactory;
 
-	[Export] private Node _popup; //crap, change
+	//[Export] private Node _popup; //crap, change
 
 	public SkillGroup[] SkillGroups = [];
 
@@ -154,7 +154,7 @@ public partial class SkillModel : Node/* , WithEnergy, WithFireEnergy, WithWindE
 			(_skillGroupsDisplay as SkillGroupsDisplay).Update(skills, skillGroup);
 
 			//new
-			(_popup as Window).Show();
+			//(_popup as Window).Show();
 
 
 			var parameters = await ToSignal(_skillGroupsDisplay, "SkillPicked");

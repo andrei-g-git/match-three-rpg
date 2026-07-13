@@ -69,7 +69,6 @@
 [ext_resource type="PackedScene" uid="uid://btltfkc26c658" path="res://src/features/skills/groups/ranged/throw_pebble.tscn" id="44_y5bar"]
 [ext_resource type="PackedScene" uid="uid://cl06pykjw7ts8" path="res://src/features/skills/groups/tech/search_opening.tscn" id="45_hnujk"]
 [ext_resource type="PackedScene" uid="uid://3a0yv8kd6tqi" path="res://src/features/skills/groups/defensive/shield_bash.tscn" id="47_d5ibo"]
-[ext_resource type="Script" uid="uid://bis1gbx8d6tgu" path="res://src/features/skills/SkillPopup.cs" id="65_ijhso"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4syyy"]
 shader = ExtResource("5_4syyy")
@@ -639,7 +638,7 @@ _tileMap = NodePath("../VBoxContainer/MarginContainer2/Environment")
 _upcomingBg = NodePath("../VBoxContainer/MarginContainer/UpcomingBg")
 _model = NodePath("../Model")
 _playerSkillsModel = NodePath("../Model/PlayerSkills")
-_skillPickerModel = NodePath("../../../SkillPopup/ScrollContainer/SkillPickerModel")
+_skillPickerModel = NodePath("../../../../CanvasLayer/SkillPicker/SkillPickerModel")
 _roomModifiers = NodePath("../../../../Modifiers")
 
 [node name="EffectsLayer" type="PanelContainer" parent="MainContainer/ScrollContainer2/PanelContainer" unique_id=1563525926]
@@ -725,13 +724,14 @@ _uiEventBus = NodePath("../../../../../Events/UIEventBus")
 _turnQueue = NodePath("../Turns")
 _packedTileScenes = Array[PackedScene]([ExtResource("8_2r3xs"), ExtResource("9_4s2tm"), ExtResource("10_fusuk"), ExtResource("11_25lnr"), ExtResource("12_fusuk"), ExtResource("13_25lnr"), ExtResource("14_6bwww"), ExtResource("15_x10rj"), ExtResource("19_s5hp3"), ExtResource("20_fjexy"), ExtResource("21_mmsvb"), ExtResource("29_idqgv"), ExtResource("30_bsf6l"), ExtResource("31_y5bar")])
 
-[node name="TileMatcher" type="Node" parent="MainContainer/ScrollContainer2/PanelContainer/Model" unique_id=109723290 node_paths=PackedStringArray("_tileFactory", "_tileContainer", "_environment", "_tileQuery", "_skillsModel", "_upcomingOrganizer", "_tileOrganizer")]
+[node name="TileMatcher" type="Node" parent="MainContainer/ScrollContainer2/PanelContainer/Model" unique_id=109723290 node_paths=PackedStringArray("_tileFactory", "_tileContainer", "_environment", "_tileQuery", "_skillGroupsDisplay", "_skillsModel", "_upcomingOrganizer", "_tileOrganizer")]
 script = ExtResource("12_4s2tm")
 _tileFactory = NodePath("../TileFactory")
 _tileContainer = NodePath("../../VBoxContainer/MarginContainer2/Tiles")
 _environment = NodePath("../../VBoxContainer/MarginContainer2/Environment")
 _tileQuery = NodePath("../TileQuery")
-_skillsModel = NodePath("../../../../SkillPopup/ScrollContainer/SkillPickerModel")
+_skillGroupsDisplay = NodePath("../../../../../CanvasLayer/SkillPicker/Panel")
+_skillsModel = NodePath("../../../../../CanvasLayer/SkillPicker/SkillPickerModel")
 _upcomingOrganizer = NodePath("../UpcomingOrganizer")
 _tileOrganizer = NodePath("../TileOrganizer")
 
@@ -830,48 +830,6 @@ _skillMap = Dictionary[int, Texture2D]({
 7: ExtResource("24_w8nfc")
 })
 
-[node name="SkillPopup" type="Popup" parent="MainContainer" unique_id=794974316]
-oversampling_override = 1.0
-title = "Use a Skill"
-initial_position = 2
-size = Vector2i(360, 500)
-borderless = false
-always_on_top = true
-script = ExtResource("65_ijhso")
-
-[node name="ScrollContainer" type="ScrollContainer" parent="MainContainer/SkillPopup" unique_id=986594374]
-custom_minimum_size = Vector2(360, 500)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -180.0
-offset_top = -250.0
-offset_right = 180.0
-offset_bottom = 250.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 6
-size_flags_vertical = 4
-
-[node name="SkillPickerModel" type="Node" parent="MainContainer/SkillPopup/ScrollContainer" unique_id=304166108 node_paths=PackedStringArray("_skillGroupsDisplay", "_boardQuery", "_skillFactory", "_popup")]
-script = ExtResource("42_0k7ag")
-_elementSkillsDisplay = ExtResource("43_ej7e5")
-_skillGroupsDisplay = NodePath("../Panel")
-_boardQuery = NodePath("../../../ScrollContainer2/PanelContainer/Model/TileQuery")
-_skillFactory = NodePath("../../../ScrollContainer2/PanelContainer/Model/PlayerSkills/SkillFactory")
-_popup = NodePath("../..")
-
-[node name="Panel" type="Panel" parent="MainContainer/SkillPopup/ScrollContainer" unique_id=1688538371]
-modulate = Color(1.0000322, 1.0039686, 1.0039686, 1)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_4syyy")
-script = ExtResource("43_vl5to")
-_elementSkillsDisplay = ExtResource("43_ej7e5")
-
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1153433599]
 
 [node name="SkillPicker" type="ScrollContainer" parent="CanvasLayer" unique_id=2118925987]
@@ -906,10 +864,10 @@ _animationPlayer = NodePath("../AnimationPlayer")
 [node name="SkillPickerModel" type="Node" parent="CanvasLayer/SkillPicker" unique_id=2095435943 node_paths=PackedStringArray("_skillGroupsDisplay", "_boardQuery", "_skillFactory", "_popup")]
 script = ExtResource("42_0k7ag")
 _elementSkillsDisplay = ExtResource("43_ej7e5")
-_skillGroupsDisplay = NodePath("../../../MainContainer/SkillPopup/ScrollContainer/Panel")
+_skillGroupsDisplay = NodePath("../Panel")
 _boardQuery = NodePath("../../../MainContainer/ScrollContainer2/PanelContainer/Model/TileQuery")
 _skillFactory = NodePath("../../../MainContainer/ScrollContainer2/PanelContainer/Model/PlayerSkills/SkillFactory")
-_popup = NodePath("../../../MainContainer/SkillPopup")
+_popup = NodePath("")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/SkillPicker" unique_id=1920489179]
 libraries/ = SubResource("AnimationLibrary_3prjb")
