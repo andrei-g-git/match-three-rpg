@@ -37,3 +37,5 @@
         - there could be skill effect multipliers for vertical matching
 
     * animated element pieces are too distracting, I'll have to make them very inocuous - very low fps, lots of similar frames
+
+    * there are too many involuntary matches  in a continuous level with random incoming tiles. I need to reduce them, somehow, or nerf the rewards, or increase the number of enemies / dangerous elements

@@ -172,7 +172,9 @@ public partial class SkillModel : Node/* , WithEnergy, WithFireEnergy, WithWindE
 
 			//_SpendEnergy(pickedSkill, skills);
 
-			return pickedSkill;					
+			return pickedSkill;
+		}else{
+			CollectEnergyFromMatches(skillGroup, matchPath.Count);
 		}
 
 		return "";

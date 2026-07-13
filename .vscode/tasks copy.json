@@ -2,11 +2,15 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Build .NET Core",
+            "label": "build",
             "command": "dotnet",
             "type": "process",
             "args": [
-                "build"
+                "--build-solutions",
+                "--path",
+                "${workspaceRoot}",
+                "--no-window",
+                "-q"
             ],
             "problemMatcher": "$msCompile",
             "presentation": {
