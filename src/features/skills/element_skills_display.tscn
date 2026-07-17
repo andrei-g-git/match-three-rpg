@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dj8xcikdtyeu0"]
+[gd_scene format=3 uid="uid://dj8xcikdtyeu0"]
 
 [ext_resource type="Script" uid="uid://bavy17ol7lhm" path="res://src/features/skills/ElementSkillsDisplay.cs" id="1_yvbky"]
 [ext_resource type="Texture2D" uid="uid://c3twceykx1fxf" path="res://assets/images/tiles/charge.png" id="2_hqtr4"]
@@ -17,7 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://r1rhlf2rqi5f" path="res://assets/images/tiles/throw-peble.png" id="13_xep3a"]
 [ext_resource type="Texture2D" uid="uid://8cy4dyuf4mth" path="res://assets/images/tiles/search-opening.png" id="14_08qo6"]
 
-[node name="ElementSkillsDisplay" type="VBoxContainer" node_paths=PackedStringArray("_groupName", "_skillContainer")]
+[node name="ElementSkillsDisplay" type="VBoxContainer" unique_id=1659202107 node_paths=PackedStringArray("_groupName", "_skillContainer")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -47,28 +47,28 @@ _skillButton = ExtResource("9_a8q85")
 _groupName = NodePath("Header/Label")
 _skillContainer = NodePath("Skills")
 
-[node name="Header" type="HFlowContainer" parent="."]
+[node name="Header" type="HFlowContainer" parent="." unique_id=2064889721]
 layout_mode = 2
 
-[node name="Line2D" type="Line2D" parent="Header"]
+[node name="Line2D" type="Line2D" parent="Header" unique_id=1229087910]
 points = PackedVector2Array(21, 18, 422, 16)
 width = 2.0
 
-[node name="Label" type="Label" parent="Header"]
+[node name="Label" type="Label" parent="Header" unique_id=568866290]
 layout_mode = 2
 
-[node name="Line2D2" type="Line2D" parent="Header"]
+[node name="Line2D2" type="Line2D" parent="Header" unique_id=1282087635]
 position = Vector2(680, 6)
 points = PackedVector2Array(21, 18, 422, 16)
 width = 2.0
 
-[node name="Skills" type="GridContainer" parent="."]
+[node name="Skills" type="GridContainer" parent="." unique_id=731780106]
 layout_mode = 2
 columns = 3
 
-[node name="CollectEnergy" type="TextureButton" parent="."]
+[node name="CollectEnergy" type="TextureButton" parent="." unique_id=1963377167]
 layout_mode = 2
 texture_normal = ExtResource("9_ah7m3")
 texture_pressed = ExtResource("11_j2fn7")
 
-[connection signal="pressed" from="CollectEnergy" to="." method="OnSkillClicked" binds= ["none"]]
+[connection signal="pressed" from="CollectEnergy" to="." method="OnCollectEnergyClicked"]

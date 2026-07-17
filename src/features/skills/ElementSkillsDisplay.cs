@@ -86,4 +86,10 @@ public partial class ElementSkillsDisplay : /* ItemList */Control, SelectableSki
 	// public void OnCollectEnergyClicked(){
 	// 	(TestParent as SkillGroupsDisplay).TestEmitSkillPicked("");
 	// }
+
+	public void OnCollectEnergyClicked()
+	{
+		(TestParent as SkillGroupsDisplay).TestEmitSkillPicked("none");
+
+	}
 }
