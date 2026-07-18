@@ -102,6 +102,7 @@ public partial class UseSkillButton : VBoxContainer, DeactivatableButton
 		border.QueueFree();
 
 		EmitSignal(SignalName.ClickedSkill, _label.Text);
+		var bp = 11223;
 	}
 
 	public void ConnectClickedSkill(Action<string> action){

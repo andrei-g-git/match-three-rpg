@@ -38,18 +38,10 @@
 [ext_resource type="PackedScene" uid="uid://cmvpga1j811ia" path="res://src/features/tiles/variations/archer/archer.tscn" id="21_mmsvb"]
 [ext_resource type="Script" uid="uid://bt865kjovyit6" path="res://src/features/board/model/TileQuery.cs" id="22_7t1so"]
 [ext_resource type="Script" uid="uid://byx4kqe8rgr43" path="res://src/features/skills/PlayerSkillsModel.cs" id="22_10pv0"]
-[ext_resource type="Texture2D" uid="uid://c3twceykx1fxf" path="res://assets/images/tiles/charge.png" id="22_gtevj"]
 [ext_resource type="Script" uid="uid://k6gnl3qvse1o" path="res://src/features/board/model/UpcomingOrganizer.cs" id="23_maq8b"]
-[ext_resource type="Texture2D" uid="uid://o7ate3k72l8g" path="res://assets/images/tiles/leapAttack.png" id="23_oqk24"]
-[ext_resource type="Script" uid="uid://brll1nni2ffjy" path="res://src/features/skills/SkillGroupsController.cs" id="23_w8nfc"]
 [ext_resource type="Script" uid="uid://bw0yags88t6ah" path="res://src/features/skills/SkillFactory.cs" id="24_ewl7t"]
 [ext_resource type="Script" uid="uid://dqjkhfo3u3eah" path="res://src/features/board/model/Turns.cs" id="24_kr07k"]
-[ext_resource type="Texture2D" uid="uid://d0qn323g46s7n" path="res://assets/images/tiles/old/ensnare.png" id="24_w8nfc"]
 [ext_resource type="PackedScene" uid="uid://bhhhuxs0n6tbc" path="res://src/features/skills/groups/melee/whirlwind.tscn" id="25_qx8qf"]
-[ext_resource type="Texture2D" uid="uid://baxfw6v3hfftv" path="res://assets/images/tiles/whirlwind.png" id="25_r27v6"]
-[ext_resource type="Texture2D" uid="uid://dfnetxbrtpqr6" path="res://assets/images/tiles/throwWeapon.png" id="26_10pv0"]
-[ext_resource type="Texture2D" uid="uid://bpyts1xl2yh0l" path="res://assets/images/tiles/shieldBash.png" id="27_crjdv"]
-[ext_resource type="Script" uid="uid://fshl3bovmk2h" path="res://src/features/skills/SkillSelection.cs" id="29_crjdv"]
 [ext_resource type="PackedScene" uid="uid://c12ujhxw7j1ol" path="res://src/features/skills/groups/melee/leap_attack.tscn" id="29_do0gj"]
 [ext_resource type="PackedScene" uid="uid://b12g8asvr5tbr" path="res://src/features/tiles/variations/spawner-of-orcs/spawner_of_orcs.tscn" id="29_idqgv"]
 [ext_resource type="PackedScene" uid="uid://d32kp0glnbd4b" path="res://src/features/tiles/variations/hole/hole.tscn" id="30_bsf6l"]
@@ -58,7 +50,6 @@
 [ext_resource type="PackedScene" uid="uid://bw3tlddmrlvfk" path="res://src/features/skills/groups/melee/kick.tscn" id="32_ya4vo"]
 [ext_resource type="Script" uid="uid://cmg0gtq5dxumt" path="res://src/features/RestartLevel.cs" id="34_1dyqb"]
 [ext_resource type="PackedScene" uid="uid://4fchj3w3uooj" path="res://src/features/skills/groups/melee/bullrush.tscn" id="37_dcf85"]
-[ext_resource type="Texture2D" uid="uid://dvhenkqd7nu65" path="res://assets/images/tiles/kick.png" id="37_u1yqo"]
 [ext_resource type="Script" uid="uid://vx481amn178r" path="res://src/features/UI/EndTurn.cs" id="37_wou0k"]
 [ext_resource type="PackedScene" uid="uid://d23bx8oqrgpty" path="res://src/features/skills/groups/defensive/walk.tscn" id="39_idqgv"]
 [ext_resource type="PackedScene" uid="uid://daxq3cdvuheag" path="res://src/features/skills/groups/ranged/sprint.tscn" id="40_ijiib"]
@@ -762,74 +753,6 @@ _skillsWithScenes = Dictionary[int, PackedScene]({
 13: ExtResource("45_hnujk")
 })
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MainContainer" unique_id=154339287]
-visible = false
-custom_minimum_size = Vector2(360, 0)
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="MainContainer/VBoxContainer" unique_id=286583775]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="SkillGroups" type="HBoxContainer" parent="MainContainer/VBoxContainer/MarginContainer" unique_id=464425045 node_paths=PackedStringArray("_playerSkillsModel", "_melee", "_ranged", "_defensive", "_tech")]
-layout_mode = 2
-script = ExtResource("23_w8nfc")
-_playerSkillsModel = NodePath("../../../ScrollContainer2/PanelContainer/Model/PlayerSkills")
-_melee = NodePath("MeleeSkills")
-_ranged = NodePath("RangedSkills")
-_defensive = NodePath("DefensiveSkills")
-_tech = NodePath("TechSkills")
-
-[node name="MeleeSkills" type="ItemList" parent="MainContainer/VBoxContainer/MarginContainer/SkillGroups" unique_id=1313220867]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 10
-same_column_width = true
-icon_mode = 0
-script = ExtResource("29_crjdv")
-_skillMap = Dictionary[int, Texture2D]({
-0: ExtResource("22_gtevj"),
-2: ExtResource("23_oqk24"),
-3: ExtResource("25_r27v6"),
-8: ExtResource("37_u1yqo")
-})
-
-[node name="RangedSkills" type="ItemList" parent="MainContainer/VBoxContainer/MarginContainer/SkillGroups" unique_id=202880408]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 10
-same_column_width = true
-icon_mode = 0
-script = ExtResource("29_crjdv")
-_skillGroup = 1
-_skillMap = Dictionary[int, Texture2D]({
-5: ExtResource("26_10pv0")
-})
-
-[node name="DefensiveSkills" type="ItemList" parent="MainContainer/VBoxContainer/MarginContainer/SkillGroups" unique_id=542676131]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 10
-same_column_width = true
-icon_mode = 0
-script = ExtResource("29_crjdv")
-_skillGroup = 2
-_skillMap = Dictionary[int, Texture2D]({
-6: ExtResource("27_crjdv")
-})
-
-[node name="TechSkills" type="ItemList" parent="MainContainer/VBoxContainer/MarginContainer/SkillGroups" unique_id=1403026483]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 10
-same_column_width = true
-icon_mode = 0
-script = ExtResource("29_crjdv")
-_skillGroup = 3
-_skillMap = Dictionary[int, Texture2D]({
-7: ExtResource("24_w8nfc")
-})
-
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1153433599]
 
 [node name="SkillPicker" type="ScrollContainer" parent="CanvasLayer" unique_id=2118925987]
@@ -861,13 +784,12 @@ script = ExtResource("43_vl5to")
 _elementSkillsDisplay = ExtResource("43_ej7e5")
 _animationPlayer = NodePath("../AnimationPlayer")
 
-[node name="SkillPickerModel" type="Node" parent="CanvasLayer/SkillPicker" unique_id=2095435943 node_paths=PackedStringArray("_skillGroupsDisplay", "_boardQuery", "_skillFactory", "_popup")]
+[node name="SkillPickerModel" type="Node" parent="CanvasLayer/SkillPicker" unique_id=2095435943 node_paths=PackedStringArray("_skillGroupsDisplay", "_boardQuery", "_skillFactory")]
 script = ExtResource("42_0k7ag")
 _elementSkillsDisplay = ExtResource("43_ej7e5")
 _skillGroupsDisplay = NodePath("../Panel")
 _boardQuery = NodePath("../../../MainContainer/ScrollContainer2/PanelContainer/Model/TileQuery")
 _skillFactory = NodePath("../../../MainContainer/ScrollContainer2/PanelContainer/Model/PlayerSkills/SkillFactory")
-_popup = NodePath("")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/SkillPicker" unique_id=1920489179]
 libraries/ = SubResource("AnimationLibrary_3prjb")
@@ -879,11 +801,3 @@ libraries/ = SubResource("AnimationLibrary_3prjb")
 [connection signal="DoneMatching" from="MainContainer/ScrollContainer2/PanelContainer/Model/TileOrganizer" to="MainContainer/ScrollContainer2/PanelContainer/Model/Turns" method="AdvanceTurn"]
 [connection signal="DoneSwapping" from="MainContainer/ScrollContainer2/PanelContainer/Model/TileOrganizer" to="MainContainer/ScrollContainer2/PanelContainer/Model/Turns" method="AdvanceTurn"]
 [connection signal="DoneMatching" from="MainContainer/ScrollContainer2/PanelContainer/Model/TileMatcher" to="MainContainer/ScrollContainer2/PanelContainer/Model/Turns" method="AdvanceTurn"]
-[connection signal="SelectedSkillFromGroup" from="MainContainer/VBoxContainer/MarginContainer/SkillGroups/MeleeSkills" to="MainContainer/VBoxContainer/MarginContainer/SkillGroups" method="OnSkillSelectedFromGroup"]
-[connection signal="item_selected" from="MainContainer/VBoxContainer/MarginContainer/SkillGroups/MeleeSkills" to="MainContainer/VBoxContainer/MarginContainer/SkillGroups/MeleeSkills" method="OnItemSelected"]
-[connection signal="SelectedSkillFromGroup" from="MainContainer/VBoxContainer/MarginContainer/SkillGroups/RangedSkills" to="MainContainer/VBoxContainer/MarginContainer/SkillGroups" method="OnSkillSelectedFromGroup"]
-[connection signal="item_selected" from="MainContainer/VBoxContainer/MarginContainer/SkillGroups/RangedSkills" to="MainContainer/VBoxContainer/MarginContainer/SkillGroups/RangedSkills" method="OnItemSelected"]
-[connection signal="SelectedSkillFromGroup" from="MainContainer/VBoxContainer/MarginContainer/SkillGroups/DefensiveSkills" to="MainContainer/VBoxContainer/MarginContainer/SkillGroups" method="OnSkillSelectedFromGroup"]
-[connection signal="item_selected" from="MainContainer/VBoxContainer/MarginContainer/SkillGroups/DefensiveSkills" to="MainContainer/VBoxContainer/MarginContainer/SkillGroups/DefensiveSkills" method="OnItemSelected"]
-[connection signal="SelectedSkillFromGroup" from="MainContainer/VBoxContainer/MarginContainer/SkillGroups/TechSkills" to="MainContainer/VBoxContainer/MarginContainer/SkillGroups" method="OnSkillSelectedFromGroup"]
-[connection signal="item_selected" from="MainContainer/VBoxContainer/MarginContainer/SkillGroups/TechSkills" to="MainContainer/VBoxContainer/MarginContainer/SkillGroups/TechSkills" method="OnItemSelected"]

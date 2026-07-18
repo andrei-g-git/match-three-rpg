@@ -3,6 +3,7 @@ using Skills;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using static Godot.AnimationMixer;
 
 public partial class SkillGroupsDisplay : Control/* VBoxContainer */ //this is actually not needed if I can only have skills for one skill group per match group
 {
@@ -19,6 +20,11 @@ public partial class SkillGroupsDisplay : Control/* VBoxContainer */ //this is a
 
 		// SetProcessInput(false);
 		// Modulate = new Color(0.6f, 0.6f, 0.6f, 1);
+
+		// _animationPlayer.AnimationFinished += (StringName animName) =>
+		// {
+		// 	GD.Print("skill modal animation finished");
+		// };
 	}
 
 	public void Update(/* SkillNames.All[] skills, */dynamic[] skills, SkillNames.SkillGroups element){
@@ -95,11 +101,18 @@ public partial class SkillGroupsDisplay : Control/* VBoxContainer */ //this is a
 
 	public void TestEmitSkillPicked(string skillName)
 	{
-		_animationPlayer.AnimationFinished += (StringName animation) =>{
+		_animationPlayer.AnimationFinished += _OnAnimationFinished(skillName);
+		PopOut();
+	}
+
+	private AnimationFinishedEventHandler _OnAnimationFinished(string skillName) {
+		AnimationFinishedEventHandler handler = null; //huh?
+		handler = animation => {
 			if(animation == "pop_out"){
 				EmitSignal(SignalName.SkillPicked, skillName);
+				_animationPlayer.AnimationFinished -= handler;
 			}
-		};		
-		PopOut();
+		};
+		return handler;		
 	}
 }
