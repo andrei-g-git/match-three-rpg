@@ -105,6 +105,7 @@ public partial class UpcomingOrganizer : Node
 
     //TODO: Ensure that there are no matched generations
     //      Also make sure that enemies don't act in the upcoming grid
+    // SINCE THERE'S NOT MATCH BEHAVIOR IN THE UPCOMING GRID, AND THERE WILL BE MATCHES AS THE PIECES COLLAPSE, I SHOULD ENSURE THAT THOSE LINES ARE PROCESSED IN THE PLAY GRID IF THEY FALL AS AN INTACT MATCHED GROUP
 	private void _FillInTheBlanks(){ 
 		var levelMods = (_roomModifiers as ModifiableRoom).Modifiers;
 		if(
@@ -115,8 +116,9 @@ public partial class UpcomingOrganizer : Node
 				for(var y=0; y<_tiles.Height; y++){
 					if((_tiles.GetItem(x, y) as Tile).Type == TileTypes.Blank/*  || (_tiles.GetItem(x, y) == null) */){
                         var blank = _tiles.GetItem(x, y);
-						//var pieceName = _RollPiece(_randomPieceDistribution);
-                        var pieceName = _RollPieceWithoutMatches(_randomPieceDistribution, new Vector2I(x, y));
+                        var rng = new Random();
+						var pieceName = _RollPiece(_randomPieceDistribution, rng);
+                        //var pieceName = _RollPieceWithoutMatches(_randomPieceDistribution, new Vector2I(x, y)); //this is pointless, collapsing tiles can make extra matches this doens't account for and sends the block into an infinite loop
                         var pieceType = TileDict.GetEnum(pieceName);
                         var piece = (_tileFactory as TileMaking).Create(pieceType);
                         _tiles.SetCell(piece as Control, new Vector2I(x, y));
@@ -129,12 +131,12 @@ public partial class UpcomingOrganizer : Node
 		}
 	}
 
-    private string _RollPiece(List<PieceOdds> pieceDistribution){
+    private string _RollPiece(List<PieceOdds> pieceDistribution, Random rng){
         int maxOdds = 0;
         foreach(var pieceOdds in pieceDistribution){
             maxOdds += pieceOdds.Odds;
         }
-        var rng = new Random();
+        // var rng = new Random();
         int roll = rng.Next(maxOdds);
 
         int cumulativeInterval = 0;
@@ -153,7 +155,9 @@ public partial class UpcomingOrganizer : Node
 
     private string _RollPieceWithoutMatches(List<PieceOdds> pieceDistribution, Vector2I cell)
     {
-        var pieceName = _RollPiece(pieceDistribution);
+        var rng = new Random();
+
+        var pieceName = _RollPiece(pieceDistribution, rng);
         var pieceType = TileDict.GetEnum(pieceName);
         var piece = (_tileFactory as TileMaking).Create(pieceType) as Control;    
         var testGrid = _tiles.Clone();
@@ -162,7 +166,7 @@ public partial class UpcomingOrganizer : Node
         var gotMatches = (_tileMatcher as /* MatchableBoard */TileMatcher).CheckForMatchesInUpcomingGrid(testGrid); //this whole thing looks like shit...
         while (gotMatches)
         {
-            pieceName = _RollPiece(pieceDistribution);
+            pieceName = _RollPiece(pieceDistribution, rng);
             pieceType = TileDict.GetEnum(pieceName);
             piece = (_tileFactory as TileMaking).Create(pieceType) as Control;    
             testGrid = _tiles.Clone();

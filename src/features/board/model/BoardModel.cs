@@ -190,4 +190,7 @@ public partial class BoardModel : Node, Organizable, MatchableBoard, WithTiles, 
         (_tileOrganizer as Organizable).MovePiece(piece, x, y);
     }    
 
+    public async Task ProcessMatchesWithoutEffects(){
+        await (_tileMatcher as MatchableBoard).ProcessMatchesWithoutEffects();
+    }
 }

@@ -29,7 +29,11 @@ public partial class Chase : Node, Pursuing, Mapable, /* WithTiles */AccessableB
 				var target = next;
 				var targetNode = (Board as Queriable).GetItemAt(new Vector2I(target.X, target.Y));//tiles[target.X][target.Y];
 				//EmitSignal(SignalName.TrySwapping, targetNode/* next */);	
-				(Board as Organizable).MoveBySwapping(_tileRoot, targetNode);
+
+				(Board as Organizable).MoveBySwapping(_tileRoot, targetNode); //new
+
+				(Board as MatchableBoard).ProcessMatchesWithoutEffects();
+				
 			}else{
 				(Board as Organizable).MovePiece(_tileRoot, next.X, next.Y); //meh ... if it doens't work I'll replace it
 			}

@@ -240,6 +240,20 @@ List<GameObject> FindAllMatches()
         //return false;
     }
 
+    public async Task ProcessMatchesWithoutEffects(){ //still has effects rn
+        var gotMatches = _CheckNewMatchesAndProcess(Tiles); //enqueues new match groups
+        if (gotMatches){
+            if(_matchGroupQueue.Peek() != null){
+                var bppppp = 324;
+                await _ActivateMatchedTilesAndCollapseGrid(_matchGroupQueue);
+
+                var bp = 123;
+            }          
+        }
+    }
+
+
+
 
     // private void AdvanceTurn(){
     //     (_turns as Sequential).AdvanceTurn();
@@ -396,7 +410,7 @@ List<GameObject> FindAllMatches()
                 (_tileContainer as Viewable).UpdatePositions(Tiles); //<<<<
                 await _ActivateMatchedTilesAndCollapseGrid(matchGroupQueue);  
             //};
-        }else{
+        }/* else{ */
             _CheckNewMatchesAndProcess(Tiles); //New <<<<<<<<<<<<<<<<<<<
             if(_matchGroupQueue.Count > 0){ //this doesn't make much sense but it kind of does...
                 GD.Print("__new queue from new matches. 1st in queue:");
@@ -407,9 +421,7 @@ List<GameObject> FindAllMatches()
                     await _ActivateMatchedTilesAndCollapseGrid(_matchGroupQueue);  
                 //};
             }            
-        }                      
-
-
+        /* } */                      
 
 
     }

@@ -48,6 +48,8 @@ namespace Board{
 		public Task CollapseGridAndCheckNewMatches();
 
 		public Task<(bool, bool)> TryMatching(Vector2I source, Vector2I target);
+
+		public Task ProcessMatchesWithoutEffects();
 	}
 
 	public interface WithTiles{
