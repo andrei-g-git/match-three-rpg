@@ -77,7 +77,10 @@ public partial class TileContainer : Control, Viewable
 			//should call Removing.PrepDestroy and then await Removing.WaitForRemoved
 				//unless I'm doing it inside whatever calls this
 
-			RemoveChild(oldTile);
+			if(oldTile.GetParent() == this){ //if this doesn't work I could also iterate through GetChildren
+				RemoveChild(oldTile);
+			}
+			
 			oldTile.QueueFree();
 		}
 		AddChild(newTile);		

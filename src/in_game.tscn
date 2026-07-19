@@ -686,12 +686,13 @@ _environment = NodePath("../VBoxContainer/MarginContainer2/Environment")
 _selectedSkillsModel = NodePath("PlayerSkills")
 _turns = NodePath("Turns")
 
-[node name="UpcomingOrganizer" type="Node" parent="MainContainer/ScrollContainer2/PanelContainer/Model" unique_id=1505168214 node_paths=PackedStringArray("_tileOrganizer", "_tileFactory", "_tileContainer", "_roomModifiers")]
+[node name="UpcomingOrganizer" type="Node" parent="MainContainer/ScrollContainer2/PanelContainer/Model" unique_id=1505168214 node_paths=PackedStringArray("_tileOrganizer", "_tileFactory", "_tileContainer", "_roomModifiers", "_tileMatcher")]
 script = ExtResource("23_maq8b")
 _tileOrganizer = NodePath("TileOrganizer")
 _tileFactory = NodePath("../TileFactory")
 _tileContainer = NodePath("../../VBoxContainer/MarginContainer/Upcoming")
 _roomModifiers = NodePath("../../../../../Modifiers")
+_tileMatcher = NodePath("../TileMatcher")
 
 [node name="TileOrganizer" type="Node" parent="MainContainer/ScrollContainer2/PanelContainer/Model/UpcomingOrganizer" unique_id=1103123679 node_paths=PackedStringArray("_tileFactory", "_environment", "_tileContainer", "_tileMatcher")]
 script = ExtResource("6_ygp36")

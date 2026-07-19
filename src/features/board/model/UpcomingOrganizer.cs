@@ -15,6 +15,7 @@ public partial class UpcomingOrganizer : Node
 	[Export] private Node _tileFactory;
 	[Export] private Node _tileContainer;
 	[Export] private Node _roomModifiers;
+    [Export] private Node _tileMatcher;
 
 	private Grid<Control> _tiles => (_tileOrganizer as WithTiles).Tiles;
 	//private GameSave _loadedGame;
@@ -114,7 +115,8 @@ public partial class UpcomingOrganizer : Node
 				for(var y=0; y<_tiles.Height; y++){
 					if((_tiles.GetItem(x, y) as Tile).Type == TileTypes.Blank/*  || (_tiles.GetItem(x, y) == null) */){
                         var blank = _tiles.GetItem(x, y);
-						var pieceName = _RollPiece(_randomPieceDistribution);
+						//var pieceName = _RollPiece(_randomPieceDistribution);
+                        var pieceName = _RollPieceWithoutMatches(_randomPieceDistribution, new Vector2I(x, y));
                         var pieceType = TileDict.GetEnum(pieceName);
                         var piece = (_tileFactory as TileMaking).Create(pieceType);
                         _tiles.SetCell(piece as Control, new Vector2I(x, y));
@@ -139,10 +141,35 @@ public partial class UpcomingOrganizer : Node
         foreach(var pieceOdds in pieceDistribution){
             cumulativeInterval += pieceOdds.Odds;
             if(roll < cumulativeInterval){
+
+
+                //(_tileMatcher as MatchableBoard).CheckForMatchesInUpcomingGrid;
                 return pieceOdds.Piece;
             }
         } 
 
         return "no upcoming randomized piece for you!";       
+    }
+
+    private string _RollPieceWithoutMatches(List<PieceOdds> pieceDistribution, Vector2I cell)
+    {
+        var pieceName = _RollPiece(pieceDistribution);
+        var pieceType = TileDict.GetEnum(pieceName);
+        var piece = (_tileFactory as TileMaking).Create(pieceType) as Control;    
+        var testGrid = _tiles.Clone();
+        testGrid.SetCell(piece, cell);    
+
+        var gotMatches = (_tileMatcher as /* MatchableBoard */TileMatcher).CheckForMatchesInUpcomingGrid(testGrid); //this whole thing looks like shit...
+        while (gotMatches)
+        {
+            pieceName = _RollPiece(pieceDistribution);
+            pieceType = TileDict.GetEnum(pieceName);
+            piece = (_tileFactory as TileMaking).Create(pieceType) as Control;    
+            testGrid = _tiles.Clone();
+            testGrid.SetCell(piece, cell);  
+            gotMatches = (_tileMatcher as TileMatcher).CheckForMatchesInUpcomingGrid(testGrid);          
+        }
+
+        return pieceName;
     }
 }

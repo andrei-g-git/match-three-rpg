@@ -299,6 +299,23 @@ List<GameObject> FindAllMatches()
     } 
 
 
+    public bool CheckForMatchesInUpcomingGrid(Grid<Control> grid){
+        var matchGroupsForAllDirections = new List<List<List<Vector2I>>>(){
+            _FindMatchingGroupsNorthEast(grid), 
+            _FindMatchingGroupsNorthWest(grid),
+            _FindMatchingGroupsVertical(grid)
+        };
+        foreach(var matchGroups1Dir in matchGroupsForAllDirections){
+            foreach(var group in matchGroups1Dir){
+                if(group.Count > 0){
+                    return true;                 
+                }
+            }
+        }  
+        return false;      
+    }
+
+
     private async /* void */Task _ActivateMatchedTilesAndCollapseGrid(Queue<List<Vector2I>> matchGroupQueue){ //all this dependency injection is kind of useless if I hard code helper funcions... this is not a pure function
         //every time there's more than one match group, the groups after the first might end up with cell markers that are no longer accurate because the grid collapsed    
         var group = new List<Vector2I>();  
