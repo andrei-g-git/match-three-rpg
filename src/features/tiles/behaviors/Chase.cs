@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Threading.Tasks;
 using Board;
 using Common;
 using Godot;
@@ -16,6 +17,10 @@ public partial class Chase : Node, Pursuing, Mapable, /* WithTiles */AccessableB
 
 
 	public void ChaseActor(Vector2I cell){
+		_ = ChaseActorAsync(cell);
+	}
+
+	private async Task ChaseActorAsync(Vector2I cell){
 		//GD.Print("Chasing actor at cell:  ", cell);
 		var shortestPath = (_pathfinding as Pathfindable).FindPath(cell);
 		GD.Print("shortest path %%%   \n", string.Join("", shortestPath.Select(cell => $"{cell.X}, {cell.Y} |")));
@@ -30,10 +35,10 @@ public partial class Chase : Node, Pursuing, Mapable, /* WithTiles */AccessableB
 				var targetNode = (Board as Queriable).GetItemAt(new Vector2I(target.X, target.Y));//tiles[target.X][target.Y];
 				//EmitSignal(SignalName.TrySwapping, targetNode/* next */);	
 
-				(Board as Organizable).MoveBySwapping(_tileRoot, targetNode); //new
+				await (Board as Organizable).MoveBySwapping(_tileRoot, targetNode); //new --- these should all be async
 
-				(Board as MatchableBoard).ProcessMatchesWithoutEffects();
-				
+				await (Board as MatchableBoard).ProcessMatchesWithoutEffects();
+
 			}else{
 				(Board as Organizable).MovePiece(_tileRoot, next.X, next.Y); //meh ... if it doens't work I'll replace it
 			}
