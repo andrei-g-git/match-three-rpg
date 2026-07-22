@@ -41,9 +41,9 @@ public partial class LeapAttack : Control, Skill, WithTileRoot, AccessableBoard,
 			var enemies = neighbours.Where(neighbour => neighbour is Disposition actor && actor.IsEnemy).ToList();
 			// allMatchingTileCellsWithAdjacentEnemies.AddRange(enemies.Select(enemy => (Board as Queriable).GetCellFor(enemy)).ToList()); //wtf
 			// allMatchingTileCellsWithAdjacentEnemies = allMatchingTileCellsWithAdjacentEnemies.Distinct().ToList(); //this whole thing looks wasteful...
-			if(enemies.Count > 0){
+			//if(enemies.Count > 0){
 				allMatchingTileCellsWithAdjacentEnemies.Add(cell);				
-			}
+			//}
 
 		}
 		
@@ -91,9 +91,12 @@ public partial class LeapAttack : Control, Skill, WithTileRoot, AccessableBoard,
 									stopWatch.Start();
 			await _WaitForAnimationToFinish(playback, "Swing");
 
-				var neighbours = (Board as Queriable).GetNeighboringTiles(closestSameTypeCellWithAdjacentEnemy);
-				var enemies = neighbours.Where(neighbour => neighbour is Disposition actor && actor.IsEnemy).ToList();
-				EmitSignal(SignalName.Attacking, enemies[0], timeMultiplier);		
+			var neighbours = (Board as Queriable).GetNeighboringTiles(closestSameTypeCellWithAdjacentEnemy);
+			var enemies = neighbours.Where(neighbour => neighbour is Disposition actor && actor.IsEnemy).ToList();
+			if(enemies.Count > 0){
+				EmitSignal(SignalName.Attacking, enemies[0], timeMultiplier);					
+			}
+	
 
 				//AnimationTree.AnimationFinished -= handler;
 

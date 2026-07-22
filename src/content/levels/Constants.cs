@@ -6,6 +6,7 @@ namespace Levels{
 	//public enum LevelNames{
 		public const string Tutorial = "tutorial";
 		public const string InfiniteTutorial = "infinite tutorial";
+		public const string PuzzleTutorial = "puzzle tutorial";
 	}
 
 	public static class Objectives{ //i should just name enums with uncapitalized python case

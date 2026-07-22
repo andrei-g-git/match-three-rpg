@@ -26,7 +26,7 @@ config/canvas_textures/default_texture_filter=1
 [display]
 
 window/size/viewport_width=360
-window/size/viewport_height=900
+window/size/viewport_height=970
 window/subwindows/embed_subwindows=false
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"

@@ -30,8 +30,14 @@ public partial class MainMenu : Control, WithSceneManager
                 // var firstLevel = _firstLevelScene.Instantiate();
                 // SceneManager.ChangeScene(firstLevel);
 				GD.Print("clicked new game");
-                _ = _CreateNewGame();
+                _ = _CreateNewGame(1);
 				break;
+			case MainMenuItems.Level1:
+                _ = _CreateNewGame(0);
+				break;	
+			case MainMenuItems.Level2:
+                _ = _CreateNewGame(1);
+				break;							
 			default:
 				var defaultLevel = _firstLevelScene.Instantiate();
 				SceneManager.ChangeScene(defaultLevel);		
@@ -42,13 +48,13 @@ public partial class MainMenu : Control, WithSceneManager
 	}
 
 
-	private async Task _CreateNewGame(){
+	private async Task _CreateNewGame(int levelIndex){
 		GD.PrintRich("[color=green] creating new game[/color]");
 		var path = Files.SavesPath;
 		var fileName = "new_game.json";
 		var saveGame = new GameSave{
-			LevelIndex = 1,
-			LevelName = Levels.LevelNames.InfiniteTutorial.ToString(),
+			LevelIndex = levelIndex,
+			LevelName = Levels.LevelNames.PuzzleTutorial.ToString(),
 			Turn = 0, 
 			Environment = Path.Join(Files.LevelEnvironmentsPath, "level_2_environment.csv"), //THESE ARE ALL IN AllLevels class, I'm repeating this shit for no reason
 			Pieces = Path.Join(Files.LevelPiecesPath, "level_2_pieces.csv"),
@@ -129,7 +135,7 @@ public partial class MainMenu : Control, WithSceneManager
 								Name=SkillNames.Melee.Bullrush.ToString(),
 								Uses=99,
 								Level=1,
-								EnergyRequirement = new EnergyRequirement{
+								EnergyRequirement = new EnergyRequirement{ //skill properties should not be defined here, this should just be where I keep track of what skills I have
 									Fire=5,
 									Wind=1,
 									Earth=1,
@@ -141,7 +147,7 @@ public partial class MainMenu : Control, WithSceneManager
 								Uses=99,
 								Level=2,
 								EnergyRequirement = new EnergyRequirement{
-									Fire=5,
+									Fire=6,
 									Wind=3,
 									Earth=0,
 									Water=0

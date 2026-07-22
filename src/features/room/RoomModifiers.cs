@@ -34,6 +34,7 @@ public partial class RoomModifiers : Node, ModifiableRoom
 
 		GetTree().CreateTimer(1).Timeout += () =>{ //fuck. I can't change node layout and contents outside the main thread so I can't do it asynchronously
 			(_roomModifiersHud as DisplayableElements).Update([.. Modifiers]);
+			GD.PrintRich($"[color=blue] FIRST MODDIFIER:  {Modifiers[0]} [/color]");
 		};	
 	}
 }

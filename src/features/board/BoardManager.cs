@@ -136,15 +136,17 @@ public partial class BoardManager : PanelContainer
 							// upcoming.SetGrid(Files.LoadTres<GridResource>("res://assets/content/levels/level_2_upcoming.tres").Grid);	
 							// _upcomingTileTypes = Hex.StringGridToEnums(upcoming);	
 
+
+							var lvlIdx = _loadedGame.LevelIndex + 1;
 							env = new Grid<string>();
-							env.SetGrid(EachLevel.level_2_environment);
+							env.SetGrid(EachLevel.Levels[lvlIdx].Environment);
 							upcomingBg = new Grid<string>();
-							upcomingBg.SetGrid(EachLevel.level_2_upcoming_bg);	
+							upcomingBg.SetGrid(EachLevel.Levels[lvlIdx].UpcomingBg);	
 							tileNames = new Grid<string>();
-							tileNames.SetGrid(EachLevel.level_2_pieces);	
+							tileNames.SetGrid(EachLevel.Levels[lvlIdx].Pieces);	
 							_tileTypes = Hex.StringGridToEnums(tileNames);
 							upcoming = 	new Grid<string>();					
-							upcoming.SetGrid(EachLevel.level_2_upcoming);	
+							upcoming.SetGrid(EachLevel.Levels[lvlIdx].Upcoming);	
 							_upcomingTileTypes = Hex.StringGridToEnums(upcoming);																		
 						}
 

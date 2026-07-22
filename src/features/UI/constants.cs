@@ -5,5 +5,9 @@ public enum MainMenuItems{
     Load,
     Continue, 
     Exit,
-    Feedback    
+    Feedback,
+
+    //delete these
+    Level1,
+    Level2    
 }
